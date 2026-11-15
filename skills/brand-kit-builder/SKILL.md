@@ -64,6 +64,10 @@ Los scripts de `tokens`, `laminas` e `identidad` necesitan Python 3.11 o superio
 - No des asesoría legal. Las anterioridades del nombre y los claims regulados se señalan como pendientes de validación profesional.
 - Las imágenes generadas son referencia, no material final de publicación.
 
+## Cuando la persona pasa a crear contenido
+
+Dile una vez, con estas palabras: «Cuando le pidas algo a Claude, empieza por *usa mi `marca.json`*». En las pruebas, sin esa frase el modelo a veces no leyó el archivo y entregó un prompt genérico; con ella lo leyó y aplicó colores y estilo. Para animaciones con motion-architect, `skills/tokens/tools/exportar_motion.py` convierte `marca.json` en su `brand.json`.
+
 ## Cierre y traspaso
 
 Al terminar, ofrece una sola vez seguir con creative-architect, que ya lee `marca.json`: `/avatar` (presentador de la marca), `/producto` (fotos de producto), `/direccion-de-arte` (mejorar un prompt con la marca aplicada). Si no está instalado, di cómo añadirlo:

@@ -31,6 +31,8 @@ Solo usa la librería estándar de Python (probado en 3.11 y 3.13). Salida:
 | `contraste.md` | Pares texto/fondo con su ratio real |
 | `ejemplo.html` | Botón, tarjeta y formulario con los tokens |
 
+Además, para animaciones y reels con [motion-architect](https://github.com/Hainrixz/motion-architect): `tools/exportar_motion.py` (ver más abajo).
+
 ## Qué comprueba y qué hace si falla
 
 - **Falla (sale con error)** si un par obligatorio de texto no llega a 4,5:1: tinta sobre base, texto atenuado, texto sobre marca, texto sobre acento. No inventa un gris que no se lea: si el atenuado no pasa, usa la tinta.
@@ -42,6 +44,20 @@ Solo usa la librería estándar de Python (probado en 3.11 y 3.13). Salida:
 1. Enséñale a la persona `ejemplo.html`: es la prueba de que la marca funciona en producto. Si no le convence, el ajuste va en `marca.json`, no en los archivos generados.
 2. Explica en cuatro líneas cómo se usan: copiar `tokens.css` al proyecto, o el preset a `tailwind.config.js`, o el `@theme` en el CSS de Tailwind v4.
 3. Anota en `marca.json` → `brandKit.tokens` la ruta de la carpeta.
+
+## Puente a motion-architect
+
+```
+python3 tools/exportar_motion.py marca.json --salida <motion-architect>/studio/brand.json --forzar --tagline "Claim corto" --studio <motion-architect>/studio
+```
+
+Escribe el `brand.json` que motion-architect espera (verificado contra su repositorio: `name`, `tagline`, `colors`, `fonts`, `radius`, `style`). Usa el color primario como `accent` (lleva texto resaltado, así que debe leerse) y el acento como `accent2`.
+
+- **Paso manual obligatorio:** la fuente real de motion-architect sale de los imports de `studio/src/brand/brand.ts`, no del JSON. El script imprime las líneas exactas; aplícalas tú o pídeselo a Claude, y reinicia la vista previa.
+- No exporta el logo (va en `studio/public/brand/logo.svg`) ni el neutro (no tiene hueco en su `brand.json`).
+- No sobrescribe un `brand.json` existente sin `--forzar` y deja `brand.json.bak`.
+- Pasa un `--tagline` corto: por defecto usa la categoría y en la pantalla del logo salta de línea.
+- Comprobación: `python3 tools/verificar_tokens.py`.
 
 **Límites:** sin modo oscuro en esta versión (se hace invirtiendo base y tinta y comprobando de nuevo el contraste) y la fuente se carga desde Google Fonts si hay conexión; para producción, autoaloja las fuentes y confirma su licencia.
 

@@ -16,6 +16,9 @@ Desarrollado por [2894 Studio](https://github.com/2894Studio) a partir del caso 
 - [Guía del alumno](docs/guia-alumnos.md): instalación, uso paso a paso y problemas frecuentes.
 - [Guion de clase](docs/guion-clase.md): sesión de 90 minutos con demo, ejercicio y rúbrica.
 - [Prueba guiada](docs/prueba-guiada.md): tres pruebas para comprobar la skill antes de enseñarla.
+- [Guion de introducción](docs/guion-introduccion.md) y [guion de la sesión de contenido](docs/guion-sesion-contenido.md): la clase siguiente, con posts fijos y animados.
+- [Elegir herramienta](docs/elegir-herramienta.md): creative-architect, motion-architect y video-editor-architect, comparadas.
+- [Ahorro de tokens y créditos](docs/ahorro-tokens.md): dónde se gasta y qué hacer, con datos medidos.
 
 ## Instalación
 
@@ -89,11 +92,16 @@ docs/arquitectura.md
 
 ```bash
 python3 skills/laminas/tools/verificar_laminas.py
+python3 skills/tokens/tools/verificar_tokens.py
 python3 skills/tokens/tools/validar_marca.py evals/fixtures/pulso/marca.json
 python3 skills/tokens/tools/generar_tokens.py evals/fixtures/pulso/marca.json --salida /tmp/pulso-tokens
 ```
 
 Probado con Python 3.11 y 3.13. Solo librería estándar.
+
+## Puente a motion-architect
+
+`skills/tokens/tools/exportar_motion.py` convierte `marca.json` en el `brand.json` de motion-architect, para que sus animaciones usen tu marca. Detalle y límites en `skills/tokens/SKILL.md`.
 
 ## Límites conocidos
 

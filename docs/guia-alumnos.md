@@ -184,7 +184,7 @@ claude plugin marketplace update brand-kit-builder
 claude plugin update brand-kit-builder@brand-kit-builder
 ```
 
-Si el segundo comando responde «already at the latest version», es que la versión nueva todavía no tiene un número distinto (por ejemplo 2.0.1): pídele a tu profesor que la publique con número nuevo.
+Después, **reinicia Claude Code** para que cargue la versión nueva. Si el segundo comando responde «already at the latest version», es que la versión nueva todavía no tiene un número distinto (por ejemplo 2.0.1): pídele a tu profesor que la publique con número nuevo.
 
 Para quitarlo:
 

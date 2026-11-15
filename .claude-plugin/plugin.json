@@ -2,11 +2,26 @@
   "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "brand-kit-builder",
   "displayName": "Brand Kit Builder",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Crea una identidad de marca completa, de la entrevista al manual y a los tokens de diseño para web y app. Independiente de herramientas; Canva opcional. Deja un marca.json que creative-architect ya sabe leer.",
-  "author": { "name": "2894 Studio", "url": "https://github.com/2894Studio" },
+  "author": {
+    "name": "2894 Studio",
+    "url": "https://github.com/2894Studio"
+  },
   "homepage": "https://github.com/2894Studio/brand-kit-builder",
   "repository": "https://github.com/2894Studio/brand-kit-builder",
   "license": "MIT",
-  "keywords": ["marca", "branding", "logo", "paleta", "tipografia", "voz", "design-tokens", "tailwind", "brand-kit", "creative-architect", "español"]
+  "keywords": [
+    "marca",
+    "branding",
+    "logo",
+    "paleta",
+    "tipografia",
+    "voz",
+    "design-tokens",
+    "tailwind",
+    "brand-kit",
+    "creative-architect",
+    "español"
+  ]
 }

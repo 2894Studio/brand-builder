@@ -11,6 +11,14 @@ Es la skill del plugin que nombra una herramienta concreta; las demás hablan en
 
 Lee `references/canva-creditos.md` **antes de la primera llamada**: recetas del conector, trampas conocidas y qué no puede hacer.
 
+## Posts con el conector (verificado por su esquema)
+
+- **Imagen suelta:** `generate-image`. Acepta proporciones como `PORTRAIT_4_5` (feed de Instagram) y `PORTRAIT_9_16` (stories y reels). Devuelve un trabajo; el enlace de la imagen se entrega siempre al terminar. El prompt se pasa tal cual lo da la persona: si lo ha escrito `direccion-de-arte` y ella lo ha aprobado, es su prompt.
+- **Diseño completo con la marca:** `generate-design` con `brand_kit_id` (primero `list-brand-kits`). **`create-design` no puede aplicar un Brand Kit.** El Brand Kit tiene que existir ya en la cuenta: el conector no los crea.
+- **Formato de Instagram en `generate-design`:** `instagram_post` sale a 1080×1350 (4:5).
+- Pide la imagen **sin texto** y añade el texto encima con la fuente de la marca: la tipografía que dibuja un modelo no es fiable.
+- No he probado generaciones reales con el conector (gastan créditos): lo anterior sale de leer sus descripciones, no de resultados.
+
 ## Presupuesto
 
 **8 generaciones de imagen o menos** para un kit completo con mockups: logo 2 · fondo de portada 1 · elementos y fotografía 2 · mockups 2–3. Si vas a pasarte, dilo antes de gastar y ofrece recortar.

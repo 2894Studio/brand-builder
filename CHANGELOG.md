@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.1.0
+
+- **Nuevo:** `exportar_motion.py`, puente de `marca.json` a `brand.json` de motion-architect (esquema verificado contra su repositorio; renderizado de un fotograma comprobado con PULSO).
+- **Nuevo:** `verificar_tokens.py`, autotest de tokens y del puente.
+- **Nuevo:** guion de introducción, guion de la sesión de contenido, guía de ahorro de tokens y tabla para elegir herramienta.
+- **Nuevo:** la skill `canva` recoge los hechos verificados del conector (4:5 y 9:16, `generate-design` con `brand_kit_id`, `create-design` sin Brand Kit).
+- **Cambio:** la skill de entrada indica pedir «usa mi `marca.json`» al crear contenido, tras comprobar que sin ella el modelo no siempre lo lee.
+
 ## 2.0.0
 
 - **Documentación:** guía del alumno, guion de clase y prueba guiada.

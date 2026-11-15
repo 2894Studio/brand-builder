@@ -41,6 +41,10 @@ Extensiones propias, que los oficios de creative-architect ignoran:
 
 Esquema en `skills/tokens/marca.schema.json`; la validación completa (contraste, léxico) en `skills/tokens/tools/validar_marca.py`.
 
+## Salida adicional: motion-architect
+
+`skills/tokens/tools/exportar_motion.py` escribe `studio/brand.json` de motion-architect: `name`, `tagline`, `colors{background, surface, text, muted, accent, accent2}`, `fonts{display, body}`, `radius`, `style`. `accent` es el primario y `accent2` el acento. Las fuentes reales se cambian en `src/brand/brand.ts`, no en el JSON.
+
 ## Decisiones
 
 - **`marca.json` pronto, no al final.** Así creative-architect puede trabajar con la marca mientras se sigue con el manual.
