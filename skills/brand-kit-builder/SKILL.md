@@ -15,6 +15,15 @@ Esta skill no produce nada. Lee la petición, decide qué oficio hace falta y lo
 2. Mira si la skill `proveedores` de creative-architect está disponible. Si lo está, la producción de imagen va por ahí. Si no, **no es un bloqueo**: el entregable de cada imagen es un prompt listo para pegar.
 3. Mira si hay conector de Canva. Solo importa si la persona lo pide: Canva es opcional.
 
+## Cómo hablas
+
+- **De tú**, siempre, aunque la persona escriba en plural (tú o vosotros; nunca «dígame», «respondan», «ustedes»). Frases cortas y concretas.
+- **No adelantes soluciones** antes de cerrar la entrevista: ni «suele resolverse con un logo tipográfico» ni una paleta. Primero escuchas, luego propones.
+
+## Python
+
+Los scripts de `tokens`, `laminas` e `identidad` necesitan Python 3.11 o superior. Se invocan como `python3`; en Windows suele ser `python` o `py`. Si no hay Python, dilo una vez y sigue con lo que no lo necesita (entrevista, estrategia, voz, logo, paleta, tipografía): sin él no se pueden validar `marca.json`, generar tokens ni montar el manual.
+
 ## A dónde enviar
 
 | La persona quiere… | Skill |

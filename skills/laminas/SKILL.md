@@ -16,6 +16,8 @@ Lee `references/sistema-laminas.md` (rejilla, escala, arquetipos, firmas, revisi
 1. **Redacta `kit.json`** con el contenido: promesa, 3 o 4 valores (cada uno con una frase que diga qué implica en la práctica), tres rasgos de voz, fotografía sí/no, elementos, reglas de uso y las dos aplicaciones que dijo en la entrevista. Adapta: una marca de servicios no necesita envase, necesita firma de correo y plantilla de propuesta. «Artesanal» no es un valor; «hecho a mano, con oficio» sí.
 2. **Genera:**
 
+> En Windows, `python3` suele ser `python` o `py`. Necesita Python 3.11 o superior.
+
 ```
 python3 tools/generar_kit.py marca.json --kit trabajo/<fecha>-marca-<slug>/kit.json --salida trabajo/<fecha>-marca-<slug>/kit
 ```

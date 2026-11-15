@@ -13,6 +13,8 @@ Requiere un `marca.json` válido y aprobado (`identidad`). Lee `references/forma
 
 ## Generar
 
+> En Windows, `python3` suele ser `python` o `py`. Necesita Python 3.11 o superior.
+
 ```
 python3 tools/validar_marca.py marca.json
 python3 tools/generar_tokens.py marca.json --salida trabajo/<fecha>-marca-<slug>/tokens

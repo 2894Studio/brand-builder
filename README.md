@@ -11,7 +11,15 @@ Desarrollado por [2894 Studio](https://github.com/2894Studio) a partir del caso 
 - **Una marca que no se explica dos veces:** `marca.json` se escribe en cuanto se aprueban logo y paleta, y lo leen las demás skills de creative-architect.
 - **Sin dependencias:** el manual sale como SVG y HTML con Python estándar. Canva es un módulo opcional.
 
+## Guías
+
+- [Guía del alumno](docs/guia-alumnos.md): instalación, uso paso a paso y problemas frecuentes.
+- [Guion de clase](docs/guion-clase.md): sesión de 90 minutos con demo, ejercicio y rúbrica.
+- [Prueba guiada](docs/prueba-guiada.md): tres pruebas para comprobar la skill antes de enseñarla.
+
 ## Instalación
+
+Mientras el repositorio no esté publicado, se instala desde la carpeta (o desde el ZIP descomprimido): `claude plugin marketplace add ./brand-kit-builder` y después `claude plugin install brand-kit-builder@brand-kit-builder`. Las dos rutas están explicadas en la [guía del alumno](docs/guia-alumnos.md).
 
 Como plugin, igual que creative-architect:
 

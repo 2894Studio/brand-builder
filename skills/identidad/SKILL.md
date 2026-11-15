@@ -23,6 +23,8 @@ Lee `references/logo.md`, `references/color.md` y `references/tipografia.md`. Pa
 
 ## 2. Paleta: cinco colores con papel
 
+> En Windows, `python3` suele ser `python` o `py`. Necesita Python 3.11 o superior.
+
 Base, tinta, marca, acento y neutro, cada uno con **nombre, hex y papel**. Comprueba el contraste con el hex real, no de memoria:
 
 ```

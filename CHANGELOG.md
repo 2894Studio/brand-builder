@@ -2,6 +2,10 @@
 
 ## 2.0.0
 
+- **Documentación:** guía del alumno, guion de clase y prueba guiada.
+- **Arreglo tras la primera prueba con el modelo:** trata siempre de tú y no adelanta soluciones antes de cerrar la entrevista.
+- **Nuevo:** aviso de Python 3.11+ y del nombre del comando en Windows.
+
 Reestructurado como plugin de Claude Code con varias skills.
 
 - **Nuevo:** skill de entrada que enruta a `estrategia`, `identidad`, `voz`, `tokens`, `laminas`, `entrega` y `canva`.

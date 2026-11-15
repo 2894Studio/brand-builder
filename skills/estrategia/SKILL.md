@@ -15,7 +15,7 @@ Si la marca ya existe y solo hay que documentarla, salta los territorios y usa l
 
 ## 1. Entrevista: tres rondas, no treinta preguntas
 
-Un solo mensaje por ronda. Ofrece opciones cuando la herramienta lo permita; la persona siempre puede escribir otra cosa.
+Un solo mensaje por ronda, **de tú** y sin adelantar soluciones (nada de «lo normal sería un logo tipográfico» antes de cerrar la entrevista). Ofrece opciones cuando la herramienta lo permita; la persona siempre puede escribir otra cosa.
 
 - **Ronda 1, qué es:** nombre · qué vende · a quién · promesa en una frase · categoría y si quiere sentirse accesible o exclusiva.
 - **Ronda 2, quién es:** por qué existe · qué la distingue · tres rasgos de personalidad · un adjetivo · **qué nunca debe parecer** (la pregunta que más decisiones ahorra).
