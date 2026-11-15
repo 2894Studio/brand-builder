@@ -1,0 +1,32 @@
+{
+  "promesa": "Tu bici lista cada lunes, sin pedir cita ni cargarla al taller.",
+  "valores": [
+    { "nombre": "Puntualidad", "frase": "Recogemos y entregamos en la ventana que te dimos, o el mes sale gratis." },
+    { "nombre": "Precio a la vista", "frase": "Cada pieza con su precio antes de tocarla; nada de sorpresas en la factura." },
+    { "nombre": "Oficio", "frase": "Mecánicos con taller propio en Madrid, no un intermediario." }
+  ],
+  "voz": {
+    "rasgos": [
+      { "rasgo": "Directo", "asi_si": "Cambiamos la cadena el jueves. 18 €.", "asi_no": "Estaremos encantados de ayudarte con el mantenimiento de tu cadena." },
+      { "rasgo": "Técnico sin jerga", "asi_si": "Los frenos chirrían porque las pastillas están gastadas.", "asi_no": "Se ha detectado una anomalía en el sistema de frenado." },
+      { "rasgo": "Humor discreto", "asi_si": "Tu bici ya no suena a carro de la compra.", "asi_no": "¡Jajaja, tu bici estaba hecha un desastre!" }
+    ]
+  },
+  "fotografia": {
+    "si": "Manos con grasa, banco de trabajo, luz fría de tubo, bici entera en plano frontal.",
+    "no": "Ciclistas sonrientes posando, atardeceres, bicis de carretera de gama alta."
+  },
+  "elementos": [
+    { "nombre": "Cuadrícula de taller", "uso": "Fondo de láminas y tickets; trama de 8 px al 6 %." },
+    { "nombre": "Barra de estado", "uso": "Indica el paso del servicio: recogida, taller, entrega." },
+    { "nombre": "Iconos de pieza", "uso": "Trazo de 2 px, esquinas rectas; solo piezas reales." }
+  ],
+  "usos": [
+    "Sobre el cuadro, la versión monocroma en blanco, centrada en el tubo diagonal.",
+    "Sobre tela, serigrafía a una tinta, sin degradados.",
+    "Sobre la caja de recogida, respeta el área de respeto en los cuatro lados."
+  ],
+  "aplicacion_principal": { "titulo": "Caja de recogida", "lead": "El primer contacto físico.", "descripcion": "Caja de cartón kraft con el logotipo en una tinta y la barra de estado impresa en el lateral." },
+  "aplicacion_secundaria": { "titulo": "Ticket de servicio", "lead": "Lo que ves al recoger.", "descripcion": "Ticket térmico con el desglose por pieza, el precio y el próximo servicio." },
+  "mockups": false
+}

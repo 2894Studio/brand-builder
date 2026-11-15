@@ -1,0 +1,9 @@
+brand-kit-builder
+Copyright (c) 2026 2894 Studio
+
+Desarrollado a partir del caso práctico de la formación "Marketing potenciado por IA".
+
+Compatibilidad: este plugin escribe un marca.json con el formato que documenta creative-architect
+(https://github.com/Hainrixz/creative-architect, MIT, autoría de Enrique Rocha). La estructura de plugin
+(skill de entrada que enruta a skills de oficio, manifiestos de plugin y marketplace) sigue el mismo patrón
+de organización. No se ha copiado texto ni código de ese repositorio.
