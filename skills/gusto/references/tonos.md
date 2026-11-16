@@ -24,6 +24,22 @@ Origen: siete referencias SaaS pasadas por una persona (cuatro tableros de marca
 - **Retrato con rol + módulo de cifra + acento pequeño** (Devon): módulos de tamaños mezclados y un acento (lima) que ocupa muy poco.
 - **Tablero con módulos rotulados** (SkyMavis, Matrix AI): Logo, Color, Tipografía, Fotografía; una sola familia de color.
 
+## Estilo «moderno de producto» (dos referencias más: una app bancaria y una de identidad digital)
+
+No es un cuarto tono: es una **forma de ejecutar el tecnológico** que hoy se percibe como moderna. Lo común a las dos referencias:
+
+- **Campo de degradado azul** (de eléctrico a profundo) con una luz clara suave en una esquina, no un azul plano.
+- **Palabra de marca gigante y tenue** detrás de todo (blanco al 10–15 %), a sangre o casi.
+- **Una maqueta de dispositivo** en el centro con la interfaz de producto dentro, ligeramente recortada por abajo.
+- **Tarjetas de cristal** que flotan alrededor (fondo blanco al 15 %, desenfoque, borde blanco fino) con **una cifra o un dato** cada una.
+- **Líneas concéntricas redondeadas** muy tenues, como eco del dispositivo.
+- **Personas reales** en tarjetas redondeadas (esquinas ≥ 30 px) con borde de cristal; en una de las dos, además, una mano que sostiene el teléfono.
+- **Cifras gigantes y pálidas** como textura (la referencia bancaria).
+- **Titulares de peso ligero** en una sans geométrica, con la palabra clave en negrita.
+- Aire medido: 36–37 % (menos que la «seria», más que las de producto denso).
+
+Riesgo: sin personas reales ni producto real, el estilo se queda en degradado y cristal, que es lo que hoy delata a una pieza hecha con IA. La prueba de producto (la interfaz) y la persona (con nombre y rol) son lo que lo sostiene.
+
 ## Límites
 
 Siete referencias de un solo sector (SaaS) en una persona. No hay referencias de sectores serios no tecnológicos ni de estética no azul: si la marca va por ahí, mide otras referencias antes de aplicar esta tabla.

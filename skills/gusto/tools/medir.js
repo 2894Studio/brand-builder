@@ -32,7 +32,7 @@
     const range = document.createRange(); range.selectNodeContents(el);
     const r = range.getBoundingClientRect();
     if (r.width === 0 || r.height === 0) continue;
-    const bleed = !!el.closest('[data-bleed]');
+    const bleed = !!el.closest('[data-bleed]'); const deco = !!el.closest('[data-decorativo]');
     const fg = parseColor(cs.color), bg = fondoEfectivo(el);
     let contraste = null;
     if (fg && bg.opaco) { const f = fg.a < 1 ? {r: fg.r * fg.a + bg.r * (1 - fg.a), g: fg.g * fg.a + bg.g * (1 - fg.a), b: fg.b * fg.a + bg.b * (1 - fg.a)} : fg; contraste = Math.round(ratio(f, bg) * 100) / 100; }
@@ -45,7 +45,7 @@
       while ((m = re.exec(tn.textContent))) { rg.setStart(tn, m.index); rg.setEnd(tn, m.index + m[0].length); const q = rg.getBoundingClientRect(); if (q.width) palabras.push({w: m[0], top: Math.round(q.top), left: q.left, right: q.right}); }
     }
     const lineas = []; palabras.forEach(p => { const l = lineas.find(l => Math.abs(l.top - p.top) < size * 0.5); l ? l.ps.push(p) : lineas.push({top: p.top, ps: [p]}); });
-    out.textos.push({texto: t.slice(0, 60), tag: el.tagName.toLowerCase(), x: r.left, y: r.top, w: r.width, h: r.height, size, peso, contraste, fondoNoMedible: !bg.opaco ? bg.motivo : null, bleed,
+    out.textos.push({texto: t.slice(0, 60), tag: el.tagName.toLowerCase(), x: r.left, y: r.top, w: r.width, h: r.height, size, peso, contraste, fondoNoMedible: !bg.opaco ? bg.motivo : null, bleed, deco,
       fuente: cs.fontFamily, lineas: lineas.length, ultima: lineas.length ? lineas[lineas.length - 1].ps.map(p => p.w) : [], color: cs.color, _el: el});
   }
   // solapes entre cajas de texto (no anidadas)
@@ -53,7 +53,7 @@
   const T = out.textos;
   for (let i = 0; i < T.length; i++) for (let j = i + 1; j < T.length; j++) {
     const a = T[i], b = T[j];
-    if (a._el.contains(b._el) || b._el.contains(a._el)) continue;
+    if (a._el.contains(b._el) || b._el.contains(a._el) || a.deco || b.deco) continue;
     const ix = Math.min(a.x + a.w, b.x + b.w) - Math.max(a.x, b.x), iy = Math.min(a.y + a.h, b.y + b.h) - Math.max(a.y, b.y);
     if (ix > 2 && iy > 2) out.solapes.push({a: a.texto, b: b.texto, ix: Math.round(ix), iy: Math.round(iy)});
   }

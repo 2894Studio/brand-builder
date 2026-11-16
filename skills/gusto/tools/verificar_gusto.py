@@ -102,6 +102,15 @@ with tempfile.TemporaryDirectory() as d:
         ok("tiene contraste" in s, "detecta contraste bajo")
         ok("no está disponible" in s, "detecta fuente de reserva")
         ok("#FF00AA" in s, "avisa del color fuera de marca")
+        r = py(os.path.join(AQUI, "critico_render.py"), os.path.join(FIX, "degradado.html"))
+        s = r.stdout
+        ok("GHOSTWORD" not in s, "un texto data-decorativo no se juzga (ni se sale del lienzo ni se pisa)")
+        try:
+            import PIL  # noqa: F401
+            ok("Blanco sobre degradado claro" in s and "medido sobre la captura" in s, "mide el contraste sobre un degradado con la captura")
+            ok("Azul oscuro sobre degradado" not in s, "no marca el texto oscuro que sí contrasta sobre el degradado")
+        except ImportError:
+            saltados.append("contraste muestreado (falta Pillow)")
 
 print()
 if saltados:

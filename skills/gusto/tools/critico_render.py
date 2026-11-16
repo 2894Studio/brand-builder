@@ -8,7 +8,8 @@ Detecta (errores): texto fuera del lienzo, cajas de texto que se pisan, fuente q
 contraste de texto < 4,5:1 (3:1 si es grande), texto de menos de ~1,8 % del lado corto.
 Avisa de: colores fuera de marca.json, titular poco dominante, última línea con una sola palabra,
 demasiado texto, texto sobre imagen/degradado (contraste no medible).
-Texto que debe sangrar a propósito: ponle el atributo data-bleed.
+Texto que debe sangrar a propósito: atributo data-bleed. Texto puramente decorativo (palabra fantasma de fondo): data-decorativo, y no se juzga.
+Sobre degradado o imagen estima el contraste con los píxeles de la captura (aproximado; necesita Pillow).
 NO juzga si la pieza es bonita ni si transmite lo que debe: eso lo valoran el modelo y la persona.
 
 Necesita Playwright (Node: npm i playwright · o Python: pip install playwright) y un Chromium.
@@ -93,11 +94,57 @@ def hex_en(obj, acc):
             pass
 
 
-def juzgar(r, marca_ruta):
+
+def _lum(c):
+    f = lambda v: (v / 255 / 12.92) if v / 255 <= 0.03928 else (((v / 255) + 0.055) / 1.055) ** 2.4
+    return 0.2126 * f(c[0]) + 0.7152 * f(c[1]) + 0.0722 * f(c[2])
+
+
+def muestrear_fondos(r, png):
+    """Textos sobre degradado o imagen: estima el fondo con el anillo de píxeles que rodea la caja del texto
+    en la captura y calcula el contraste. Es aproximado (promedio del anillo); necesita Pillow y --png."""
+    if not png or not os.path.exists(png):
+        return
+    try:
+        from PIL import Image
+    except ImportError:
+        return
+    import re
+    im = Image.open(png).convert("RGB")
+    W, H = im.size
+    for t in r["textos"]:
+        if not t.get("fondoNoMedible"):
+            continue
+        m = re.match(r"rgba?\(([^)]+)\)", t.get("color", ""))
+        if not m:
+            continue
+        fg = [float(x) for x in m.group(1).split(",")[:3]]
+        x0, y0, x1, y1 = int(t["x"]) - 6, int(t["y"]) - 6, int(t["x"] + t["w"]) + 6, int(t["y"] + t["h"]) + 6
+        puntos = []
+        for x in range(max(x0, 0), min(x1, W), 4):
+            for y in (y0, y1):
+                if 0 <= y < H:
+                    puntos.append(im.getpixel((x, y)))
+        for y in range(max(y0, 0), min(y1, H), 4):
+            for x in (x0, x1):
+                if 0 <= x < W:
+                    puntos.append(im.getpixel((x, y)))
+        if not puntos:
+            continue
+        bg = [sum(p[i] for p in puntos) / len(puntos) for i in range(3)]
+        a, b = _lum(fg), _lum(bg)
+        t["contraste_muestreado"] = round((max(a, b) + 0.05) / (min(a, b) + 0.05), 2)
+
+def juzgar(r, marca_ruta, png=None):
     """Convierte las medidas en errores y avisos. Cada hallazgo cita lo medido."""
     W, H = r["W"], r["H"]
     err, av = [], []
     escala = min(W, H) / 1080.0
+    r = dict(r)
+    r["textos"] = [t for t in r["textos"] if not t.get("deco")]  # decorativos (data-decorativo): no se juzgan
+    r["tamanos"] = [t["size"] for t in r["textos"]]
+    r["caracteres"] = sum(len(t["texto"]) for t in r["textos"])
+    muestrear_fondos(r, png)
     for t in r["textos"]:
         if not t["bleed"]:
             if t["x"] < -1 or t["y"] < -1 or t["x"] + t["w"] > W + 1 or t["y"] + t["h"] > H + 1:
@@ -109,6 +156,10 @@ def juzgar(r, marca_ruta):
             grande = t["size"] >= 24 or (t["size"] >= 18.7 and t["peso"] >= 700)
             if t["contraste"] < (3.0 if grande else 4.5):
                 err.append(f"«{t['texto']}» tiene contraste {t['contraste']}:1 (mínimo {'3' if grande else '4,5'}:1)")
+        elif t.get("contraste_muestreado") is not None:
+            grande = t["size"] >= 24 or (t["size"] >= 18.7 and t["peso"] >= 700)
+            if t["contraste_muestreado"] < (3.0 if grande else 4.5):
+                err.append(f"«{t['texto']}» tiene contraste ~{t['contraste_muestreado']}:1 medido sobre la captura (mínimo {'3' if grande else '4,5'}:1)")
         elif t["fondoNoMedible"]:
             av.append(f"«{t['texto']}» está sobre {t['fondoNoMedible']}: contraste no medible; compruébalo a ojo con un panel opaco debajo")
         if t["lineas"] >= 3 and len(t["ultima"]) == 1 and t["size"] >= 40:
@@ -154,6 +205,8 @@ def main():
     ap.add_argument("--png")
     a = ap.parse_args()
     url = "file://" + os.path.abspath(a.pieza)
+    if not a.png:
+        a.png = os.path.join(tempfile.mkdtemp(), "captura.png")
     r = medir_con_node(url, a.ancho, a.alto, a.png) or medir_con_python(url, a.ancho, a.alto, a.png)
     if r is None:
         print("No puedo abrir la pieza: falta Playwright con Chromium.\n"
@@ -161,7 +214,7 @@ def main():
               "  Python: pip install playwright && playwright install chromium\n"
               "La pieza NO se da por revisada.")
         return 2
-    err, av = juzgar(r, a.marca)
+    err, av = juzgar(r, a.marca, a.png)
     if a.json:
         json.dump({"errores": err, "avisos": av, "medidas": r}, open(a.json, "w"), ensure_ascii=False, indent=1)
     for e in err:

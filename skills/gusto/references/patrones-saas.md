@@ -12,6 +12,17 @@ Piezas habituales y cómo hacerlas sin que parezcan plantilla. Cada patrón llev
 | **Campo continuo con filetes** | fondo de un color, filetes finos verticales, tres columnas de texto | si hay tarjetas, ya no es este patrón |
 | **Un acento pequeño** | un solo color vivo en menos del 5 % de la pieza | acento sobre fondo claro: comprueba contraste (un ámbar sobre crema da ~1,6:1) |
 
+## Patrones del estilo «moderno de producto»
+
+| Patrón | Cómo se hace | Riesgo |
+|---|---|---|
+| **Palabra fantasma** | nombre de marca en 260–330 px, blanco al 13 %, detrás de todo; en el HTML con `data-decorativo` | si se corta una letra («FINDPR») parece un error: ajusta el tamaño hasta que quepa entera |
+| **Maqueta con interfaz** | teléfono dibujado en CSS (esquinas 70 px, isla, borde oscuro) con una pantalla de **producto real o plausible** (lista, cifra, botón) | texto de interfaz menor de 19 px: no se lee en una red social |
+| **Tarjeta de cristal** | `background: rgba(255,255,255,.16)`, `backdrop-filter: blur(14px)`, borde 1,5 px blanco al 35 % | sobre fondo claro desaparece; comprueba el contraste del texto |
+| **Foto en tarjeta** | esquinas 30–34 px, borde blanco al 55 %, rótulo oscuro translúcido con nombre y rol | rótulo claro sobre camisa blanca: usa un fondo oscuro translúcido |
+| **Desvanecido inferior** | degradado a azul profundo en el último tercio para que el titular se lea | sin él, el titular pisa la maqueta |
+| **Personas sintéticas** | generadas (por ejemplo con Canva) y declaradas en el pie de la pieza | en una firma de personas reales, sustituir por fotos reales antes de publicar |
+
 ## Tamaños que funcionan (post vertical 1080 × 1440)
 
 - Titular: 96–130 px, peso ligero si es serif.

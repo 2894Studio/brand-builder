@@ -160,7 +160,7 @@ Abre `kit/index.html` en el navegador y usa **Imprimir → Guardar como PDF**, c
 | `ERROR el texto … da 2.39:1; mínimo 4,5:1` | El color de tu texto casi no se lee sobre el fondo | Cambia el color de texto o el de fondo en `marca.json`. La skill no parchea los tokens |
 | `aviso el acento … no para texto` | Tu color de acento es bonito pero no sirve para letra pequeña | No es un error. Úsalo en líneas, iconos grandes o fondos |
 | El logo del manual es solo tu nombre en letras | Falta el archivo del logo | Es el logotipo provisional. Guarda tu logo en `logo/` y vuelve a generar el manual |
-| La imagen de Canva solo llega pequeña | El conector deja una miniatura en el equipo; la imagen completa está en Canva | Abre el enlace «Open generated image», descárgala en PNG y guárdala en la carpeta del proyecto |
+| La imagen de Canva solo llega pequeña | El conector deja una miniatura en el equipo; la imagen completa está en Canva | El enlace no se descarga con `curl` (403): mete la imagen en un diseño de Canva y expórtalo a PNG (ver `skills/canva/SKILL.md`) |
 | El manual se ve correcto pero aburrido | Es normal: la herramienta cumple reglas, no tiene gusto | Pasa las cinco preguntas de `criterio-visual.md` y completa tus referencias |
 | Las fuentes se ven distintas a las elegidas | Se cargan desde Google Fonts y no hay conexión | Conéctate, o instala la fuente en tu ordenador |
 | Un texto del manual acaba en «…» | No cabía en la lámina | Es intencionado: lo largo va al documento, no a la lámina |
