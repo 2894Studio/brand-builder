@@ -39,7 +39,7 @@ Skill nueva: **gusto**, para entrenar el gusto visual sin servicios externos (si
 
 ## 2.1.1
 
-Cambios a partir de la prueba real de punta a punta (ver `docs/informe-prueba-real.md`).
+Cambios a partir de una prueba real de punta a punta con una marca nueva.
 
 - **Nuevo:** `incrustar_fuente.py`. Incrusta la fuente en los logos SVG y quita las clases CSS compartidas, para que el logo se vea igual dentro de `<img>`, sin conexión y junto a otros logos. Verificado con la red bloqueada.
 - **Nuevo:** paso de **referencias** en `estrategia` y campo `referencias` en `marca.json` (esquema, validador y plantilla), para entrenar el gusto visual con el atributo concreto de cada referencia.
@@ -49,7 +49,7 @@ Cambios a partir de la prueba real de punta a punta (ver `docs/informe-prueba-re
 - **Arreglo:** doble punto en el tono, palabras prohibidas genéricas en lugar de las del sector, licencia de fuentes cortada, y `;` final en el `style` del puente a motion-architect.
 - **Arreglo:** el autotest comprueba que el texto a sangre asoma en el lienzo (un error propio lo dejó fuera de la lámina) y cubre las variantes con 4 valores, sobrio y con referencias.
 - **Cambio:** `estrategia` busca el nombre en la web antes de dibujar el logo, e `identidad` exige ver el logo renderizado antes de presentarlo.
-- **Documentación:** informe de la prueba real; la guía recoge que la imagen de Canva solo llega como miniatura y hay que descargarla.
+- **Documentación:** la guía recoge que la imagen de Canva solo llega como miniatura y hay que descargarla.
 
 ## 2.1.0
 

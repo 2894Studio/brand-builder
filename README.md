@@ -14,12 +14,8 @@ Desarrollado por [2894 Studio](https://github.com/2894Studio) a partir del caso 
 ## Guías
 
 - [Guía del alumno](docs/guia-alumnos.md): instalación, uso paso a paso y problemas frecuentes.
-- [Guion de clase](docs/guion-clase.md): sesión de 90 minutos con demo, ejercicio y rúbrica.
-- [Prueba guiada](docs/prueba-guiada.md): tres pruebas para comprobar la skill antes de enseñarla.
-- [Guion de introducción](docs/guion-introduccion.md) y [guion de la sesión de contenido](docs/guion-sesion-contenido.md): la clase siguiente, con posts fijos y animados.
 - [Elegir herramienta](docs/elegir-herramienta.md): creative-architect, motion-architect y video-editor-architect, comparadas.
 - [Ahorro de tokens y créditos](docs/ahorro-tokens.md): dónde se gasta y qué hacer, con datos medidos.
-- [Informe de la prueba real](docs/informe-prueba-real.md): qué funcionó, qué falló y qué se corrigió en un recorrido completo con una marca nueva.
 
 ## Requisitos
 
