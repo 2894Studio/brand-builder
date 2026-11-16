@@ -23,6 +23,18 @@ Piezas habituales y cómo hacerlas sin que parezcan plantilla. Cada patrón llev
 | **Desvanecido inferior** | degradado a azul profundo en el último tercio para que el titular se lea | sin él, el titular pisa la maqueta |
 | **Personas sintéticas** | generadas (por ejemplo con Canva) y declaradas en el pie de la pieza | en una firma de personas reales, sustituir por fotos reales antes de publicar |
 
+## Mapa de puntos («cerca de ti»)
+
+Para explicar que se encuentran personas **por zona**. Se hace con geografía real, no a ojo:
+
+1. `node skills/gusto/tools/mapa_puntos.mjs --bbox lonMin,latMin,lonMax,latMax --centro lon,lat > puntos.json` (antes, una vez: `npm i world-atlas topojson-client d3-geo`). Da los puntos de tierra en una malla hexagonal y `kmPx`, los píxeles por kilómetro.
+2. **El radio se calcula con `kmPx`**, no se dibuja «más o menos»: un anillo de 200 km mide `200 × kmPx` px. Si el mapa abarca un continente, 50 km no se ven; encuadra la zona (en la prueba, la península ibérica y el sur de Francia: 0,63 px/km).
+3. Tres niveles de punto: dentro del radio, más grandes y claros; fuera, tenues; lejos, casi invisibles. Un anillo continuo y otro discontinuo al doble de radio.
+4. Marcadores de personas **solo en lugares reales** dentro del radio, con una distancia verdadera (Madrid–Toledo, 68 km). Una persona destacada con foto, nombre, rol y distancia; una tarjeta de cristal con la cifra.
+5. **Difumina los bordes del mapa** con una máscara (`mask-image` en degradado, con `mask-composite: intersect`); si no, el recorte duro parece un error.
+
+Riesgos: un marcador sobre el centro desaparece (separa las ciudades); la cifra de la tarjeta debe coincidir con los marcadores que se ven; las personas y la ubicación de ejemplo se declaran en el pie.
+
 ## Tamaños que funcionan (post vertical 1080 × 1440)
 
 - Titular: 96–130 px, peso ligero si es serif.
