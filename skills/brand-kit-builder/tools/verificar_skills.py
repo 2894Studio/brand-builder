@@ -6,7 +6,7 @@ Claude Code tolera un YAML flojo; los lectores estrictos no. Un `description:` c
 se SALTE en silencio (pasó: 5 de 10 skills). Esta prueba lo evita.
 
 Comprueba en cada skills/*/SKILL.md: cabecera con `name` y `description`; `name` igual al nombre de la carpeta; `description` de
-1 a 1024 caracteres; y que la cabecera se lea con un YAML estricto (PyYAML si está instalado; si no, que la descripción vaya
+1 a 1024 caracteres; y que los enlaces de AGENTS.md existan; y que la cabecera se lea con un YAML estricto (PyYAML si está instalado; si no, que la descripción vaya
 entre comillas o no lleve «: » ni « #»).
 
 Uso:  python3 verificar_skills.py [carpeta_raiz_del_repo]      Sale con 1 si algo falla.
@@ -56,6 +56,12 @@ def main():
             fallos.append(f"{carpeta}: name «{d['name']}» no coincide con la carpeta")
         if not 1 <= len(str(d["description"])) <= 1024:
             fallos.append(f"{carpeta}: description de {len(str(d['description']))} caracteres (máximo 1024)")
+    # AGENTS.md es un puntero: todos los archivos que enlaza deben existir
+    ag = os.path.join(raiz, "AGENTS.md")
+    if os.path.exists(ag):
+        for ruta in re.findall(r"\]\(([^)#]+)\)", open(ag, encoding="utf-8").read()):
+            if not ruta.startswith("http") and not os.path.exists(os.path.join(raiz, ruta)):
+                fallos.append(f"AGENTS.md enlaza a «{ruta}», que no existe")
     for f in fallos:
         print("  FALLO ", f)
     print(f"{n} skill(s) revisadas con {'PyYAML (estricto)' if yaml else 'la comprobación básica (instala PyYAML para la estricta)'}")

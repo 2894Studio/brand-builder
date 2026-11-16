@@ -2,7 +2,7 @@
 
 ## Sin publicar (compatibilidad con Google Antigravity)
 
-- **Nuevo:** `plugin.json` en la raíz (manifiesto de Antigravity) y `AGENTS.md` con las instrucciones «Director de Marca». Claude Code sigue leyendo solo `.claude-plugin/`.
+- **Nuevo:** `plugin.json` en la raíz (manifiesto de Antigravity) y `AGENTS.md`, un **puntero** corto al router (`skills/brand-kit-builder/SKILL.md`), que es la única fuente de las reglas: así no se desincronizan. `verificar_skills.py` comprueba que sus enlaces existan. Claude Code sigue leyendo solo `.claude-plugin/`.
 - **Arreglo importante:** 5 de las 10 skills (el router, `entrega`, `lanzamiento`, `tokens` y `voz`) las **saltaba en silencio** un lector de YAML estricto, porque su `description` llevaba «: » sin comillas. Claude Code lo toleraba. Ahora todas las descripciones van entre comillas y `verificar_skills.py` lo comprueba (con un YAML estricto) para que no vuelva a pasar.
 - **Documentación:** instalación en Antigravity en el README (`git clone` a `~/.gemini/config/plugins/`) y mención de `ask_question` en la convención de preguntas.
 - Al publicarlo hay que subir la versión en **los dos manifiestos** (`plugin.json` y `.claude-plugin/plugin.json`) para que las instalaciones existentes vean el cambio.
