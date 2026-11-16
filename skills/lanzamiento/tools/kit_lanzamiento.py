@@ -156,13 +156,23 @@ def main():
         for x in errs:
             print("    ", x)
 
-    # LEEME
+    # LEEME: se reescribe en cada ejecución desde el brief y los créditos de las fotos (nunca se queda el de una versión anterior)
     leeme = os.path.join(carpeta, "LEEME.md")
-    if not os.path.exists(leeme):
-        with open(leeme, "w", encoding="utf-8") as fh:
-            fh.write("# Kit de lanzamiento\n\nPiezas: logo/, bento, post-1-que-es, post-2-atributo (HTML editable y PNG).\n\n## Qué es de ejemplo o queda a mano\n\n")
-            for x in b.get("notas", []) or ["(rellena: qué es real, qué es de ejemplo y qué queda por hacer a mano)"]:
-                fh.write(f"- {x}\n")
+    notas = list(b.get("notas", []) or [])
+    if fotos and os.path.exists(os.path.join(fotos, "manifiesto.json")):
+        try:
+            for reg in json.load(open(os.path.join(fotos, "manifiesto.json"), encoding="utf-8")):
+                if str(reg.get("origen")) == "ia":
+                    notas.append(f"La foto {reg['archivo']} es una imagen generada con IA: no es una persona ni un equipo reales.")
+        except Exception:  # noqa: BLE001
+            pass
+    if b.get("sin_fotos"):
+        notas.append(f"Sin fotos por decisión explícita: {b['sin_fotos']}")
+    usa = ", ".join(f"{n} ({'foto' if (b.get(k) or {}).get('recurso') == 'foto' else (b.get(k) or {}).get('recurso', '')})".replace(" ()", "") for n, k in (("post-1-que-es", "post1"), ("post-2-atributo", "post2")))
+    with open(leeme, "w", encoding="utf-8") as fh:
+        fh.write("# Kit de lanzamiento\n\nPiezas (HTML editable y PNG): logo/, bento, " + usa + ".\n\n## Qué es de ejemplo o queda a mano\n\n")
+        for x in notas or ["(rellena: qué es real, qué es de ejemplo y qué queda por hacer a mano)"]:
+            fh.write(f"- {x}\n")
 
     # puerta
     cmd = [PUERTA, carpeta, "--marca", marca] + (["--kits", ruta(base, b["kits"])] if b.get("kits") else [])
