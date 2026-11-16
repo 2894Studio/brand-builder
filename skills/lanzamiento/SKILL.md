@@ -51,6 +51,7 @@ Del catálogo de `references/recursos-visuales.md`, según el mensaje **y** el t
 |---|---|
 | Teléfono con la interfaz del producto o servicio (qué es) | `post_telefono.py` |
 | Mapa de puntos con una zona y personas a distancia real (cerca de ti) | `post_mapa.py` (necesita Node y `npm i world-atlas topojson-client d3-geo`) |
+| Foto real a sangre con bloque opaco y notas sobre la foto (marcas visuales: fotografía, gastronomía, moda…) | `post_foto.py` |
 | Ventana de escritorio: panel web, curso o código (producto web, SaaS, formación) | `post_pantalla.py` (`--codigo` para marcas de código) |
 | Comparativa «ellos / nosotros» (precio, modelo) | `post_comparativa.py`: **exige `--fuente`** del dato del competidor; sin fuente solo con `--ejemplo` y queda marcado |
 | Cualquier otro (cifra con fuente, pasos, antes y después…) | `post_base.py` y lo construyes con los componentes |

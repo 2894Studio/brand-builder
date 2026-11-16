@@ -53,7 +53,7 @@ def main():
             avisos.append(f"la línea de código «{ln[:20]}…» tiene {len(ln)} caracteres: se saldría de la ventana (máximo 38)")
     avatar = L.base_avatar(c["primario"])
     # alto de la ventana según el contenido, y todo el bloque (ventana + titular) centrado en la pieza
-    contenido = 62 + 60 + 56 + (100 if cif else 10) + ((len(lineas) * 36 + 56) if lineas else len(filas) * 114) + 50
+    contenido = 62 + 60 + 56 + (100 if cif else 10) + ((len(lineas) * 36 + 56) if lineas else len(filas) * 92) + 50
     alto = max(560, min(760, contenido))
     sup = max(110, (1190 - (alto + 80 + 190)) // 2 + 90)
     menu_html = "".join(f'<div class="mi{" on" if i + 1 == a.activo else ""}">{L.esc(x)}</div>' for i, x in enumerate(menu))

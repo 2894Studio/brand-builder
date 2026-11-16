@@ -8,11 +8,13 @@ Comprueba, en este orden:
   2. Los PNG tienen el tamaño correcto (bento 1920×1080, posts 1080×1440).
   3. El crítico de render da 0 errores en cada pieza.
   4. Ninguna pieza deja marcadores («Foto real», «Nombre y apellido», lorem…).
-  5. Los dos posts no comparten composición (variedad.py < 0,6), ni se parecen a los de otros kits (--kits).
+  5. Si la marca es visual (fotografía, gastronomía, moda, viajes…), alguna pieza lleva una foto (o el brief declara «sin_fotos» con el motivo).
+  6. Los dos posts no comparten composición (variedad.py < 0,6), ni se parecen a los de otros kits (--kits).
 Sale con 1 si algo falla. Sin esta puerta en verde no se entrega ni se dice «revisado».
 """
 import argparse
 import glob
+import json
 import os
 import re
 import subprocess
@@ -78,7 +80,36 @@ def main():
             t = re.sub(r"data:[^\"')]+", "", open(p, encoding="utf-8").read())
             malos = [m for m in MARCADORES if m in t]
             ok(not malos, f"{n}: sin marcadores" + (f" ({', '.join(malos)})" if malos else ""))
-    print("4. Variedad")
+    print("4. Fotografía")
+    visual = False
+    if a.marca and os.path.exists(a.marca):
+        try:
+            mj = json.load(open(a.marca, encoding="utf-8"))
+            txt = " ".join(str(mj.get(k, "")) for k in ("categoria", "publico", "nombre")).lower()
+            visual = bool(re.search(r"fotograf|ilustraci|moda\b|gastronom|restaurante|viaje|arquitect|interiorism|joyer|cosm[eé]t|floristeri|tatuaj", txt))
+        except Exception:  # noqa: BLE001
+            pass
+    hay_foto = False
+    for n, _, _ in PIEZAS:
+        pth = os.path.join(c, n + ".html")
+        if os.path.exists(pth) and re.search(r"data:image/(jpe?g|png|webp)", open(pth, encoding="utf-8").read()):
+            hay_foto = True
+    motivo = ""
+    bp = os.path.join(c, "brief.json")
+    if os.path.exists(bp):
+        try:
+            motivo = str(json.load(open(bp, encoding="utf-8")).get("sin_fotos", "")).strip()
+        except Exception:  # noqa: BLE001
+            pass
+    if visual and not hay_foto:
+        if motivo:
+            avisos_foto = f"marca visual sin fotos por decisión explícita: {motivo}"
+            print("  aviso  " + avisos_foto)
+        else:
+            ok(False, "la marca es visual (fotografía, gastronomía, moda…) y ninguna pieza lleva una foto: genera fotos (prompts_fotos.py, Canva, Gemini, Flow o fotos propias) o declara «sin_fotos» con el motivo en el brief")
+    else:
+        ok(True, "fotografía: " + ("hay fotos en las piezas" if hay_foto else "la marca no depende de la fotografía"))
+    print("5. Variedad")
     p1, p2 = (os.path.join(c, f"{n}.html") for n in ("post-1-que-es", "post-2-atributo"))
     if os.path.exists(p1) and os.path.exists(p2):
         r = subprocess.run([sys.executable, VARIEDAD, p1, p2], capture_output=True, text=True)
@@ -94,6 +125,11 @@ def main():
     for x in avisos:
         print("AVISO:", x)
     print("PUERTA DE ENTREGA: ABIERTA" if not fallos else f"PUERTA CERRADA: {len(fallos)} fallo(s). Corrige antes de entregar.")
+    marca = os.path.join(c, ".puerta-ok")
+    if not fallos and not avisos:
+        open(marca, "w").write("puerta abierta\n")      # lo lee hooks/guardia_entrega.py
+    elif os.path.exists(marca):
+        os.remove(marca)
     return 1 if fallos else 0
 
 

@@ -24,6 +24,10 @@ Escríbelo en el chat o en `lanzamiento/brief.md`:
 
 Es una guía, no una tabla cerrada: si la marca pide otra cosa, la haces.
 
+## Si la imagen es el producto
+
+Fotografía, gastronomía, moda, viajes, interiorismo, joyería, tatuajes: **la foto es el producto**, y una interfaz de móvil con texto no lo sustituye. Estas marcas no se entregan sin fotos (la puerta de entrega lo exige): propias, de banco, o generadas (`prompts_fotos.py` con Canva, Gemini o Flow). Composición: `post_foto.py` (foto a sangre arriba y bloque opaco con el titular), con `--notas` para anotar sobre la propia foto (corrección, detalle, proceso). Solo si se decide a propósito prescindir de fotos, el brief lleva `"sin_fotos": "motivo"`.
+
 ## Variar de verdad
 
 - **Las dos piezas de un mismo kit no comparten esquema.** Si el post 1 es una ventana, el post 2 es otra cosa (cifra, pasos, foto, mapa, comparativa).

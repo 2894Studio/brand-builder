@@ -288,6 +288,30 @@ with tempfile.TemporaryDirectory() as d:
     json.dump({"marca": PULSO, "carpeta": os.path.join(d, "kit3"), "post1": {"recurso": "inventado"}}, open(kb2, "w", encoding="utf-8"))
     ok(py(os.path.join(AQUI, "kit_lanzamiento.py"), kb2).returncode == 1, "kit_lanzamiento rechaza un recurso desconocido")
 
+    # 7f. post_foto: necesita foto; con foto pasa el crítico y la puerta cierra una marca visual sin fotos
+    pfo = os.path.join(d, "pfoto.html")
+    ok(py(os.path.join(AQUI, "post_foto.py"), PULSO, "--salida", pfo, "--titular", "x").returncode != 0, "post_foto se niega a generar sin foto")
+    try:
+        from PIL import Image
+        Image.new("RGB", (2000, 1500), "#7799AA").save(os.path.join(d, "demo.jpg"))
+        r = py(os.path.join(AQUI, "post_foto.py"), PULSO, "--salida", pfo, "--titular", "Cada foto <b>corregida</b>", "--foto", os.path.join(d, "demo.jpg"), "--tarjeta", "Grupo|8", "--notas", "40,30|Gira el móvil")
+        t2 = open(pfo, encoding="utf-8").read() if os.path.exists(pfo) else ""
+        ok(r.returncode == 0 and "data:image/jpeg" in t2 and 'class="pin"' in t2, "post_foto monta la foto, el bloque y las notas")
+        rc2 = py(CRITICO, pfo, "--marca", PULSO)
+        if rc2.returncode != 2:
+            ok(rc2.returncode == 0, "post_foto pasa el crítico sin errores")
+        marca_v = os.path.join(d, "marca_visual.json")
+        mv = json.load(open(PULSO, encoding="utf-8"))
+        mv["categoria"] = "academia de fotografía con el móvil"
+        json.dump(mv, open(marca_v, "w", encoding="utf-8"), ensure_ascii=False)
+        rv = py(PUERTA, kit, "--marca", marca_v)
+        ok("la marca es visual" in rv.stdout and "PUERTA CERRADA" in rv.stdout, "la puerta exige fotos a una marca visual")
+        json.dump({"sin_fotos": "decisión de la persona"}, open(os.path.join(kit, "brief.json"), "w"))
+        rv = py(PUERTA, kit, "--marca", marca_v)
+        ok("la marca es visual" not in rv.stdout, "«sin_fotos» con motivo evita el cierre por falta de fotos")
+    except ImportError:
+        saltados.append("post_foto (falta Pillow)")
+
     # 8. el crítico acepta el bento
     r = py(CRITICO, salida, "--ancho", "1920", "--alto", "1080")
     if r.returncode == 2:

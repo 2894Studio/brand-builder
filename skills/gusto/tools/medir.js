@@ -51,14 +51,14 @@
     if (fg && bg.opaco) { const f = fg.a < 1 ? {r: fg.r * fg.a + bg.r * (1 - fg.a), g: fg.g * fg.a + bg.g * (1 - fg.a), b: fg.b * fg.a + bg.b * (1 - fg.a)} : fg; contraste = Math.round(ratio(f, bg) * 100) / 100; }
     const size = parseFloat(cs.fontSize), peso = parseInt(cs.fontWeight) || 400;
     // líneas por palabra
-    const palabras = []; const rg = document.createRange();
+    const partidas = []; const palabras = []; const rg = document.createRange();
     const tw = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
     for (let tn = tw.nextNode(); tn; tn = tw.nextNode()) {
       const re = /\S+/g; let m;
-      while ((m = re.exec(tn.textContent))) { rg.setStart(tn, m.index); rg.setEnd(tn, m.index + m[0].length); const q = rg.getBoundingClientRect(); if (q.width) palabras.push({w: m[0], top: Math.round(q.top), left: q.left, right: q.right}); }
+      while ((m = re.exec(tn.textContent))) { rg.setStart(tn, m.index); rg.setEnd(tn, m.index + m[0].length); const q = rg.getBoundingClientRect(); const qr = Array.from(rg.getClientRects()); if (m[0].length >= 3 && !/[-\/–—]/.test(m[0]) && new Set(qr.map(z => Math.round(z.top / (size * 0.5)))).size > 1) partidas.push(m[0]); if (q.width) palabras.push({w: m[0], top: Math.round(q.top), left: q.left, right: q.right}); }
     }
     const lineas = []; palabras.forEach(p => { const l = lineas.find(l => Math.abs(l.top - p.top) < size * 0.5); l ? l.ps.push(p) : lineas.push({top: p.top, ps: [p]}); });
-    out.textos.push({texto: t.slice(0, 60), tag: el.tagName.toLowerCase(), x: r.left, y: r.top, w: r.width, h: r.height, size, peso, contraste, fondoNoMedible: !bg.opaco ? bg.motivo : null, bleed, deco, recorte,
+    out.textos.push({texto: t.slice(0, 60), tag: el.tagName.toLowerCase(), x: r.left, y: r.top, w: r.width, h: r.height, size, peso, contraste, fondoNoMedible: !bg.opaco ? bg.motivo : null, bleed, deco, recorte, partidas,
       fuente: cs.fontFamily, lineas: lineas.length, ultima: lineas.length ? lineas[lineas.length - 1].ps.map(p => p.w) : [], color: cs.color, _el: el});
   }
   // solapes entre cajas de texto (no anidadas)

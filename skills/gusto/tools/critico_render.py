@@ -149,6 +149,8 @@ def juzgar(r, marca_ruta, png=None):
         if not t["bleed"]:
             if t["x"] < -1 or t["y"] < -1 or t["x"] + t["w"] > W + 1 or t["y"] + t["h"] > H + 1:
                 err.append(f"«{t['texto']}» se sale del lienzo (caja {round(t['x'])},{round(t['y'])} {round(t['w'])}×{round(t['h'])} en {W}×{H})")
+        if t.get("partidas") and not t["bleed"]:
+            err.append(f"«{t['partidas'][0]}» se parte a mitad de palabra en dos líneas: ensancha la caja, acorta el texto o baja el tamaño")
         if t.get("recorte") and not t["bleed"]:
             err.append(f"«{t['texto']}» queda recortado por su contenedor («{t['recorte']}»): parte del texto no se ve")
         minimo = 18 * escala + 1 * escala  # ≈ 1,8 % del lado corto

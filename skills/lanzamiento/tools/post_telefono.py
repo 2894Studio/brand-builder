@@ -111,7 +111,7 @@ def main():
 .av{flex:none;width:54px;height:54px;border-radius:50%;display:grid;place-items:center;font-weight:600;font-size:19px;color:#fff;background:linear-gradient(135deg,AVATAR,var(--profundo))}
 .fila div b{display:block;font-size:22px;font-weight:600}.fila div span{font-size:19px;color:var(--suave)}
 .chip{margin-left:auto;font-size:19px;font-weight:600;color:CHIP;background:#fff;border-radius:99px;padding:6px 12px;white-space:nowrap}
-.boton{margin-top:16px;background:linear-gradient(135deg,var(--primario),var(--profundo));color:#fff;border-radius:24px;padding:20px;text-align:center;font-size:22px;font-weight:600}
+.pantalla{display:flex;flex-direction:column}.boton{margin-top:auto;margin-bottom:8px;background:linear-gradient(135deg,var(--primario),var(--profundo));color:#fff;border-radius:24px;padding:20px;text-align:center;font-size:22px;font-weight:600}
 .desvanecido{position:absolute;left:0;right:0;bottom:0;height:560px;background:linear-gradient(180deg,rgba(0,0,0,0) 0%,var(--profundo) 100%);opacity:.95}
 .titular{position:absolute;left:70px;right:70px;bottom:200px;font-size:84px}
 .logo{position:absolute;left:70px;bottom:70px;height:66px}.logo-texto{position:absolute;left:70px;bottom:70px;font:700 56px var(--f-titulos);letter-spacing:-.03em}

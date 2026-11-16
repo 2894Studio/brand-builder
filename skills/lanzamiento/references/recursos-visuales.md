@@ -4,6 +4,7 @@ Cada recurso muestra algo con una **prueba**. Elige según el mensaje y el tono 
 
 | Quiero mostrar… | Recurso | Tono que encaja | Prueba que lleva |
 |---|---|---|---|
+| La foto como protagonista (marca visual: fotografía, gastronomía, moda, viajes; o cualquiera con fotos buenas) | **Foto a sangre + bloque opaco** | cualquiera | `post_foto.py`: foto real, titular en bloque opaco, `--notas` para anotar sobre la foto |
 | Producto web, panel, curso o código | **Ventana de escritorio** | tecnológico / serio | `post_pantalla.py`: menú, cifra, filas o bloque de código |
 | Precio o modelo frente a la alternativa | **Comparativa** | serio | `post_comparativa.py`; el dato del competidor lleva fuente o no se muestra |
 | Qué hace el producto o servicio | **Teléfono con la interfaz** | tecnológico | una pantalla plausible: lista, cifra, botón |

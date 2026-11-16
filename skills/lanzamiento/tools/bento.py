@@ -107,7 +107,7 @@ def main():
     for clave, rol in (("primario", "Primario"), ("profundo", "Profundo"), ("acento", "Acento"), ("neutro", "Neutro"), ("fondo", "Fondo")):
         h = c[clave]
         borde = "border:2px solid #D5D9E0;" if L.luminancia(h) > 0.85 else ""
-        sw.append(f'<div style="background:{h};color:{L.legible(h)};{borde}">{L.esc(c["nombres"][clave])}<br>{h}</div>')
+        sw.append(f'<div style="background:{h};color:{L.legible(h)};{borde}"><span>{L.esc(c["nombres"][clave])}</span><span>{h}</span></div>')
 
     # proporción o territorio
     if a.gusto and os.path.exists(a.gusto):
@@ -130,8 +130,8 @@ def main():
     css_var = {
         "generica": "",
         "educativa": ".dat{flex-direction:row;gap:20px;top:72px;bottom:18px;align-items:flex-end;justify-content:flex-start}.dat div{flex:1}.dat b{font-size:36px}.dat small{font-size:19px;margin-bottom:4px}"
-                     ".sw div{font-size:19px;padding:10px;word-break:break-word}.V{padding:20px 30px}.V h2{font-size:28px;line-height:1.15}.terr{font-size:30px}.pr{gap:12px;font-size:19px}.M{padding:20px 30px}.M .pill{display:none}.pr .n{margin-bottom:4px}.bar{height:10px}",
-        "producto": ".sw div{font-size:19px;padding:10px;word-break:break-word}.I img,.I div{max-width:90px;max-height:90px}.T .aa{font-size:110px;margin-bottom:12px}.T{padding:26px}.V h2{font-size:34px}.M{padding:20px 30px}.pr{gap:12px;font-size:19px}.pr .n{margin-bottom:4px}.bar{height:10px}.M .pill{display:none}.terr{font-size:34px}",
+                     ".sw div{font-size:19px;padding:0 16px;flex-direction:row;align-items:center;justify-content:space-between;gap:10px}.sw{grid-template-columns:1fr;grid-template-rows:repeat(5,minmax(0,1fr))}.sw span{white-space:nowrap}.V{padding:20px 30px}.V h2{font-size:28px;line-height:1.15}.terr{font-size:30px}.pr{gap:12px;font-size:19px}.M{padding:20px 30px}.M .pill{display:none}.pr .n{margin-bottom:4px}.bar{height:10px}",
+        "producto": ".sw div{font-size:19px;padding:0 16px;flex-direction:row;align-items:center;justify-content:space-between;gap:10px}.sw{grid-template-columns:1fr;grid-template-rows:repeat(5,minmax(0,1fr))}.sw span{white-space:nowrap}.I img,.I div{max-width:90px;max-height:90px}.T .aa{font-size:110px;margin-bottom:12px}.T{padding:26px}.V h2{font-size:34px}.M{padding:20px 30px}.pr{gap:12px;font-size:19px}.pr .n{margin-bottom:4px}.bar{height:10px}.M .pill{display:none}.terr{font-size:34px}",
     }[a.variante]
     if a.variante == "producto" and not (a.foto_equipo and os.path.exists(a.foto_equipo)):
         sys.exit("--variante producto necesita --foto-equipo (o --fotos con equipo*): la fotografía es la tarjeta protagonista. Sin foto, usa la variante generica o educativa.")
