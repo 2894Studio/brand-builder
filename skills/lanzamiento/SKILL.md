@@ -92,7 +92,13 @@ python3 skills/gusto/tools/critico_render.py pieza.html --ancho 1080 --alto 1440
 ```
 Corrige los **errores**, vuelve a pasarlo y mira la captura con `../gusto/references/criterio.md`. Si tras dos vueltas sigue mal, cambia el planteamiento, no el píxel.
 
-### 7. Entregar
+### 7. Puerta de entrega (obligatoria)
+```
+python3 skills/entrega/tools/verificar_entrega.py trabajo/<fecha>-marca-<slug>/lanzamiento --marca marca.json --kits trabajo
+```
+Comprueba archivos, tamaños de PNG, crítico sin errores, ausencia de marcadores y variedad. **Si sale «PUERTA CERRADA», no entregas ni dices «terminado»**: corriges y repites (máximo 2 vueltas por pieza; si no se puede, la entrega dice qué falla).
+
+### 8. Entregar
 En `trabajo/<fecha>-marca-<slug>/lanzamiento/`: `logo/`, `bento.png` y `.html`, `post-1-que-es.png` y `.html`, `post-2-atributo.png` y `.html`, y un `LEEME.md` que diga, pieza por pieza, qué es, qué es **de ejemplo** y qué queda por hacer a mano. Los PNG se capturan con `--png` del crítico; los HTML son la fuente editable.
 
 ## Reglas

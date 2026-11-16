@@ -253,6 +253,26 @@ with tempfile.TemporaryDirectory() as d:
     except ImportError:
         saltados.append("registrar_foto (falta Pillow)")
 
+    # 7d. puerta de entrega: cerrada con marcadores, abierta con un kit completo
+    PUERTA = os.path.join(RAIZ, "skills", "entrega", "tools", "verificar_entrega.py")
+    kit = os.path.join(d, "kit", "lanzamiento")
+    os.makedirs(os.path.join(kit, "logo"))
+    open(os.path.join(kit, "logo", "x.svg"), "w").write("<svg xmlns='http://www.w3.org/2000/svg'/>")
+    open(os.path.join(kit, "LEEME.md"), "w").write("# kit\n")
+    py(os.path.join(AQUI, "bento.py"), PULSO, "--salida", os.path.join(kit, "bento.html"))
+    rp = py(PUERTA, kit)
+    ok(rp.returncode == 1 and "bento: sin marcadores" in rp.stdout and "PUERTA CERRADA" in rp.stdout, "la puerta de entrega se cierra con un bento de marcadores y sin PNG")
+    py(os.path.join(AQUI, "bento.py"), PULSO, "--salida", os.path.join(kit, "bento.html"), "--datos", "Plan|1 al mes", "--puntos", "Uno;Dos")
+    py(os.path.join(AQUI, "post_telefono.py"), PULSO, "--salida", os.path.join(kit, "post-1-que-es.html"), "--titular", "Mantenimiento <b>sin cita</b>",
+       "--filas", "Revisión|Cada mes;Ajuste|Frenos", "--estado", "Incluido", "--cifra", "3|servicios")
+    py(os.path.join(AQUI, "post_pantalla.py"), PULSO, "--salida", os.path.join(kit, "post-2-atributo.html"), "--titular", "Todo <b>a tiempo</b>", "--ventana", "pulso.app|Panel",
+       "--menu", "Inicio;Rutas", "--cifra", "10 €|al mes", "--filas", "Revisión|Cada mes;Ajuste|Frenos")
+    for n, w, h in (("bento", 1920, 1080), ("post-1-que-es", 1080, 1440), ("post-2-atributo", 1080, 1440)):
+        rr = py(CRITICO, os.path.join(kit, n + ".html"), "--ancho", str(w), "--alto", str(h), "--marca", PULSO, "--png", os.path.join(kit, n + ".png"))
+    if rr.returncode != 2:
+        rp = py(PUERTA, kit, "--marca", PULSO)
+        ok(rp.returncode == 0 and "PUERTA DE ENTREGA: ABIERTA" in rp.stdout, "la puerta de entrega se abre con un kit completo: " + "; ".join(l for l in rp.stdout.splitlines() if "FALLO" in l)[:300])
+
     # 8. el crítico acepta el bento
     r = py(CRITICO, salida, "--ancho", "1920", "--alto", "1080")
     if r.returncode == 2:

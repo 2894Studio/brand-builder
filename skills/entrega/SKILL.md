@@ -17,6 +17,10 @@ Vuelve a pasar el crítico (`../gusto/tools/critico_render.py`) sobre el bento y
 
 Pasa además la lista de `../laminas/references/criterio-visual.md` y confirma que los logos llevan la fuente incrustada (`../identidad/tools/incrustar_fuente.py`). Si no has podido ver el manual renderizado, dilo.
 
+## 1b. Puerta del kit visual
+
+Si hay `lanzamiento/`, ejecuta `python3 skills/entrega/tools/verificar_entrega.py trabajo/<…>/lanzamiento --marca marca.json --kits trabajo`. Con «PUERTA CERRADA» no hay entrega: se corrige y se repite, o se escribe en el informe qué falla y por qué.
+
 ## 2. Paquete
 
 En `trabajo/<fecha>-marca-<slug>/entrega/`:
