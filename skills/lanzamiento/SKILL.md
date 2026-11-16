@@ -65,15 +65,19 @@ python3 skills/lanzamiento/tools/exportar_logos.py marca.json --salida lanzamien
 ```
 SVG (el original) y PNG con fondo transparente a 3000 px. Si no hay Chromium ni `rsvg-convert`, se copian los SVG y se dice.
 
-### 4. El bento
-Elige la **variante por la categoría** (tabla en `direccion-creativa.md`): `educativa` para formación (pide `--ruta` con el recorrido real), `producto` para producto físico (pide foto), `generica` para el resto, o una rejilla propia si ninguna encaja.
-```
-python3 skills/lanzamiento/tools/bento.py marca.json --gusto gusto.json --fotos lanzamiento/fotos --salida lanzamiento/bento.html --lema "…" --prueba "Título|Valor" [--persona "Nombre|Rol"] [--variante generica|educativa|producto]
-```
-Lo que no se aporta queda como **marcador visible** («Foto real»), nunca inventado. **Sin fotos, no lo dejes con marcadores:** sustituye las tarjetas por contenido real con `--datos "Etiqueta|Valor;…"` (cifras del producto: precio, tamaño de grupo, formato) y `--puntos "a;b;c"` (lo que incluye). Revísalo con el crítico a 1920×1080.
+### 4. Escribir el brief y montar el kit (camino principal)
 
-### 5. Los dos posts
+**No dibujes el bento ni los posts a mano (ni como SVG ni como HTML suelto): se montan con los generadores.** Escribe `lanzamiento/brief.json` con tus decisiones (variante del bento, recurso y texto de cada post, datos reales o de ejemplo, notas) y ejecuta una sola orden:
 ```
+python3 skills/lanzamiento/tools/kit_lanzamiento.py lanzamiento/brief.json
+```
+Exporta el logo, genera el bento y los dos posts, captura los PNG, pasa el crítico a cada pieza, crea el `LEEME.md` y cierra con la puerta de entrega. El formato del brief y las opciones de cada recurso están en la cabecera de `tools/kit_lanzamiento.py`. Si sale algún error, **corriges el brief** (texto más corto, otro recurso) y repites; máximo 2 vueltas por pieza.
+
+Variante del bento por la categoría (tabla en `direccion-creativa.md`): `educativa` pide `--ruta` (el recorrido real), `producto` pide foto, `generica` para el resto. **Sin fotos, nada de marcadores:** `datos` (cifras reales del producto) y `puntos` (lo que incluye). Si ningún recurso encaja con el concepto elegido, `"recurso": "html"` con un archivo compuesto con `post_base.py`: sigue pasando por el crítico y la puerta.
+
+Las órdenes sueltas de cada generador siguen existiendo para una pieza aislada:
+```
+python3 skills/lanzamiento/tools/bento.py marca.json --gusto gusto.json --fotos lanzamiento/fotos --salida lanzamiento/bento.html --lema "…" --prueba "Título|Valor" [--variante generica|educativa|producto] [--persona "Nombre|Rol"]
 # teléfono con interfaz (qué es la marca)
 python3 skills/lanzamiento/tools/post_telefono.py marca.json --salida lanzamiento/post-1-que-es.html --titular "Frase con <b>palabra clave</b>." \
   --pantalla "Contexto|Título" --cifra "4|perfiles" --filas "Rol|detalle;Rol|detalle;Rol|detalle" --estado "Disponible" --boton "Acción" \
@@ -86,19 +90,19 @@ python3 skills/lanzamiento/tools/post_base.py marca.json --tipo atributo --fotos
 ```
 `post_base.py` da el andamio (campo de color, titular, logo) y **lista las fotos disponibles** en un comentario. **El recurso visual lo construyes tú** dentro de `.visual` con los componentes de `recursos-visuales.md`, y **si hay fotos, las usas**: un post con fotos disponibles y sin fotos es un post incompleto. Si la persona pidió declarar las generadas con IA, usa `--declarar-ia`; si no, no escribas nada sobre ellas ni sobre la pieza. Después, el crítico a 1080×1440.
 
-### 6. Revisar (máximo 2 vueltas por pieza)
+### 5. Revisar (máximo 2 vueltas por pieza)
 ```
 python3 skills/gusto/tools/critico_render.py pieza.html --ancho 1080 --alto 1440 --marca marca.json --png pieza.png
 ```
 Corrige los **errores**, vuelve a pasarlo y mira la captura con `../gusto/references/criterio.md`. Si tras dos vueltas sigue mal, cambia el planteamiento, no el píxel.
 
-### 7. Puerta de entrega (obligatoria)
+### 6. Puerta de entrega (obligatoria)
 ```
 python3 skills/entrega/tools/verificar_entrega.py trabajo/<fecha>-marca-<slug>/lanzamiento --marca marca.json --kits trabajo
 ```
 Comprueba archivos, tamaños de PNG, crítico sin errores, ausencia de marcadores y variedad. **Si sale «PUERTA CERRADA», no entregas ni dices «terminado»**: corriges y repites (máximo 2 vueltas por pieza; si no se puede, la entrega dice qué falla).
 
-### 8. Entregar
+### 7. Entregar
 En `trabajo/<fecha>-marca-<slug>/lanzamiento/`: `logo/`, `bento.png` y `.html`, `post-1-que-es.png` y `.html`, `post-2-atributo.png` y `.html`, y un `LEEME.md` que diga, pieza por pieza, qué es, qué es **de ejemplo** y qué queda por hacer a mano. Los PNG se capturan con `--png` del crítico; los HTML son la fuente editable.
 
 ## Reglas

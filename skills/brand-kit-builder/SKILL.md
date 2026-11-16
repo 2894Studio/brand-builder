@@ -59,7 +59,8 @@ Los scripts de `tokens`, `laminas` e `identidad` necesitan Python 3.11 o superio
 9. **La IA es el andamio, no la fachada.** Toda entrega dice qué queda por intervenir a mano.
 10. **Léxico prohibido.** `skills/identidad/references/lexico-prohibido.md`. Si una frase vale para cualquier competidor cambiando el nombre, está mal escrita.
 11. **Una marca sin imagen no se entrega.** Antes de cerrar `identidad` hay un sistema de imagen decidido (fotografía, gráfico firma y un momento de color), no solo logo y paleta. Logo + colores sólidos + tipografía sin nada más es una marca sosa.
-12. **`marca.json` se escribe en cuanto se aprueban logo y paleta**, no al final, y se valida. Sin él, cada herramienta posterior te obliga a repetir la marca.
+12. **Las piezas finales no se dibujan a mano.** El bento y los posts salen de `lanzamiento/tools/kit_lanzamiento.py` (brief → generadores → crítico → puerta de entrega). Un kit sin puerta de entrega en verde no está entregado.
+13. **`marca.json` se escribe en cuanto se aprueban logo y paleta**, no al final, y se valida. Sin él, cada herramienta posterior te obliga a repetir la marca.
 
 ## Dónde queda el trabajo
 

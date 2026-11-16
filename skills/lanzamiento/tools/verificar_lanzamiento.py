@@ -273,6 +273,21 @@ with tempfile.TemporaryDirectory() as d:
         rp = py(PUERTA, kit, "--marca", PULSO)
         ok(rp.returncode == 0 and "PUERTA DE ENTREGA: ABIERTA" in rp.stdout, "la puerta de entrega se abre con un kit completo: " + "; ".join(l for l in rp.stdout.splitlines() if "FALLO" in l)[:300])
 
+    # 7e. kit_lanzamiento: del brief a las piezas, crítico y puerta (el ejemplo no tiene logo: la puerta debe cerrarse solo por eso)
+    kb = os.path.join(d, "brief.json")
+    json.dump({"marca": PULSO, "carpeta": os.path.join(d, "kit2"),
+               "bento": {"lema": "Tu bici, a punto", "prueba": "Plan|1 al mes", "datos": "Plan|1 al mes", "puntos": "Revisión;Recogida"},
+               "post1": {"recurso": "telefono", "args": {"titular": "Sin <b>cita</b>", "filas": "Revisión|Cada mes;Ajuste|Frenos", "estado": "Incluido"}},
+               "post2": {"recurso": "pantalla", "args": {"titular": "A <b>tiempo</b>", "menu": "Inicio;Rutas", "cifra": "10 €|al mes", "filas": "Revisión|Cada mes;Ajuste|Frenos"}}},
+              open(kb, "w", encoding="utf-8"))
+    rk = py(os.path.join(AQUI, "kit_lanzamiento.py"), kb)
+    if "falta Playwright" not in rk.stdout:
+        ok(all(os.path.exists(os.path.join(d, "kit2", n)) for n in ("bento.png", "post-1-que-es.png", "post-2-atributo.png", "LEEME.md")), "kit_lanzamiento genera las tres piezas con su PNG y el LEEME")
+        ok(rk.returncode == 1 and "PUERTA CERRADA: 1 fallo" in rk.stdout and "hay logo/" in rk.stdout, "kit_lanzamiento cierra la puerta solo por la falta de logo")
+    kb2 = os.path.join(d, "brief2.json")
+    json.dump({"marca": PULSO, "carpeta": os.path.join(d, "kit3"), "post1": {"recurso": "inventado"}}, open(kb2, "w", encoding="utf-8"))
+    ok(py(os.path.join(AQUI, "kit_lanzamiento.py"), kb2).returncode == 1, "kit_lanzamiento rechaza un recurso desconocido")
+
     # 8. el crítico acepta el bento
     r = py(CRITICO, salida, "--ancho", "1920", "--alto", "1080")
     if r.returncode == 2:
