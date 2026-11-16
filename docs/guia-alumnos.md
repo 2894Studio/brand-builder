@@ -97,6 +97,8 @@ Si te pide credenciales, el repositorio no está accesible para ti en ese moment
 
 ## 4. Tu primera marca en seis pasos
 
+**Cómo te hace las preguntas Claude.** Cuando hay que elegir entre pocas opciones (un territorio, el logo A o B, si quieres mockups), te sale un **cuadro de preguntas con opciones**: eliges con las flechas o el ratón y, si ninguna encaja, escribes la tuya. Las preguntas que piden una frase propia (qué hace tu negocio, qué nunca debe parecer tu marca) van **en el chat**, porque ahí importa lo que tú digas con tus palabras. Si tu entorno no tiene ese cuadro, te las pone como una lista numerada y contestas con el número.
+
 Escribe en Claude Code. Las frases de ejemplo sirven tal cual, pero habla con tus palabras.
 
 ### Paso 1. Estrategia

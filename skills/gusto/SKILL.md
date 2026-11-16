@@ -36,9 +36,9 @@ python3 skills/gusto/tools/analizar_referencias.py referencias/ --gusto gusto.js
 Mide colores dominantes, claro/oscuro, saturación, aire (zonas lisas), detalle y cuántas familias de tono hay. Necesita Pillow (`pip install pillow`); sin él lo dice y no cambia nada. **No mide el tono ni la voz**: eso lo rellenas tú en el paso 3.
 
 ### 3. Interpretar y confirmar
-Mira cada imagen. En `interpretacion` rellena `tono` (serio, divertido o tecnologico), `imagen`, `voz_del_texto` y `forma`, usando `references/tonos.md` como vocabulario. Escribe lo que **ves**, no lo que supones de la marca. Enseña a la persona tu lectura de cada una y pídele que la corrija o la confirme; solo entonces `confirmado: true` y su `nota_usuario`.
+Mira cada imagen. En `interpretacion` rellena `tono` (serio, divertido o tecnologico), `imagen`, `voz_del_texto` y `forma`, usando `references/tonos.md` como vocabulario. Escribe lo que **ves**, no lo que supones de la marca. Enseña a la persona tu lectura de cada una y pídele que la corrija o la confirme (diálogo con «es correcto» / «hay que ajustar», hasta 4 imágenes por diálogo; la nota de qué le gusta va en el chat); solo entonces `confirmado: true` y su `nota_usuario`.
 
-Fija la proporción de tonos con ella («serio 60, divertido 30, tecnologico 10»). Valida:
+Fija la proporción de tonos con ella (tono dominante en un diálogo: serio, divertido o tecnológico; el reparto lo propones tú y ella lo corrige) («serio 60, divertido 30, tecnologico 10»). Valida:
 ```
 python3 skills/gusto/tools/gusto.py validar --gusto gusto.json
 ```
@@ -54,7 +54,7 @@ python3 skills/gusto/tools/critico_render.py pieza.html --ancho 1080 --alto 1440
 Corrige los **errores** y vuelve a pasarlo. Después mira la captura tú mismo con `references/criterio.md`. Dos vueltas como máximo: si sigue mal, cambia el planteamiento, no el píxel. Si no hay Playwright, dilo y revisa a ojo; **no des la pieza por revisada**.
 
 ### 6. Que elija la persona (A/B)
-Si tiene dudas entre dos caminos, hazle dos variantes y pregúntale cuál prefiere y por qué (`references/protocolo-ab.md`). Regístralo:
+Si tiene dudas entre dos caminos, hazle dos variantes, enséñalas y pregúntale cuál prefiere con un diálogo (una opción por variante) y el porqué en el chat (`references/protocolo-ab.md`). Regístralo:
 ```
 python3 skills/gusto/tools/gusto.py ab --a serio --b tecnologico --elige a --motivo "se entiende antes"
 ```

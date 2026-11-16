@@ -2,6 +2,7 @@
 
 ## 2.4.0
 
+- **Nuevo:** `preguntas-interactivas.md`, convención para que las preguntas cerradas (territorio, logo A o B, tono, mockups, confirmaciones) salgan como diálogo nativo con opciones (`AskUserQuestion` en Claude Code) y las abiertas vayan en el chat. Con alternativa numerada cuando no hay diálogo. No verificado el aspecto del diálogo en este entorno.
 - **Documentación:** banner y infografía del paso a paso en el README (`assets/`, con las fuentes HTML en `assets/src/` para editarlas), con la marca 2894_ y una tabla equivalente en texto.
 - **Publicado** en GitHub (`2894Studio/brand-kit-builder`). Instalación desde GitHub verificada en una configuración limpia: instala la 2.4.0 con las ocho skills y el autotest de `gusto` pasa desde la copia instalada.
 

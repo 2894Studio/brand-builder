@@ -13,7 +13,7 @@ Requiere el manifiesto de `estrategia`, en especial las dos últimas líneas: lo
 
 ## Qué se decide
 
-1. **Trato:** tutea o usted. Es lo que más se nota y lo que más se incumple.
+1. **Trato:** tutea o usted (pregúntalo con un diálogo: tutea, usted o depende del canal). Es lo que más se nota y lo que más se incumple.
 2. **Tres rasgos**, cada uno con un «así sí» y un «así no» **escritos de verdad**, con hechos concretos de la marca.
 3. **Las seis situaciones**, cada una con su ejemplo literal: queja · error propio · humor · precio · competencia · mala noticia.
 4. **Palabras que no se usan:** al menos cinco, propias de la categoría (las del léxico general ya están prohibidas). Es más operativa que cualquier descripción de tono.

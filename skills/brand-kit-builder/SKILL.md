@@ -20,6 +20,10 @@ Esta skill no produce nada. Lee la petición, decide qué oficio hace falta y lo
 - **De tú**, siempre, aunque la persona escriba en plural (tú o vosotros; nunca «dígame», «respondan», «ustedes»). Frases cortas y concretas.
 - **No adelantes soluciones** antes de cerrar la entrevista: ni «suele resolverse con un logo tipográfico» ni una paleta. Primero escuchas, luego propones.
 
+## Cómo preguntas (diálogo con opciones)
+
+Las preguntas **cerradas** (elegir un territorio, el logo A o B, el tono, si hay mockups, confirmar un resumen) se hacen con la herramienta nativa de preguntas con opciones del entorno (en Claude Code, `AskUserQuestion`); las **abiertas** (qué nunca debe parecer, qué le gusta de una referencia) van en el chat. Reglas, límites y la alternativa numerada cuando no hay diálogo: `references/preguntas-interactivas.md`. Léelo antes de la primera pregunta.
+
 ## Python
 
 Los scripts de `tokens`, `laminas` e `identidad` necesitan Python 3.11 o superior. Se invocan como `python3`; en Windows suele ser `python` o `py`. Si no hay Python, dilo una vez y sigue con lo que no lo necesita (entrevista, estrategia, voz, logo, paleta, tipografía): sin él no se pueden validar `marca.json`, generar tokens ni montar el manual.
@@ -37,7 +41,7 @@ Los scripts de `tokens`, `laminas` e `identidad` necesitan Python 3.11 o superio
 | Que se vea menos genérico, entrenar el gusto, aportar referencias, diseñar un post, banner o pantalla, «más profesional / más humano / más tecnológico» | `gusto` |
 | Montarlo en Canva | `canva` |
 
-**Cadena por defecto** cuando pide «la marca entera»: `estrategia → gusto → identidad → voz → tokens → laminas → entrega`. `gusto` pide imágenes de referencia que aporta la persona; si no quiere o no puede, se salta y se avisa de que la marca saldrá con menos criterio visual. Cada paso termina con aprobación de la persona antes del siguiente. Si la petición es ambigua, haz **una** pregunta, la que más cambie el resultado.
+**Cadena por defecto** cuando pide «la marca entera»: `estrategia → gusto → identidad → voz → tokens → laminas → entrega`. `gusto` pide imágenes de referencia que aporta la persona; si no quiere o no puede, se salta y se avisa de que la marca saldrá con menos criterio visual. Cada paso termina con la aprobación de la persona antes del siguiente, pedida con un diálogo de opciones («aprobado» / «hay que ajustar»). Si la petición es ambigua, haz **una** pregunta, la que más cambie el resultado.
 
 ## Invariantes (no se rompen)
 
