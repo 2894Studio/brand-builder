@@ -150,6 +150,21 @@ Se crean los archivos de colores, fuentes y tamaños. Abre `ejemplo.html` en el 
 
 Te pide el contenido (promesa, valores, ejemplos) y genera el manual. Ábrelo desde `kit/index.html`.
 
+### Piezas finales: logo, bento y dos posts
+
+> `Hazme el lanzamiento: el bento y los dos posts. Usa mi marca.json.`
+
+Claude te propone **tres candidatos** de «principal atributo» y tú eliges uno. Después monta el **logo** (SVG y PNG), el **bento** de la marca y **dos posts**: el 1 explica qué es tu marca y el 2 muestra su principal atributo, con un recurso visual (una interfaz, un mapa, una cifra con su fuente, una persona con su rol). Todo se revisa con el crítico automático y queda en `lanzamiento/`.
+
+**Los posts llevan las fotos que les des.** Guárdalas en una carpeta `fotos/` con estos nombres: `equipo-1.jpg` (varias personas), `retrato-1.jpg` (una persona), `producto-1.jpg`, `local-1.jpg`. Claude te ayuda a rellenar una tabla `fotos/creditos.md` (de dónde sale cada foto: **propia**, de **banco** con licencia o generada con **IA**) y no sigue si falta una licencia. Después las recorta y las coloca en el bento y en los posts.
+
+- **Lo ideal:** fotos propias, con permiso de las personas que salen.
+- **Sin fotos propias:** un banco de imágenes con licencia (anota autor y licencia), o imágenes generadas con IA, por ejemplo con Canva. Esas son **sintéticas**, no fotos reales: no las presentes como tu equipo.
+- **Si pones una imagen generada con IA, Claude te pregunta si lo escribe en la pieza.** Por defecto no escribe nada sobre ella: solo queda anotado en `creditos.md`. La decisión es tuya.
+- **Sin fotos todavía:** Claude elige un recurso que se sostiene solo (un mapa, una interfaz, una cifra) o deja marcadores visibles.
+
+Guía completa: `skills/lanzamiento/references/fotos.md`.
+
 ### Paso 6. Entrega
 
 > `Revisa la marca y dime qué me falta.`

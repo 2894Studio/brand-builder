@@ -1,0 +1,156 @@
+#!/usr/bin/env python3
+# Copyright (c) 2026 2894 Studio · MIT
+"""Genera el bento de la marca (tablero 1920×1080 con logo, símbolo, color, tipografía, voz, fotografía y proporción) en HTML.
+
+Uso:  python3 bento.py marca.json --salida lanzamiento/bento.html [opciones]
+  --gusto gusto.json         usa la proporción de tonos; sin él, enseña el territorio
+  --lema "frase"             la frase de la tarjeta «Voz» (por defecto, la categoría de marca.json)
+  --prueba "Título|Valor"    la tarjeta de prueba, p. ej. "Equipo propuesto|4 perfiles" (dato real o de ejemplo)
+  --foto-equipo ruta         fotografía de varias personas; sin ella, marcador visible «Foto real»
+  --foto-persona ruta        retrato; sin él, marcador visible
+  --fotos DIR                carpeta lanzamiento/fotos (salida de preparar_fotos.py): coge equipo* y retrato*
+  --declarar-ia              escribe «Imagen generada con IA» sobre las fotos de origen ia (por defecto NO se escribe)
+  --persona "Nombre|Rol"     rótulo del retrato (por defecto, marcador «Nombre y apellido»)
+  --degradado                el logo va sobre un degradado del color primario
+Lo que no se aporta queda como **marcador visible**, nunca inventado. Luego se revisa con gusto/tools/critico_render.py.
+"""
+import argparse
+import os
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import lib_lanzamiento as L  # noqa: E402
+
+
+def mosaico_logo(m, base, c, f, degradado):
+    lg = L.logos(m, base)
+    nombre = L.esc(m.get("nombre", "Marca"))
+    bg = "var(--campo)" if degradado else c["primario"]
+    sobre = L.legible(c["primario"])
+    if "invertida" in lg:
+        img = f'<img src="{L.data_uri(lg["invertida"])}" style="width:62%;max-height:60%">'
+    elif "principal" in lg and L.luminancia(c["primario"]) > 0.5:
+        img = f'<img src="{L.data_uri(lg["principal"])}" style="width:62%;max-height:60%">'
+    else:
+        img = f'<div style="font-family:var(--f-titulos);font-weight:700;font-size:110px;letter-spacing:-.04em;color:{sobre}">{nombre}</div>'
+    return f'<div class="t L" style="background:{bg};color:{sobre}"><span class="pill">Logo</span>{img}</div>'
+
+
+def main():
+    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument("marca")
+    ap.add_argument("--salida", default="bento.html")
+    ap.add_argument("--gusto")
+    ap.add_argument("--lema")
+    ap.add_argument("--prueba")
+    ap.add_argument("--foto-equipo")
+    ap.add_argument("--foto-persona")
+    ap.add_argument("--fotos")
+    ap.add_argument("--declarar-ia", action="store_true")
+    ap.add_argument("--persona")
+    ap.add_argument("--degradado", action="store_true")
+    a = ap.parse_args()
+
+    m = L.cargar_marca(a.marca)
+    base = os.path.dirname(os.path.abspath(a.marca))
+    c, f = L.colores(m), L.fuentes(m)
+    nombre = m.get("nombre", "Marca")
+    lg = L.logos(m, base)
+    lema = a.lema or m.get("categoria", "")
+    prueba_t, prueba_v = (a.prueba.split("|", 1) + [""])[:2] if a.prueba else (m.get("categoria", "Qué es"), "")
+    persona_n, persona_r = (a.persona.split("|", 1) + ["Rol · Ciudad"])[:2] if a.persona else ("Nombre y apellido", "Rol · Ciudad")
+
+    # símbolo
+    if "simbolo" in lg:
+        simbolo = f'<img src="{L.data_uri(lg["simbolo"])}" style="width:150px">'
+    else:
+        simbolo = f'<div style="width:150px;height:150px;border-radius:34px;background:{c["primario"]};color:{L.legible(c["primario"])};display:grid;place-items:center;font:700 84px var(--f-titulos)">{L.esc(nombre[:1].upper())}</div>'
+
+    elegidas = L.elegir_fotos(a.fotos) if a.fotos else {}
+    if "equipo" in elegidas and not a.foto_equipo:
+        a.foto_equipo = elegidas["equipo"]["ruta_4x3"]
+    if "retrato" in elegidas and not a.foto_persona:
+        a.foto_persona = elegidas["retrato"]["ruta_3x4"]
+    pie_ia = {k: (v.get("pie") if a.declarar_ia else None) for k, v in elegidas.items()}
+
+    def foto(ruta, pos, ia=False, alto_nota=14):
+        if ruta and os.path.exists(ruta):
+            nota = f'<div class="nota-ia" style="bottom:{alto_nota}px">Imagen generada con IA</div>' if ia else ""
+            return f'<img src="{L.data_uri(ruta)}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:{pos}">{nota}'
+        return '<div class="ph">Foto real<br>(sustituir por una propia)</div>'
+
+    # color
+    sw = []
+    for clave, rol in (("primario", "Primario"), ("profundo", "Profundo"), ("acento", "Acento"), ("neutro", "Neutro"), ("fondo", "Fondo")):
+        h = c[clave]
+        borde = "border:2px solid #D5D9E0;" if L.luminancia(h) > 0.85 else ""
+        sw.append(f'<div style="background:{h};color:{L.legible(h)};{borde}">{L.esc(c["nombres"][clave])}<br>{h}</div>')
+
+    # proporción o territorio
+    if a.gusto and os.path.exists(a.gusto):
+        import json
+        t = json.load(open(a.gusto, encoding="utf-8")).get("tonos", {})
+        nom = {"serio": "Serio", "divertido": "Divertido", "tecnologico": "Tecnológico"}
+        filas = "".join(f'<div><div class="n"><span>{nom.get(k, k)}</span><span>{v}</span></div><div class="bar"><i style="width:{v}%"></i></div></div>'
+                        for k, v in sorted(t.items(), key=lambda kv: -kv[1]))
+        mosaico_m = f'<div class="t M campo"><span class="pill">Proporción</span><div class="pr">{filas}</div></div>'
+    else:
+        terr = m.get("brandKit", {}).get("territorio", "")
+        nombres_t = {"artesanal": "Artesanal", "editorial": "Editorial", "tecnologico": "Tecnológico", "natural": "Natural", "cercano": "Cercano"}
+        mosaico_m = f'<div class="t M campo"><span class="pill">Territorio</span><div class="terr">{L.esc(nombres_t.get(terr, terr.capitalize()) or "—")}</div></div>'
+
+    pesos = "/".join(str(p) for p in f["pesos_texto"])
+    css = L.css_variables(m) + """
+.p{width:1920px;height:1080px;background:#E4E8F0;padding:36px;display:grid;gap:16px;
+grid-template-columns:repeat(12,minmax(0,1fr));grid-template-rows:minmax(0,1fr) minmax(0,1fr) minmax(0,1.35fr) minmax(0,1fr) minmax(0,1fr) minmax(0,1fr);
+grid-template-areas:"L L L L L F F F C C I I" "L L L L L F F F C C I I" "L L L L L F F F V V V V" "K K K K K T T T P P M M" "K K K K K T T T P P M M" "K K K K K T T T P P M M"}
+.t{border-radius:30px;position:relative;overflow:hidden;padding:34px}
+.pill{position:absolute;left:24px;top:22px;font-size:19px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;background:rgba(255,255,255,.88);color:#12141A;padding:6px 16px;border-radius:99px;z-index:3}
+.L{grid-area:L;display:flex;align-items:center;justify-content:center}.F{grid-area:F;background:var(--neutro)}
+.ph{position:absolute;inset:60px 24px 24px;border:2px dashed var(--profundo);border-radius:20px;display:grid;place-items:center;text-align:center;color:var(--profundo);font-size:24px;line-height:1.4}
+.C{grid-area:C;display:flex;flex-direction:column;justify-content:flex-end}.C small{font-size:22px}.C b{font-size:54px;font-weight:600;letter-spacing:-.03em;line-height:1.05}
+.I{grid-area:I;background:#fff;display:flex;align-items:center;justify-content:center}
+.V{grid-area:V;background:#fff;display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:26px}.V h2{margin:0;font:400 40px/1.12 var(--f-titulos);letter-spacing:-.03em}
+.K{grid-area:K;background:#fff}.sw{position:absolute;left:24px;right:24px;top:72px;bottom:24px;display:grid;grid-template-columns:minmax(0,1.6fr) repeat(4,minmax(0,1fr));gap:10px}
+.sw div{border-radius:20px;padding:14px;font-size:19px;font-weight:600;display:flex;flex-direction:column;justify-content:flex-end;line-height:1.3;overflow:hidden}
+.T{grid-area:T;background:var(--profundo);color:var(--sobre-profundo);display:flex;flex-direction:column;justify-content:flex-end}
+.T .aa{font:400 190px/.8 var(--f-titulos);letter-spacing:-.05em;margin-bottom:34px}.T p{margin:0;font-size:22px;line-height:1.4;opacity:.92}
+.P{grid-area:P;background:var(--neutro)}.rot{position:absolute;left:14px;right:14px;bottom:14px;border-radius:20px;background:rgba(10,20,60,.72);padding:10px 14px;color:#fff;font-size:20px;line-height:1.25;z-index:2}.rot b{display:block;font-size:23px;font-weight:600}
+.M{grid-area:M;display:flex;flex-direction:column;justify-content:flex-end}.pr{display:grid;gap:22px;font-size:21px;font-weight:600}.pr .n{display:flex;justify-content:space-between;margin-bottom:8px}
+.bar{height:14px;border-radius:99px;background:rgba(255,255,255,.28);overflow:hidden}.bar i{display:block;height:100%;background:#fff}.terr{font:600 44px/1.1 var(--f-titulos);letter-spacing:-.02em}
+.nota-ia{position:absolute;left:14px;bottom:14px;background:rgba(10,20,60,.72);color:#fff;font-size:19px;padding:6px 14px;border-radius:99px;z-index:2}
+.campo{background:linear-gradient(160deg,var(--primario),var(--profundo));color:var(--sobre-primario)}
+:root{--campo:linear-gradient(160deg,var(--primario),var(--profundo))}
+"""
+    doc = f"""<!doctype html><html lang="es"><meta charset="utf-8"><title>{L.esc(nombre)} · bento de marca</title>
+{L.enlace_google_fonts(m)}<style>{L.COMPONENTES_CSS}{css}</style><div class="p">
+{mosaico_logo(m, base, c, f, a.degradado)}
+<div class="t F"><span class="pill">Fotografía</span>{foto(a.foto_equipo, "50% 40%", bool(pie_ia.get("equipo")))}</div>
+<div class="t C campo"><span class="pill">Prueba</span><small>{L.esc(prueba_t)}</small><b>{L.esc(prueba_v)}</b></div>
+<div class="t I"><span class="pill">Símbolo</span>{simbolo}</div>
+<div class="t V"><span class="pill">Voz</span><h2>{L.esc(lema)}</h2></div>
+<div class="t K"><span class="pill">Color</span><div class="sw">{''.join(sw)}</div></div>
+<div class="t T"><span class="pill">Tipografía</span><div class="aa">Aa</div><p>{L.esc(f["titulos"])}, titulares<br>{L.esc(f["texto"])} {pesos}, texto</p></div>
+<div class="t P"><span class="pill">Personas</span>{foto(a.foto_persona, "50% 14%", bool(pie_ia.get("retrato")), 96)}<div class="rot"><b>{L.esc(persona_n)}</b>{L.esc(persona_r)}</div></div>
+{mosaico_m}
+</div></html>"""
+    os.makedirs(os.path.dirname(os.path.abspath(a.salida)), exist_ok=True)
+    with open(a.salida, "w", encoding="utf-8") as fh:
+        fh.write(doc)
+    avisos = []
+    if "invertida" not in lg and L.luminancia(c["primario"]) <= 0.5:
+        avisos.append("sin logo «invertida»: la tarjeta de logo muestra el nombre en texto")
+    if "simbolo" not in lg:
+        avisos.append("sin logo «simbolo»: se usa la inicial")
+    if not a.foto_equipo:
+        avisos.append("sin foto de equipo: marcador visible")
+    if not a.foto_persona:
+        avisos.append("sin retrato: marcador visible")
+    print(f"ok {a.salida}")
+    for x in avisos:
+        print("  aviso", x)
+    print("Siguiente: python3 skills/gusto/tools/critico_render.py", a.salida, "--ancho 1920 --alto 1080 --marca", a.marca)
+
+
+if __name__ == "__main__":
+    main()

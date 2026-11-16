@@ -1,5 +1,16 @@
 # Changelog
 
+## 2.5.0
+
+Nueva skill **lanzamiento**: el resultado final de usar el plugin incluye el logo, el bento y dos posts.
+
+- **Nuevo:** `lanzamiento`, paso entre `laminas` y `entrega`. Entrega el logo (SVG y PNG), un bento de la marca y dos posts: el 1 explica qué es la marca y el 2 muestra su principal atributo, ambos con un recurso visual.
+- **Nuevo:** `bento.py` genera el bento (1920×1080) desde `marca.json` y, si existe, `gusto.json`; lo que no se aporta queda como marcador visible. `post_base.py` da el andamio de los posts; `exportar_logos.py` saca los PNG transparentes. Todos con autotest (`verificar_lanzamiento.py`).
+- **Nuevo:** `mensajes.md` (cómo elegir los dos mensajes, con tres candidatos de atributo), `recursos-visuales.md` (catálogo: teléfono con interfaz, mapa de puntos, cifra con fuente, persona con rol) y `fotos.md` (de dónde salen las fotos, con y sin Canva).
+- **Nuevo:** `preparar_fotos.py` recibe las fotos de la persona en `fotos/`, comprueba resolución y créditos (`creditos.md`: origen propia, banco o ia; un banco sin licencia o una foto sin fila da error), recorta a 3:4, 4:3 y 1:1 y escribe un manifiesto. `bento.py` y `post_base.py` las cogen con `--fotos`. Con autotest.
+- **Aclarado:** Canva **genera** imágenes con IA (sintéticas); no es fuente de fotos reales. Receta verificada para traerlas a disco, orden de preferencia (fotos propias, bancos con licencia, generadas, sin fotos) y plantillas de prompt en `fotos.md`.
+- **Decisión de la persona:** escribir «Imagen generada con IA» sobre una pieza es **opcional** (`--declarar-ia`); por defecto no se escribe nada. Siempre queda anotado en `creditos.md` y en el `LEEME.md`.
+- **Cambio:** la cadena por defecto añade `lanzamiento` antes de `entrega`, y `entrega` comprueba que existen los cuatro resultados.
 ## 2.4.0
 
 - **Nuevo:** `preguntas-interactivas.md`, convención para que las preguntas cerradas (territorio, logo A o B, tono, mockups, confirmaciones) salgan como diálogo nativo con opciones (`AskUserQuestion` en Claude Code) y las abiertas vayan en el chat. Con alternativa numerada cuando no hay diálogo. No verificado el aspecto del diálogo en este entorno.

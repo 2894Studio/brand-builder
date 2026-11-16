@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/banner.png" alt="Brand Kit Builder, de 2894_: crea la identidad de una marca con Claude Code. Siete pasos: estrategia, gusto, identidad, voz, tokens, manual y entrega." width="100%">
+  <img src="assets/banner.png" alt="Brand Kit Builder, de 2894_: crea la identidad de una marca con Claude Code. Ocho pasos: estrategia, gusto, identidad, voz, tokens, manual, lanzamiento y entrega." width="100%">
 </p>
 
 # brand-kit-builder
@@ -8,12 +8,19 @@ Plugin de Claude Code para crear la identidad de una marca de principio a fin: *
 
 Desarrollado por [2894 Studio](https://github.com/2894Studio) a partir del caso práctico de la formación **Marketing potenciado por IA**.
 
+## Qué te llevas al final
+
+- **El logo**, en SVG y en PNG con fondo transparente.
+- **El bento de la marca**: logo, símbolo, color, tipografía, voz, fotografía y proporción de tonos en un solo tablero.
+- **Dos posts**: el primero explica **qué es la marca** y el segundo muestra **su principal atributo**, los dos de forma visual (una interfaz, un mapa, una cifra con su fuente, una persona con su rol).
+- Además, el manual de marca, los tokens de diseño para web y app y `marca.json`.
+
 ## Cómo funciona, paso a paso
 
 Un paso cada vez, y **siempre con tu aprobación**: sin tu visto bueno no pasa al siguiente.
 
 <p align="center">
-  <img src="assets/paso-a-paso.png" alt="Infografía del paso a paso: 1 Estrategia, 2 Gusto, 3 Identidad, 4 Voz, 5 Tokens, 6 Manual, 7 Entrega. Para cada paso: qué hace la skill, qué haces tú y qué archivos te llevas." width="100%">
+  <img src="assets/paso-a-paso.png" alt="Infografía del paso a paso: 1 Estrategia, 2 Gusto, 3 Identidad, 4 Voz, 5 Tokens, 6 Manual, 7 Lanzamiento, 8 Entrega. Para cada paso: qué hace la skill, qué haces tú y qué archivos te llevas." width="100%">
 </p>
 
 | # | Paso | Qué hace la skill | Qué haces tú | Te llevas |
@@ -24,7 +31,8 @@ Un paso cada vez, y **siempre con tu aprobación**: sin tu visto bueno no pasa a
 | 4 | `/voz` | Define el trato, tres rasgos con «así sí / así no», seis situaciones difíciles y las palabras que no se usan | Apruebas cómo habla tu marca | `voz.md` |
 | 5 | `/tokens` | Convierte `marca.json` en variables CSS, tokens W3C y Tailwind v3 y v4, con tabla de contraste y página de ejemplo | Solo si tu marca va a una web o una app | `tokens/` |
 | 6 | `/laminas` | Monta el manual de marca en láminas SVG con rejilla de 12 columnas y un `index.html` navegable | Revisas el manual y dices qué ajustar | `kit/` (y PDF si es posible) |
-| 7 | `/entrega` | Revisión de experto con fortalezas y riesgos, paquete con LEEME y la lista de lo que queda por hacer a mano | Decides qué publicas y qué intervienes a mano | `entrega/` |
+| 7 | `/lanzamiento` | Exporta el logo (SVG y PNG), monta el bento de la marca y **dos posts con tus fotos**: qué es la marca y su principal atributo, cada uno con un recurso visual y revisado por el crítico | Eliges el atributo entre tres candidatos y aportas tus fotos (propias, de banco o generadas) | `lanzamiento/`: logo, bento y 2 posts |
+| 8 | `/entrega` | Revisión de experto con fortalezas y riesgos, paquete con LEEME y la lista de lo que queda por hacer a mano | Decides qué publicas y qué intervienes a mano | `entrega/` |
 
 **Después, para crear contenido:** escribe «usa mi `marca.json`» y pide posts, banners o pantallas. La skill `gusto` los revisa con un crítico automático; creative-architect y motion-architect (opcionales) leen tu marca, y Canva solo si lo pides.
 
@@ -44,7 +52,7 @@ Un paso cada vez, y **siempre con tu aprobación**: sin tu visto bueno no pasa a
 ## Requisitos
 
 - **Imprescindible:** Claude Code y Python 3.11 o superior.
-- **Recomendado (revisión visual y referencias):** Pillow, Node 18+, Playwright con Chromium y la fuente de la marca instalada. Compruébalo con `python3 skills/gusto/tools/comprobar_entorno.py --marca marca.json`.
+- **Recomendado (revisión visual, bento y posts):** Pillow, Node 18+, Playwright con Chromium y la fuente de la marca instalada. Compruébalo con `python3 skills/gusto/tools/comprobar_entorno.py --marca marca.json`.
 - **Tus referencias visuales las aportas tú** (o las buscas con un MCP como Refero, Taste o Mobbin, que es opcional): [Buscar buenas referencias](skills/gusto/references/buscar-referencias.md).
 
 ## Instalación

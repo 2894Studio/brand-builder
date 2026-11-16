@@ -102,7 +102,7 @@ def main():
         for f in familias:
             falta = f"«{f}» no está disponible" in out
             fila(f"Fuente {f}", not falta, "instalada" if not falta else "NO instalada en este equipo",
-                 "que las piezas se vean con la tipografía de la marca (si falta, el navegador pone otra)")
+                 "que las piezas se vean con la tipografía de la marca (si falta, el navegador pone otra; si la marca usa Google Fonts y hay red, se carga sola)")
             if falta:
                 pendientes.append((f"Fuente {f}", "ver la tipografía de la marca", "descárgala de fonts.google.com e instálala en el sistema; reinicia el navegador"))
 

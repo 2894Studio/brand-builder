@@ -37,11 +37,12 @@ Los scripts de `tokens`, `laminas` e `identidad` necesitan Python 3.11 o superio
 | Cómo habla la marca, tono, palabras que no usa | `voz` |
 | Que la marca funcione en web o app: variables CSS, Tailwind, tokens | `tokens` |
 | Manual de marca, brand book, presentación de la marca | `laminas` |
+| El kit visual final: logo en PNG, el bento y los dos posts (qué es la marca y su principal atributo) | `lanzamiento` |
 | Revisar lo hecho, saber qué falta, cerrar y entregar | `entrega` |
 | Que se vea menos genérico, entrenar el gusto, aportar referencias, diseñar un post, banner o pantalla, «más profesional / más humano / más tecnológico» | `gusto` |
 | Montarlo en Canva | `canva` |
 
-**Cadena por defecto** cuando pide «la marca entera»: `estrategia → gusto → identidad → voz → tokens → laminas → entrega`. `gusto` pide imágenes de referencia que aporta la persona; si no quiere o no puede, se salta y se avisa de que la marca saldrá con menos criterio visual. Cada paso termina con la aprobación de la persona antes del siguiente, pedida con un diálogo de opciones («aprobado» / «hay que ajustar»). Si la petición es ambigua, haz **una** pregunta, la que más cambie el resultado.
+**Cadena por defecto** cuando pide «la marca entera»: `estrategia → gusto → identidad → voz → tokens → laminas → lanzamiento → entrega`. `gusto` pide imágenes de referencia que aporta la persona; si no quiere o no puede, se salta y se avisa de que la marca saldrá con menos criterio visual. Cada paso termina con la aprobación de la persona antes del siguiente, pedida con un diálogo de opciones («aprobado» / «hay que ajustar»). Si la petición es ambigua, haz **una** pregunta, la que más cambie el resultado.
 
 ## Invariantes (no se rompen)
 
@@ -60,7 +61,8 @@ Los scripts de `tokens`, `laminas` e `identidad` necesitan Python 3.11 o superio
 ## Dónde queda el trabajo
 
 - `marca.json` en la **raíz** del proyecto: es el contrato que lee creative-architect.
-- Todo lo demás en `trabajo/<fecha>-marca-<slug>/`: `estrategia.md`, `voz.md`, `logo/`, `tokens/`, `kit/`, `entrega/`.
+- Todo lo demás en `trabajo/<fecha>-marca-<slug>/`: `estrategia.md`, `voz.md`, `logo/`, `tokens/`, `kit/`, `lanzamiento/`, `entrega/`.
+- **Resultado final de usar la skill:** el logo (SVG y PNG), el bento de la marca y **dos posts**: el 1 explica qué es la marca y el 2 muestra su principal atributo, ambos de forma visual. Salen del paso `lanzamiento`.
 - En cada respuesta, escribe la ruta de cada archivo que creas.
 
 ## Seguridad
