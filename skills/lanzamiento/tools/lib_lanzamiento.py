@@ -208,3 +208,24 @@ def suave(texto, fondo):
         if contraste(h, "#FFFFFF") >= 4.6 and contraste(h, fondo) >= 4.6:
             return h
     return texto
+
+
+# ---- tema claro / oscuro --------------------------------------------------------------------------
+def tema_css(m, tema):
+    """Sobrescribe el campo, las tarjetas y los anillos para el tema claro (fondo de la marca, texto oscuro, tarjetas blancas)."""
+    if tema != "claro":
+        return ""
+    c = colores(m)
+    halo = mezclar(c["fondo"], c["primario"], 0.12)
+    return (f".campo{{background:radial-gradient(900px 700px at 78% 6%,{halo} 0%,{c['fondo']} 72%);color:{c['texto']}}}"
+            f".cristal{{background:#fff;border:1.5px solid {c['neutro']};color:{c['texto']};backdrop-filter:none;box-shadow:0 14px 36px rgba(20,30,60,.10)}}"
+            f".anillo{{border-color:{c['neutro']}!important}}.desvanecido{{display:none}}.titular{{color:{c['texto']}}}"
+            f".pie-ejemplo{{color:{suave(c['texto'], c['fondo'])}}}")
+
+
+def logo_html(m, lg, tema, nombre):
+    """El logo adecuado al tema: invertido sobre fondo oscuro, principal sobre claro. Si falta, el nombre en texto."""
+    clave = "principal" if tema == "claro" else "invertida"
+    if clave in lg:
+        return f'<img class="logo" src="{data_uri(lg[clave])}" alt="{esc(nombre)}">'
+    return f'<div class="logo-texto">{esc(nombre)}</div>'

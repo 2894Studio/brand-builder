@@ -4,6 +4,8 @@ Cada recurso muestra algo con una **prueba**. Elige según el mensaje y el tono 
 
 | Quiero mostrar… | Recurso | Tono que encaja | Prueba que lleva |
 |---|---|---|---|
+| Producto web, panel, curso o código | **Ventana de escritorio** | tecnológico / serio | `post_pantalla.py`: menú, cifra, filas o bloque de código |
+| Precio o modelo frente a la alternativa | **Comparativa** | serio | `post_comparativa.py`; el dato del competidor lleva fuente o no se muestra |
 | Qué hace el producto o servicio | **Teléfono con la interfaz** | tecnológico | una pantalla plausible: lista, cifra, botón |
 | Que está cerca, por zona | **Mapa de puntos** | tecnológico, cercano | distancias reales a ciudades reales |
 | Rigor, seriedad | **Cifra gigante con su fuente** | serio | el dato y la fuente citada |

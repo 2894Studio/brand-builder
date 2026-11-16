@@ -110,6 +110,8 @@ with tempfile.TemporaryDirectory() as d:
         s = r.stdout
         ok("«Aa»" not in s, "un titular gigante con line-height < 1 no da falso solape con el texto de debajo")
         ok("GHOSTWORD" not in s, "un texto data-decorativo no se juzga (ni se sale del lienzo ni se pisa)")
+        r = py(os.path.join(AQUI, "critico_render.py"), os.path.join(FIX, "recorte.html"))
+        ok(r.returncode == 1 and "recortado por su contenedor" in r.stdout and r.stdout.count("recortado") == 1, "detecta el texto recortado por un contenedor (y solo ese)")
         try:
             import PIL  # noqa: F401
             ok("Blanco sobre degradado claro" in s and "medido sobre la captura" in s, "mide el contraste sobre un degradado con la captura")

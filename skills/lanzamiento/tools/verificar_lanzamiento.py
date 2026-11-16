@@ -167,6 +167,21 @@ with tempfile.TemporaryDirectory() as d:
         r = py(os.path.join(AQUI, "post_mapa.py"), PULSO, "--salida", pm, "--titular", "x", "--centro", "Madrid|-3.70,40.42", "--bbox", "-10.5,35.3,7,46.8", "--puntos", "Toledo|-4.02,39.86", "--destacada", "Ana|M|Segovia")
         ok(r.returncode == 1, "post_mapa rechaza una destacada que no está entre los puntos")
 
+    # 7b. generadores nuevos: comparativa, pantalla, tema claro, bento sin fotos
+    pc = os.path.join(d, "c.html")
+    r = py(os.path.join(AQUI, "post_comparativa.py"), PULSO, "--salida", pc, "--titular", "x", "--ellos", "Otro|9 €|a;b", "--nosotros", "Tú|3 €|c;d")
+    ok(r.returncode != 0 and not os.path.exists(pc), "post_comparativa rechaza un competidor sin --fuente")
+    r = py(os.path.join(AQUI, "post_comparativa.py"), PULSO, "--salida", pc, "--titular", "Menos <b>coste</b>", "--ellos", "Otro|9 €|a;b", "--nosotros", "Tú|3 €|c;d", "--ejemplo", "--tema", "claro")
+    t = open(pc, encoding="utf-8").read() if os.path.exists(pc) else ""
+    ok(r.returncode == 0 and "Dato de ejemplo" in t, "post_comparativa --ejemplo marca el dato como de ejemplo")
+    pp = os.path.join(d, "p.html")
+    r = py(os.path.join(AQUI, "post_pantalla.py"), PULSO, "--salida", pp, "--titular", "Todo <b>a mano</b>", "--ventana", "pulso.app|Panel", "--menu", "Inicio;Rutas", "--cifra", "10 €|al mes", "--codigo", "const a = 1;run(a);", "--tema", "claro")
+    ok(r.returncode == 0 and "const a = 1" in open(pp, encoding="utf-8").read(), "post_pantalla genera la ventana con código")
+    bd = os.path.join(d, "bd.html")
+    r = py(os.path.join(AQUI, "bento.py"), PULSO, "--salida", bd, "--datos", "Precio|10 €/mes;Grupos|5", "--puntos", "Uno;Dos")
+    t = open(bd, encoding="utf-8").read() if os.path.exists(bd) else ""
+    ok("Foto real" not in t and "10 €/mes" in t and "Dos" in t, "bento sin fotos: --datos y --puntos sustituyen los marcadores")
+
     # 8. el crítico acepta el bento
     r = py(CRITICO, salida, "--ancho", "1920", "--alto", "1080")
     if r.returncode == 2:

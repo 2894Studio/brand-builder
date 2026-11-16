@@ -11,6 +11,16 @@ Este paso decide todo lo demás. Requiere la entrevista confirmada y un territor
 
 Lee `references/logo.md`, `references/color.md` y `references/tipografia.md`. Para generar imágenes, `references/prompts-logo.md`.
 
+## 0. Antes de dibujar: qué enseñan las referencias
+
+Si existe `gusto.json` (o la persona nombró marcas de referencia, p. ej. «estilo Maze» o «como Notion»), **extrae por escrito, en 3 líneas, antes de proponer nada**:
+
+1. **Tratamiento del nombre**: caja alta o minúsculas, peso, tracking, si el nombre va solo o con símbolo.
+2. **Morfología del símbolo**: trazo plano, forma sólida, símbolo integrado en una letra, o sin símbolo.
+3. **Estilo gráfico de la categoría**: 2D plano, editorial, ingeniería… y qué **prohíben** esas referencias (p. ej. sin 3D, sin degradados dentro del vector, sin sellos institucionales).
+
+Las dos propuestas heredan esas 3 líneas; lo que la persona pidió en palabras («un libro con código») se resuelve **dentro** de ese lenguaje, no con el icono literal. Si una propuesta contradice las referencias, no se enseña.
+
 ## 1. Dos propuestas de logo
 
 1. Del territorio elegido, define **exactamente dos** que se diferencien en el *tipo* de marca (emblema circular frente a wordmark con símbolo integrado), no en el acabado. Dos acabados del mismo dibujo no son dos opciones.

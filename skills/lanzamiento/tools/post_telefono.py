@@ -43,6 +43,7 @@ def main():
     ap.add_argument("--persona", default="")
     ap.add_argument("--pie", default="")
     ap.add_argument("--declarar-ia", action="store_true")
+    ap.add_argument("--tema", choices=["oscuro", "claro"], default="oscuro", help="oscuro: degradado de la marca; claro: fondo de la marca con tarjetas blancas")
     a = ap.parse_args()
 
     m = L.cargar_marca(a.marca)
@@ -52,7 +53,21 @@ def main():
     nombre = m.get("nombre", "Marca")
     ctx, titulo = partir(a.pantalla)
     cifra_n, cifra_t = partir(a.cifra)
-    filas = [partir(x, 2) for x in a.filas.split(";") if x.strip()][:5]
+    filas = [partir(x, 2) for x in a.filas.split(";") if x.strip()]
+    avisos = []
+    por_linea = 22 if a.estado else 30   # caracteres que caben por línea en el detalle de una fila
+    def alto(f):
+        return 40 + 26 * max(1, -(-len(f[1]) // por_linea))
+    while len(filas) > 1 and sum(alto(f) + 12 for f in filas) > 430:
+        avisos.append(f"la fila «{filas[-1][0]}» no cabe en el teléfono y se quita; acorta los detalles (≤ {por_linea} caracteres) o usa menos filas")
+        filas.pop()
+    for r, d in filas:
+        if len(d) > por_linea * 2:
+            avisos.append(f"el detalle de «{r}» tiene {len(d)} caracteres: se verá en 3 líneas o más")
+    if a.estado and len(a.estado) > 14:
+        avisos.append(f"el estado «{a.estado}» es largo ({len(a.estado)} caracteres) y puede salirse de la fila: usa 14 o menos")
+    if len(cifra_n_t := a.cifra.split("|")[0]) > 5 if a.cifra else False:
+        avisos.append(f"la cifra «{cifra_n_t}» es larga para el tamaño grande: usa 5 caracteres o menos")
     avatar = L.base_avatar(c["primario"])
     chip_fg = c["primario"] if L.contraste(c["primario"], c["neutro"]) >= 4.5 else c["texto"]
     elegidas = L.elegir_fotos(a.fotos) if a.fotos else {}
@@ -82,10 +97,7 @@ def main():
         fotos_html += f'<div class="foto" style="left:40px;top:395px;width:290px;height:420px"><img src="{retrato}" style="object-position:50% 14%">{rot}</div>'
     if equipo:
         fotos_html += f'<div class="foto" style="left:792px;top:610px;width:252px;height:230px"><img src="{equipo}" style="object-position:50% 38%"></div>'
-    if "invertida" in lg:
-        logo = f'<img class="logo" src="{L.data_uri(lg["invertida"])}" alt="{L.esc(nombre)}">'
-    else:
-        logo = f'<div class="logo-texto">{L.esc(nombre)}</div>'
+    logo = L.logo_html(m, lg, a.tema, nombre)
     pie = " · ".join(x for x in ["Imagen generada con IA" if declarar else "", a.pie] if x)
     css = L.css_variables(m) + L.css_luz(m) + """
 .p{width:1080px;height:1440px;position:relative;overflow:hidden}
@@ -94,7 +106,7 @@ def main():
 .isla{position:absolute;left:50%;top:14px;width:130px;height:36px;margin-left:-65px;background:#07090F;border-radius:20px}
 .hora{display:flex;justify-content:space-between;font-size:19px;font-weight:600;margin:0 6px 46px}
 .ctx{font-size:20px;color:var(--suave);margin:0}.tit{font:600 38px/1.1 var(--f-titulos);letter-spacing:-.02em;margin:4px 0 2px}
-.cifra{display:flex;align-items:baseline;gap:10px;margin:18px 0 20px}.cifra b{font:600 84px/1 var(--f-titulos);letter-spacing:-.04em}.cifra span{font-size:22px;color:var(--suave)}
+.cifra{display:flex;flex-wrap:nowrap;align-items:baseline;gap:10px;margin:18px 0 20px}.cifra b{font:600 84px/1 var(--f-titulos);letter-spacing:-.04em;white-space:nowrap}.cifra span{font-size:22px;color:var(--suave)}
 .fila{display:flex;align-items:center;gap:16px;background:var(--neutro);border-radius:22px;padding:14px 16px;margin-bottom:12px}
 .av{flex:none;width:54px;height:54px;border-radius:50%;display:grid;place-items:center;font-weight:600;font-size:19px;color:#fff;background:linear-gradient(135deg,AVATAR,var(--profundo))}
 .fila div b{display:block;font-size:22px;font-weight:600}.fila div span{font-size:19px;color:var(--suave)}
@@ -106,7 +118,7 @@ def main():
 .cristal b{font-size:50px}
 """.replace("AVATAR", avatar).replace("CHIP", chip_fg)
     doc = f"""<!doctype html><html lang="es"><meta charset="utf-8"><title>{L.esc(nombre)} · qué es la marca</title>
-{L.enlace_google_fonts(m)}<style>{L.COMPONENTES_CSS}{css}</style>
+{L.enlace_google_fonts(m)}<style>{L.COMPONENTES_CSS}{css}{L.tema_css(m, a.tema)}</style>
 <div class="p campo">
 <div class="anillo" style="width:660px;height:1000px;margin-left:-330px;top:240px"></div><div class="anillo" style="width:800px;height:1100px;margin-left:-400px;top:190px;border-color:rgba(255,255,255,.12)"></div>
 <div class="telefono"><div class="pantalla"><div class="isla"></div>
@@ -126,6 +138,8 @@ def main():
     print(f"ok {a.salida}")
     if not (retrato or equipo):
         print("  aviso sin fotos: el post va sin tarjetas de foto (no se dejan marcadores)")
+    for x in avisos:
+        print("  aviso", x)
     print("Siguiente: python3 skills/gusto/tools/critico_render.py", a.salida, "--marca", a.marca)
 
 

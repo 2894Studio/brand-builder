@@ -4,7 +4,7 @@
 
 Uso:  python3 critico_render.py pieza.html [--ancho 1080 --alto 1440] [--marca marca.json] [--json salida.json] [--png captura.png]
 
-Detecta (errores): texto fuera del lienzo, cajas de texto que se pisan, fuente que cae a una de reserva,
+Detecta (errores): texto fuera del lienzo, texto recortado por su contenedor (overflow oculto), cajas de texto que se pisan, fuente que cae a una de reserva,
 contraste de texto < 4,5:1 (3:1 si es grande), texto de menos de ~1,8 % del lado corto.
 Avisa de: colores fuera de marca.json, titular poco dominante, última línea con una sola palabra,
 demasiado texto, texto sobre imagen/degradado (contraste no medible).
@@ -149,6 +149,8 @@ def juzgar(r, marca_ruta, png=None):
         if not t["bleed"]:
             if t["x"] < -1 or t["y"] < -1 or t["x"] + t["w"] > W + 1 or t["y"] + t["h"] > H + 1:
                 err.append(f"«{t['texto']}» se sale del lienzo (caja {round(t['x'])},{round(t['y'])} {round(t['w'])}×{round(t['h'])} en {W}×{H})")
+        if t.get("recorte") and not t["bleed"]:
+            err.append(f"«{t['texto']}» queda recortado por su contenedor («{t['recorte']}»): parte del texto no se ve")
         minimo = 18 * escala + 1 * escala  # ≈ 1,8 % del lado corto
         if t["size"] < minimo:
             err.append(f"«{t['texto']}» mide {t['size']:.0f}px; el mínimo para este ancho es {minimo:.0f}px")

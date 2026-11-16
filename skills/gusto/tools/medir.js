@@ -34,6 +34,15 @@
     if (rr.width === 0 || rr.height === 0) continue;
     // La caja del Range incluye el espacio de la fuente aunque el line-height sea menor (titulares gigantes con
     // line-height < 1). Para elementos de bloque se recorta a la caja del propio elemento: así no hay falsos solapes.
+    // ¿Algún contenedor con overflow oculto corta el texto? (se sale de la caja del contenedor)
+    let recorte = null;
+    for (let a = el.parentElement; a && a !== document.body && a !== document.documentElement; a = a.parentElement) {
+      const o = getComputedStyle(a);
+      if (!/(hidden|clip|auto|scroll)/.test(o.overflow + o.overflowX + o.overflowY)) continue;
+      const ar = a.getBoundingClientRect();
+      if (ar.width >= innerWidth - 1 && ar.height >= innerHeight - 1) continue; // el propio lienzo: ya se comprueba aparte
+      if (rr.bottom > ar.bottom + 2 || rr.right > ar.right + 2 || rr.top < ar.top - 2 || rr.left < ar.left - 2) { recorte = (a.className && String(a.className).split(' ')[0]) || a.tagName.toLowerCase(); break; }
+    }
     let r = {left: rr.left, top: rr.top, right: rr.right, bottom: rr.bottom, width: rr.width, height: rr.height};
     if (cs.display !== 'inline') { const e = el.getBoundingClientRect(); if (e.height > 0) { r.top = Math.max(rr.top, e.top); r.bottom = Math.min(rr.bottom, e.bottom); r.height = Math.max(r.bottom - r.top, 1); } }
     const bleed = !!el.closest('[data-bleed]'); const deco = !!el.closest('[data-decorativo]');
@@ -49,7 +58,7 @@
       while ((m = re.exec(tn.textContent))) { rg.setStart(tn, m.index); rg.setEnd(tn, m.index + m[0].length); const q = rg.getBoundingClientRect(); if (q.width) palabras.push({w: m[0], top: Math.round(q.top), left: q.left, right: q.right}); }
     }
     const lineas = []; palabras.forEach(p => { const l = lineas.find(l => Math.abs(l.top - p.top) < size * 0.5); l ? l.ps.push(p) : lineas.push({top: p.top, ps: [p]}); });
-    out.textos.push({texto: t.slice(0, 60), tag: el.tagName.toLowerCase(), x: r.left, y: r.top, w: r.width, h: r.height, size, peso, contraste, fondoNoMedible: !bg.opaco ? bg.motivo : null, bleed, deco,
+    out.textos.push({texto: t.slice(0, 60), tag: el.tagName.toLowerCase(), x: r.left, y: r.top, w: r.width, h: r.height, size, peso, contraste, fondoNoMedible: !bg.opaco ? bg.motivo : null, bleed, deco, recorte,
       fuente: cs.fontFamily, lineas: lineas.length, ultima: lineas.length ? lineas[lineas.length - 1].ps.map(p => p.w) : [], color: cs.color, _el: el});
   }
   // solapes entre cajas de texto (no anidadas)
@@ -71,7 +80,7 @@
   out.fuentesUsadas = [...new Set(T.map(t => t.fuente.split(',')[0].replace(/["']/g, '').trim()))];
   const cv = document.createElement('canvas').getContext('2d');
   const ancho = (fam, base) => { cv.font = '72px ' + (fam ? '"' + fam + '", ' : '') + base; return cv.measureText('mmmmmmmmmmlliWQ@ñ').width; };
-  const existe = (f) => /^(sans-serif|serif|monospace|system-ui|ui-sans-serif|ui-serif|cursive|fantasy)$/.test(f) || ancho(f, 'monospace') !== ancho(null, 'monospace') || ancho(f, 'serif') !== ancho(null, 'serif');
+  const existe = (f) => /^(sans-serif|serif|monospace|system-ui|ui-sans-serif|ui-serif|ui-monospace|ui-rounded|cursive|fantasy)$/.test(f) || ancho(f, 'monospace') !== ancho(null, 'monospace') || ancho(f, 'serif') !== ancho(null, 'serif');
   out.fuentesDisponibles = out.fuentesUsadas.map(f => ({familia: f, ok: existe(f)}));
   out.tamanos = T.map(t => t.size);
   out.caracteres = T.reduce((s, t) => s + t.texto.length, 0);

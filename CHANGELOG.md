@@ -5,6 +5,13 @@
 - **Nuevo:** `plugin.json` en la raíz (manifiesto de Antigravity) y `AGENTS.md`, un **puntero** corto al router (`skills/brand-kit-builder/SKILL.md`), que es la única fuente de las reglas: así no se desincronizan. `verificar_skills.py` comprueba que sus enlaces existan. Claude Code sigue leyendo solo `.claude-plugin/`.
 - **Arreglo importante:** 5 de las 10 skills (el router, `entrega`, `lanzamiento`, `tokens` y `voz`) las **saltaba en silencio** un lector de YAML estricto, porque su `description` llevaba «: » sin comillas. Claude Code lo toleraba. Ahora todas las descripciones van entre comillas y `verificar_skills.py` lo comprueba (con un YAML estricto) para que no vuelva a pasar.
 - **Documentación:** instalación en Antigravity en el README (`git clone` a `~/.gemini/config/plugins/`) y mención de `ask_question` en la convención de preguntas.
+- **Arreglos a partir de una prueba completa en Antigravity (marca «fullstacker»):**
+  - El **crítico** detecta ahora texto **recortado por su contenedor** (`overflow` oculto) y acepta `ui-monospace` y otras familias genéricas modernas.
+  - `post_telefono.py` ya no desborda: presupuesto de contenido, avisos de textos largos y `--tema claro`.
+  - **Nuevos generadores:** `post_pantalla.py` (ventana de escritorio, con modo código) y `post_comparativa.py` (exige `--fuente` del competidor: no se inventan datos de terceros).
+  - `bento.py` sin fotos: `--datos` y `--puntos` sustituyen los marcadores por contenido real.
+  - `identidad` extrae primero de las referencias el tratamiento del nombre, la morfología del símbolo y lo que prohíben, antes de proponer logos.
+  - `lanzamiento` elige el generador por el producto (no siempre el teléfono) y prohíbe entregar con texto recortado.
 - Al publicarlo hay que subir la versión en **los dos manifiestos** (`plugin.json` y `.claude-plugin/plugin.json`) para que las instalaciones existentes vean el cambio.
 
 ## 2.5.1

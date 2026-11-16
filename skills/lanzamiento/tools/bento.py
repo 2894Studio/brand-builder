@@ -11,6 +11,8 @@ Uso:  python3 bento.py marca.json --salida lanzamiento/bento.html [opciones]
   --fotos DIR                carpeta lanzamiento/fotos (salida de preparar_fotos.py): coge equipo* y retrato*
   --declarar-ia              escribe «Imagen generada con IA» sobre las fotos de origen ia (por defecto NO se escribe)
   --persona "Nombre|Rol"     rótulo del retrato (por defecto, marcador «Nombre y apellido»)
+  --datos "Etiqueta|Valor;..."  sin foto de equipo: la tarjeta «Fotografía» pasa a «Datos» con hasta 3 cifras reales (p. ej. "Precio|10 €/mes;Grupos|5 alumnos")
+  --puntos "a;b;c"           sin retrato: la tarjeta «Personas» pasa a «Incluye» con hasta 4 puntos reales del producto
   --plano                    la tarjeta del logo va en color liso (por defecto lleva degradado con luz)
 Lo que no se aporta queda como **marcador visible**, nunca inventado. Luego se revisa con gusto/tools/critico_render.py.
 """
@@ -50,6 +52,8 @@ def main():
     ap.add_argument("--declarar-ia", action="store_true")
     ap.add_argument("--persona")
     ap.add_argument("--plano", action="store_true")
+    ap.add_argument("--datos")
+    ap.add_argument("--puntos")
     a = ap.parse_args()
 
     m = L.cargar_marca(a.marca)
@@ -79,6 +83,20 @@ def main():
             nota = f'<div class="nota-ia" style="bottom:{alto_nota}px">Imagen generada con IA</div>' if ia else ""
             return f'<img src="{L.data_uri(ruta)}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:{pos}">{nota}'
         return '<div class="ph">Foto real<br>(sustituir por una propia)</div>'
+
+    # alternativas sin foto: datos y puntos reales (nunca inventados) en lugar del marcador
+    tarjeta_f = f'<span class="pill">Fotografía</span>{foto(a.foto_equipo, "50% 40%", bool(pie_ia.get("equipo")))}'
+    if not (a.foto_equipo and os.path.exists(a.foto_equipo)) and a.datos:
+        fil = [d.split("|", 1) + [""] for d in a.datos.split(";") if d.strip()][:3]
+        celdas = "".join(f'<div><small>{L.esc(x[0].strip())}</small><b>{L.esc(x[1].strip())}</b></div>' for x in fil)
+        tarjeta_f = f'<span class="pill">Datos</span><div class="dat">{celdas}</div>'
+        a.foto_equipo = "datos"
+    tarjeta_p = f'<span class="pill">Personas</span>{foto(a.foto_persona, "50% 14%", bool(pie_ia.get("retrato")), 96)}<div class="rot"><b>{L.esc(persona_n)}</b>{L.esc(persona_r)}</div>'
+    if not (a.foto_persona and os.path.exists(a.foto_persona)) and a.puntos:
+        pts = [x.strip() for x in a.puntos.split(";") if x.strip()][:4]
+        lis = "".join(f"<li>{L.esc(x)}</li>" for x in pts)
+        tarjeta_p = f'<span class="pill">Incluye</span><ul class="pts">{lis}</ul>'
+        a.foto_persona = "puntos"
 
     # color
     sw = []
@@ -120,19 +138,23 @@ grid-template-areas:"L L L L L F F F C C I I" "L L L L L F F F C C I I" "L L L L
 .M{grid-area:M;display:flex;flex-direction:column;justify-content:flex-end}.pr{display:grid;gap:22px;font-size:21px;font-weight:600}.pr .n{display:flex;justify-content:space-between;margin-bottom:8px}
 .bar{height:14px;border-radius:99px;background:rgba(255,255,255,.28);overflow:hidden}.bar i{display:block;height:100%;background:#fff}.terr{font:600 44px/1.1 var(--f-titulos);letter-spacing:-.02em}
 .nota-ia{position:absolute;left:14px;bottom:14px;background:rgba(10,20,60,.72);color:#fff;font-size:19px;padding:6px 14px;border-radius:99px;z-index:2}
+.dat{position:absolute;left:30px;right:30px;top:76px;bottom:26px;display:flex;flex-direction:column;justify-content:space-around;color:var(--profundo)}
+.dat small{display:block;font-size:20px;line-height:1.3;margin-bottom:8px;font-weight:600;opacity:.8}.dat b{font:600 54px/1.05 var(--f-titulos);letter-spacing:-.03em}
+.pts{list-style:none;margin:0;position:absolute;left:24px;right:24px;top:74px;bottom:22px;display:flex;flex-direction:column;justify-content:space-around;padding:0;font-size:21px;font-weight:600;line-height:1.25;color:var(--profundo)}
+.pts li{padding-left:34px;position:relative}.pts li:before{content:"";position:absolute;left:0;top:.3em;width:18px;height:18px;border-radius:50%;background:var(--primario)}
 .campo{background:linear-gradient(160deg,var(--primario),var(--profundo));color:var(--sobre-primario)}
 :root{--campo:linear-gradient(160deg,var(--primario),var(--profundo))}
 """
     doc = f"""<!doctype html><html lang="es"><meta charset="utf-8"><title>{L.esc(nombre)} · bento de marca</title>
 {L.enlace_google_fonts(m)}<style>{L.COMPONENTES_CSS}{css}</style><div class="p">
 {mosaico_logo(m, base, c, f, not a.plano)}
-<div class="t F"><span class="pill">Fotografía</span>{foto(a.foto_equipo, "50% 40%", bool(pie_ia.get("equipo")))}</div>
+<div class="t F">{tarjeta_f}</div>
 <div class="t C campo"><span class="pill">Prueba</span><small>{L.esc(prueba_t)}</small><b>{L.esc(prueba_v)}</b></div>
 <div class="t I"><span class="pill">Símbolo</span>{simbolo}</div>
 <div class="t V"><span class="pill">Voz</span><h2>{L.esc(lema)}</h2></div>
 <div class="t K"><span class="pill">Color</span><div class="sw">{''.join(sw)}</div></div>
 <div class="t T"><span class="pill">Tipografía</span><div class="aa">Aa</div><p>{L.esc(f["titulos"])}, titulares<br>{L.esc(f["texto"])} {pesos}, texto</p></div>
-<div class="t P"><span class="pill">Personas</span>{foto(a.foto_persona, "50% 14%", bool(pie_ia.get("retrato")), 96)}<div class="rot"><b>{L.esc(persona_n)}</b>{L.esc(persona_r)}</div></div>
+<div class="t P">{tarjeta_p}</div>
 {mosaico_m}
 </div></html>"""
     os.makedirs(os.path.dirname(os.path.abspath(a.salida)), exist_ok=True)
@@ -144,9 +166,9 @@ grid-template-areas:"L L L L L F F F C C I I" "L L L L L F F F C C I I" "L L L L
     if "simbolo" not in lg:
         avisos.append("sin logo «simbolo»: se usa la inicial")
     if not a.foto_equipo:
-        avisos.append("sin foto de equipo: marcador visible")
+        avisos.append("sin foto de equipo: marcador visible (usa --datos \"Etiqueta|Valor;...\" con cifras reales para sustituirlo)")
     if not a.foto_persona:
-        avisos.append("sin retrato: marcador visible")
+        avisos.append("sin retrato: marcador visible (usa --puntos \"a;b;c\" con lo que incluye el producto para sustituirlo)")
     print(f"ok {a.salida}")
     for x in avisos:
         print("  aviso", x)

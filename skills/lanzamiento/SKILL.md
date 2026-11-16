@@ -51,7 +51,11 @@ Del catálogo de `references/recursos-visuales.md`, según el mensaje **y** el t
 |---|---|
 | Teléfono con la interfaz del producto o servicio (qué es) | `post_telefono.py` |
 | Mapa de puntos con una zona y personas a distancia real (cerca de ti) | `post_mapa.py` (necesita Node y `npm i world-atlas topojson-client d3-geo`) |
+| Ventana de escritorio: panel web, curso o código (producto web, SaaS, formación) | `post_pantalla.py` (`--codigo` para marcas de código) |
+| Comparativa «ellos / nosotros» (precio, modelo) | `post_comparativa.py`: **exige `--fuente`** del dato del competidor; sin fuente solo con `--ejemplo` y queda marcado |
 | Cualquier otro (cifra con fuente, pasos, antes y después…) | `post_base.py` y lo construyes con los componentes |
+
+`post_telefono.py`, `post_pantalla.py` y `post_comparativa.py` aceptan `--tema claro` (fondo blanco con bloque de color) cuando `marca.json` → `visual.estilo` o el gusto piden una marca limpia y no un campo degradado. **Elige el generador por el producto**, no por costumbre: si el producto no es una app móvil, no uses el teléfono. Los dos posts de una marca no pueden ser la misma composición que los de otra marca del mismo grupo.
 
 Solo construyes a mano un recurso nuevo si ninguno encaja.
 
@@ -65,7 +69,7 @@ SVG (el original) y PNG con fondo transparente a 3000 px. Si no hay Chromium ni 
 ```
 python3 skills/lanzamiento/tools/bento.py marca.json --gusto gusto.json --fotos lanzamiento/fotos --salida lanzamiento/bento.html --lema "…" --prueba "Título|Valor" [--persona "Nombre|Rol"]
 ```
-Lo que no se aporta queda como **marcador visible** («Foto real»), nunca inventado. Revísalo con el crítico a 1920×1080.
+Lo que no se aporta queda como **marcador visible** («Foto real»), nunca inventado. **Sin fotos, no lo dejes con marcadores:** sustituye las tarjetas por contenido real con `--datos "Etiqueta|Valor;…"` (cifras del producto: precio, tamaño de grupo, formato) y `--puntos "a;b;c"` (lo que incluye). Revísalo con el crítico a 1920×1080.
 
 ### 5. Los dos posts
 ```
@@ -94,8 +98,10 @@ En `trabajo/<fecha>-marca-<slug>/lanzamiento/`: `logo/`, `bento.png` y `.html`, 
 
 - **Nada inventado se presenta como real.** Los datos, nombres, ubicaciones y personas de ejemplo se anotan en el `LEEME.md` y, en la pieza, **solo donde aparece el dato inventado** (por ejemplo, un campo «Nombre de ejemplo»). **No añadas rótulos, etiquetas ni pies sobre las fotos o las piezas que no se hayan pedido** («imagen generada con IA», «equipo de ejemplo», «personas ilustrativas»). Si la persona quiere un pie, `post_base.py --pie "…"`; si quiere declarar la IA, `--declarar-ia`.
 - **Fotos:** `preparar_fotos.py` no deja pasar una foto sin origen ni licencia. Las generadas con IA se anotan siempre en `creditos.md` y en el `LEEME.md`; escribirlo sobre la pieza lo decide la persona. Aviso de una línea: no se publican como el equipo real de una empresa. Canva **no** es fuente de fotos reales. Orden de preferencia, receta de Canva y riesgos en `references/fotos.md`.
+- **Datos de competidores:** nunca se inventan ni se «redondean». Una comparativa lleva fuente y fecha, o se retira (publicidad comparativa falsa es ilegal).
 - **Cifras:** una cifra o la fuente es real, o es de ejemplo y lo dice. Nunca una cifra inventada con apariencia de dato.
 - **Referencias de otras marcas:** se toma el atributo, nunca la marca ni su imagen.
+- **Texto recortado = error.** El crítico detecta texto cortado por su contenedor; no se entrega con ese error.
 - **Sin crítico, sin «revisado».** Si no se pudo pasar, la entrega lo dice.
 - **Una pieza, un mensaje.** Si un post intenta explicar dos cosas, se parte en dos. El post 1 no debe adelantar el atributo del post 2.
 - **Un post con más marcadores que contenido no está terminado:** si más de un tercio de la superficie son marcadores, cambia de recurso.
