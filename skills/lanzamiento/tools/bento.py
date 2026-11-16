@@ -13,6 +13,8 @@ Uso:  python3 bento.py marca.json --salida lanzamiento/bento.html [opciones]
   --persona "Nombre|Rol"     rótulo del retrato (por defecto, marcador «Nombre y apellido»)
   --datos "Etiqueta|Valor;..."  sin foto de equipo: la tarjeta «Fotografía» pasa a «Datos» con hasta 3 cifras reales (p. ej. "Precio|10 €/mes;Grupos|5 alumnos")
   --puntos "a;b;c"           sin retrato: la tarjeta «Personas» pasa a «Incluye» con hasta 4 puntos reales del producto
+  --variante generica|educativa|producto   distribución del tablero según la marca (por defecto, generica)
+  --ruta "Paso 1;Paso 2;…"   variante educativa: el recorrido o temario (3 a 5 pasos reales); ocupa la tarjeta más grande
   --plano                    la tarjeta del logo va en color liso (por defecto lleva degradado con luz)
 Lo que no se aporta queda como **marcador visible**, nunca inventado. Luego se revisa con gusto/tools/critico_render.py.
 """
@@ -52,6 +54,8 @@ def main():
     ap.add_argument("--declarar-ia", action="store_true")
     ap.add_argument("--persona")
     ap.add_argument("--plano", action="store_true")
+    ap.add_argument("--variante", choices=["generica", "educativa", "producto"], default="generica")
+    ap.add_argument("--ruta")
     ap.add_argument("--datos")
     ap.add_argument("--puntos")
     a = ap.parse_args()
@@ -87,7 +91,7 @@ def main():
     # alternativas sin foto: datos y puntos reales (nunca inventados) en lugar del marcador
     tarjeta_f = f'<span class="pill">Fotografía</span>{foto(a.foto_equipo, "50% 40%", bool(pie_ia.get("equipo")))}'
     if not (a.foto_equipo and os.path.exists(a.foto_equipo)) and a.datos:
-        fil = [d.split("|", 1) + [""] for d in a.datos.split(";") if d.strip()][:3]
+        fil = [d.split("|", 1) + [""] for d in a.datos.split(";") if d.strip()][:2 if a.variante == "educativa" else 3]
         celdas = "".join(f'<div><small>{L.esc(x[0].strip())}</small><b>{L.esc(x[1].strip())}</b></div>' for x in fil)
         tarjeta_f = f'<span class="pill">Datos</span><div class="dat">{celdas}</div>'
         a.foto_equipo = "datos"
@@ -118,11 +122,32 @@ def main():
         nombres_t = {"artesanal": "Artesanal", "editorial": "Editorial", "tecnologico": "Tecnológico", "natural": "Natural", "cercano": "Cercano"}
         mosaico_m = f'<div class="t M campo"><span class="pill">Territorio</span><div class="terr">{L.esc(nombres_t.get(terr, terr.capitalize()) or "—")}</div></div>'
 
+    areas = {
+        "generica": '"L L L L L F F F C C I I" "L L L L L F F F C C I I" "L L L L L F F F V V V V" "K K K K K T T T P P M M" "K K K K K T T T P P M M" "K K K K K T T T P P M M"',
+        "educativa": '"L L L L L R R R R I I I" "L L L L L R R R R C C C" "L L L L L R R R R C C C" "K K K K T T T V V V V V" "K K K K T T T F F F P P" "K K K K T T T M M M P P"',
+        "producto": '"F F F F F F L L L L I I" "F F F F F F L L L L C C" "F F F F F F L L L L C C" "P P P P V V V V V V V V" "P P P P K K K K K T T T" "P P P P M M M M M T T T"',
+    }[a.variante]
+    css_var = {
+        "generica": "",
+        "educativa": ".dat{flex-direction:row;gap:20px;top:72px;bottom:18px;align-items:flex-end;justify-content:flex-start}.dat div{flex:1}.dat b{font-size:36px}.dat small{font-size:19px;margin-bottom:4px}"
+                     ".sw div{font-size:19px;padding:10px;word-break:break-word}.V{padding:20px 30px}.V h2{font-size:28px;line-height:1.15}.terr{font-size:30px}.pr{gap:12px;font-size:19px}.M{padding:20px 30px}.M .pill{display:none}.pr .n{margin-bottom:4px}.bar{height:10px}",
+        "producto": ".sw div{font-size:19px;padding:10px;word-break:break-word}.I img,.I div{max-width:90px;max-height:90px}.T .aa{font-size:110px;margin-bottom:12px}.T{padding:26px}.V h2{font-size:34px}.M{padding:20px 30px}.pr{gap:12px;font-size:19px}.pr .n{margin-bottom:4px}.bar{height:10px}.M .pill{display:none}.terr{font-size:34px}",
+    }[a.variante]
+    if a.variante == "producto" and not (a.foto_equipo and os.path.exists(a.foto_equipo)):
+        sys.exit("--variante producto necesita --foto-equipo (o --fotos con equipo*): la fotografía es la tarjeta protagonista. Sin foto, usa la variante generica o educativa.")
+    tarjeta_r = ""
+    if a.variante == "educativa":
+        pasos = [x.strip() for x in (a.ruta or "").split(";") if x.strip()][:5]
+        if len(pasos) < 3:
+            sys.exit("--variante educativa necesita --ruta con 3 a 5 pasos reales del recorrido (p. ej. \"Fundamentos;Frontend;Backend;Proyecto final\")")
+        lis = "".join(f'<li><span>{i + 1:02d}</span>{L.esc(x)}</li>' for i, x in enumerate(pasos))
+        tarjeta_r = f'<div class="t R"><span class="pill">Recorrido</span><ol class="ruta">{lis}</ol></div>'
+
     pesos = "/".join(str(p) for p in f["pesos_texto"])
     css = L.css_variables(m) + """
 .p{width:1920px;height:1080px;background:#E4E8F0;padding:36px;display:grid;gap:16px;
 grid-template-columns:repeat(12,minmax(0,1fr));grid-template-rows:minmax(0,1fr) minmax(0,1fr) minmax(0,1.35fr) minmax(0,1fr) minmax(0,1fr) minmax(0,1fr);
-grid-template-areas:"L L L L L F F F C C I I" "L L L L L F F F C C I I" "L L L L L F F F V V V V" "K K K K K T T T P P M M" "K K K K K T T T P P M M" "K K K K K T T T P P M M"}
+grid-template-areas:AREAS}
 .t{border-radius:30px;position:relative;overflow:hidden;padding:34px}
 .pill{position:absolute;left:24px;top:22px;font-size:19px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;background:rgba(255,255,255,.88);color:#12141A;padding:6px 16px;border-radius:99px;z-index:3}
 .L{grid-area:L;display:flex;align-items:center;justify-content:center}.F{grid-area:F;background:var(--neutro)}
@@ -142,15 +167,17 @@ grid-template-areas:"L L L L L F F F C C I I" "L L L L L F F F C C I I" "L L L L
 .dat small{display:block;font-size:20px;line-height:1.3;margin-bottom:8px;font-weight:600;opacity:.8}.dat b{font:600 54px/1.05 var(--f-titulos);letter-spacing:-.03em}
 .pts{list-style:none;margin:0;position:absolute;left:24px;right:24px;top:74px;bottom:22px;display:flex;flex-direction:column;justify-content:space-around;padding:0;font-size:21px;font-weight:600;line-height:1.25;color:var(--profundo)}
 .pts li{padding-left:34px;position:relative}.pts li:before{content:"";position:absolute;left:0;top:.3em;width:18px;height:18px;border-radius:50%;background:var(--primario)}
+.R{grid-area:R;background:#fff}.ruta{list-style:none;margin:0;padding:0;position:absolute;left:34px;right:34px;top:84px;bottom:30px;display:flex;flex-direction:column;justify-content:space-between;color:var(--profundo)}
+.ruta li{font:600 38px/1.15 var(--f-titulos);letter-spacing:-.02em;border-top:2px solid var(--neutro);padding-top:16px;display:flex;gap:22px;align-items:baseline}.ruta li span{font:600 22px var(--f-texto);color:var(--primario);min-width:42px}
 .campo{background:linear-gradient(160deg,var(--primario),var(--profundo));color:var(--sobre-primario)}
 :root{--campo:linear-gradient(160deg,var(--primario),var(--profundo))}
 """
     doc = f"""<!doctype html><html lang="es"><meta charset="utf-8"><title>{L.esc(nombre)} · bento de marca</title>
-{L.enlace_google_fonts(m)}<style>{L.COMPONENTES_CSS}{css}</style><div class="p">
+{L.enlace_google_fonts(m)}<style>{L.COMPONENTES_CSS}{css.replace("AREAS", areas)}{css_var}</style><div class="p">
 {mosaico_logo(m, base, c, f, not a.plano)}
 <div class="t F">{tarjeta_f}</div>
 <div class="t C campo"><span class="pill">Prueba</span><small>{L.esc(prueba_t)}</small><b>{L.esc(prueba_v)}</b></div>
-<div class="t I"><span class="pill">Símbolo</span>{simbolo}</div>
+{tarjeta_r}<div class="t I"><span class="pill">Símbolo</span>{simbolo}</div>
 <div class="t V"><span class="pill">Voz</span><h2>{L.esc(lema)}</h2></div>
 <div class="t K"><span class="pill">Color</span><div class="sw">{''.join(sw)}</div></div>
 <div class="t T"><span class="pill">Tipografía</span><div class="aa">Aa</div><p>{L.esc(f["titulos"])}, titulares<br>{L.esc(f["texto"])} {pesos}, texto</p></div>

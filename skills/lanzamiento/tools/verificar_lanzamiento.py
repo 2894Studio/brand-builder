@@ -182,6 +182,16 @@ with tempfile.TemporaryDirectory() as d:
     t = open(bd, encoding="utf-8").read() if os.path.exists(bd) else ""
     ok("Foto real" not in t and "10 €/mes" in t and "Dos" in t, "bento sin fotos: --datos y --puntos sustituyen los marcadores")
 
+    be = os.path.join(d, "be.html")
+    r = py(os.path.join(AQUI, "bento.py"), PULSO, "--salida", be, "--variante", "educativa")
+    ok(r.returncode != 0, "bento educativo exige --ruta con el recorrido")
+    r = py(os.path.join(AQUI, "bento.py"), PULSO, "--salida", be, "--variante", "educativa", "--ruta", "Uno;Dos;Tres")
+    ok(r.returncode == 0 and "Recorrido" in open(be, encoding="utf-8").read(), "bento educativo: el recorrido es una tarjeta")
+    r = py(os.path.join(AQUI, "bento.py"), PULSO, "--salida", os.path.join(d, "bp.html"), "--variante", "producto")
+    ok(r.returncode != 0, "bento de producto exige foto")
+    ra = py(os.path.join(AQUI, "variedad.py"), be, bd)
+    ok("PARECIDA" in ra.stdout or "ok" in ra.stdout, "variedad.py compara estructuras")
+
     # 8. el crítico acepta el bento
     r = py(CRITICO, salida, "--ancho", "1920", "--alto", "1080")
     if r.returncode == 2:

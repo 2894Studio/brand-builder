@@ -11,7 +11,7 @@ El resultado final de usar la skill no es solo un manual: son **cuatro cosas lis
 
 Requiere `marca.json` válido con logo y paleta aprobados (`identidad`). Mejora con `gusto.json` (el tono dominante decide el recurso visual) y con `estrategia.md` (de ahí salen los dos mensajes). Sin la referencia a las skills de arriba, vuelve a ellas.
 
-Lee `references/mensajes.md` (cómo elegir los dos mensajes), `references/recursos-visuales.md` (el catálogo de recursos) y `references/fotos.md` (de dónde salen las fotos), y `../brand-kit-builder/references/preguntas-interactivas.md` (cómo preguntar).
+Lee `references/direccion-creativa.md` (cómo evitar que las piezas parezcan plantillas), `references/mensajes.md` (cómo elegir los dos mensajes), `references/recursos-visuales.md` (el catálogo de recursos) y `references/fotos.md` (de dónde salen las fotos), y `../brand-kit-builder/references/preguntas-interactivas.md` (cómo preguntar).
 
 ## Flujo
 
@@ -45,7 +45,7 @@ Si da **error**, no sigas: falta una fila de créditos o una licencia.
 ### 2. Elegir el recurso visual de cada post
 Del catálogo de `references/recursos-visuales.md`, según el mensaje **y** el tono dominante de `gusto.json`. Cada recurso lleva su prueba: una cifra con fuente, una persona con rol o una pieza de interfaz. Sin prueba, es un eslogan.
 
-**Usa el generador cuando el recurso encaje.** Son las composiciones que mejor han funcionado, ya montadas: tú solo pones los datos. Componer a mano cada vez no llega al mismo nivel.
+**Primero la dirección creativa, luego la herramienta.** Lee `references/direccion-creativa.md` y escribe el brief de cada pieza (3 conceptos que difieran en estructura, elegir uno). Los generadores de abajo son **andamios con buena calidad**, no la respuesta por defecto: si la salida podría ser de cualquier otra marca cambiando el logo, es una plantilla y no se entrega. Úsalos cuando el concepto elegido encaje y personalízalos; si no encaja, compón la pieza con `post_base.py`.
 
 | Recurso | Generador |
 |---|---|
@@ -66,8 +66,9 @@ python3 skills/lanzamiento/tools/exportar_logos.py marca.json --salida lanzamien
 SVG (el original) y PNG con fondo transparente a 3000 px. Si no hay Chromium ni `rsvg-convert`, se copian los SVG y se dice.
 
 ### 4. El bento
+Elige la **variante por la categoría** (tabla en `direccion-creativa.md`): `educativa` para formación (pide `--ruta` con el recorrido real), `producto` para producto físico (pide foto), `generica` para el resto, o una rejilla propia si ninguna encaja.
 ```
-python3 skills/lanzamiento/tools/bento.py marca.json --gusto gusto.json --fotos lanzamiento/fotos --salida lanzamiento/bento.html --lema "…" --prueba "Título|Valor" [--persona "Nombre|Rol"]
+python3 skills/lanzamiento/tools/bento.py marca.json --gusto gusto.json --fotos lanzamiento/fotos --salida lanzamiento/bento.html --lema "…" --prueba "Título|Valor" [--persona "Nombre|Rol"] [--variante generica|educativa|producto]
 ```
 Lo que no se aporta queda como **marcador visible** («Foto real»), nunca inventado. **Sin fotos, no lo dejes con marcadores:** sustituye las tarjetas por contenido real con `--datos "Etiqueta|Valor;…"` (cifras del producto: precio, tamaño de grupo, formato) y `--puntos "a;b;c"` (lo que incluye). Revísalo con el crítico a 1920×1080.
 
@@ -101,6 +102,7 @@ En `trabajo/<fecha>-marca-<slug>/lanzamiento/`: `logo/`, `bento.png` y `.html`, 
 - **Datos de competidores:** nunca se inventan ni se «redondean». Una comparativa lleva fuente y fecha, o se retira (publicidad comparativa falsa es ilegal).
 - **Cifras:** una cifra o la fuente es real, o es de ejemplo y lo dice. Nunca una cifra inventada con apariencia de dato.
 - **Referencias de otras marcas:** se toma el atributo, nunca la marca ni su imagen.
+- **Sin plantillas.** Las dos piezas del kit no comparten esquema y ninguna se parece a las de otras marcas: pasa `tools/variedad.py` y, si sale «PARECIDA», recompón.
 - **Texto recortado = error.** El crítico detecta texto cortado por su contenedor; no se entrega con ese error.
 - **Sin crítico, sin «revisado».** Si no se pudo pasar, la entrega lo dice.
 - **Una pieza, un mensaje.** Si un post intenta explicar dos cosas, se parte en dos. El post 1 no debe adelantar el atributo del post 2.

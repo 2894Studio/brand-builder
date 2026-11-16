@@ -1,6 +1,6 @@
 # Catálogo de recursos visuales
 
-Cada recurso muestra algo con una **prueba**. Elige según el mensaje y el tono dominante de `gusto.json`. Todos usan los componentes de `post_base.py` (`.cristal`, `.foto`, `.rotulo`, `.telefono`, `.pantalla`). Medidas del post: 1080×1440, márgenes de 70 px, nada de texto por debajo de 19 px (el crítico lo comprueba).
+Cada recurso muestra algo con una **prueba**. Elige según el mensaje y el tono dominante de `gusto.json`. Esto es un catálogo de **ideas y andamios**, no de plantillas: ver `direccion-creativa.md`. Todos usan los componentes de `post_base.py` (`.cristal`, `.foto`, `.rotulo`, `.telefono`, `.pantalla`). Medidas del post: 1080×1440, márgenes de 70 px, nada de texto por debajo de 19 px (el crítico lo comprueba).
 
 | Quiero mostrar… | Recurso | Tono que encaja | Prueba que lleva |
 |---|---|---|---|

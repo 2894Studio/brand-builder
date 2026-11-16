@@ -12,6 +12,7 @@
   - `bento.py` sin fotos: `--datos` y `--puntos` sustituyen los marcadores por contenido real.
   - `identidad` extrae primero de las referencias el tratamiento del nombre, la morfología del símbolo y lo que prohíben, antes de proponer logos.
   - `lanzamiento` elige el generador por el producto (no siempre el teléfono) y prohíbe entregar con texto recortado.
+- **Contra las plantillas:** nueva `lanzamiento/references/direccion-creativa.md` (brief de 5 líneas por pieza, tres conceptos que difieran en estructura, la categoría manda) y `tools/variedad.py`, que compara la estructura de una pieza con la otra del kit y con los kits anteriores y avisa si se parecen (≥ 0,6). Los generadores pasan a ser **andamios**, no la respuesta por defecto. `bento.py` gana `--variante educativa` (el recorrido es la tarjeta principal, exige `--ruta`) y `--variante producto` (la foto manda, exige foto).
 - Al publicarlo hay que subir la versión en **los dos manifiestos** (`plugin.json` y `.claude-plugin/plugin.json`) para que las instalaciones existentes vean el cambio.
 
 ## 2.5.1
