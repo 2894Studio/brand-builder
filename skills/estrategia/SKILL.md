@@ -26,9 +26,9 @@ Cierra con un resumen de 3 a 5 líneas y pide confirmación. **No sigas sin ella
 **Sí:** reconoce lo que ya contó y pregunta solo lo que falta · insiste en el «nunca debe parecer» · si le gusta una referencia, pregunta qué atributo.
 **No:** no preguntes por colores ni tipografías (son consecuencia) · no aceptes «moderno, limpio, profesional» sin un ejemplo concreto · no sigas sin saber qué nunca debe parecer.
 
-## 1b. Referencias (5 minutos, antes de los territorios)
+## 1b. Referencias, versión corta (3 minutos, antes de los territorios)
 
-Pide **ocho referencias visuales**: 4 que le encantan, 2 que no quiere parecer y 2 de otra categoría. Por cada una, **qué atributo** le gusta o rechaza (la escala del titular, el color que aparece una vez…), nunca solo el nombre. Si falta el atributo, repregunta una vez por referencia y **no lo inventes**. Guárdalas en `marca.json` → `referencias`. Método, ejemplos y ejercicios en `references/referencias.md`. Esto entrena el gusto de la persona y evita que la marca salga como la media. Para medir las imágenes, fijar la proporción de tonos (serio, divertido, tecnológico) y revisar piezas, pasa a la skill `gusto`.
+Aquí solo hace falta **orientar los territorios**: pide **tres referencias** (2 que le gustan y 1 que no quiere parecer), aunque sea en palabras. Por cada una, **qué atributo** le gusta o rechaza (la escala del titular, el color que aparece una vez…), nunca solo el nombre. Todavía no hay posicionamiento cerrado, así que no pidas ocho ni imágenes: las referencias de esta fase se quedan cortas porque la persona aún no sabe qué quiere. El entrenamiento completo (de 6 a 8 imágenes, medidas y confirmadas) va en la skill `gusto`, **después** de elegir territorio y **antes** de identidad. Si falta el atributo, repregunta una vez por referencia y **no lo inventes**. Guárdalas en `marca.json` → `referencias`. Método, ejemplos y ejercicios en `references/referencias.md`. Esto entrena el gusto de la persona y evita que la marca salga como la media. 
 
 ## 1c. Comprueba el nombre
 

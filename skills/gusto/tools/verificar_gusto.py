@@ -85,6 +85,10 @@ with tempfile.TemporaryDirectory() as d:
         saltados.append("analizador (falta Pillow)")
         print("  SALTADO analizador: falta Pillow")
 
+    # 4b. comprobador de entorno
+    r = py(os.path.join(AQUI, "comprobar_entorno.py"))
+    ok(r.returncode == 0 and "Python 3.11+" in r.stdout and "Con esta configuración puedes" in r.stdout, "comprobar_entorno informa de las capacidades")
+
     # 5. crítico
     marca = os.path.join(FIX, "marca.json")
     r = py(os.path.join(AQUI, "critico_render.py"), os.path.join(FIX, "bien.html"), "--marca", marca)

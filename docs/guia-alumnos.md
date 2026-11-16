@@ -17,7 +17,7 @@ Al terminar tienes:
 
 ## 2. Antes de empezar
 
-Necesitas tres cosas:
+**Imprescindible** (con esto ya haces la marca):
 
 1. **Claude Code**, en la terminal o en la app de escritorio, con tu sesión iniciada.
 2. **Python 3.11 o superior.** Compruébalo en la terminal:
@@ -28,6 +28,19 @@ Necesitas tres cosas:
 
    En Windows prueba `python --version` o `py --version`. Si no tienes Python, instálalo desde python.org. Sin Python puedes hacer la entrevista, el logo, la paleta y la voz, pero no se generan los tokens, el manual ni la validación.
 3. **Una carpeta vacía por cada marca.** Abre Claude Code dentro de ella. Todo lo que se cree quedará ahí.
+
+**Recomendado, para llegar a piezas visuales con buen gusto** (unos 10 minutos, una sola vez). Sin esto la marca se hace igual, pero Claude no puede medir tus referencias ni revisar sus posts:
+
+| Qué | Para qué | Cómo |
+|---|---|---|
+| **Pillow** (librería de Python) | medir tus referencias y el contraste sobre degradados | `python3 -m pip install pillow` (Windows: `py -m pip install pillow`) |
+| **Node 18+** | abrir y revisar piezas, generar mapas | nodejs.org o `winget`/`brew` |
+| **Playwright con Chromium** | el «crítico»: encuentra solapes, texto fuera de la pieza y poco contraste | `npm i -g playwright` y después `npx playwright install chromium` |
+| **La fuente de tu marca** | que el post se vea con tu tipografía y no con una de reserva | descárgala (fonts.google.com) e instálala en el sistema |
+
+**Compruébalo en un minuto:** pídele a Claude *«ejecuta comprobar_entorno de la skill gusto con mi marca.json»*. Te dice qué funciona, qué falta y el comando para instalarlo. Es normal que en la primera clase a alguien le falte algo: lo que falta se avisa y se sigue; una pieza sin revisar se entrega como «no revisada».
+
+**Tus referencias visuales las pones tú.** La skill no elige tu gusto: necesita de 6 a 8 imágenes de marcas o piezas que te gusten (y algunas que no). Puedes buscarlas tú mismo o usar un MCP como Refero, Taste o Mobbin; son opcionales y algunos exigen plan de pago. Guía completa: [Buscar buenas referencias](../skills/gusto/references/buscar-referencias.md).
 
 > Se ha probado en Linux. Si algo falla en Windows o macOS, apunta tu sistema operativo y cuéntaselo a tu profesor.
 
@@ -91,11 +104,19 @@ Escribe en Claude Code. Las frases de ejemplo sirven tal cual, pero habla con tu
 
 Te hace **tres rondas de preguntas**, una por mensaje. La más importante es la segunda: **qué nunca debe parecer tu marca**. Responde con ejemplos concretos, no con «moderna y profesional».
 
-Después te pide **ocho referencias visuales**: 4 que te encantan, 2 que no quieres parecer y 2 de otra categoría (una revista, un cartel, un edificio). De cada una te pregunta **qué te gusta**: «la escala enorme del titular», no «me gusta Deloitte». Es el paso que más educa tu gusto y evita que la marca salga como la media.
+Después te pide **tres referencias** (2 que te gustan y 1 que no quieres parecer) para orientar las direcciones. De cada una te pregunta **qué te gusta**: «la escala enorme del titular», no «me gusta Deloitte». El entrenamiento completo, con imágenes, llega después de elegir dirección: ver «Tus referencias visuales» más abajo.
 
 Cuando termina, te resume lo entendido. Si es correcto, di «confirmado». Hasta entonces no se genera nada.
 
 Después recibes **tres territorios** (tres direcciones para tu marca). Elige uno o mezcla dos, y te escribe el manifiesto de la marca en primera persona.
+
+### Tus referencias visuales (entre el paso 1 y el 2)
+
+Guarda de 6 a 8 imágenes en la carpeta `referencias/` (**4 que te gustan, 2 que no quieres parecer, 2 de otra categoría**) y escribe una línea de **qué** te gusta de cada una. Después:
+
+> `Usa la skill gusto con las imágenes de referencias/.`
+
+Claude las mide (colores, aire, detalle), te enseña **su lectura** de cada una («esta es seria: campo continuo, cifra con fuente») y te pide que la corrijas. Con tu confirmación fija una proporción de tonos (serio, divertido, tecnológico) que se aplica a tus piezas. Si no las confirmas, no cuentan como tu gusto. Puedes hacer este paso sin instalar nada de lo recomendado, pero sin Pillow no se miden las imágenes.
 
 ### Paso 2. Logo, paleta y tipografía
 

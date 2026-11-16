@@ -12,6 +12,18 @@ Tabla de decisión para posts estáticos y de video. Los datos de los repositori
 | Mover una imagen que ya tengo | creative-architect (`animar`) + un proveedor de video | Sí |
 | Editar un video que he grabado yo (cortes, subtítulos, SFX) | video-editor-architect | No, salvo opciones de pago |
 
+## Piezas visuales: ¿HTML con Claude Code o Canva?
+
+La pregunta que decide es **¿quién va a editar esto después?**
+
+| | HTML con Claude Code (skill `gusto`) | Canva |
+|---|---|---|
+| **Fortalezas** | fuente exacta de la marca, posicionamiento al píxel, desenfoque de cristal, revisión automática (solapes, contraste), repetible cambiando un dato | lo edita cualquiera, equipo y cliente colaboran, programación y exportación |
+| **Límites** | la salida es PNG + HTML: una persona sin perfil técnico no lo edita; necesita Node y Chromium | por el conector: sin elegir fuente, sin desenfoque, descompone las imágenes que subes y solo deja una miniatura en disco |
+| **Úsalo para** | series de piezas, precisión, la primera versión | los retoques finales, la entrega al cliente, imágenes generadas (fotos de personas) |
+
+**Flujo recomendado:** estrategia, identidad y tokens en Claude Code → fotos en Canva → piezas en HTML cuando importan fidelidad y repetición → Canva para los últimos retoques de quien no es técnico. Un editable de Canva montado desde HTML pierde fidelidad (fuente por defecto, tarjetas planas): hay que avisarlo.
+
 ## Comparación
 
 | | creative-architect | motion-architect | video-editor-architect |

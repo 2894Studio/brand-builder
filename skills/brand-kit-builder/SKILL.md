@@ -37,7 +37,7 @@ Los scripts de `tokens`, `laminas` e `identidad` necesitan Python 3.11 o superio
 | Que se vea menos genérico, entrenar el gusto, aportar referencias, diseñar un post, banner o pantalla, «más profesional / más humano / más tecnológico» | `gusto` |
 | Montarlo en Canva | `canva` |
 
-**Cadena por defecto** cuando pide «la marca entera»: `estrategia → identidad → voz → tokens → laminas → entrega`. Cada paso termina con aprobación de la persona antes del siguiente. Si la petición es ambigua, haz **una** pregunta, la que más cambie el resultado.
+**Cadena por defecto** cuando pide «la marca entera»: `estrategia → gusto → identidad → voz → tokens → laminas → entrega`. `gusto` pide imágenes de referencia que aporta la persona; si no quiere o no puede, se salta y se avisa de que la marca saldrá con menos criterio visual. Cada paso termina con aprobación de la persona antes del siguiente. Si la petición es ambigua, haz **una** pregunta, la que más cambie el resultado.
 
 ## Invariantes (no se rompen)
 

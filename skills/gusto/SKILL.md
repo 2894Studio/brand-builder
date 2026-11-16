@@ -17,8 +17,15 @@ Después de `estrategia` y antes de `identidad` (si la marca es nueva), o en cua
 
 ## Flujo
 
+### 0. Comprobar el equipo (2 min, una vez)
+Antes de prometer una revisión visual, comprueba qué puede hacer este ordenador:
+```
+python3 skills/gusto/tools/comprobar_entorno.py --marca marca.json
+```
+Abre una página en Chromium de verdad y dice qué capacidades hay (medir referencias, revisar piezas, contraste sobre degradados, mapas) y qué instalar para el resto. Lo que falte se dice **una vez** y se sigue con lo que sí hay; una pieza sin crítico se entrega como «no revisada mecánicamente».
+
 ### 1. Reunir (5 min)
-Pide de 6 a 8 imágenes y que las guarde en `referencias/`: **4 que le gustan, 2 que no quiere parecer, 2 de otra categoría**. Una nota suya por imagen: *qué* le gusta («el aire», «la persona con su rol»), no solo «me gusta». Si la persona no tiene imágenes, que describa marcas y tú buscas páginas públicas para que elija; no las inventes.
+Las referencias las aporta **la persona**: no las inventes ni las elijas por ella. Pide de 6 a 8 imágenes y que las guarde en `referencias/`: **4 que le gustan, 2 que no quiere parecer, 2 de otra categoría**. Si no sabe dónde buscarlas, enséñale `references/buscar-referencias.md` (con o sin MCP). Una nota suya por imagen: *qué* le gusta («el aire», «la persona con su rol»), no solo «me gusta». Si la persona no tiene imágenes, que describa marcas y tú buscas páginas públicas para que elija qué captura guardar; no inventes atributos de marcas que no has visto.
 
 Las imágenes de otras marcas son referencia interna: no se reutilizan en las piezas, no se publican y no se copian en el plugin.
 

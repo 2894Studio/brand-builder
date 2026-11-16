@@ -1,5 +1,15 @@
 # Changelog
 
+## 2.4.0
+
+Para que los alumnos lleguen a piezas de este nivel con su propio equipo y sus propias referencias.
+
+- **Nuevo:** `comprobar_entorno.py` prueba de verdad la cadena (Python, Pillow, Node, Playwright, Chromium y las fuentes de la marca), dice qué capacidades hay y el comando para instalar lo que falta. Probado completo y sin Node.
+- **Nuevo:** `buscar-referencias.md`: qué es una buena referencia, cuántas, dónde buscarlas con y sin MCP, cómo entregarlas y cómo no copiar.
+- **Cambio:** las referencias se piden en dos momentos. En `estrategia`, una versión corta (3, también en palabras) solo para orientar los territorios; el entrenamiento completo (6 a 8 imágenes medidas y confirmadas) pasa a `gusto`, después de elegir territorio y antes de `identidad`. Razón: en la prueba real, las referencias de la primera fase se quedaron sin atributo y fue con las imágenes concretas cuando salieron patrones útiles.
+- **Cambio:** la cadena por defecto incluye `gusto`: `estrategia → gusto → identidad → voz → tokens → laminas → entrega`.
+- **Documentación:** la guía del alumno recoge lo recomendado a instalar y el paso de referencias; `elegir-herramienta.md` añade la regla «¿quién edita después?» y el flujo híbrido HTML + Canva.
+
 ## 2.3.0
 
 Cambios tras repetir un rebranding «moderno» de Findpro con dos referencias nuevas.

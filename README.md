@@ -21,6 +21,12 @@ Desarrollado por [2894 Studio](https://github.com/2894Studio) a partir del caso 
 - [Ahorro de tokens y créditos](docs/ahorro-tokens.md): dónde se gasta y qué hacer, con datos medidos.
 - [Informe de la prueba real](docs/informe-prueba-real.md): qué funcionó, qué falló y qué se corrigió en un recorrido completo con una marca nueva.
 
+## Requisitos
+
+- **Imprescindible:** Claude Code y Python 3.11 o superior.
+- **Recomendado (revisión visual y referencias):** Pillow, Node 18+, Playwright con Chromium y la fuente de la marca instalada. Compruébalo con `python3 skills/gusto/tools/comprobar_entorno.py --marca marca.json`.
+- **Tus referencias visuales las aportas tú** (o las buscas con un MCP como Refero, Taste o Mobbin, que es opcional): [Buscar buenas referencias](skills/gusto/references/buscar-referencias.md).
+
 ## Instalación
 
 Mientras el repositorio no esté publicado, se instala desde la carpeta (o desde el ZIP descomprimido): `claude plugin marketplace add ./brand-kit-builder` y después `claude plugin install brand-kit-builder@brand-kit-builder`. Las dos rutas están explicadas en la [guía del alumno](docs/guia-alumnos.md).
