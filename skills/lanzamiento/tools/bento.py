@@ -95,7 +95,9 @@ def main():
         celdas = "".join(f'<div><small>{L.esc(x[0].strip())}</small><b>{L.esc(x[1].strip())}</b></div>' for x in fil)
         tarjeta_f = f'<span class="pill">Datos</span><div class="dat">{celdas}</div>'
         a.foto_equipo = "datos"
-    tarjeta_p = f'<span class="pill">Personas</span>{foto(a.foto_persona, "50% 14%", bool(pie_ia.get("retrato")), 96)}<div class="rot"><b>{L.esc(persona_n)}</b>{L.esc(persona_r)}</div>'
+    hay_retrato = bool(a.foto_persona and os.path.exists(a.foto_persona))
+    rotulo = f'<div class="rot"><b>{L.esc(persona_n)}</b>{L.esc(persona_r)}</div>' if (a.persona or not hay_retrato) else ""   # con foto y sin --persona no se inventa un nombre
+    tarjeta_p = f'<span class="pill">Personas</span>{foto(a.foto_persona, "50% 14%", bool(pie_ia.get("retrato")), 96)}{rotulo}'
     if not (a.foto_persona and os.path.exists(a.foto_persona)) and a.puntos:
         pts = [x.strip() for x in a.puntos.split(";") if x.strip()][:4]
         lis = "".join(f"<li>{L.esc(x)}</li>" for x in pts)
@@ -110,9 +112,15 @@ def main():
         sw.append(f'<div style="background:{h};color:{L.legible(h)};{borde}"><span>{L.esc(c["nombres"][clave])}</span><span>{h}</span></div>')
 
     # proporción o territorio
+    tonos = {}
     if a.gusto and os.path.exists(a.gusto):
         import json
-        t = json.load(open(a.gusto, encoding="utf-8")).get("tonos", {})
+        try:
+            tonos = json.load(open(a.gusto, encoding="utf-8")).get("tonos", {}) or {}
+        except Exception:  # noqa: BLE001
+            tonos = {}
+    if tonos:
+        t = tonos
         nom = {"serio": "Serio", "divertido": "Divertido", "tecnologico": "Tecnológico"}
         filas = "".join(f'<div><div class="n"><span>{nom.get(k, k)}</span><span>{v}</span></div><div class="bar"><i style="width:{v}%"></i></div></div>'
                         for k, v in sorted(t.items(), key=lambda kv: -kv[1]))
@@ -122,6 +130,7 @@ def main():
         nombres_t = {"artesanal": "Artesanal", "editorial": "Editorial", "tecnologico": "Tecnológico", "natural": "Natural", "cercano": "Cercano"}
         mosaico_m = f'<div class="t M campo"><span class="pill">Territorio</span><div class="terr">{L.esc(nombres_t.get(terr, terr.capitalize()) or "—")}</div></div>'
 
+    dos_fotos = bool(a.foto_equipo and os.path.exists(a.foto_equipo) and a.foto_persona and os.path.exists(a.foto_persona))
     areas = {
         "generica": '"L L L L L F F F C C I I" "L L L L L F F F C C I I" "L L L L L F F F V V V V" "K K K K K T T T P P M M" "K K K K K T T T P P M M" "K K K K K T T T P P M M"',
         "educativa": '"L L L L L R R R R I I I" "L L L L L R R R R C C C" "L L L L L R R R R C C C" "K K K K T T T V V V V V" "K K K K T T T F F F P P" "K K K K T T T M M M P P"',
@@ -135,6 +144,8 @@ def main():
     }[a.variante]
     if a.variante == "producto" and not (a.foto_equipo and os.path.exists(a.foto_equipo)):
         sys.exit("--variante producto necesita --foto-equipo (o --fotos con equipo*): la fotografía es la tarjeta protagonista. Sin foto, usa la variante generica o educativa.")
+    if a.variante == "educativa" and dos_fotos:     # con las dos fotos, cada una ocupa dos filas y la tarjeta de proporción sobra
+        areas = '"L L L L L R R R R I I I" "L L L L L R R R R C C C" "L L L L L R R R R C C C" "K K K K T T T V V V V V" "K K K K T T T F F F P P" "K K K K T T T F F F P P"'
     tarjeta_r = ""
     if a.variante == "educativa":
         pasos = [x.strip() for x in (a.ruta or "").split(";") if x.strip()][:5]
@@ -182,7 +193,7 @@ grid-template-areas:AREAS}
 <div class="t K"><span class="pill">Color</span><div class="sw">{''.join(sw)}</div></div>
 <div class="t T"><span class="pill">Tipografía</span><div class="aa">Aa</div><p>{L.esc(f["titulos"])}, titulares<br>{L.esc(f["texto"])} {pesos}, texto</p></div>
 <div class="t P">{tarjeta_p}</div>
-{mosaico_m}
+{'' if (a.variante == 'educativa' and dos_fotos) else mosaico_m}
 </div></html>"""
     os.makedirs(os.path.dirname(os.path.abspath(a.salida)), exist_ok=True)
     with open(a.salida, "w", encoding="utf-8") as fh:

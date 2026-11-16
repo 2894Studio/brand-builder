@@ -348,6 +348,20 @@ with tempfile.TemporaryDirectory() as d:
     ok("necesita fotos" in pf, "proponer_posts: una marca visual sin fotos avisa de que las necesita")
     ok(len({pe, pf, pb}) == 3 and pe.count("\n") > 5, "proponer_posts: tres marcas distintas reciben propuestas distintas")
 
+    # 7h: con retrato y sin --persona no se inventa un nombre
+    try:
+        from PIL import Image
+        rf = os.path.join(d, "ret.jpg")
+        Image.new("RGB", (1080, 1440), "#778899").save(rf)
+        bo = os.path.join(d, "bret.html")
+        py(os.path.join(AQUI, "bento.py"), PULSO, "--salida", bo, "--foto-persona", rf, "--datos", "Plan|1 al mes")
+        tb = open(bo, encoding="utf-8").read()
+        ok("Nombre y apellido" not in tb and "Rol · Ciudad" not in tb, "bento con retrato y sin --persona no inventa un nombre")
+        py(os.path.join(AQUI, "bento.py"), PULSO, "--salida", bo, "--foto-persona", rf, "--persona", "Ana|Mecánica", "--datos", "Plan|1 al mes")
+        ok("Ana" in open(bo, encoding="utf-8").read(), "bento con --persona escribe el rótulo")
+    except ImportError:
+        pass
+
     # 8. el crítico acepta el bento
     r = py(CRITICO, salida, "--ancho", "1920", "--alto", "1080")
     if r.returncode == 2:
