@@ -65,7 +65,11 @@ Logo, paleta y tipografía no bastan: una marca que solo tiene eso sale plana. A
 
 Pregúntalo contra las referencias de `gusto.json`: si las referencias tienen fotografía y la marca no, está mal. Una marca para empresas o técnica también lleva personas y contexto real, no solo iconos.
 
-## 4c. Opcional: explorar tres direcciones con FLORA
+## 4c. Explorar tres direcciones a partir del logo
+
+**Camino por defecto (gratis):** `references/tres-direcciones.md`. Lees el logo, lo cruzas con la estrategia, escribes 2 o 3 direcciones distintas y `tools/tableros_identidad.py` las renderiza como tableros editables; la persona elige con un diálogo.
+
+**Opcional, de pago: FLORA.**
 
 Si la persona tiene el conector de FLORA con saldo y quiere explorar direcciones para el sistema de imagen, `references/direccion-flora.md` explica cómo pasar el logo aprobado por la técnica **Logo to Brand Identity** (tres tableros de identidad, de pago: pide el presupuesto en USD y espera el sí). Los tableros son inspiración: se toma la paleta **medida** y el estilo de imagen, nunca los textos que dibuja el modelo, y la estrategia manda sobre lo que infiera del logo. Sin FLORA o sin saldo, se salta sin más.
 

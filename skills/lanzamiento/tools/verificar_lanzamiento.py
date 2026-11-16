@@ -408,6 +408,17 @@ with tempfile.TemporaryDirectory() as d:
     except ImportError:
         saltados.append("flora_logo (falta Pillow)")
 
+    # 7k: tableros de identidad propios (alternativa gratuita a la técnica de FLORA)
+    TI = os.path.join(RAIZ, "skills", "identidad", "tools", "tableros_identidad.py")
+    dj = os.path.join(d, "dirs.json")
+    base_d = {"nombre": "A", "idea": "x", "colores": {"primario": "#2F4BD8", "profundo": "#10163A", "acento": "#00C27A", "fondo": "#F4F5F7", "texto": "#12141A"}, "tipografia": {"titulos": "Inter", "texto": "Inter"}, "firma": "horizonte", "frase": "Hola", "radio": 12}
+    json.dump([base_d, dict(base_d, nombre="B", firma="puntos", colores=dict(base_d["colores"], primario="#E8A33D"))], open(dj, "w"))
+    r = py(TI, PULSO, dj, "--salida", os.path.join(d, "tabs"))
+    ok(r.returncode == 0 and os.path.exists(os.path.join(d, "tabs", "direccion-2.html")), "tableros_identidad genera un tablero por dirección")
+    ok("se parecen" in py(TI, PULSO, json.dump([base_d, dict(base_d, nombre="B")], open(dj, "w")) or dj, "--salida", os.path.join(d, "tabs2")).stdout, "tableros_identidad avisa si las direcciones se parecen")
+    json.dump([base_d], open(dj, "w"))
+    ok(py(TI, PULSO, dj, "--salida", os.path.join(d, "tabs3")).returncode != 0, "tableros_identidad exige de 2 a 3 direcciones")
+
     # 8. el crítico acepta el bento
     r = py(CRITICO, salida, "--ancho", "1920", "--alto", "1080")
     if r.returncode == 2:
