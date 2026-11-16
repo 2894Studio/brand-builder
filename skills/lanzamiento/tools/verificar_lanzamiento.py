@@ -237,10 +237,13 @@ with tempfile.TemporaryDirectory() as d:
     pf = os.path.join(d, "pf.md")
     r = py(os.path.join(AQUI, "prompts_fotos.py"), PULSO, "--salida", pf, "--equipo", "mecánicos revisando una bici")
     tx = open(pf, encoding="utf-8").read() if os.path.exists(pf) else ""
-    ok(r.returncode == 0 and tx.count("```") == 8 and "sin ningún texto" in tx and "#2F4BD8" in tx and "Mecánicos revisando una bici." in tx, "prompts_fotos: 4 prompts con paleta, sin texto y con el sujeto pedido")
+    ok(r.returncode == 0 and tx.count("```") == 10 and "sin ningún texto" in tx and "#2F4BD8" in tx and "Mecánicos revisando una bici." in tx, "prompts_fotos: 5 prompts con paleta, sin texto y con el sujeto pedido")
 
     rc = py(os.path.join(AQUI, "prompts_fotos.py"), PULSO, "--salida", pf, "--proveedor", "canva")
     ok(rc.returncode == 0 and "LANDSCAPE_4_3" in open(pf, encoding="utf-8").read() and "PORTRAIT_3_4" in open(pf, encoding="utf-8").read(), "prompts_fotos --proveedor canva indica la proporción de Canva")
+    rf = py(os.path.join(AQUI, "prompts_fotos.py"), PULSO, "--salida", pf, "--proveedor", "flora")
+    txf = open(pf, encoding="utf-8").read()
+    ok(rf.returncode == 0 and "flora_create_generations" in txf and "quote: true" in txf and "objeto-1" in txf and "`aspect_ratio` para FLORA" in txf, "prompts_fotos --proveedor flora indica el presupuesto previo, el modelo y el aspect_ratio")
     fr = os.path.join(d, "fr")
     os.makedirs(fr)
     try:

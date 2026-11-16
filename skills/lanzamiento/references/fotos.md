@@ -2,6 +2,14 @@
 
 Los posts llevan imágenes cuando hay fotos. Esta guía dice **cómo dárselas a la skill**, de dónde sacarlas y qué cuidar. Canva **no** es una fuente de fotos reales: genera imágenes con IA (sintéticas). Es la única vía que se ha probado aquí, y es opcional.
 
+## Generarlas con FLORA (verificado con una cuenta real)
+
+```
+python3 skills/lanzamiento/tools/prompts_fotos.py marca.json --proveedor flora --salida lanzamiento/prompts-fotos.md
+```
+
+Con el conector de FLORA: `flora_create_generations` (`type` image, `model`, `params.aspect_ratio`). **Primero `quote: true` y se dice el coste en USD** (en la prueba, 0,02 a 0,06 USD por imagen). El resultado llega en `outputs[].url` y **se descarga directamente con `curl`**, sin el rodeo de exportar un diseño que exige Canva. Lo que salió en la prueba: `t2i-elote-gateway` (Nano Banana 2.1) dio un retrato muy natural; `t2i-gpt-image-2-6-sunburst` clavó un objeto sobre amarillo plano saturado; `t2i-seedream-5-5-t2i` falló dos veces con «proveedor no disponible» (sin coste). Cuidado con los límites: el plan gratuito tiene un tope de proyectos y la API **no puede crear ni borrar proyectos**; si el workspace está lleno, genera con `add_to_canvas: false` (queda solo en el historial) y no añadas nada a proyectos de trabajo. Registra la foto con `registrar_foto.py --origen ia --fuente "FLORA (Nano Banana 2.1)"`.
+
 ## Generarlas con Gemini o Google Flow
 
 ```
