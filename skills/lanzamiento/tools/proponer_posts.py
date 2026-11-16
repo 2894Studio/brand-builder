@@ -19,6 +19,8 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 DESC = {
     "pasos": ("pasos", "Pasos numerados (un verbo y su consecuencia)", "3 o 4 pasos reales de cómo funciona o qué se hace"),
     "manifiesto": ("manifiesto", "Frase enorme de la voz de la marca, con la inicial a sangre", "una frase del manifiesto de estrategia.md (≤ 12 palabras)"),
+    "expresivo_gigante": ("expresivo_gigante", "Campaña expresiva: palabra gigante recortada, foto en marco de sello e insignia", "1 foto con personalidad y una palabra clave de la marca"),
+    "expresivo_precio": ("expresivo_precio", "Campaña expresiva con precio enorme (decimales en superíndice) y beneficios", "un precio real (o de ejemplo marcado) y 3 beneficios; 1 foto"),
     "cifra": ("cifra", "Un número gigante con su explicación", "una cifra real propia (plazas, años, precio) o de terceros con fuente"),
     "foto": ("foto", "Foto a sangre con bloque opaco y notas sobre la foto", "1 foto buena (propia, de banco o generada) en fotos/"),
     "pantalla": ("pantalla", "Ventana de escritorio con la interfaz del producto", "solo si el producto tiene interfaz: 3 filas reales"),
@@ -52,9 +54,17 @@ def main():
         k = (h >> k) % len(xs)
         return xs[k:] + xs[:k]
     # tres direcciones: mostrar el producto, contarlo con tipografía, probarlo con un dato
-    d_mostrar = (["foto"] if (hay_fotos or visual) else []) + (["pantalla"] if digital else []) + (["telefono"] if app else []) + (["mapa"] if local else [])
+    divertido = False
+    if a.gusto and os.path.exists(a.gusto):
+        try:
+            tn = json.load(open(a.gusto, encoding="utf-8")).get("tonos", {}) or {}
+            divertido = bool(tn) and max(tn, key=tn.get) == "divertido"
+        except Exception:  # noqa: BLE001
+            pass
+    divertido = divertido or bool(re.search(r"viaj|ocio|fiesta|evento|divertid|jugueter|helader|festival", txt))
+    d_mostrar = (["expresivo_gigante"] if divertido else []) + (["foto"] if (hay_fotos or visual) else []) + (["pantalla"] if digital else []) + (["telefono"] if app else []) + (["mapa"] if local else [])
     d_tipo = ["manifiesto", "pasos"]
-    d_dato = ["cifra"] + (["comparativa"] if (digital or precio) else []) + (["mapa"] if local and "mapa" not in d_mostrar else [])
+    d_dato = (["expresivo_precio"] if (divertido and precio) else []) + ["cifra"] + (["comparativa"] if (digital or precio) else []) + (["mapa"] if local and "mapa" not in d_mostrar else [])
     d_mostrar, d_tipo, d_dato = rota(d_mostrar, 3), rota(d_tipo, 7), rota(d_dato, 11)
     if not d_mostrar:
         d_mostrar = ["foto"]

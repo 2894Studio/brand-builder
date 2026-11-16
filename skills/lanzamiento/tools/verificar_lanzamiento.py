@@ -362,6 +362,24 @@ with tempfile.TemporaryDirectory() as d:
     except ImportError:
         pass
 
+    # 7i: post_expresivo
+    try:
+        from PIL import Image
+        ef = os.path.join(d, "exf.jpg")
+        Image.new("RGB", (1080, 1440), "#8899AA").save(ef)
+        for modo, extra in (("gigante", ["--titular", "Tu <b>viaje</b>", "--palabra", "viaje"]), ("precio", ["--destino", "Lima", "--precio", "99|90|€", "--beneficios", "Vuelo;Hotel;Desayuno", "--ejemplo"])):
+            o = os.path.join(d, f"exp_{modo}.html")
+            r = py(os.path.join(AQUI, "post_expresivo.py"), PULSO, "--modo", modo, "--salida", o, "--foto", ef, *extra)
+            tx = open(o, encoding="utf-8").read() if os.path.exists(o) else ""
+            ok(r.returncode == 0 and f'content="expresivo:{modo}"' in tx and "clip-path:path(" in tx, f"post_expresivo --modo {modo} genera el marco de sello y su arquetipo")
+            rc3 = py(CRITICO, o, "--marca", PULSO)
+            if rc3.returncode != 2:
+                ok(rc3.returncode == 0, f"post_expresivo {modo} pasa el crítico sin errores")
+        ok("Precio de ejemplo" in open(os.path.join(d, "exp_precio.html"), encoding="utf-8").read(), "post_expresivo precio con --ejemplo lo escribe en la pieza")
+        ok(py(os.path.join(AQUI, "variedad.py"), os.path.join(d, "exp_gigante.html"), os.path.join(d, "exp_precio.html")).returncode == 0, "los dos modos expresivos son de arquetipos distintos (misma familia gráfica, composición distinta)")
+    except ImportError:
+        saltados.append("post_expresivo (falta Pillow)")
+
     # 8. el crítico acepta el bento
     r = py(CRITICO, salida, "--ancho", "1920", "--alto", "1080")
     if r.returncode == 2:

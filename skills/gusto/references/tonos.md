@@ -43,3 +43,19 @@ Riesgo: sin personas reales ni producto real, el estilo se queda en degradado y 
 ## Límites
 
 Siete referencias de un solo sector (SaaS) en una persona. No hay referencias de sectores serios no tecnológicos ni de estética no azul: si la marca va por ahí, mide otras referencias antes de aplicar esta tabla.
+
+
+## Divertido expresivo (campaña): hipótesis de una referencia más
+
+Una referencia de agencia de viajes (cuatro posts, azul eléctrico, amarillo y casi negro) pide **otro tipo de «divertido»**: no el cálido y redondeado de los SaaS, sino el de **campaña**. Lo común:
+
+- **Colores planos y saturados**, tres como mucho (campo, acento, oscuro); sin degradados.
+- **Palabra gigante recortada** por el borde, a veces girada, como textura y no como texto a leer.
+- **Marcos con personalidad** en las fotos: sello de correos, recorte con muescas; foto ligeramente girada.
+- **Insignia** con el símbolo de la marca, festoneada, girada; estrellas y líneas de matasellos como ornamento.
+- **Precios enormes** con los decimales en superíndice, píldora con borde y lista con flechas.
+- **Titular ligero con una palabra en negrita y color de acento**, y un trazo corto encima.
+- **Fotografía de objeto sobre color liso** (una maleta con unas gafas sobre amarillo) o paisajes en marco.
+- Composición asimétrica y elementos que se salen del lienzo: mucho movimiento, poco aire.
+
+En el plugin: `lanzamiento/tools/post_expresivo.py` (modos `gigante` y `precio`), recursos `expresivo_gigante` y `expresivo_precio` de `kit_lanzamiento.py`. Sirve para marcas de viajes, ocio, comida, eventos o cualquiera con personalidad y fotos buenas. Con n = 1 referencia: es una hipótesis.

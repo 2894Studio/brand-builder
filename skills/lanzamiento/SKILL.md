@@ -50,13 +50,15 @@ python3 skills/lanzamiento/tools/proponer_posts.py marca.json --fotos lanzamient
 ```
 Propone **tres combinaciones de arquetipos distintos** (mostrar el producto, contarlo con tipografía, probarlo con un dato), adaptadas a la categoría, a las fotos que haya y a si el producto es digital. **Se las enseñas a la persona con un diálogo (A, B o C) y ella elige**; tú no eliges por defecto. Reglas que no se rompen (las comprueba `kit_lanzamiento.py` y la puerta de entrega):
 
-- Los dos posts son de **arquetipos distintos** (`ui`, `foto`, `datos`, `mapa`, `tipografico:cifra|pasos|manifiesto`). Dos interfaces, aunque una sea móvil y otra ventana, son la misma plantilla.
+- Los dos posts son de **arquetipos distintos** (`ui`, `foto`, `datos`, `mapa`, `expresivo:gigante|precio`, `tipografico:cifra|pasos|manifiesto`). Dos interfaces, aunque una sea móvil y otra ventana, son la misma plantilla.
 - La **interfaz** (móvil o ventana) solo para productos digitales. Una academia de fotografía, una panadería o un servicio local no enseñan una pantalla.
 - Cada recurso lleva su prueba: una cifra con fuente, una foto real, una interfaz real, un paso real. Sin prueba, es un eslogan.
 - El tono dominante de `gusto.json` y la categoría deciden el tema (`claro` u `oscuro`); los dos posts no usan el mismo.
 
 | Recurso | Generador | Qué hay que aportar |
 |---|---|---|
+| Campaña expresiva: palabra gigante recortada, foto en sello, insignia | `post_expresivo.py --modo gigante` | una foto con personalidad y una palabra clave |
+| Precio enorme con beneficios (oferta, destino, curso) | `post_expresivo.py --modo precio` | precio real (o `--ejemplo`) y 3 beneficios |
 | Frase enorme de la voz, con la inicial a sangre | `post_tipografico.py --modo manifiesto` | una frase del manifiesto |
 | Pasos numerados (verbo + consecuencia) | `post_tipografico.py --modo pasos` | 3 o 4 pasos reales |
 | Un número gigante con su explicación | `post_tipografico.py --modo cifra` | una cifra real (propia o con fuente) |

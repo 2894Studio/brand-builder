@@ -4,6 +4,7 @@ Cada recurso muestra algo con una **prueba**. Elige según el mensaje y el tono 
 
 | Quiero mostrar… | Recurso | Tono que encaja | Prueba que lleva |
 |---|---|---|---|
+| Marca con personalidad y fotos: campaña, oferta, destino, evento | **Expresivo** (sello, palabra gigante, precio enorme) | divertido | `post_expresivo.py --modo gigante|precio` |
 | Un número, un proceso o una frase, sin foto ni interfaz | **Tipográfico** | cualquiera | `post_tipografico.py --modo cifra|pasos|manifiesto` |
 | La foto como protagonista (marca visual: fotografía, gastronomía, moda, viajes; o cualquiera con fotos buenas) | **Foto a sangre + bloque opaco** | cualquiera | `post_foto.py`: foto real, titular en bloque opaco, `--notas` para anotar sobre la foto |
 | Producto web, panel, curso o código | **Ventana de escritorio** | tecnológico / serio | `post_pantalla.py`: menú, cifra, filas o bloque de código |

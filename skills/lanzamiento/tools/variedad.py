@@ -57,7 +57,9 @@ def main():
         j = jaccard(f0, firma(o))
         fam0, fam1 = arquetipo(a.pieza), arquetipo(o)
         misma = bool(fam0) and fam0 == fam1          # mismo arquetipo de composición = misma plantilla, aunque cambien textos y colores
-        parecida = j >= a.umbral or misma
+        ambas = bool(fam0) and bool(fam1)
+        # con arquetipo declarado en las dos piezas manda el arquetipo (otro arquetipo = otra composición); sin él, el índice de clases
+        parecida = misma or (j >= (0.9 if ambas else a.umbral))
         print(f"  {'PARECIDA' if parecida else 'ok':9} {j:.2f}  {os.path.relpath(o)}" + (f"  (mismo arquetipo: {fam0})" if misma else ""))
         mal += parecida
     if mal:
