@@ -118,6 +118,7 @@ def main():
 .cristal b{font-size:50px}
 """.replace("AVATAR", avatar).replace("CHIP", chip_fg)
     doc = f"""<!doctype html><html lang="es"><meta charset="utf-8"><title>{L.esc(nombre)} · qué es la marca</title>
+<meta name="arquetipo" content="ui">
 {L.enlace_google_fonts(m)}<style>{L.COMPONENTES_CSS}{css}{L.tema_css(m, a.tema)}</style>
 <div class="p campo">
 <div class="anillo" style="width:660px;height:1000px;margin-left:-330px;top:240px"></div><div class="anillo" style="width:800px;height:1100px;margin-left:-400px;top:190px;border-color:rgba(255,255,255,.12)"></div>

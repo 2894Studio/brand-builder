@@ -42,21 +42,31 @@ python3 skills/lanzamiento/tools/preparar_fotos.py fotos --salida lanzamiento/fo
 ```
 Si da **error**, no sigas: falta una fila de créditos o una licencia.
 
-### 2. Elegir el recurso visual de cada post
-Del catálogo de `references/recursos-visuales.md`, según el mensaje **y** el tono dominante de `gusto.json`. Cada recurso lleva su prueba: una cifra con fuente, una persona con rol o una pieza de interfaz. Sin prueba, es un eslogan.
+### 2. Elegir el recurso visual de cada post (que no sea siempre el mismo)
 
-**Primero la dirección creativa, luego la herramienta.** Lee `references/direccion-creativa.md` y escribe el brief de cada pieza (3 conceptos que difieran en estructura, elegir uno). Los generadores de abajo son **andamios con buena calidad**, no la respuesta por defecto: si la salida podría ser de cualquier otra marca cambiando el logo, es una plantilla y no se entrega. Úsalos cuando el concepto elegido encaje y personalízalos; si no encaja, compón la pieza con `post_base.py`.
+Ejecuta primero:
+```
+python3 skills/lanzamiento/tools/proponer_posts.py marca.json --fotos lanzamiento/fotos
+```
+Propone **tres combinaciones de arquetipos distintos** (mostrar el producto, contarlo con tipografía, probarlo con un dato), adaptadas a la categoría, a las fotos que haya y a si el producto es digital. **Se las enseñas a la persona con un diálogo (A, B o C) y ella elige**; tú no eliges por defecto. Reglas que no se rompen (las comprueba `kit_lanzamiento.py` y la puerta de entrega):
 
-| Recurso | Generador |
-|---|---|
-| Teléfono con la interfaz del producto o servicio (qué es) | `post_telefono.py` |
-| Mapa de puntos con una zona y personas a distancia real (cerca de ti) | `post_mapa.py` (necesita Node y `npm i world-atlas topojson-client d3-geo`) |
-| Foto real a sangre con bloque opaco y notas sobre la foto (marcas visuales: fotografía, gastronomía, moda…) | `post_foto.py` |
-| Ventana de escritorio: panel web, curso o código (producto web, SaaS, formación) | `post_pantalla.py` (`--codigo` para marcas de código) |
-| Comparativa «ellos / nosotros» (precio, modelo) | `post_comparativa.py`: **exige `--fuente`** del dato del competidor; sin fuente solo con `--ejemplo` y queda marcado |
-| Cualquier otro (cifra con fuente, pasos, antes y después…) | `post_base.py` y lo construyes con los componentes |
+- Los dos posts son de **arquetipos distintos** (`ui`, `foto`, `datos`, `mapa`, `tipografico:cifra|pasos|manifiesto`). Dos interfaces, aunque una sea móvil y otra ventana, son la misma plantilla.
+- La **interfaz** (móvil o ventana) solo para productos digitales. Una academia de fotografía, una panadería o un servicio local no enseñan una pantalla.
+- Cada recurso lleva su prueba: una cifra con fuente, una foto real, una interfaz real, un paso real. Sin prueba, es un eslogan.
+- El tono dominante de `gusto.json` y la categoría deciden el tema (`claro` u `oscuro`); los dos posts no usan el mismo.
 
-`post_telefono.py`, `post_pantalla.py` y `post_comparativa.py` aceptan `--tema claro` (fondo blanco con bloque de color) cuando `marca.json` → `visual.estilo` o el gusto piden una marca limpia y no un campo degradado. **Elige el generador por el producto**, no por costumbre: si el producto no es una app móvil, no uses el teléfono. Los dos posts de una marca no pueden ser la misma composición que los de otra marca del mismo grupo.
+| Recurso | Generador | Qué hay que aportar |
+|---|---|---|
+| Frase enorme de la voz, con la inicial a sangre | `post_tipografico.py --modo manifiesto` | una frase del manifiesto |
+| Pasos numerados (verbo + consecuencia) | `post_tipografico.py --modo pasos` | 3 o 4 pasos reales |
+| Un número gigante con su explicación | `post_tipografico.py --modo cifra` | una cifra real (propia o con fuente) |
+| Foto a sangre con bloque opaco y notas | `post_foto.py` | una foto buena |
+| Ventana de escritorio / móvil con la interfaz | `post_pantalla.py` / `post_telefono.py` | solo productos digitales |
+| Ellos / nosotros | `post_comparativa.py` | dato del competidor con **fuente** |
+| Mapa de puntos | `post_mapa.py` | zona y ciudades reales (necesita Node y `npm i world-atlas topojson-client d3-geo`) |
+| Cualquier otro | `post_base.py` y lo construyes con los componentes | — |
+
+`--tema claro` (fondo de la marca con bloque de color) o `oscuro` (campo del color profundo): elige el que encaje con `visual.estilo`. **Elige el generador por el producto y la persona, no por costumbre.**
 
 Solo construyes a mano un recurso nuevo si ninguno encaja.
 

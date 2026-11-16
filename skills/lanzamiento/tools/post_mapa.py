@@ -126,6 +126,7 @@ def main():
 .cristal b{font-size:50px}
 """
     doc = f"""<!doctype html><html lang="es"><meta charset="utf-8"><title>{L.esc(nombre)} · principal atributo</title>
+<meta name="arquetipo" content="mapa">
 {L.enlace_google_fonts(m)}<style>{L.COMPONENTES_CSS}{css}</style>
 <div class="p campo">
 <h1 class="titular">{L.con_negrita(a.titular)}</h1>{('<p class="apoyo">' + L.esc(a.apoyo) + '</p>') if a.apoyo else ''}

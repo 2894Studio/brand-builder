@@ -82,6 +82,7 @@ def main():
 .pie-ejemplo{{position:absolute;right:70px;bottom:70px;font-size:20px;opacity:.8}}
 """
     doc = f"""<!doctype html><html lang="es"><meta charset="utf-8"><title>{L.esc(nombre)} · post con foto</title>
+<meta name="arquetipo" content="foto">
 {L.enlace_google_fonts(m)}<style>{L.COMPONENTES_CSS}{css}</style>
 <div class="p"><div class="foto-grande"><img src="{L.data_uri(ruta)}" alt="">{notas}</div>
 <div class="bloque"><h1 class="titular">{L.con_negrita(a.titular)}</h1></div>

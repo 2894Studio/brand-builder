@@ -263,10 +263,10 @@ with tempfile.TemporaryDirectory() as d:
     rp = py(PUERTA, kit)
     ok(rp.returncode == 1 and "bento: sin marcadores" in rp.stdout and "PUERTA CERRADA" in rp.stdout, "la puerta de entrega se cierra con un bento de marcadores y sin PNG")
     py(os.path.join(AQUI, "bento.py"), PULSO, "--salida", os.path.join(kit, "bento.html"), "--datos", "Plan|1 al mes", "--puntos", "Uno;Dos")
-    py(os.path.join(AQUI, "post_telefono.py"), PULSO, "--salida", os.path.join(kit, "post-1-que-es.html"), "--titular", "Mantenimiento <b>sin cita</b>",
-       "--filas", "Revisión|Cada mes;Ajuste|Frenos", "--estado", "Incluido", "--cifra", "3|servicios")
-    py(os.path.join(AQUI, "post_pantalla.py"), PULSO, "--salida", os.path.join(kit, "post-2-atributo.html"), "--titular", "Todo <b>a tiempo</b>", "--ventana", "pulso.app|Panel",
-       "--menu", "Inicio;Rutas", "--cifra", "10 €|al mes", "--filas", "Revisión|Cada mes;Ajuste|Frenos")
+    py(os.path.join(AQUI, "post_tipografico.py"), PULSO, "--modo", "pasos", "--salida", os.path.join(kit, "post-1-que-es.html"), "--titular", "Así es <b>una semana</b>",
+       "--pasos", "Reservas|tu hora;Recogemos|tu bici;Entregamos|a punto", "--tema", "claro")
+    py(os.path.join(AQUI, "post_tipografico.py"), PULSO, "--modo", "cifra", "--salida", os.path.join(kit, "post-2-atributo.html"), "--titular", "x",
+       "--cifra", "48|horas de plazo", "--apoyo", "Tu bici, <b>a punto</b>.")
     for n, w, h in (("bento", 1920, 1080), ("post-1-que-es", 1080, 1440), ("post-2-atributo", 1080, 1440)):
         rr = py(CRITICO, os.path.join(kit, n + ".html"), "--ancho", str(w), "--alto", str(h), "--marca", PULSO, "--png", os.path.join(kit, n + ".png"))
     if rr.returncode != 2:
@@ -277,8 +277,8 @@ with tempfile.TemporaryDirectory() as d:
     kb = os.path.join(d, "brief.json")
     json.dump({"marca": PULSO, "carpeta": os.path.join(d, "kit2"),
                "bento": {"lema": "Tu bici, a punto", "prueba": "Plan|1 al mes", "datos": "Plan|1 al mes", "puntos": "Revisión;Recogida"},
-               "post1": {"recurso": "telefono", "args": {"titular": "Sin <b>cita</b>", "filas": "Revisión|Cada mes;Ajuste|Frenos", "estado": "Incluido"}},
-               "post2": {"recurso": "pantalla", "args": {"titular": "A <b>tiempo</b>", "menu": "Inicio;Rutas", "cifra": "10 €|al mes", "filas": "Revisión|Cada mes;Ajuste|Frenos"}}},
+               "post1": {"recurso": "pasos", "args": {"titular": "Así es <b>una semana</b>", "pasos": "Reservas|tu hora;Recogemos|tu bici;Entregamos|a punto", "tema": "claro"}},
+               "post2": {"recurso": "cifra", "args": {"cifra": "48|horas de plazo", "apoyo": "Tu bici, <b>a punto</b>."}}},
               open(kb, "w", encoding="utf-8"))
     rk = py(os.path.join(AQUI, "kit_lanzamiento.py"), kb)
     if "falta Playwright" not in rk.stdout:
@@ -311,6 +311,42 @@ with tempfile.TemporaryDirectory() as d:
         ok("la marca es visual" not in rv.stdout, "«sin_fotos» con motivo evita el cierre por falta de fotos")
     except ImportError:
         saltados.append("post_foto (falta Pillow)")
+
+    # 7g: arquetipos: dos interfaces son la misma plantilla; la interfaz solo para productos digitales
+    pt, pp = os.path.join(d, "ar_t.html"), os.path.join(d, "ar_p.html")
+    py(os.path.join(AQUI, "post_telefono.py"), PULSO, "--salida", pt, "--titular", "x", "--filas", "a|b;c|d;e|f")
+    py(os.path.join(AQUI, "post_pantalla.py"), PULSO, "--salida", pp, "--titular", "x", "--filas", "a|b;c|d;e|f")
+    rv = py(os.path.join(AQUI, "variedad.py"), pt, pp)
+    ok("mismo arquetipo: ui" in rv.stdout and rv.returncode == 1, "variedad.py: móvil y ventana son el mismo arquetipo (ui) aunque cambien las clases")
+    pi = os.path.join(d, "ar_i.html")
+    py(os.path.join(AQUI, "post_tipografico.py"), PULSO, "--modo", "manifiesto", "--salida", pi, "--titular", "A <b>tiempo</b>")
+    ok(py(os.path.join(AQUI, "variedad.py"), pt, pi).returncode == 0, "variedad.py: interfaz y tipográfico son arquetipos distintos")
+    for rec, args in (("pasos", {"pasos": "A|b;C|d;E|f"}), ("cifra", {"cifra": "1|x"}), ("manifiesto", {})):
+        o = os.path.join(d, f"tipo_{rec}.html")
+        r = py(os.path.join(AQUI, "post_tipografico.py"), PULSO, "--modo", rec, "--salida", o, "--titular", "Hola <b>mundo</b>", *sum(([f"--{k}", v] for k, v in args.items()), []))
+        ok(r.returncode == 0 and f'content="tipografico:{rec}"' in open(o, encoding="utf-8").read(), f"post_tipografico --modo {rec} genera la pieza con su arquetipo")
+        if rec == "cifra":
+            ok("aviso cifra sin --fuente" in r.stdout, "post_tipografico cifra avisa si no hay fuente ni --ejemplo")
+    kb3 = os.path.join(d, "brief3.json")
+    json.dump({"marca": PULSO, "carpeta": os.path.join(d, "kit4"), "post1": {"recurso": "telefono", "args": {"titular": "a", "filas": "a|b;c|d;e|f"}},
+               "post2": {"recurso": "pantalla", "args": {"titular": "b", "filas": "a|b;c|d;e|f"}}}, open(kb3, "w", encoding="utf-8"))
+    r = py(os.path.join(AQUI, "kit_lanzamiento.py"), kb3)
+    ok(r.returncode == 1 and "mismo arquetipo" in r.stdout, "kit_lanzamiento rechaza dos posts del mismo arquetipo")
+    json.dump({"marca": PULSO, "carpeta": os.path.join(d, "kit5"), "post1": {"recurso": "pantalla", "args": {"titular": "a", "filas": "a|b;c|d;e|f"}},
+               "post2": {"recurso": "cifra", "args": {"cifra": "1|x"}}}, open(kb3, "w", encoding="utf-8"))
+    r = py(os.path.join(AQUI, "kit_lanzamiento.py"), kb3)
+    ok(r.returncode == 1 and "solo encaja con productos digitales" in r.stdout, "kit_lanzamiento rechaza la interfaz en una marca que no es digital")
+    PROP = os.path.join(AQUI, "proponer_posts.py")
+    m_edu = os.path.join(d, "edu.json")
+    me = json.load(open(PULSO, encoding="utf-8")); me["categoria"] = "academia de programación y desarrollo web"; me["nombre"] = "Alfa"
+    json.dump(me, open(m_edu, "w", encoding="utf-8"), ensure_ascii=False)
+    m_bici = os.path.join(d, "foto.json")
+    mf = json.load(open(PULSO, encoding="utf-8")); mf["categoria"] = "academia de fotografía con el móvil"; mf["nombre"] = "Beta"
+    json.dump(mf, open(m_bici, "w", encoding="utf-8"), ensure_ascii=False)
+    pe, pf, pb = py(PROP, m_edu).stdout, py(PROP, m_bici).stdout, py(PROP, PULSO).stdout
+    ok("Ventana de escritorio" in pe and "Ventana de escritorio" not in pf and "Ventana de escritorio" not in pb, "proponer_posts: la interfaz solo se propone a productos digitales")
+    ok("necesita fotos" in pf, "proponer_posts: una marca visual sin fotos avisa de que las necesita")
+    ok(len({pe, pf, pb}) == 3 and pe.count("\n") > 5, "proponer_posts: tres marcas distintas reciben propuestas distintas")
 
     # 8. el crítico acepta el bento
     r = py(CRITICO, salida, "--ancho", "1920", "--alto", "1080")

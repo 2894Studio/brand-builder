@@ -90,6 +90,7 @@ def main():
 """.replace("AVATAR", avatar).replace("WTOP", str(sup)).replace("WALTO", str(alto)).replace("TTOP", str(sup + alto + 80))
     pie = a.pie
     doc = f"""<!doctype html><html lang="es"><meta charset="utf-8"><title>{L.esc(nombre)} · qué es la marca</title>
+<meta name="arquetipo" content="ui">
 {L.enlace_google_fonts(m)}<style>{L.COMPONENTES_CSS}{css}{L.tema_css(m, a.tema)}</style>
 <div class="p campo"><div class="ventana"><div class="barra"><i></i><i></i><i></i><span>{L.esc(dom)}</span></div>
 <div class="cuerpo"><div class="lateral">{menu_html}</div><div class="principal"><p class="tt">{L.esc(titulo)}</p>

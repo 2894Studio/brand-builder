@@ -13,17 +13,18 @@ brief.json:
   "kits": "trabajo",                                         (kits anteriores, para comprobar la variedad)
   "fotos": "lanzamiento/fotos",                              (opcional: salida de preparar_fotos.py)
   "bento": {"variante": "educativa", "lema": "…", "prueba": "Título|Valor", "ruta": "a;b;c", "datos": "E|V;E|V", "puntos": "a;b", "persona": "N|R"},
-  "post1": {"recurso": "foto|pantalla|telefono|comparativa|mapa|html", "args": {"titular": "…", "ventana": "…", "tema": "claro"}},
+  "post1": {"recurso": "cifra|pasos|manifiesto|foto|pantalla|telefono|comparativa|mapa|html", "args": {"titular": "…", "ventana": "…", "tema": "claro"}},
   "post2": {"recurso": "…", "args": {…}},
   "notas": ["lo que es de ejemplo o queda a mano, una frase cada una"]
 }
 En "args" cada clave es una opción del generador (guiones bajos = guiones: tarjeta_izq → --tarjeta-izq); true = opción sin valor.
-Los argumentos de cada recurso están en la cabecera de su script (post_foto.py, post_pantalla.py, post_telefono.py, post_comparativa.py, post_mapa.py).
+Los argumentos de cada recurso están en la cabecera de su script (post_tipografico.py para cifra, pasos y manifiesto; post_foto.py, post_pantalla.py, post_telefono.py, post_comparativa.py, post_mapa.py).
 Si la marca es visual (fotografía, gastronomía, moda, viajes, interiorismo…) y no hay fotos, añade `"sin_fotos": "motivo"` al brief solo si se decide a propósito.
 Sale con 1 si algún generador falla o la puerta de entrega se cierra; imprime qué corregir en el brief y se repite.
 """
 import json
 import os
+import re
 import subprocess
 import sys
 
@@ -31,7 +32,7 @@ AQUI = os.path.dirname(os.path.abspath(__file__))
 RAIZ = os.path.abspath(os.path.join(AQUI, "..", "..", ".."))
 CRITICO = os.path.join(RAIZ, "skills", "gusto", "tools", "critico_render.py")
 PUERTA = os.path.join(RAIZ, "skills", "entrega", "tools", "verificar_entrega.py")
-GEN = {"foto": "post_foto.py", "telefono": "post_telefono.py", "pantalla": "post_pantalla.py", "comparativa": "post_comparativa.py", "mapa": "post_mapa.py"}
+GEN = {"cifra": "post_tipografico.py", "pasos": "post_tipografico.py", "manifiesto": "post_tipografico.py", "foto": "post_foto.py", "telefono": "post_telefono.py", "pantalla": "post_pantalla.py", "comparativa": "post_comparativa.py", "mapa": "post_mapa.py"}
 TAM = {"bento": (1920, 1080), "post-1-que-es": (1080, 1440), "post-2-atributo": (1080, 1440)}
 
 
@@ -73,6 +74,22 @@ def main():
     print("logo:", "ok" if r.returncode == 0 else "FALLO " + (r.stdout + r.stderr).strip()[-200:])
     mal += r.returncode != 0
 
+    # arquetipos: los dos posts no pueden ser de la misma familia, y la interfaz (móvil, ventana) solo para productos digitales
+    fam = {"telefono": "ui", "pantalla": "ui", "comparativa": "datos", "mapa": "mapa", "foto": "foto", "cifra": "tipografico:cifra", "pasos": "tipografico:pasos", "manifiesto": "tipografico:manifiesto"}
+    r1, r2 = b.get("post1", {}).get("recurso", ""), b.get("post2", {}).get("recurso", "")
+    if r1 in fam and r1 == r2 or (r1 in fam and r2 in fam and fam[r1] == fam[r2]):
+        print(f"FALLO los dos posts son del mismo arquetipo ({fam[r1]}): {r1} y {r2}. Cambia uno (python3 {os.path.join(AQUI, 'proponer_posts.py')} {marca} propone combinaciones distintas)")
+        return 1
+    if "ui" in (fam.get(r1), fam.get(r2)) and not b.get("ui_ok"):
+        try:
+            mj = json.load(open(marca, encoding="utf-8"))
+        except Exception:  # noqa: BLE001
+            mj = {}
+        txt = " ".join(str(mj.get(k, "")) for k in ("categoria", "publico")).lower()
+        if not re.search(r"software|\bapp\b|aplicaci|plataforma|saas|\bweb\b|digital|programaci|c[oó]digo|desarrollo|tecnolog|ciberseg|fintech|datos", txt):
+            print("FALLO la interfaz de móvil o de escritorio solo encaja con productos digitales y esta marca no lo es. Elige otro recurso (cifra, pasos, manifiesto, foto…) o, si de verdad el producto tiene interfaz, añade \"ui_ok\": \"motivo\" al brief.")
+            return 1
+
     piezas = []
     # bento
     bn = b.get("bento", {})
@@ -112,6 +129,8 @@ def main():
             mal += 1
             continue
         cmd = [os.path.join(AQUI, GEN[rec]), marca, "--salida", salida]
+        if GEN[rec] == "post_tipografico.py":
+            cmd += ["--modo", rec]
         a = dict(p.get("args", {}))
         if fotos and os.path.isdir(fotos) and rec in ("telefono", "mapa", "foto") and "fotos" not in a and "foto" not in a:
             a["fotos"] = fotos

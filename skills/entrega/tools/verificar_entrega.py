@@ -109,11 +109,23 @@ def main():
             ok(False, "la marca es visual (fotografía, gastronomía, moda…) y ninguna pieza lleva una foto: genera fotos (prompts_fotos.py, Canva, Gemini, Flow o fotos propias) o declara «sin_fotos» con el motivo en el brief")
     else:
         ok(True, "fotografía: " + ("hay fotos en las piezas" if hay_foto else "la marca no depende de la fotografía"))
+    ui = [n for n, _, _ in PIEZAS if n != "bento" and os.path.exists(os.path.join(c, n + ".html")) and 'name="arquetipo" content="ui"' in open(os.path.join(c, n + ".html"), encoding="utf-8").read()]
+    if ui and a.marca and os.path.exists(a.marca):
+        try:
+            mj = json.load(open(a.marca, encoding="utf-8"))
+            txt = " ".join(str(mj.get(k, "")) for k in ("categoria", "publico")).lower()
+            digital = bool(re.search(r"software|\bapp\b|aplicaci|plataforma|saas|\bweb\b|digital|programaci|c[oó]digo|desarrollo|tecnolog|ciberseg|fintech|datos", txt))
+            ui_ok = False
+            if os.path.exists(bp):
+                ui_ok = bool(json.load(open(bp, encoding="utf-8")).get("ui_ok"))
+            ok(digital or ui_ok, "la interfaz de móvil o de escritorio solo para productos digitales" + ("" if digital or ui_ok else f" ({', '.join(ui)}): elige otro recurso o añade «ui_ok» con motivo al brief"))
+        except Exception:  # noqa: BLE001
+            pass
     print("5. Variedad")
     p1, p2 = (os.path.join(c, f"{n}.html") for n in ("post-1-que-es", "post-2-atributo"))
     if os.path.exists(p1) and os.path.exists(p2):
         r = subprocess.run([sys.executable, VARIEDAD, p1, p2], capture_output=True, text=True)
-        ok(r.returncode == 0, "los dos posts no comparten composición" + ("" if r.returncode == 0 else ": " + r.stdout.strip().splitlines()[0]))
+        ok(r.returncode == 0, "los dos posts no comparten composición ni arquetipo" + ("" if r.returncode == 0 else ": " + r.stdout.strip().splitlines()[0]))
         if a.kits:
             otros = glob.glob(os.path.join(a.kits, "*", "lanzamiento", "post-*.html"))
             otros = [o for o in otros if os.path.abspath(os.path.dirname(o)) != os.path.abspath(c)]

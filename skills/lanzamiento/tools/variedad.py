@@ -5,7 +5,8 @@
 Uso:  python3 variedad.py pieza.html otra1.html otra2.html ... [--umbral 0.6]
       python3 variedad.py pieza.html --carpeta trabajo     (compara con todo trabajo/*/lanzamiento/*.html)
 
-Compara la estructura (clases CSS y etiquetas usadas, sin textos ni colores) con el índice de Jaccard.
+Compara la estructura (clases CSS y etiquetas usadas, sin textos ni colores) con el índice de Jaccard y, además, el arquetipo
+(<meta name="arquetipo">: ui, foto, datos, mapa, tipografico:cifra…): dos piezas del mismo arquetipo son la misma plantilla.
 Sale con 1 si alguna pareja supera el umbral. Es una alarma, no un juez: si dos piezas comparten
 generador y aun así son distintas a propósito, justifícalo en el LEEME.md.
 """
@@ -24,6 +25,11 @@ def firma(ruta):
         clases.update(m.group(1).split())
     etiquetas = set(re.findall(r"<([a-z][a-z0-9]*)", h))
     return {"c:" + x for x in clases} | {"t:" + x for x in etiquetas}
+
+
+def arquetipo(ruta):
+    m = re.search(r'<meta name="arquetipo" content="([^"]+)"', open(ruta, encoding="utf-8").read())
+    return m.group(1) if m else ""
 
 
 def jaccard(a, b):
@@ -49,9 +55,11 @@ def main():
     mal = 0
     for o in otras:
         j = jaccard(f0, firma(o))
-        marca = "PARECIDA" if j >= a.umbral else "ok"
-        print(f"  {marca:9} {j:.2f}  {os.path.relpath(o)}")
-        mal += j >= a.umbral
+        fam0, fam1 = arquetipo(a.pieza), arquetipo(o)
+        misma = bool(fam0) and fam0 == fam1          # mismo arquetipo de composición = misma plantilla, aunque cambien textos y colores
+        parecida = j >= a.umbral or misma
+        print(f"  {'PARECIDA' if parecida else 'ok':9} {j:.2f}  {os.path.relpath(o)}" + (f"  (mismo arquetipo: {fam0})" if misma else ""))
+        mal += parecida
     if mal:
         print(f"{a.pieza}: se parece demasiado a {mal} pieza(s). Cambia la composición (otro recurso, otra jerarquía), no solo los textos y colores.")
     return 1 if mal else 0

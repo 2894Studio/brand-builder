@@ -73,6 +73,7 @@ def main():
                  f".nosotros{{background:{c['profundo']};color:{L.legible(c['profundo'])};box-shadow:0 24px 60px rgba(20,30,60,.20)}}"
                  f".nosotros .et,.nosotros .val{{color:{L.legible(c['profundo'])}}}")
     doc = f"""<!doctype html><html lang="es"><meta charset="utf-8"><title>{L.esc(nombre)} · comparativa</title>
+<meta name="arquetipo" content="datos">
 {L.enlace_google_fonts(m)}<style>{L.COMPONENTES_CSS}{css}{L.tema_css(m, a.tema)}{claro}</style>
 <div class="p campo"><h1 class="titular">{L.con_negrita(a.titular)}</h1>
 <div class="col ellos"><div class="et"><span>{L.esc(e_t)}</span></div><div class="val">{L.esc(e_v)}</div><ul>{lis(e_d)}</ul></div>
