@@ -46,29 +46,9 @@ Al terminar tienes:
 
 ## 3. Instalación
 
-### Opción A: desde la carpeta que te ha pasado tu profesor (disponible ya)
+### Opción A: desde GitHub (recomendada)
 
-1. Descomprime `brand-kit-builder.zip`. Te queda una carpeta `brand-kit-builder`.
-2. En la terminal, ejecuta estos dos comandos, uno detrás de otro. Sustituye la ruta por la de tu carpeta:
-
-   ```bash
-   claude plugin marketplace add ./brand-kit-builder
-   ```
-
-   ```bash
-   claude plugin install brand-kit-builder@brand-kit-builder
-   ```
-
-3. Abre una sesión nueva de Claude Code en tu carpeta de marca (o escribe `/reload-plugins` en la que ya tienes abierta).
-4. Comprueba que está instalado:
-
-   ```bash
-   claude plugin list
-   ```
-
-   Debes ver `brand-kit-builder` con versión 2.0.0 y estado enabled.
-
-### Opción B: desde GitHub (cuando tu profesor lo publique)
+En la terminal, un comando detrás de otro:
 
 ```bash
 claude plugin marketplace add 2894Studio/brand-kit-builder
@@ -78,7 +58,28 @@ claude plugin marketplace add 2894Studio/brand-kit-builder
 claude plugin install brand-kit-builder@brand-kit-builder
 ```
 
-Todavía no está publicado. Usa la opción A hasta que te avisen.
+Abre una sesión nueva de Claude Code en tu carpeta de marca (o escribe `/reload-plugins` en la que ya tienes abierta) y comprueba:
+
+```bash
+claude plugin list
+```
+
+Debes ver `brand-kit-builder` con la versión que indique el repositorio (2.4.0 o posterior) y estado enabled. **Si ves una versión anterior, no tienes las skills nuevas** (por ejemplo `gusto`): actualiza con `claude plugin update brand-kit-builder@brand-kit-builder` y reinicia.
+
+### Opción B: desde la carpeta o el ZIP que te pase tu profesor
+
+1. Descomprime `brand-kit-builder.zip`. Te queda una carpeta `brand-kit-builder`.
+2. Sustituye la ruta por la de tu carpeta:
+
+   ```bash
+   claude plugin marketplace add ./brand-kit-builder
+   ```
+
+   ```bash
+   claude plugin install brand-kit-builder@brand-kit-builder
+   ```
+
+3. Abre una sesión nueva y comprueba con `claude plugin list`, igual que arriba.
 
 ### Opcional: creative-architect, para generar imágenes y contenido
 

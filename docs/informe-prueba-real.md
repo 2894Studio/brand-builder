@@ -81,4 +81,4 @@ Con una sola ejecución por caso y tareas distintas no es una comparación limpi
 - La composición final del post estático: **queda pendiente de que se descargue la imagen de Canva** (el conector no la entrega a resolución completa).
 - Un `/motion` con un logo real y con imágenes (el cierre del video usa el nombre en texto).
 - El PDF, porque falta `rsvg-convert` en el entorno.
-- El repositorio de GitHub: sigue sin existir.
+- El repositorio de GitHub: no existía cuando se hizo esta prueba. Se publicó después (2894Studio/brand-kit-builder) y la instalación desde GitHub se verificó en una configuración limpia (versión 2.4.0).

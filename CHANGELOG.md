@@ -2,6 +2,8 @@
 
 ## 2.4.0
 
+- **Publicado** en GitHub (`2894Studio/brand-kit-builder`). Instalación desde GitHub verificada en una configuración limpia: instala la 2.4.0 con las ocho skills y el autotest de `gusto` pasa desde la copia instalada.
+
 Para que los alumnos lleguen a piezas de este nivel con su propio equipo y sus propias referencias.
 
 - **Nuevo:** `comprobar_entorno.py` prueba de verdad la cadena (Python, Pillow, Node, Playwright, Chromium y las fuentes de la marca), dice qué capacidades hay y el comando para instalar lo que falta. Probado completo y sin Node.
