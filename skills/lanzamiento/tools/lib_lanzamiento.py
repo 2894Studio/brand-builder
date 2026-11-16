@@ -127,8 +127,8 @@ COMPONENTES_CSS = """
 .titular{font-family:var(--f-titulos);letter-spacing:-.035em;line-height:1.02;margin:0;font-weight:400}.titular b{font-weight:700}
 .etiqueta{font-size:20px;font-weight:600;letter-spacing:.12em;text-transform:uppercase}
 .campo{background:linear-gradient(170deg,var(--primario) 0%,var(--profundo) 100%);color:var(--sobre-primario)}
-.cristal{position:absolute;border-radius:28px;background:rgba(255,255,255,.16);border:1.5px solid rgba(255,255,255,.38);backdrop-filter:blur(14px);padding:20px 26px;box-shadow:0 18px 50px rgba(8,25,110,.28);color:#fff}
-.cristal small{display:block;font-size:22px;font-weight:500}.cristal b{display:block;font-size:56px;font-weight:600;letter-spacing:-.03em;line-height:1.05;margin-top:4px}
+.cristal{position:absolute;border-radius:28px;background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.38);backdrop-filter:blur(14px);padding:20px 26px;box-shadow:0 18px 50px rgba(8,25,110,.28);color:#fff}
+.cristal small{display:block;font-size:24px;font-weight:500}.cristal b{display:block;font-size:56px;font-weight:600;letter-spacing:-.03em;line-height:1.05;margin-top:4px}
 .foto{position:absolute;border-radius:34px;overflow:hidden;border:2px solid rgba(255,255,255,.55);box-shadow:0 22px 60px rgba(5,15,70,.4)}.foto img{width:100%;height:100%;object-fit:cover;display:block}
 .rotulo{position:absolute;border-radius:20px;background:rgba(10,20,60,.7);border:1.5px solid rgba(255,255,255,.4);padding:10px 16px;color:#fff;font-size:22px;line-height:1.25}.rotulo b{display:block;font-size:25px;font-weight:600}
 .telefono{position:absolute;border-radius:72px;background:#07090F;padding:14px;box-shadow:0 40px 90px rgba(5,15,70,.5),inset 0 0 0 3px #232734}
@@ -153,3 +153,58 @@ def elegir_fotos(carpeta):
                              "ruta_3x4": os.path.join(carpeta, rec.get("3x4", "")), "ruta_4x3": os.path.join(carpeta, rec.get("4x3", "")),
                              "ruta_1x1": os.path.join(carpeta, rec.get("1x1", ""))}
     return out
+
+
+# ---- utilidades de piezas ----------------------------------------------------------------------
+def iniciales(texto):
+    p = [w for w in str(texto).replace("/", " ").split() if w]
+    return (p[0][0] + (p[1][0] if len(p) > 1 else p[0][1:2])).upper() if p else "?"
+
+
+def base_avatar(prim):
+    """Color de avatar sobre el que el texto blanco se lee (≥ 4,5:1): el primario, oscurecido si hace falta."""
+    h = prim
+    for f in (1.0, 0.85, 0.7, 0.55, 0.4):
+        h = oscurecer(prim, f)
+        if contraste("#FFFFFF", h) >= 4.5:
+            return h
+    return h
+
+
+def con_negrita(texto):
+    """Escapa el texto y deja pasar <b>…</b> (para la palabra clave del titular)."""
+    t = esc(texto)
+    return t.replace("&lt;b&gt;", "<b>").replace("&lt;/b&gt;", "</b>")
+
+
+def haversine_km(a, b):
+    import math
+    (lo1, la1), (lo2, la2) = a, b
+    p1, p2 = math.radians(la1), math.radians(la2)
+    dp, dl = p2 - p1, math.radians(lo2 - lo1)
+    h = math.sin(dp / 2) ** 2 + math.cos(p1) * math.cos(p2) * math.sin(dl / 2) ** 2
+    return 2 * 6371 * math.asin(math.sqrt(h))
+
+
+CAMPO_LUZ = """
+.campo{background:radial-gradient(900px 700px at 22% 62%,var(--luz) 0%,rgba(255,255,255,0) 60%),linear-gradient(170deg,var(--primario) 0%,var(--medio) 45%,var(--profundo) 100%);color:var(--sobre-primario)}
+"""
+
+
+def css_luz(m):
+    c = colores(m)
+    return ":root{--luz:%s;--medio:%s;--suave:%s}" % (aclarar(c["primario"], 0.35), oscurecer(c["primario"], 0.7), suave(c["texto"], c["neutro"])) + CAMPO_LUZ
+
+
+def mezclar(h1, h2, t):
+    a, b = _rgb(h1), _rgb(h2)
+    return _hex([a[i] * (1 - t) + b[i] * t for i in range(3)])
+
+
+def suave(texto, fondo):
+    """Gris suave derivado del color de texto que sigue contrastando ≥ 4,6:1 con blanco y con «fondo» (para detalles y subtítulos)."""
+    for t in (0.55, 0.5, 0.45, 0.4, 0.35, 0.3, 0.25, 0.2, 0.1, 0.0):
+        h = mezclar(texto, "#FFFFFF", t)
+        if contraste(h, "#FFFFFF") >= 4.6 and contraste(h, fondo) >= 4.6:
+            return h
+    return texto

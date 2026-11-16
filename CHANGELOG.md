@@ -10,6 +10,9 @@ Nueva skill **lanzamiento**: el resultado final de usar el plugin incluye el log
 - **Nuevo:** `preparar_fotos.py` recibe las fotos de la persona en `fotos/`, comprueba resolución y créditos (`creditos.md`: origen propia, banco o ia; un banco sin licencia o una foto sin fila da error), recorta a 3:4, 4:3 y 1:1 y escribe un manifiesto. `bento.py` y `post_base.py` las cogen con `--fotos`. Con autotest.
 - **Aclarado:** Canva **genera** imágenes con IA (sintéticas); no es fuente de fotos reales. Receta verificada para traerlas a disco, orden de preferencia (fotos propias, bancos con licencia, generadas, sin fotos) y plantillas de prompt en `fotos.md`.
 - **Decisión de la persona:** escribir «Imagen generada con IA» sobre una pieza es **opcional** (`--declarar-ia`); por defecto no se escribe nada. Siempre queda anotado en `creditos.md` y en el `LEEME.md`.
+- **Nuevo:** generadores de las dos composiciones que mejor han funcionado: `post_telefono.py` (teléfono con la interfaz, tarjetas de cristal, fotos con borde) y `post_mapa.py` (mapa de puntos de geografía real, anillo en kilómetros, distancia calculada). El modelo pone los datos; no compone cada vez desde cero. `mapa_puntos.mjs` proyecta además las ciudades (`--puntos`).
+- **Cambio:** el bento lleva por defecto degradado con luz en la tarjeta del logo (`--plano` para color liso). Antes salía más plano que el hecho a mano.
+- **Aprendido:** una prueba con el modelo sin generadores produjo piezas correctas pero con poco diseño (una foto con dos rótulos): el crítico detecta defectos, no calidad. `criterio.md` define el nivel mínimo (tres capas) y `lanzamiento` avisa si no hay referencias entrenadas.
 - **Cambio:** la cadena por defecto añade `lanzamiento` antes de `entrega`, y `entrega` comprueba que existen los cuatro resultados.
 ## 2.4.0
 

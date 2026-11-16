@@ -138,6 +138,35 @@ with tempfile.TemporaryDirectory() as d:
         saltados.append("fotos (falta Pillow)")
         print("  SALTADO fotos: falta Pillow")
 
+    # 7c. generadores de posts
+    try:
+        r = py(os.path.join(AQUI, "post_telefono.py"), PULSO, "--salida", os.path.join(d, "t.html"), "--titular", "Mantenimiento <b>sin cita</b>",
+               "--filas", "Revisión|Cada mes;Ajuste|Frenos y cambios;Recogida|En tu portal", "--estado", "Incluido", "--boton", "Pedir", "--tarjeta-izq", "Plan|1 al mes", "--cifra", "3|servicios")
+        t = open(os.path.join(d, "t.html"), encoding="utf-8").read() if os.path.exists(os.path.join(d, "t.html")) else ""
+        ok(r.returncode == 0 and 'class="telefono"' in t and "<b>sin cita</b>" in t, "post_telefono genera el post con el titular en negrita")
+        ok("Foto real" not in t and "Imagen generada" not in t, "post_telefono: sin fotos no deja marcadores ni etiquetas")
+        ok(t.count('class="fila"') == 3, "post_telefono: una fila por cada dato")
+        ok(L.contraste(L.suave("#14181F", "#C8CDD6"), "#FFFFFF") >= 4.6, "el gris suave derivado contrasta ≥ 4,6:1")
+        ok("&lt;script&gt;" in (py(os.path.join(AQUI, "post_telefono.py"), PULSO, "--salida", os.path.join(d, "t2.html"), "--titular", "x", "--filas", "<script>|y"), open(os.path.join(d, "t2.html"), encoding="utf-8").read())[1], "post_telefono escapa el texto de las filas")
+        rc = py(CRITICO, os.path.join(d, "t.html"), "--marca", PULSO)
+        if rc.returncode != 2:
+            ok(rc.returncode == 0, "post_telefono pasa el crítico sin errores")
+    except Exception as e:  # noqa: BLE001
+        ok(False, f"post_telefono falló: {e}")
+    r = subprocess.run(["node", "-e", "require.resolve('d3-geo')"], capture_output=True, text=True)
+    if r.returncode != 0 and not os.path.isdir(os.path.join(os.getcwd(), "node_modules", "d3-geo")):
+        saltados.append("post_mapa (faltan los paquetes npm de mapa en esta carpeta)")
+        print("  SALTADO post_mapa: faltan los paquetes npm (npm i world-atlas topojson-client d3-geo)")
+    else:
+        pm = os.path.join(d, "m.html")
+        r = py(os.path.join(AQUI, "post_mapa.py"), PULSO, "--salida", pm, "--titular", "Ciclistas <b>cerca de ti</b>", "--centro", "Madrid|-3.70,40.42",
+               "--bbox", "-10.5,35.3,7,46.8", "--radio", "200", "--puntos", "Toledo|-4.02,39.86;Segovia|-4.12,40.95;Barcelona|2.17,41.39", "--destacada", "Ana|Mecánica|Toledo")
+        t = open(pm, encoding="utf-8").read() if os.path.exists(pm) else ""
+        ok(r.returncode == 0 and "A 68 km de ti" in t, "post_mapa calcula la distancia real (Madrid–Toledo 68 km)")
+        ok("Barcelona" in r.stdout and "fuera del radio" in r.stdout, "post_mapa avisa de la ciudad fuera del radio")
+        r = py(os.path.join(AQUI, "post_mapa.py"), PULSO, "--salida", pm, "--titular", "x", "--centro", "Madrid|-3.70,40.42", "--bbox", "-10.5,35.3,7,46.8", "--puntos", "Toledo|-4.02,39.86", "--destacada", "Ana|M|Segovia")
+        ok(r.returncode == 1, "post_mapa rechaza una destacada que no está entre los puntos")
+
     # 8. el crítico acepta el bento
     r = py(CRITICO, salida, "--ancho", "1920", "--alto", "1080")
     if r.returncode == 2:

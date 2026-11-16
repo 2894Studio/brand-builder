@@ -11,7 +11,7 @@ Uso:  python3 bento.py marca.json --salida lanzamiento/bento.html [opciones]
   --fotos DIR                carpeta lanzamiento/fotos (salida de preparar_fotos.py): coge equipo* y retrato*
   --declarar-ia              escribe «Imagen generada con IA» sobre las fotos de origen ia (por defecto NO se escribe)
   --persona "Nombre|Rol"     rótulo del retrato (por defecto, marcador «Nombre y apellido»)
-  --degradado                el logo va sobre un degradado del color primario
+  --plano                    la tarjeta del logo va en color liso (por defecto lleva degradado con luz)
 Lo que no se aporta queda como **marcador visible**, nunca inventado. Luego se revisa con gusto/tools/critico_render.py.
 """
 import argparse
@@ -25,12 +25,13 @@ import lib_lanzamiento as L  # noqa: E402
 def mosaico_logo(m, base, c, f, degradado):
     lg = L.logos(m, base)
     nombre = L.esc(m.get("nombre", "Marca"))
-    bg = "var(--campo)" if degradado else c["primario"]
+    luz = L.aclarar(c["primario"], 0.35)
+    bg = f"radial-gradient(700px 500px at 20% 92%,{luz} 0%,rgba(255,255,255,0) 60%),var(--campo)" if degradado else c["primario"]
     sobre = L.legible(c["primario"])
     if "invertida" in lg:
-        img = f'<img src="{L.data_uri(lg["invertida"])}" style="width:62%;max-height:60%">'
+        img = f'<img src="{L.data_uri(lg["invertida"])}" style="width:68%;max-height:64%">'
     elif "principal" in lg and L.luminancia(c["primario"]) > 0.5:
-        img = f'<img src="{L.data_uri(lg["principal"])}" style="width:62%;max-height:60%">'
+        img = f'<img src="{L.data_uri(lg["principal"])}" style="width:68%;max-height:64%">'
     else:
         img = f'<div style="font-family:var(--f-titulos);font-weight:700;font-size:110px;letter-spacing:-.04em;color:{sobre}">{nombre}</div>'
     return f'<div class="t L" style="background:{bg};color:{sobre}"><span class="pill">Logo</span>{img}</div>'
@@ -48,7 +49,7 @@ def main():
     ap.add_argument("--fotos")
     ap.add_argument("--declarar-ia", action="store_true")
     ap.add_argument("--persona")
-    ap.add_argument("--degradado", action="store_true")
+    ap.add_argument("--plano", action="store_true")
     a = ap.parse_args()
 
     m = L.cargar_marca(a.marca)
@@ -124,7 +125,7 @@ grid-template-areas:"L L L L L F F F C C I I" "L L L L L F F F C C I I" "L L L L
 """
     doc = f"""<!doctype html><html lang="es"><meta charset="utf-8"><title>{L.esc(nombre)} · bento de marca</title>
 {L.enlace_google_fonts(m)}<style>{L.COMPONENTES_CSS}{css}</style><div class="p">
-{mosaico_logo(m, base, c, f, a.degradado)}
+{mosaico_logo(m, base, c, f, not a.plano)}
 <div class="t F"><span class="pill">Fotografía</span>{foto(a.foto_equipo, "50% 40%", bool(pie_ia.get("equipo")))}</div>
 <div class="t C campo"><span class="pill">Prueba</span><small>{L.esc(prueba_t)}</small><b>{L.esc(prueba_v)}</b></div>
 <div class="t I"><span class="pill">Símbolo</span>{simbolo}</div>

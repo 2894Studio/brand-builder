@@ -14,6 +14,8 @@ Cada recurso muestra algo con una **prueba**. Elige según el mensaje y el tono 
 
 ## Teléfono con interfaz
 
+**Generador:** `tools/post_telefono.py` (ver `SKILL.md`). Lo que sigue explica cómo está hecho, por si hay que construir uno distinto.
+
 ```html
 <div class="telefono" style="left:50%;top:60px;width:470px;height:930px;margin-left:-235px"><div class="pantalla">
   <!-- 19 px como mínimo en TODO el texto de la pantalla -->
@@ -24,6 +26,8 @@ Cada recurso muestra algo con una **prueba**. Elige según el mensaje y el tono 
 Termínalo antes del titular (≥ 80 px de margen) para que el teléfono no choque con el texto de abajo, y con un degradado a color profundo en el último tercio.
 
 ## Mapa de puntos
+
+**Generador:** `tools/post_mapa.py`. Lo que sigue explica cómo está hecho.
 
 1. Una vez: `npm i world-atlas topojson-client d3-geo` en la carpeta de trabajo.
 2. `node skills/gusto/tools/mapa_puntos.mjs --bbox lonMin,latMin,lonMax,latMax --centro lon,lat > puntos.json`

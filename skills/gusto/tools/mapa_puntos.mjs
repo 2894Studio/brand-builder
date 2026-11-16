@@ -6,7 +6,8 @@
 // Uso:  node mapa_puntos.mjs --bbox -10.5,35.3,7,46.8 --centro -3.70,40.42 [--ancho 1000 --alto 880 --paso 12] > puntos.json
 //   --bbox   lonMin,latMin,lonMax,latMax de la zona a encuadrar
 //   --centro lon,lat del punto de referencia (la persona, una ciudad)
-// Salida: {W,H,kmPx,centro:[x,y],dots:[[x,y]...]}; kmPx = píxeles por kilómetro, para dibujar un radio real
+//   --puntos "lon,lat;lon,lat"  ciudades a proyectar (salen en «puntos»: [[x,y],…], en el mismo orden)
+// Salida: {W,H,kmPx,centro:[x,y],dots:[[x,y]...],puntos:[[x,y]...]}; kmPx = píxeles por kilómetro, para dibujar un radio real
 // (un anillo de 200 km = 200*kmPx). Proyección cónica conforme, malla hexagonal desplazada, costa de 50 m.
 // El encuadre se hace con MultiPoint: un Polygon con el sentido de giro contrario deja la proyección degenerada.
 import fs from 'fs';
@@ -34,4 +35,5 @@ for (let row = 0, y = 6; y < H; y += sp * 0.866, row++)
     const ll = proj.invert([x, y]);
     if (ll && geoContains(land, ll)) dots.push([Math.round(x * 10) / 10, Math.round(y * 10) / 10]);
   }
-console.log(JSON.stringify({W, H, kmPx, centro: proj(a).map(v => Math.round(v * 10) / 10), dots}));
+const puntos = arg('puntos', '').split(';').filter(Boolean).map(s => proj(s.split(',').map(Number)).map(v => Math.round(v * 10) / 10));
+console.log(JSON.stringify({W, H, kmPx, centro: proj(a).map(v => Math.round(v * 10) / 10), dots, puntos}));
