@@ -1,6 +1,6 @@
 ---
 name: laminas
-description: Monta el manual de marca como láminas SVG con rejilla de 12 columnas, firma gráfica según el territorio, index.html navegable y PDF, sin necesitar Canva. Úsala con «hazme el manual de marca», «brand book», «kit de marca», «presentación de mi marca», «las láminas de la identidad».
+description: "Monta el manual de marca como láminas SVG con rejilla de 12 columnas, firma gráfica según el territorio, index.html navegable y PDF, sin necesitar Canva. Úsala con «hazme el manual de marca», «brand book», «kit de marca», «presentación de mi marca», «las láminas de la identidad»."
 license: MIT
 ---
 <!-- Copyright (c) 2026 2894 Studio · MIT -->

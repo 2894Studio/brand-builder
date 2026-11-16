@@ -1,6 +1,6 @@
 ---
 name: gusto
-description: Entrena el gusto visual de la marca sin depender de ningún servicio externo. Úsala cuando alguien diga «se ve genérico», «parece hecho por IA», «quiero que se vea más profesional / más humano / más tecnológico», «te paso referencias», «¿cuál te gusta más?», o antes de diseñar posts, banners, láminas o pantallas. Mide las referencias, fija la proporción de tonos (serio, divertido, tecnológico), aplica los patrones de cada tono, revisa el render con un crítico mecánico y registra las elecciones A/B de la persona.
+description: "Entrena el gusto visual de la marca sin depender de ningún servicio externo. Úsala cuando alguien diga «se ve genérico», «parece hecho por IA», «quiero que se vea más profesional / más humano / más tecnológico», «te paso referencias», «¿cuál te gusta más?», o antes de diseñar posts, banners, láminas o pantallas. Mide las referencias, fija la proporción de tonos (serio, divertido, tecnológico), aplica los patrones de cada tono, revisa el render con un crítico mecánico y registra las elecciones A/B de la persona."
 license: MIT
 ---
 <!-- Copyright (c) 2026 2894 Studio · MIT -->

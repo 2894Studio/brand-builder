@@ -1,6 +1,6 @@
 ---
 name: voz
-description: Define cómo habla la marca: trato, tres rasgos con ejemplos así sí / así no, las seis situaciones difíciles (queja, error propio, humor, precio, competencia, mala noticia) y la lista de palabras prohibidas. Úsala con «cómo debe sonar mi marca», «tono de voz», «qué no debo decir», «escribe mi copy con mi marca».
+description: "Define cómo habla la marca: trato, tres rasgos con ejemplos así sí / así no, las seis situaciones difíciles (queja, error propio, humor, precio, competencia, mala noticia) y la lista de palabras prohibidas. Úsala con «cómo debe sonar mi marca», «tono de voz», «qué no debo decir», «escribe mi copy con mi marca»."
 license: MIT
 ---
 <!-- Copyright (c) 2026 2894 Studio · MIT -->

@@ -1,6 +1,6 @@
 ---
 name: lanzamiento
-description: Produce el kit visual final de una marca: el logo en SVG y PNG, un bento (tablero de marca) y dos posts, el primero explica qué es la marca y el segundo muestra su principal atributo, ambos de forma visual. Úsala cuando la marca ya tiene logo, paleta y tipografía aprobados y la persona diga «hazme el bento», «los posts de lanzamiento», «cómo se ve mi marca en redes», «qué publico primero» o «dame las piezas finales».
+description: "Produce el kit visual final de una marca: el logo en SVG y PNG, un bento (tablero de marca) y dos posts, el primero explica qué es la marca y el segundo muestra su principal atributo, ambos de forma visual. Úsala cuando la marca ya tiene logo, paleta y tipografía aprobados y la persona diga «hazme el bento», «los posts de lanzamiento», «cómo se ve mi marca en redes», «qué publico primero» o «dame las piezas finales»."
 license: MIT
 ---
 <!-- Copyright (c) 2026 2894 Studio · MIT -->

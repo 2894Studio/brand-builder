@@ -1,6 +1,6 @@
 ---
 name: estrategia
-description: Entrevista de marca en tres rondas, tres territorios anclados fuera de la categoría y manifiesto en primera persona. Úsala al empezar una marca o cuando alguien diga «no sé cómo posicionarme», «qué me hace distinto», «qué personalidad tiene mi marca», «no sé qué quiero transmitir». Termina con un borrador de marca.json.
+description: "Entrevista de marca en tres rondas, tres territorios anclados fuera de la categoría y manifiesto en primera persona. Úsala al empezar una marca o cuando alguien diga «no sé cómo posicionarme», «qué me hace distinto», «qué personalidad tiene mi marca», «no sé qué quiero transmitir». Termina con un borrador de marca.json."
 license: MIT
 ---
 <!-- Copyright (c) 2026 2894 Studio · MIT -->

@@ -1,6 +1,6 @@
 ---
 name: tokens
-description: Convierte marca.json en tokens de diseño para producto digital: tokens.json (W3C Design Tokens), variables CSS, preset de Tailwind v3 y bloque @theme de v4, tabla de contraste y una página de ejemplo con botón, tarjeta y formulario. Úsala con «que mi marca funcione en mi web o app», «design tokens», «variables CSS», «Tailwind con mis colores», «mi desarrollador necesita los colores y fuentes».
+description: "Convierte marca.json en tokens de diseño para producto digital: tokens.json (W3C Design Tokens), variables CSS, preset de Tailwind v3 y bloque @theme de v4, tabla de contraste y una página de ejemplo con botón, tarjeta y formulario. Úsala con «que mi marca funcione en mi web o app», «design tokens», «variables CSS», «Tailwind con mis colores», «mi desarrollador necesita los colores y fuentes»."
 license: MIT
 ---
 <!-- Copyright (c) 2026 2894 Studio · MIT -->

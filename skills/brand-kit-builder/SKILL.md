@@ -1,6 +1,6 @@
 ---
 name: brand-kit-builder
-description: Punto de entrada para crear la identidad de una marca de principio a fin: entrevista, estrategia, logo, paleta, tipografía, voz, tokens de diseño para web o app y manual de marca. Úsala cuando alguien diga «quiero crear mi marca», «necesito logo, colores y fuentes», «mi marca se ve genérica», «quiero que mi marca funcione en mi web o app», «rediseña mi marca» o «¿qué puedes hacer?». Enruta al oficio adecuado y deja un marca.json que creative-architect ya sabe leer.
+description: "Punto de entrada para crear la identidad de una marca de principio a fin: entrevista, estrategia, logo, paleta, tipografía, voz, tokens de diseño para web o app y manual de marca. Úsala cuando alguien diga «quiero crear mi marca», «necesito logo, colores y fuentes», «mi marca se ve genérica», «quiero que mi marca funcione en mi web o app», «rediseña mi marca» o «¿qué puedes hacer?». Enruta al oficio adecuado y deja un marca.json que creative-architect ya sabe leer."
 license: MIT
 ---
 <!-- Copyright (c) 2026 2894 Studio · MIT -->

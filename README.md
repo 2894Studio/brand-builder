@@ -82,7 +82,9 @@ Como plugin global (disponible en cualquier proyecto):
 git clone https://github.com/2894Studio/brand-kit-builder.git ~/.gemini/config/plugins/brand-kit-builder
 ```
 
-Para actualizarlo más adelante: `git -C ~/.gemini/config/plugins/brand-kit-builder pull`. Las instrucciones del agente están en `AGENTS.md` y el manifiesto en `plugin.json`, ambos en la raíz. Claude Code ignora esos dos archivos: sigue usando `.claude-plugin/`.
+Para actualizarlo más adelante: `git -C ~/.gemini/config/plugins/brand-kit-builder pull`.
+
+**Alternativa para cualquier agente** (instala solo las skills, sin `AGENTS.md`): `npx skills add 2894Studio/brand-kit-builder -a antigravity`. Esa herramienta copia las skills a `.agents/skills/` en el proyecto o a `~/.gemini/config/skills/` con `-g`; probado con una copia local. Las instrucciones del agente están en `AGENTS.md` y el manifiesto en `plugin.json`, ambos en la raíz. Claude Code ignora esos dos archivos: sigue usando `.claude-plugin/`.
 
 Para producir imágenes con un proveedor, instala también creative-architect (opcional; sin él, la skill entrega prompts para pegar):
 
@@ -141,6 +143,7 @@ docs/arquitectura.md
 python3 skills/laminas/tools/verificar_laminas.py
 python3 skills/tokens/tools/verificar_tokens.py
 python3 skills/gusto/tools/verificar_gusto.py
+python3 skills/brand-kit-builder/tools/verificar_skills.py
 python3 skills/tokens/tools/validar_marca.py evals/fixtures/pulso/marca.json
 python3 skills/tokens/tools/generar_tokens.py evals/fixtures/pulso/marca.json --salida /tmp/pulso-tokens
 ```

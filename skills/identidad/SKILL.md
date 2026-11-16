@@ -1,6 +1,6 @@
 ---
 name: identidad
-description: Diseña el logo con exactamente dos propuestas, la paleta de cinco colores con contraste comprobado y el emparejamiento tipográfico. Úsala con «hazme el logo», «qué colores uso», «qué fuentes pongo», «mi logo se ve genérico», «necesito versiones del logo». Al aprobarse, escribe marca.json y lo valida.
+description: "Diseña el logo con exactamente dos propuestas, la paleta de cinco colores con contraste comprobado y el emparejamiento tipográfico. Úsala con «hazme el logo», «qué colores uso», «qué fuentes pongo», «mi logo se ve genérico», «necesito versiones del logo». Al aprobarse, escribe marca.json y lo valida."
 license: MIT
 ---
 <!-- Copyright (c) 2026 2894 Studio · MIT -->

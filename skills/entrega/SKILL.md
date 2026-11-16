@@ -1,6 +1,6 @@
 ---
 name: entrega
-description: Cierra el proyecto de marca: revisión de experto con fortalezas y riesgos reales, paquete de archivos con LEEME, lista explícita de lo que queda por hacer a mano y traspaso a creative-architect. Úsala con «revisa mi marca», «qué me falta», «está lista para publicar», «entrega el kit», «qué hago ahora con esto».
+description: "Cierra el proyecto de marca: revisión de experto con fortalezas y riesgos reales, paquete de archivos con LEEME, lista explícita de lo que queda por hacer a mano y traspaso a creative-architect. Úsala con «revisa mi marca», «qué me falta», «está lista para publicar», «entrega el kit», «qué hago ahora con esto»."
 license: MIT
 ---
 <!-- Copyright (c) 2026 2894 Studio · MIT -->

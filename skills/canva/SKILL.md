@@ -1,6 +1,6 @@
 ---
 name: canva
-description: Opcional. Monta o publica el brand kit en Canva controlando el gasto de créditos de generación. Úsala solo cuando la persona tenga Canva conectado y lo pida («pásalo a Canva», «brand kit en Canva», «quiero editarlo en Canva»). No es necesaria para ninguna otra skill del plugin.
+description: "Opcional. Monta o publica el brand kit en Canva controlando el gasto de créditos de generación. Úsala solo cuando la persona tenga Canva conectado y lo pida («pásalo a Canva», «brand kit en Canva», «quiero editarlo en Canva»). No es necesaria para ninguna otra skill del plugin."
 license: MIT
 ---
 <!-- Copyright (c) 2026 2894 Studio · MIT -->

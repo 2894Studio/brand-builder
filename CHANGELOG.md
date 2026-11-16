@@ -3,6 +3,7 @@
 ## Sin publicar (compatibilidad con Google Antigravity)
 
 - **Nuevo:** `plugin.json` en la raíz (manifiesto de Antigravity) y `AGENTS.md` con las instrucciones «Director de Marca». Claude Code sigue leyendo solo `.claude-plugin/`.
+- **Arreglo importante:** 5 de las 10 skills (el router, `entrega`, `lanzamiento`, `tokens` y `voz`) las **saltaba en silencio** un lector de YAML estricto, porque su `description` llevaba «: » sin comillas. Claude Code lo toleraba. Ahora todas las descripciones van entre comillas y `verificar_skills.py` lo comprueba (con un YAML estricto) para que no vuelva a pasar.
 - **Documentación:** instalación en Antigravity en el README (`git clone` a `~/.gemini/config/plugins/`) y mención de `ask_question` en la convención de preguntas.
 - Al publicarlo hay que subir la versión en **los dos manifiestos** (`plugin.json` y `.claude-plugin/plugin.json`) para que las instalaciones existentes vean el cambio.
 
@@ -30,7 +31,7 @@ Nueva skill **lanzamiento**: el resultado final de usar el plugin incluye el log
 
 - **Nuevo:** `preguntas-interactivas.md`, convención para que las preguntas cerradas (territorio, logo A o B, tono, mockups, confirmaciones) salgan como diálogo nativo con opciones (`AskUserQuestion` en Claude Code) y las abiertas vayan en el chat. Con alternativa numerada cuando no hay diálogo. No verificado el aspecto del diálogo en este entorno.
 - **Documentación:** banner y infografía del paso a paso en el README (`assets/`, con las fuentes HTML en `assets/src/` para editarlas), con la marca 2894_ y una tabla equivalente en texto.
-- **Publicado** en GitHub (`2894Studio/brand-kit-builder`). Instalación desde GitHub verificada en una configuración limpia: instala la 2.4.0 con las ocho skills y el autotest de `gusto` pasa desde la copia instalada.
+- **Publicado** en GitHub (`2894Studio/brand-kit-builder`). Instalación desde GitHub verificada en una configuración limpia: instala la 2.4.0 con todas sus skills y el autotest de `gusto` pasa desde la copia instalada.
 
 Para que los alumnos lleguen a piezas de este nivel con su propio equipo y sus propias referencias.
 
