@@ -67,7 +67,7 @@ class Generador:
         if self.expresivo:
             # inicial gigante, tono sobre tono, recortada por el borde derecho: el gesto que quita el aire de plantilla
             tono = m.mezclar(e.ink, e.brand, 0.55)
-            c.append(L.t_sangre(e, e.nombre[:1].lower(), L.W + 150, 1180, 1600, tono, anchor="end"))
+            c.append(L.t_sangre(e, (e.nombre[:1].upper() if e.nombre.isupper() else e.nombre[:1].lower()), L.W + 150, 1180, 1600, tono, anchor="end"))
         else:
             c.append(L.rect(L.x(10), 0, L.COL * 3 + L.GUT * 2, L.H, e.brand, op=0.9))
         c.append(L.logo(e, L.MARGIN_X, 300, 900, 240, "invertida", e.base, self.logos, self.salida, ancla="start"))
@@ -165,8 +165,12 @@ class Generador:
         c.append(L.t(e, tl, L.MARGIN_X, L.Y_TITLE, 72, e.ink, "bold", lh=1.1, rol="titulos"))
         c.append(L.firma_filete(e))
         y = L.Y_LEAD + 40
+        limite = L.H - 190          # por debajo está el pie con la numeración
         for i, r in enumerate(reglas[:5]):
             s, nl = L.bloque(e, f"{i + 1}. {r}", L.MARGIN_X, y, 26, 520, 3, lh=1.4, que="regla")
+            if y + int(26 * 1.4 * nl) > limite:
+                e.aviso(f"«{titulo}»: la regla {i + 1} no cabe sin pisar el pie; acorta las reglas o deja menos ({i} caben)")
+                break
             c.append(s)
             y += int(26 * 1.4 * nl) + 22
         c.append(L.pie(e, self.n, self.total, xr=640))      # dentro del panel, nunca sobre la imagen
@@ -218,6 +222,9 @@ class Generador:
             for i_, v in enumerate(vals):
                 vis += tarjeta(v, vx + (i_ % 2) * (cw + gap), L.Y_VIS_TOP + (i_ // 2) * (ch + gap), cw, ch, size, 4)
         pub = self.marca.get("publico") or self.pend(None, "«publico» en marca.json")
+        pub = pub.strip().rstrip(".")
+        if pub and pub.split()[0][:1].isupper() and not pub.split()[0].isupper() and pub.split()[0] in ("Empresas", "Personas", "Equipos", "Profesionales", "Quienes", "Negocios", "Autónomos", "Familias", "Marcas"):
+            pub = pub[:1].lower() + pub[1:]
         cuerpo = f"Para {pub}."
         self.contenido("La marca", "Qué prometemos", self.pend(k.get("promesa"), "promesa"), cuerpo,
                        "".join(vis), "la-marca")
@@ -450,8 +457,24 @@ def main(argv=None):
     rsvg = shutil.which("rsvg-convert")
     if rsvg:
         pdf = os.path.join(salida, "manual-de-marca.pdf")
-        ins = [os.path.join(salida, "laminas", n) for n, _, _ in g.laminas]
-        r = subprocess.run([rsvg, "-f", "pdf", "-o", pdf] + ins, capture_output=True, text=True)
+        # rsvg-convert no carga imágenes enlazadas por ruta relativa: se incrustan los logos en copias temporales
+        import base64
+        import re
+        import tempfile
+        with tempfile.TemporaryDirectory() as tmp:
+            ins = []
+            for n, _, s in g.laminas:
+                def incrustar(mo):
+                    ruta = os.path.normpath(os.path.join(salida, "laminas", mo.group(1)))
+                    if not os.path.exists(ruta):
+                        return mo.group(0)
+                    return 'href="data:image/svg+xml;base64,' + base64.b64encode(open(ruta, "rb").read()).decode() + '"'
+                s2 = re.sub(r'href="(\.\./logo/[^"]+)"', incrustar, s)
+                destino = os.path.join(tmp, n)
+                with open(destino, "w", encoding="utf-8") as fh:
+                    fh.write(s2)
+                ins.append(destino)
+            r = subprocess.run([rsvg, "-f", "pdf", "-o", pdf] + ins, capture_output=True, text=True)
         print("ok " + pdf if r.returncode == 0 else "aviso: no se pudo crear el PDF: " + r.stderr.strip()[:120])
     else:
         print("aviso: sin rsvg-convert no se genera el PDF (abre index.html e imprime a PDF desde el navegador)")

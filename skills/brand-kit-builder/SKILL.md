@@ -42,7 +42,9 @@ Los scripts de `tokens`, `laminas` e `identidad` necesitan Python 3.11 o superio
 | Que se vea menos genérico, entrenar el gusto, aportar referencias, diseñar un post, banner o pantalla, «más profesional / más humano / más tecnológico» | `gusto` |
 | Montarlo en Canva | `canva` |
 
-**Cadena por defecto** cuando pide «la marca entera»: `estrategia → gusto → identidad → voz → tokens → laminas → lanzamiento → entrega`. `gusto` pide imágenes de referencia que aporta la persona; si no quiere o no puede, se salta y se avisa de que la marca saldrá con menos criterio visual. Cada paso termina con la aprobación de la persona antes del siguiente, pedida con un diálogo de opciones («aprobado» / «hay que ajustar»). Si la petición es ambigua, haz **una** pregunta, la que más cambie el resultado.
+**Cadena por defecto** cuando pide «la marca entera»: `estrategia → gusto → identidad → voz → tokens → laminas → lanzamiento → entrega`. `gusto` pide imágenes de referencia que aporta la persona. **«Interprétalo tú» o «no tengo referencias» no es un permiso para saltarlo**: es el caso en que más hace falta. Entonces construyes tú el punto de partida desde la categoría (4 marcas líderes del sector y 2 de fuera, con el atributo visual de cada una, mostradas para que la persona confirme o corrija) y lo registras en `gusto.json`; `gusto/references/buscar-referencias.md` dice cómo. Saltarlo del todo solo si la persona lo rechaza expresamente, y se dice que la marca saldrá más genérica.
+
+**Alcance:** pregúntalo una vez, y la opción recomendada y por defecto es **el kit completo** (logo + manual + bento + 2 posts). Si la persona elige menos (p. ej. «solo estrategia e identidad»), dilo con claridad: sin `lanzamiento` no habrá bento ni posts, y la marca no se verá aplicada. Cada paso termina con la aprobación de la persona antes del siguiente, pedida con un diálogo de opciones («aprobado» / «hay que ajustar»). Si la petición es ambigua, haz **una** pregunta, la que más cambie el resultado.
 
 ## Invariantes (no se rompen)
 
@@ -56,7 +58,8 @@ Los scripts de `tokens`, `laminas` e `identidad` necesitan Python 3.11 o superio
 8. **Lo que pueda ser tipografía y forma, no se genera como imagen.**
 9. **La IA es el andamio, no la fachada.** Toda entrega dice qué queda por intervenir a mano.
 10. **Léxico prohibido.** `skills/identidad/references/lexico-prohibido.md`. Si una frase vale para cualquier competidor cambiando el nombre, está mal escrita.
-11. **`marca.json` se escribe en cuanto se aprueban logo y paleta**, no al final, y se valida. Sin él, cada herramienta posterior te obliga a repetir la marca.
+11. **Una marca sin imagen no se entrega.** Antes de cerrar `identidad` hay un sistema de imagen decidido (fotografía, gráfico firma y un momento de color), no solo logo y paleta. Logo + colores sólidos + tipografía sin nada más es una marca sosa.
+12. **`marca.json` se escribe en cuanto se aprueban logo y paleta**, no al final, y se valida. Sin él, cada herramienta posterior te obliga a repetir la marca.
 
 ## Dónde queda el trabajo
 

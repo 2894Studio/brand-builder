@@ -57,7 +57,7 @@ Un paso cada vez, y **siempre con tu aprobación**: sin tu visto bueno no pasa a
 
 ## Instalación
 
-Desde GitHub: `claude plugin marketplace add 2894Studio/brand-kit-builder` y después `claude plugin install brand-kit-builder@brand-kit-builder`. También se puede instalar desde una carpeta o un ZIP descomprimido (`claude plugin marketplace add ./brand-kit-builder`). Las dos rutas están en la [guía del alumno](docs/guia-alumnos.md).
+**Instálalo, no lo clones solo para leerlo:** si Claude solo lee las skills a mano, no tiene los comandos ni los generadores de piezas y el resultado sale pobre. Desde GitHub: `claude plugin marketplace add 2894Studio/brand-kit-builder` y después `claude plugin install brand-kit-builder@brand-kit-builder`. También se puede instalar desde una carpeta o un ZIP descomprimido (`claude plugin marketplace add ./brand-kit-builder`). Las dos rutas están en la [guía del alumno](docs/guia-alumnos.md).
 
 Como plugin, igual que creative-architect:
 

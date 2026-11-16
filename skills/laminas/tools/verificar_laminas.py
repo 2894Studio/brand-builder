@@ -107,6 +107,22 @@ for terr, kit, expresivo in variantes:
             comprobar('data-sangre="1"' in port, f"[{etiqueta}] la portada expresiva debe llevar tipografía a sangre")
     print(f"ok  {etiqueta:34} {len(g.laminas)} láminas")
 
+# el PDF se monta con los logos incrustados (rsvg-convert no carga rutas relativas): se comprueba con un rsvg falso
+import subprocess  # noqa: E402
+RAIZ = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", ".."))
+marca_p = os.path.join(RAIZ, "evals", "fixtures", "pulso", "marca.json")
+if os.path.exists(marca_p):
+    with tempfile.TemporaryDirectory() as tmp:
+        falso = os.path.join(tmp, "rsvg-convert")
+        reg = os.path.join(tmp, "visto.txt")
+        with open(falso, "w") as fh:
+            fh.write('#!/bin/sh\nfor a in "$@"; do case "$a" in *.svg) grep -c "../logo/" "$a" >> %s;; esac; done\ntouch "$4"\n' % reg)
+        os.chmod(falso, 0o755)
+        env = dict(os.environ, PATH=tmp + os.pathsep + os.environ.get("PATH", ""))
+        r = subprocess.run([sys.executable, os.path.join(os.path.dirname(os.path.abspath(__file__)), "generar_kit.py"), marca_p, "--salida", os.path.join(tmp, "kit")], capture_output=True, text=True, env=env)
+        visto = open(reg).read().split() if os.path.exists(reg) else []
+        comprobar(bool(visto) and all(v == "0" for v in visto), "PDF: las láminas llegan a rsvg-convert con los logos incrustados, sin rutas «../logo/»")
+
 if fallos:
     print(f"\n{len(fallos)} fallo(s)")
     sys.exit(1)

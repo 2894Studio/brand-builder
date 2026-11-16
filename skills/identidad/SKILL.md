@@ -55,6 +55,16 @@ Logo y paleta se aprueban **juntos**. Con la elegida:
 2. Completa `marca.json`: `visual.colores` (roles `primario`, `fondo`, `acento`, `texto`; el neutro va en `brandKit.neutro`, porque el contrato no tiene rol para él), `visual.estilo` (técnica: luz, grano, paleta, encuadre; no adjetivos), `tipografia` y `brandKit.logo`.
 3. Valida: `python3 ../tokens/tools/validar_marca.py marca.json`. Corrige los errores; lee los avisos.
 
+## 4b. Sistema de imagen: que la marca no sea sosa
+
+Logo, paleta y tipografía no bastan: una marca que solo tiene eso sale plana. Antes de cerrar `identidad`, decide y anota en `marca.json` → `visual.estilo` (y en `kit.json` → `fotografia`):
+
+1. **Fotografía:** qué sujetos (personas en su contexto real, el producto en uso, el lugar), encuadre, luz y color, y **de dónde saldrán** (propias, banco con licencia o generadas; ver `lanzamiento/references/fotos.md`). «Sin fotos» solo si la persona lo decide, y entonces el recurso protagonista es otro (interfaz, cifra, mapa).
+2. **Gráfico firma:** un elemento propio derivado del logo o de la idea de marca (una forma recortada, un patrón, un trazo, un indicador) que aparezca en todas las piezas. No es un degradado ni una caja redondeada genérica.
+3. **Un momento de color:** dónde ocupa el color la pieza entera (un bloque a sangre, un fondo de portada) y dónde se queda blanco.
+
+Pregúntalo contra las referencias de `gusto.json`: si las referencias tienen fotografía y la marca no, está mal. Una marca para empresas o técnica también lleva personas y contexto real, no solo iconos.
+
 ## 5. Que el logo se vea igual en todas partes
 
 Si el nombre del logo es **texto vivo** (usa una fuente), el archivo no es seguro tal cual: dentro de `<img>`, en el manual o sin conexión sale en una fuente de reserva, y si usa una clase CSS compartida dos logos en la misma página se pisan. Antes de dar el logo por cerrado:
