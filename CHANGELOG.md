@@ -1,5 +1,11 @@
 # Changelog
 
+## Sin publicar (compatibilidad con Google Antigravity)
+
+- **Nuevo:** `plugin.json` en la raíz (manifiesto de Antigravity) y `AGENTS.md` con las instrucciones «Director de Marca». Claude Code sigue leyendo solo `.claude-plugin/`.
+- **Documentación:** instalación en Antigravity en el README (`git clone` a `~/.gemini/config/plugins/`) y mención de `ask_question` en la convención de preguntas.
+- Al publicarlo hay que subir la versión en **los dos manifiestos** (`plugin.json` y `.claude-plugin/plugin.json`) para que las instalaciones existentes vean el cambio.
+
 ## 2.5.1
 
 - **Arreglo:** `estrategia` dice ahora que `referencias[].tipo` solo admite `"si"` o `"no"`. Dos modelos distintos escribieron valores inválidos («a favor», «gusta») porque la instrucción no lo decía.

@@ -1,6 +1,6 @@
 # Preguntas interactivas (cómo preguntan las skills)
 
-Cuando el entorno lo permite, las preguntas **cerradas** se hacen con la herramienta nativa de preguntas con opciones: la persona elige con el teclado o el ratón en vez de escribir. En Claude Code esa herramienta se llama `AskUserQuestion`. Si el entorno tiene otra equivalente, úsala igual. Si no hay ninguna (modo no interactivo, otro agente o una superficie sin diálogos), pasa a la **alternativa en el chat** de más abajo. Esta convención no cambia qué se pregunta ni el orden: solo cómo.
+Cuando el entorno lo permite, las preguntas **cerradas** se hacen con la herramienta nativa de preguntas con opciones: la persona elige con el teclado o el ratón en vez de escribir. En Claude Code esa herramienta se llama `AskUserQuestion`. Si el entorno tiene otra equivalente, úsala igual (en Google Antigravity, según `AGENTS.md`, es `ask_question`). Si no hay ninguna (modo no interactivo, otro agente o una superficie sin diálogos), pasa a la **alternativa en el chat** de más abajo. Esta convención no cambia qué se pregunta ni el orden: solo cómo.
 
 ## Qué va en diálogo y qué no
 

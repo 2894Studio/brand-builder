@@ -74,6 +74,16 @@ claude plugin marketplace add ~/brand-kit-builder
 claude plugin install brand-kit-builder@brand-kit-builder
 ```
 
+### Instalación en Google Antigravity
+
+Como plugin global (disponible en cualquier proyecto):
+
+```bash
+git clone https://github.com/2894Studio/brand-kit-builder.git ~/.gemini/config/plugins/brand-kit-builder
+```
+
+Para actualizarlo más adelante: `git -C ~/.gemini/config/plugins/brand-kit-builder pull`. Las instrucciones del agente están en `AGENTS.md` y el manifiesto en `plugin.json`, ambos en la raíz. Claude Code ignora esos dos archivos: sigue usando `.claude-plugin/`.
+
 Para producir imágenes con un proveedor, instala también creative-architect (opcional; sin él, la skill entrega prompts para pegar):
 
 ```bash
