@@ -16,6 +16,7 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import lib_lanzamiento as L  # noqa: E402
 
+CANVA_RATIO = {"4:3": "LANDSCAPE_4_3", "3:4": "PORTRAIT_3_4", "1:1": "SQUARE_1_1"}
 TIPOS = [
     ("equipo-1", "4:3 (horizontal)", "equipo", "Un grupo de 3 a 5 personas diversas, en su contexto real de trabajo, interactuando de forma natural (hablando, mirando una pantalla o un material), no posando mirando a cámara."),
     ("retrato-1", "3:4 (vertical)", "retrato", "Retrato de una sola persona en su entorno de trabajo, a media distancia, mirada natural, luz lateral suave, fondo con profundidad y desenfoque realista."),
@@ -28,6 +29,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("marca")
     ap.add_argument("--salida", default="lanzamiento/prompts-fotos.md")
+    ap.add_argument("--proveedor", choices=["canva", "gemini", "flow", "todos"], default="todos", help="adapta las instrucciones a la herramienta (por defecto, todas)")
     for _, _, clave, _ in TIPOS:
         ap.add_argument("--" + clave)
     a = ap.parse_args()
@@ -54,16 +56,25 @@ def main():
         bloques.append((archivo, formato, prompt))
     os.makedirs(os.path.dirname(os.path.abspath(a.salida)), exist_ok=True)
     with open(a.salida, "w", encoding="utf-8") as fh:
-        fh.write(f"# Prompts de fotos · {nombre}\n\n"
-                 "Pega cada prompt en **Gemini** (crear imágenes) o en **Google Flow** (modo imagen). Si la herramienta tiene selector de formato, "
-                 "elígelo; si no, el formato ya va dentro del prompt. Genera 2 o 3 variantes por prompt y quédate con la mejor. "
-                 "Revisa tu cuota gratuita en cada herramienta: cambia según el plan.\n\n"
+        if a.proveedor == "canva":
+            donde = ("Usa cada prompt con `generate-image` del conector de **Canva** y la proporción (`aspectRatio`) indicada en cada bloque. "
+                     "Cada generación gasta créditos de Canva: genera 1 por prompt y solo repite si hace falta (tope: 8 por kit).")
+        elif a.proveedor in ("gemini", "flow"):
+            donde = ("Pega cada prompt en **" + ("Gemini** (crear imágenes)" if a.proveedor == "gemini" else "Google Flow** (modo imagen)") +
+                     ". Si la herramienta tiene selector de formato, elígelo; si no, el formato ya va dentro del prompt. "
+                     "Genera 2 o 3 variantes y quédate con la mejor. Revisa tu cuota gratuita: cambia según el plan.")
+        else:
+            donde = ("Pega cada prompt en **Gemini**, en **Google Flow** (modo imagen) o úsalo con `generate-image` del conector de **Canva** "
+                     "(con la proporción indicada). Revisa la cuota o los créditos de cada herramienta: cambian según el plan.")
+        fh.write(f"# Prompts de fotos · {nombre}\n\n" + donde + "\n\n"
                  "**Antes de usarlas:** son personas y lugares sintéticos. No se presentan como tu equipo, tus clientes ni tu local reales. "
-                 "Google suele añadir una marca invisible a lo que genera; no la quites. Se anotan con origen `ia` en `fotos/creditos.md` "
-                 "(`| equipo-1.png | ia | Gemini (generada) | n/a | n/a |`). Si no te convence la persona, repite: no la retoques para que parezca otra.\n\n"
+                 + ("" if a.proveedor == "canva" else "Google suele añadir una marca invisible a lo que genera; no la quites. ") + "Se anotan con origen `ia` en `fotos/creditos.md` "
+                 "(con `tools/registrar_foto.py`, o a mano: `| equipo-1.png | ia | Canva, Gemini o Flow (generada) | n/a | n/a |`). Si no te convence la persona, repite: no la retoques para que parezca otra.\n\n"
                  "Mira bien la imagen antes de aceptarla: manos, dientes, texto fantasma en pantallas o carteles, simetrías raras.\n\n")
         for archivo, formato, prompt in bloques:
-            fh.write(f"## {archivo} · {formato}\n\nGuárdala como `fotos/{archivo}.png`.\n\n```\n{prompt}\n```\n\n")
+            ratio = CANVA_RATIO.get(formato.split()[0], "")
+            extra = f" Proporción para Canva: `{ratio}`." if a.proveedor in ("canva", "todos") and ratio else ""
+            fh.write(f"## {archivo} · {formato}\n\nGuárdala como `fotos/{archivo}.png`.{extra}\n\n```\n{prompt}\n```\n\n")
         fh.write("## Si el resultado sale genérico\n\nCambia el **sujeto**, no la paleta: más concreto (qué hace la persona, con qué objeto, en qué lugar exacto) "
                  "y cita un atributo de tus referencias en `gusto.json` (encuadre, luz, distancia). Repite como máximo 2 veces por prompt.\n")
     print(f"ok {a.salida} ({len(bloques)} prompts)")

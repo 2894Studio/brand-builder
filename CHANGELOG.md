@@ -20,6 +20,7 @@
   - **Marca sosa:** `gusto` no se salta con «interprétalo tú» (se construye el punto de partida desde la categoría), el alcance recomendado es el kit completo y `identidad` exige un **sistema de imagen** (fotografía, gráfico firma, momento de color) antes de cerrar. Nueva invariante 11.
   - README: instalar el plugin, no clonarlo solo para leerlo.
 - **Fotos gratis:** `buscar_fotos.py` busca en Pexels (clave gratuita opcional), descarga y rellena `creditos.md` con autor, enlace y licencia; `prompts_fotos.py` escribe los prompts para generar las fotos en Gemini o Google Flow. Probado con un servidor Pexels simulado: **no se ha probado contra la API real** (no había clave).
+- **Canva como proveedor de fotos:** `prompts_fotos.py --proveedor canva` da la proporción de Canva (`aspectRatio`) de cada prompt y `registrar_foto.py` anota la foto en `creditos.md` (origen, fuente, licencia, permiso) con las mismas reglas que `preparar_fotos.py`.
 - Al publicarlo hay que subir la versión en **los dos manifiestos** (`plugin.json` y `.claude-plugin/plugin.json`) para que las instalaciones existentes vean el cambio.
 
 ## 2.5.1

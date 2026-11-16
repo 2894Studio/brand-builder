@@ -239,6 +239,20 @@ with tempfile.TemporaryDirectory() as d:
     tx = open(pf, encoding="utf-8").read() if os.path.exists(pf) else ""
     ok(r.returncode == 0 and tx.count("```") == 8 and "sin ningún texto" in tx and "#2F4BD8" in tx and "Mecánicos revisando una bici." in tx, "prompts_fotos: 4 prompts con paleta, sin texto y con el sujeto pedido")
 
+    rc = py(os.path.join(AQUI, "prompts_fotos.py"), PULSO, "--salida", pf, "--proveedor", "canva")
+    ok(rc.returncode == 0 and "LANDSCAPE_4_3" in open(pf, encoding="utf-8").read() and "PORTRAIT_3_4" in open(pf, encoding="utf-8").read(), "prompts_fotos --proveedor canva indica la proporción de Canva")
+    fr = os.path.join(d, "fr")
+    os.makedirs(fr)
+    try:
+        from PIL import Image
+        Image.new("RGB", (1500, 1100), "#789").save(os.path.join(fr, "equipo-1.png"))
+        r = py(os.path.join(AQUI, "registrar_foto.py"), os.path.join(fr, "equipo-1.png"), "--origen", "ia", "--fuente", "Canva (generada)")
+        ok(r.returncode == 0 and "| equipo-1.png | ia | Canva (generada) |" in open(os.path.join(fr, "creditos.md"), encoding="utf-8").read(), "registrar_foto anota una foto de IA")
+        r = py(os.path.join(AQUI, "registrar_foto.py"), os.path.join(fr, "equipo-1.png"), "--origen", "propia")
+        ok(r.returncode != 0, "registrar_foto exige permiso para una foto propia con personas")
+    except ImportError:
+        saltados.append("registrar_foto (falta Pillow)")
+
     # 8. el crítico acepta el bento
     r = py(CRITICO, salida, "--ancho", "1920", "--alto", "1080")
     if r.returncode == 2:

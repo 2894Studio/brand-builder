@@ -57,15 +57,16 @@ Una marca que vende **confianza entre personas** (reclutamiento, salud, consulto
 
 ## 3. Generarlas con Canva (receta verificada)
 
-Con el conector de Canva y la persona de acuerdo:
+Úsala si no tienes fotos propias ni clave de banco. Con el conector de Canva y la persona de acuerdo:
 
-1. **Generar:** `generate-image` con proporción `LANDSCAPE_4_3` (equipo) o `PORTRAIT_3_4` (retrato). Prompt-plantilla, adaptando perfiles y colores de ropa a la marca:
+0. **Prompts a medida:** `python3 skills/lanzamiento/tools/prompts_fotos.py marca.json --proveedor canva` escribe 4 prompts con la marca y la proporción de Canva de cada uno (`LANDSCAPE_4_3`, `PORTRAIT_3_4`, `SQUARE_1_1`). Úsalos en vez de las plantillas del paso 1.
+1. **Generar:** `generate-image` con proporción `LANDSCAPE_4_3` (equipo) o `PORTRAIT_3_4` (retrato). Prompt-plantilla, si no usas el paso 0, adaptando perfiles y colores de ropa a la marca:
    - Equipo: «Fotografía realista y natural de un equipo de cuatro profesionales [perfil] reunidos alrededor de un portátil en una oficina luminosa y moderna, sonriendo con naturalidad, ropa casual elegante en tonos [colores de la marca], luz natural suave, estilo de fotografía corporativa editorial. Sin texto, sin logotipos, sin marcas visibles.»
    - Retrato: «Retrato fotográfico realista de [persona], [rol], mirando a cámara con expresión tranquila, fondo desenfocado de oficina moderna, plano medio, luz natural. Sin texto, sin logotipos.»
 2. **Traerlas a disco:** el conector solo deja una miniatura y el enlace de la imagen da 403 con `curl`. Crea un diseño con `create-design` (formato `Instagram Post (Portrait)`, las imágenes en `references`, «una página por imagen a página completa, sin texto ni gráficos») y expórtalo con `export-design` en PNG. Descarga con `curl` las URL firmadas a `fotos/`. Salen **1080×1440**.
 3. **Encuadre:** al ser la página 3:4, una foto de equipo 4:3 pierde los laterales. Pide el equipo ya **centrado en el encuadre** o genéralo en 3:4.
 4. **Cuenta y créditos:** cada generación gasta créditos (tope de la skill `canva`: 8 por kit), y el diseño de exportación queda en la cuenta. Dilo antes.
-5. Anota cada foto en `creditos.md` con `origen = ia`.
+5. Anota cada foto: `python3 skills/lanzamiento/tools/registrar_foto.py fotos/equipo-1.png --origen ia --fuente "Canva (generada)"`, y después `preparar_fotos.py`.
 
 ## 4. Sin Canva
 
