@@ -30,8 +30,12 @@
     if (cs.visibility === 'hidden' || cs.display === 'none') continue;
     vistos.add(el);
     const range = document.createRange(); range.selectNodeContents(el);
-    const r = range.getBoundingClientRect();
-    if (r.width === 0 || r.height === 0) continue;
+    const rr = range.getBoundingClientRect();
+    if (rr.width === 0 || rr.height === 0) continue;
+    // La caja del Range incluye el espacio de la fuente aunque el line-height sea menor (titulares gigantes con
+    // line-height < 1). Para elementos de bloque se recorta a la caja del propio elemento: así no hay falsos solapes.
+    let r = {left: rr.left, top: rr.top, right: rr.right, bottom: rr.bottom, width: rr.width, height: rr.height};
+    if (cs.display !== 'inline') { const e = el.getBoundingClientRect(); if (e.height > 0) { r.top = Math.max(rr.top, e.top); r.bottom = Math.min(rr.bottom, e.bottom); r.height = Math.max(r.bottom - r.top, 1); } }
     const bleed = !!el.closest('[data-bleed]'); const deco = !!el.closest('[data-decorativo]');
     const fg = parseColor(cs.color), bg = fondoEfectivo(el);
     let contraste = null;

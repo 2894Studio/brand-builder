@@ -104,6 +104,7 @@ with tempfile.TemporaryDirectory() as d:
         ok("#FF00AA" in s, "avisa del color fuera de marca")
         r = py(os.path.join(AQUI, "critico_render.py"), os.path.join(FIX, "degradado.html"))
         s = r.stdout
+        ok("«Aa»" not in s, "un titular gigante con line-height < 1 no da falso solape con el texto de debajo")
         ok("GHOSTWORD" not in s, "un texto data-decorativo no se juzga (ni se sale del lienzo ni se pisa)")
         try:
             import PIL  # noqa: F401

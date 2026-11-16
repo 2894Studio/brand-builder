@@ -6,6 +6,7 @@ Cambios tras repetir un rebranding «moderno» de Findpro con dos referencias nu
 
 - **Nuevo:** `critico_render.py` estima el **contraste sobre degradados e imágenes** con los píxeles de la captura (necesita Pillow). Detectó iniciales blancas sobre un avatar degradado a ~4:1.
 - **Nuevo:** atributo `data-decorativo` para la palabra fantasma de fondo: no se juzga, no se compara con otros textos.
+- **Arreglo:** el crítico daba falsos solapes con titulares gigantes de `line-height` menor que 1 (la caja del texto incluía el espacio de la fuente); ahora se recorta a la caja del elemento. Con prueba.
 - **Cambio:** el texto dentro de una maqueta de interfaz también debe medir ≥ 19 px; dos pruebas con 15–17 px lo habían dejado pasar como «es la interfaz».
 - **Nuevo:** `tonos.md` y `patrones-saas.md` recogen el estilo «moderno de producto» (degradado, palabra fantasma, maqueta con interfaz, tarjetas de cristal, fotos en tarjetas), con sus riesgos.
 - **Verificado:** las imágenes de Canva se pueden traer a resolución completa metiéndolas en un diseño y exportando a PNG (el enlace «Open generated image» da 403 con `curl`). Documentado en `skills/canva/SKILL.md` y en la guía.
