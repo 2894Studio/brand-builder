@@ -192,6 +192,53 @@ with tempfile.TemporaryDirectory() as d:
     ra = py(os.path.join(AQUI, "variedad.py"), be, bd)
     ok("PARECIDA" in ra.stdout or "ok" in ra.stdout, "variedad.py compara estructuras")
 
+    # 7c. buscar_fotos.py contra un servidor Pexels falso (sin red ni clave reales)
+    import http.server
+    import io
+    import threading
+
+    class _H(http.server.BaseHTTPRequestHandler):
+        def log_message(self, *x):
+            pass
+
+        def do_GET(self):
+            from PIL import Image
+            def jpg(w, h):
+                b = io.BytesIO()
+                Image.new("RGB", (w, h), "#789").save(b, "JPEG")
+                return b.getvalue()
+            P = "http://127.0.0.1:%d" % self.server.server_port
+            foto = {"id": 42, "photographer": "Ana", "photographer_url": "https://www.pexels.com/@ana", "url": "https://www.pexels.com/photo/42/", "alt": "Equipo",
+                    "src": {"medium": P + "/m.jpg", "large2x": P + "/l.jpg", "original": P + "/l.jpg"}}
+            if self.path.startswith("/v1") and self.headers.get("Authorization") != "K":
+                self.send_response(401); self.end_headers(); return
+            body = (json.dumps({"photos": [foto]}) if self.path.startswith("/v1/search") else json.dumps(foto)).encode() if self.path.startswith("/v1") else jpg(350, 233) if self.path == "/m.jpg" else jpg(1880, 1253)
+            self.send_response(200); self.end_headers(); self.wfile.write(body)
+    try:
+        import PIL  # noqa: F401
+        srv = http.server.HTTPServer(("127.0.0.1", 0), _H)
+        threading.Thread(target=srv.serve_forever, daemon=True).start()
+        env = dict(os.environ, PEXELS_API_BASE="http://127.0.0.1:%d/v1" % srv.server_port, PEXELS_API_KEY="K")
+        carp = os.path.join(d, "fotos-px")
+        BF = os.path.join(AQUI, "buscar_fotos.py")
+        sin = subprocess.run([sys.executable, BF, "buscar", "x", "--carpeta", carp], capture_output=True, text=True, env={**env, "PEXELS_API_KEY": ""})
+        ok(sin.returncode != 0 and "gratis" in (sin.stdout + sin.stderr).lower(), "buscar_fotos sin clave explica cómo conseguirla (gratis)")
+        r1 = subprocess.run([sys.executable, BF, "buscar", "equipo", "--carpeta", carp], capture_output=True, text=True, env=env)
+        ok(r1.returncode == 0 and os.path.exists(os.path.join(carp, "_candidatas", "pexels-42.jpg")), "buscar_fotos deja miniaturas candidatas")
+        r2 = subprocess.run([sys.executable, BF, "elegir", "42", "--como", "equipo-1", "--carpeta", carp], capture_output=True, text=True, env=env)
+        cred = open(os.path.join(carp, "creditos.md"), encoding="utf-8").read() if os.path.exists(os.path.join(carp, "creditos.md")) else ""
+        ok(r2.returncode == 0 and "| equipo-1.jpg | banco |" in cred and "Pexels License" in cred, "buscar_fotos elegir descarga y rellena creditos.md")
+        r3 = py(os.path.join(AQUI, "preparar_fotos.py"), carp, "--salida", os.path.join(d, "fotos-out"))
+        ok(r3.returncode == 0, "preparar_fotos acepta la foto descargada con su fila")
+        srv.shutdown()
+    except ImportError:
+        saltados.append("buscar_fotos (falta Pillow)")
+
+    pf = os.path.join(d, "pf.md")
+    r = py(os.path.join(AQUI, "prompts_fotos.py"), PULSO, "--salida", pf, "--equipo", "mecánicos revisando una bici")
+    tx = open(pf, encoding="utf-8").read() if os.path.exists(pf) else ""
+    ok(r.returncode == 0 and tx.count("```") == 8 and "sin ningún texto" in tx and "#2F4BD8" in tx and "Mecánicos revisando una bici." in tx, "prompts_fotos: 4 prompts con paleta, sin texto y con el sujeto pedido")
+
     # 8. el crítico acepta el bento
     r = py(CRITICO, salida, "--ancho", "1920", "--alto", "1080")
     if r.returncode == 2:

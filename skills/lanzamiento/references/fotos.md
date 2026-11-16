@@ -2,6 +2,26 @@
 
 Los posts llevan imágenes cuando hay fotos. Esta guía dice **cómo dárselas a la skill**, de dónde sacarlas y qué cuidar. Canva **no** es una fuente de fotos reales: genera imágenes con IA (sintéticas). Es la única vía que se ha probado aquí, y es opcional.
 
+## Generarlas con Gemini o Google Flow
+
+```
+python3 skills/lanzamiento/tools/prompts_fotos.py marca.json --salida lanzamiento/prompts-fotos.md [--equipo "…"] [--retrato "…"] [--producto "…"] [--escena "…"]
+```
+
+Escribe 4 prompts (equipo 4:3, retrato 3:4, producto 1:1, lugar 4:3) con el estilo fotográfico y la paleta de `marca.json`, sin texto ni logos. Se pegan en Gemini o en Flow, se guarda la mejor variante en `fotos/` y se anota con origen `ia` en `creditos.md`. Son personas sintéticas: no se presentan como tu equipo ni tus clientes reales.
+
+## Pexels con clave gratuita (opcional)
+
+Con una cuenta gratuita en pexels.com/api se obtiene una clave al momento. Cada persona usa la suya (compartirla agota el límite por hora):
+
+```
+export PEXELS_API_KEY=tu_clave
+python3 skills/lanzamiento/tools/buscar_fotos.py buscar "equipo trabajando en una oficina" --orientacion landscape
+python3 skills/lanzamiento/tools/buscar_fotos.py elegir <id> --como equipo-1
+```
+
+`buscar` deja miniaturas en `fotos/_candidatas/` para mirarlas; `elegir` descarga la foto y añade su fila a `creditos.md` (banco, autor con enlace, «Pexels License»). Sin clave, descarga a mano de pexels.com y rellena la fila como arriba. **Una persona de banco no es tu equipo ni tus clientes**: no se presenta con nombre ni cargo reales.
+
 ## 1. Cómo se las das a la skill (igual con cualquier origen)
 
 1. Guarda las fotos en una carpeta `fotos/` de tu proyecto, con estos nombres para que las encuentre solas:
@@ -29,7 +49,7 @@ Los posts llevan imágenes cuando hay fotos. Esta guía dice **cómo dárselas a
 | # | Fuente | Cuándo | Qué cuidar |
 |---|---|---|---|
 | 1 | **Fotos propias** (equipo, local, producto) | Siempre que se pueda: es lo que da confianza | Permiso por escrito de las personas que salen |
-| 2 | **Bancos con licencia** (por ejemplo Unsplash, Pexels o Pixabay; también los de pago) | No hay fotos propias y se necesita una imagen real | Leer la licencia de **cada** foto: uso comercial, personas reconocibles y marcas visibles. Anotar autor y licencia en `creditos.md` |
+| 2 | **Bancos con licencia**: **Pexels** con `tools/buscar_fotos.py` (clave gratuita), o Unsplash, Pixabay y los de pago a mano | No hay fotos propias y se necesita una imagen real | Leer la licencia de **cada** foto: uso comercial, personas reconocibles y marcas visibles. Anotar autor y licencia en `creditos.md` |
 | 3 | **Imágenes generadas con IA** (Canva u otro generador) | Sin fotos propias ni de banco que encajen | Anotarlas en `creditos.md`. Declararlas en la pieza es decisión tuya (conviene si se publican). **No se presentan como el equipo real de una empresa** |
 | 4 | **Sin fotos** | Todavía no hay nada | Recursos que se sostienen solos (mapa, interfaz, cifra) o marcador visible |
 

@@ -32,8 +32,8 @@ Propón **tres candidatos de atributo**, cada uno con el recurso visual con que 
 
 ### 1b. Conseguir las fotos
 Los posts llevan imágenes. Pregunta con un diálogo **qué fotos hay**: «Tengo fotos propias», «Usaré un banco con licencia», «Genera imágenes con IA (se declaran)» o «Sin fotos por ahora». Según la respuesta, sigue `references/fotos.md`:
-- **Propias o de banco:** que las guarde en `fotos/` (`equipo-1.jpg`, `retrato-1.jpg`…) y rellene `fotos/creditos.md` (origen, autor, licencia, permiso de las personas).
-- **Generadas:** receta de Canva en `references/fotos.md` (con el aviso de que son sintéticas y gastan créditos) y se anotan con `origen = ia`. **Pregunta una vez, con un diálogo, si se declara en la pieza** («No, solo en el LEEME» / «Sí, en el pie de los posts» / «Sí, en el bento y en los posts»). Por defecto **no se escribe nada sobre las piezas**: solo queda en los créditos y en el `LEEME.md`. Recomiéndalo si se van a publicar, pero la decisión es de la persona.
+- **Propias o de banco:** si tiene clave gratuita de Pexels, `tools/buscar_fotos.py` las busca, las descarga y rellena los créditos (ver `references/fotos.md`); si no, que las guarde a mano en `fotos/` (`equipo-1.jpg`, `retrato-1.jpg`…) y rellene `fotos/creditos.md` (origen, autor, licencia, permiso de las personas).
+- **Generadas:** `tools/prompts_fotos.py` escribe los prompts para **Gemini o Google Flow** (gratis con cuenta Google, según cuota); también hay receta de Canva en `references/fotos.md` (con el aviso de que son sintéticas y gastan créditos) y se anotan con `origen = ia`. **Pregunta una vez, con un diálogo, si se declara en la pieza** («No, solo en el LEEME» / «Sí, en el pie de los posts» / «Sí, en el bento y en los posts»). Por defecto **no se escribe nada sobre las piezas**: solo queda en los créditos y en el `LEEME.md`. Recomiéndalo si se van a publicar, pero la decisión es de la persona.
 - **Sin fotos:** recursos que se sostienen solos.
 
 Después prepáralas (revisa resolución y créditos, recorta y marca las de IA):
