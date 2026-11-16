@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.5.1
+
+- **Arreglo:** `estrategia` dice ahora que `referencias[].tipo` solo admite `"si"` o `"no"`. Dos modelos distintos escribieron valores inválidos («a favor», «gusta») porque la instrucción no lo decía.
+- **Documentación:** «Qué modelo usar» en `ahorro-tokens.md`, con coste y calidad medidos con Sonnet 5.5 y Haiku 5.5 y lo que no se ha probado.
+- Incluye todos los cambios añadidos tras la primera publicación de la 2.5.0 (generadores, fotos, bento con degradado, criterio de nivel): quien tenga instalada la 2.5.0 antigua verá la actualización.
+
 ## 2.5.0
 
 Nueva skill **lanzamiento**: el resultado final de usar el plugin incluye el logo, el bento y dos posts.

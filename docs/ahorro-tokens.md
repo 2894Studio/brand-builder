@@ -55,8 +55,37 @@ El plugin creative-architect pesa unos 200 KB si se leyera entero, pero **no se 
 4. **Un intento razonado.** Si no convence, cambia el prompt, di qué cambiaste y genera una vez más. Tras dos fallos de la misma pieza, para y cambia de enfoque. Cada reintento vuelve a cobrar.
 5. **Una pieza, una conversación.** Cuando termines una pieza, `/clear` antes de empezar la siguiente. Una conversación larga arrastra todo lo anterior en cada mensaje. Si no puedes cortarla, `/compact`.
 6. **Guarda el prompt en un archivo.** `trabajo/…/prompts.md`. Para la variante del martes, reutilízalo y cambia una línea, en vez de volver a pedirlo.
-7. **Elige el modelo según la tarea.** Estrategia y criterio piden el modelo más potente; ejecutar un brief ya definido puede hacerse con uno más ligero. Se cambia con `/model`.
+7. **Elige el modelo según la tarea.** Mira la sección «Qué modelo usar» más abajo. Se cambia con `/model`.
 8. **Una sola fuente de verdad.** Si cambias un color, cámbialo en `marca.json` y regenera tokens y `brand.json`. Corregir cada pieza a mano cuesta más que regenerarlas.
+
+## Qué modelo usar
+
+Medido con **Sonnet 5.5** y **Haiku 5.5**, la misma petición, una sola ejecución cada uno (importes de la llamada al modelo; en un plan de suscripción cuenta como uso, no como dólares):
+
+| Tarea | Sonnet 5.5 | Haiku 5.5 |
+|---|---|---|
+| Lanzamiento de Findpro: logo, bento y dos posts con generadores | 11 turnos · $0,25 | 16 turnos · $0,026 |
+| Tres territorios y manifiesto (Casa Lenta) | 8 turnos · $0,26 | 13 turnos · $0,032 |
+| Arranque de la entrevista (ronda 1) | — | 6 turnos · $0,009 |
+
+**Haiku salió unas 8 a 10 veces más barato.** Lo que se vio al leer los resultados:
+
+- **Lanzamiento:** las piezas son visualmente iguales, porque el diseño lo llevan los generadores. El texto fue más pobre con Haiku (una tarjeta «Trabajo / En equipo», un estado «Compatible», el nombre «Nombre de ejemplo» repetido, una tarjeta de «Radio de búsqueda» en lugar de «7 perfiles»).
+- **Entrevista:** siguió las reglas (tuteo, una ronda, sin adelantar soluciones, sin imágenes).
+- **Territorios y manifiesto:** los dos anclaron los territorios fuera de la categoría, detectaron que «Lenta» choca con la promesa de puntualidad y señalaron lo legal como pendiente. Sonnet fue más concreto (paletas con hex, tipografías, frases de ejemplo por territorio).
+- **Datos de marca:** los dos escribieron mal `referencias[].tipo`, por una instrucción ambigua que ya está corregida (v2.5.1). Haiku además añadió campos que no están en la plantilla (`promesa`, `diferencia`, `estado`).
+
+**Una recomendación razonable, con sus límites:**
+
+| Paso | Modelo |
+|---|---|
+| Estrategia (territorios, manifiesto), identidad (logo), voz, interpretar las referencias | Sonnet 5.5: son decisiones de criterio |
+| Tokens, manual, lanzamiento con generadores, entrega, y piezas nuevas con una marca ya cerrada | Haiku 5.5: ejecutan un brief definido y los scripts hacen el trabajo pesado |
+| Cualquier texto de cara al público que escriba Haiku | Léelo antes de publicar |
+
+**Lo que no se ha probado:** identidad (el diseño del logo), voz, tokens, manual y entrega con Haiku; ningún paso con Opus 5.5 ni Fable 5.2. Sin esas pruebas, la tabla de arriba es una hipótesis razonable, no un hecho. Una ejecución por caso y una sola marca por tarea: no es una comparación estadística.
+
+**Ahorro combinado:** el modelo ligero y abrir una conversación nueva por pieza (regla 5) se suman, porque el coste por turno crece con la longitud de la conversación.
 
 ## Antes de generar, cuenta
 
