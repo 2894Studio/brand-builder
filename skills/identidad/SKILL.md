@@ -65,6 +65,10 @@ Logo, paleta y tipografía no bastan: una marca que solo tiene eso sale plana. A
 
 Pregúntalo contra las referencias de `gusto.json`: si las referencias tienen fotografía y la marca no, está mal. Una marca para empresas o técnica también lleva personas y contexto real, no solo iconos.
 
+## 4c. Opcional: explorar tres direcciones con FLORA
+
+Si la persona tiene el conector de FLORA con saldo y quiere explorar direcciones para el sistema de imagen, `references/direccion-flora.md` explica cómo pasar el logo aprobado por la técnica **Logo to Brand Identity** (tres tableros de identidad, de pago: pide el presupuesto en USD y espera el sí). Los tableros son inspiración: se toma la paleta **medida** y el estilo de imagen, nunca los textos que dibuja el modelo, y la estrategia manda sobre lo que infiera del logo. Sin FLORA o sin saldo, se salta sin más.
+
 ## 5. Que el logo se vea igual en todas partes
 
 Si el nombre del logo es **texto vivo** (usa una fuente), el archivo no es seguro tal cual: dentro de `<img>`, en el manual o sin conexión sale en una fuente de reserva, y si usa una clase CSS compartida dos logos en la misma página se pisan. Antes de dar el logo por cerrado:

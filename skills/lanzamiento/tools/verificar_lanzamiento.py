@@ -383,6 +383,31 @@ with tempfile.TemporaryDirectory() as d:
     except ImportError:
         saltados.append("post_expresivo (falta Pillow)")
 
+    # 7j: apoyo a la técnica de FLORA (guardar y medir tableros; preparar el logo de entrada)
+    FL = os.path.join(RAIZ, "skills", "identidad", "tools", "flora_logo.py")
+    try:
+        from PIL import Image
+        tabs = []
+        for i, col in enumerate(("#E8A33D", "#1F5C99")):
+            tp = os.path.join(d, f"tab{i}.png")
+            Image.new("RGB", (400, 300), col).save(tp)
+            tabs.append(tp)
+        sal = os.path.join(d, "flora_out")
+        r = py(FL, "guardar", *tabs, "--salida", sal)
+        md = open(os.path.join(sal, "direccion-flora.md"), encoding="utf-8").read() if os.path.exists(os.path.join(sal, "direccion-flora.md")) else ""
+        ok(r.returncode == 0 and "#E8A33D" in md.upper() and "#1F5C99" in md.upper() and "no son fiables" in md, "flora_logo guardar mide los colores de los tableros y escribe direccion-flora.md")
+        svg = os.path.join(d, "l.svg")
+        open(svg, "w").write('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 100"><rect width="300" height="100" rx="20" fill="#1F5C99"/></svg>')
+        mj = os.path.join(d, "mlogo.json")
+        json.dump({"nombre": "T", "visual": {"colores": [{"nombre": "x", "hex": "#1F5C99", "rol": "primario"}]}, "brandKit": {"logo": [{"version": "principal", "archivo": "l.svg"}]}}, open(mj, "w"))
+        r = py(FL, "preparar", mj, "--salida", os.path.join(d, "flora_in"))
+        if r.returncode != 0 and "No se pudo exportar" in (r.stdout + r.stderr):
+            saltados.append("flora_logo preparar (sin rsvg-convert ni Chromium)")
+        else:
+            ok(r.returncode == 0 and os.path.exists(os.path.join(d, "flora_in", "logo-entrada.png")), "flora_logo preparar genera logo-entrada.png sobre fondo liso")
+    except ImportError:
+        saltados.append("flora_logo (falta Pillow)")
+
     # 8. el crítico acepta el bento
     r = py(CRITICO, salida, "--ancho", "1920", "--alto", "1080")
     if r.returncode == 2:
