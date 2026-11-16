@@ -34,7 +34,7 @@ Los scripts de `tokens`, `laminas` e `identidad` necesitan Python 3.11 o superio
 | Que la marca funcione en web o app: variables CSS, Tailwind, tokens | `tokens` |
 | Manual de marca, brand book, presentación de la marca | `laminas` |
 | Revisar lo hecho, saber qué falta, cerrar y entregar | `entrega` |
-| Que se vea menos genérico, entrenar el gusto, aportar referencias | `estrategia` (paso de referencias) y `laminas` (criterio visual) |
+| Que se vea menos genérico, entrenar el gusto, aportar referencias, diseñar un post, banner o pantalla, «más profesional / más humano / más tecnológico» | `gusto` |
 | Montarlo en Canva | `canva` |
 
 **Cadena por defecto** cuando pide «la marca entera»: `estrategia → identidad → voz → tokens → laminas → entrega`. Cada paso termina con aprobación de la persona antes del siguiente. Si la petición es ambigua, haz **una** pregunta, la que más cambie el resultado.

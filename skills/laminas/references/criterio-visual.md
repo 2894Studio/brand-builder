@@ -39,3 +39,5 @@ Fotografía real, composición con desalineaciones intencionadas, recortes de im
 2. Aleja el zoom hasta ver todo el pase en miniatura: ¿hay ritmo o es una columna de láminas iguales?
 3. Pasa las cinco preguntas por las tres láminas que más se verán (portada, logo, paleta).
 4. Apunta tres cosas concretas que cambiarías.
+
+Para posts, banners o pantallas, y para revisar mecánicamente una pieza HTML (solapes, contraste, fuentes, paleta), usa la skill `gusto`: `skills/gusto/tools/critico_render.py`.

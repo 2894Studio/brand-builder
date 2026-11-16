@@ -46,6 +46,21 @@
         "Ofrece una sola vez el traspaso a creative-architect (/producto, /avatar, /direccion-de-arte)",
         "Escribe la ruta de cada archivo que crea"
       ]
+    },
+    {
+      "id": 4,
+      "name": "gusto-referencias-saas",
+      "prompt": "Mi SaaS se ve genérico. Te paso 6 capturas de marcas que me gustan en la carpeta referencias/. Quiero que mis posts se vean más profesionales y humanos.",
+      "expected_output": "Usa la skill gusto: mide las imágenes con el script, interpreta cada una sin inventar, pide la nota de la persona, fija una proporción de tonos y revisa una pieza con el crítico.",
+      "assertions": [
+        "Ejecuta analizar_referencias.py sobre la carpeta antes de opinar",
+        "No marca ninguna referencia como confirmada sin una nota de la persona",
+        "Pregunta cuáles son las referencias que NO quiere parecer, o avisa de que faltan",
+        "Fija una proporción de tonos que suma 100 y la guarda en gusto.json",
+        "Pasa critico_render.py sobre la pieza y corrige los errores antes de enseñarla, con un máximo de dos vueltas",
+        "No presenta como reales una foto, un nombre ni una cifra de ejemplo",
+        "Si falta Playwright o Pillow, lo dice y no da la pieza por revisada"
+      ]
     }
   ]
 }

@@ -28,7 +28,7 @@ Cierra con un resumen de 3 a 5 líneas y pide confirmación. **No sigas sin ella
 
 ## 1b. Referencias (5 minutos, antes de los territorios)
 
-Pide **ocho referencias visuales**: 4 que le encantan, 2 que no quiere parecer y 2 de otra categoría. Por cada una, **qué atributo** le gusta o rechaza (la escala del titular, el color que aparece una vez…), nunca solo el nombre. Si falta el atributo, repregunta una vez por referencia y **no lo inventes**. Guárdalas en `marca.json` → `referencias`. Método, ejemplos y ejercicios en `references/referencias.md`. Esto entrena el gusto de la persona y evita que la marca salga como la media.
+Pide **ocho referencias visuales**: 4 que le encantan, 2 que no quiere parecer y 2 de otra categoría. Por cada una, **qué atributo** le gusta o rechaza (la escala del titular, el color que aparece una vez…), nunca solo el nombre. Si falta el atributo, repregunta una vez por referencia y **no lo inventes**. Guárdalas en `marca.json` → `referencias`. Método, ejemplos y ejercicios en `references/referencias.md`. Esto entrena el gusto de la persona y evita que la marca salga como la media. Para medir las imágenes, fijar la proporción de tonos (serio, divertido, tecnológico) y revisar piezas, pasa a la skill `gusto`.
 
 ## 1c. Comprueba el nombre
 

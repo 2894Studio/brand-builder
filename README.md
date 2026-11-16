@@ -64,6 +64,7 @@ Skills, cada una con su comando:
 | `/voz` | Trato, rasgos, seis situaciones, palabras prohibidas |
 | `/tokens` | `marca.json` → tokens para web y app |
 | `/laminas` | Manual de marca en SVG, HTML y PDF |
+| `/gusto` | Entrena el gusto visual: mide referencias, fija tonos, revisa piezas |
 | `/entrega` | Revisión, paquete y lista de lo que queda a mano |
 | `/canva` | Opcional: montar el kit en Canva |
 
@@ -83,6 +84,7 @@ skills/
   voz/                 references/
   tokens/              references/ · tools/ · marca.schema.json · marca.plantilla.json
   laminas/             references/ · tools/
+  gusto/               references/ · tools/ (analizar_referencias, critico_render, gusto)
   entrega/             references/
   canva/               references/ (opcional)
 evals/                 casos de evaluación y marca de prueba (PULSO)
@@ -94,6 +96,7 @@ docs/arquitectura.md
 ```bash
 python3 skills/laminas/tools/verificar_laminas.py
 python3 skills/tokens/tools/verificar_tokens.py
+python3 skills/gusto/tools/verificar_gusto.py
 python3 skills/tokens/tools/validar_marca.py evals/fixtures/pulso/marca.json
 python3 skills/tokens/tools/generar_tokens.py evals/fixtures/pulso/marca.json --salida /tmp/pulso-tokens
 ```

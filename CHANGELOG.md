@@ -1,5 +1,17 @@
 # Changelog
 
+## 2.2.0
+
+Skill nueva: **gusto**, para entrenar el gusto visual sin servicios externos (sin MCP).
+
+- **Nuevo:** `gusto.json` con referencias medidas, notas de la persona, proporción de tonos (serio, divertido, tecnológico) y elecciones A/B. Validación incluida.
+- **Nuevo:** `analizar_referencias.py` mide colores, aire, detalle y familias de tono de una carpeta de imágenes (necesita Pillow). No mide ni inventa el tono: queda pendiente de interpretación y confirmación.
+- **Nuevo:** `critico_render.py` abre una pieza HTML en Chromium y detecta texto fuera del lienzo, textos que se pisan, fuente de reserva, contraste, texto diminuto, colores fuera de `marca.json` y jerarquía débil. Sin Playwright sale con código 2 y no da la pieza por revisada.
+- **Nuevo:** `gusto.py ab` registra elecciones A/B y mueve la proporción de tonos como máximo 10 puntos por elección (heurística visible, no aprendizaje).
+- **Nuevo:** referencias `tonos.md`, `patrones-saas.md`, `criterio.md`, `protocolo-ab.md` y `critico.md`. Salen de siete referencias SaaS de una persona: son hipótesis con n = 7 y así constan.
+- **Nuevo:** `verificar_gusto.py`, autotest con piezas de defectos conocidos; lo que no puede ejecutar lo marca SALTADO.
+- **Cambio:** el enrutador envía a `gusto` las peticiones de «menos genérico», «más profesional/humano/tecnológico» y de piezas de contenido.
+
 ## 2.1.1
 
 Cambios a partir de la prueba real de punta a punta (ver `docs/informe-prueba-real.md`).
