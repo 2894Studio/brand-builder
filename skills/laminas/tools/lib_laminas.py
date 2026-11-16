@@ -125,6 +125,13 @@ def bloque(est, txt, xx, yy, size, ancho, maxl, fill=None, peso="normal", estilo
     return t(est, ls, xx, yy, size, fill, peso, estilo, lh=lh, rol=rol), len(ls)
 
 
+def t_sangre(est, txt, xx, yy, size, fill, anchor="start", peso="bold", rol="titulos", op=1):
+    """Texto DECORATIVO que se sale del lienzo (tipografía recortada a sangre). No lleva información:
+    es aria-hidden y las comprobaciones de márgenes lo ignoran. `yy` es la línea base."""
+    return (f'<text data-sangre="1" aria-hidden="true" x="{xx}" y="{yy}" font-family="{esc(est.fam(rol))}" '
+            f'font-size="{size}" font-weight="{peso}" fill="{fill}" text-anchor="{anchor}" opacity="{op}">{esc(txt)}</text>')
+
+
 def rect(xx, yy, w, h, fill, rx=0, op=1, stroke=None):
     s = f' stroke="{stroke}"' if stroke else ""
     return f'<rect x="{xx}" y="{yy}" width="{w}" height="{h}" fill="{fill}" rx="{rx}" opacity="{op}"{s}/>'

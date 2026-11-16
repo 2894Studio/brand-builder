@@ -206,6 +206,19 @@ def validar(marca):
             if extra:
                 e.append(f"máximo 2 tipografías (titulos y texto); sobra: {', '.join(extra)}")
 
+    refs = marca.get("referencias")
+    if refs is not None:
+        if not isinstance(refs, list):
+            e.append("«referencias» debe ser una lista")
+        else:
+            for i, r in enumerate(refs):
+                if not isinstance(r, dict) or not r.get("nombre") or not r.get("atributo"):
+                    e.append(f"referencias[{i}] necesita «nombre» y «atributo» (qué te gusta, no solo la marca)")
+                elif r.get("tipo", "si") not in ("si", "no"):
+                    e.append(f"referencias[{i}].tipo debe ser «si» o «no»")
+            if refs and not any(isinstance(r, dict) and r.get("tipo") == "no" for r in refs):
+                a.append("las referencias no incluyen ninguna que NO quieras parecer: una lista solo de «sí» educa menos el gusto")
+
     # contraste: lo que se declara texto tiene que poder leerse
     p = paleta(marca)
     if "texto" in p and "fondo" in p and HEX.match(p["texto"]) and HEX.match(p["fondo"]):

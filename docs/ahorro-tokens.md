@@ -21,6 +21,28 @@ Una prueba con la misma petición (un post estático de Instagram 4:5 para PULSO
 - La marca **no** abarata la llamada: cuesta más porque Claude lee más archivos. Lo que ahorra es el trabajo posterior: sin ella, el prompt sale con colores inventados y hay que rehacerlo, y si ya has generado la imagen, rehacer es pagar otra vez.
 - El consumo total de una sesión depende sobre todo de cuántos archivos se leen y de cuánto dura la conversación, no del tamaño de la respuesta.
 
+## Lo que se midió en una prueba completa
+
+En un recorrido entero de una marca (Findpro: entrevista, identidad, voz, tokens, manual, entrega, un post y un vídeo), el coste de las llamadas del modelo fue de **~$11**, repartido así:
+
+| Tramo | Turnos | Coste |
+|---|---|---|
+| Entrevista y estrategia | 17 | $1,24 |
+| Identidad | 44 | $2,65 |
+| Voz | 9 | $1,27 |
+| Tokens | 11 | $1,40 |
+| Manual | 21 | $1,68 |
+| Entrega | 26 | $2,10 |
+| Post (prompt) | 7 | $0,16 |
+| Vídeo | 19 | $0,48 |
+
+Dos lecturas:
+
+- **El tramo más caro fue la identidad**, porque incluyó un ajuste de logo y una validación completa de `marca.json`. Un ajuste regenerado es dinero: por eso la regla «un intento razonado».
+- **El coste por turno crece con la longitud de la conversación.** En las sesiones nuevas (post y vídeo) salió a ~$0,02–0,03 por turno; en los tramos finales de la sesión larga, a ~$0,08–0,14. No es una comparación limpia (tareas distintas, una sola ejecución), pero coincide con la regla de abrir una sesión nueva por pieza. En la práctica: cuando termines un tramo grande y lo tengas guardado en archivos, abre otra conversación y pide «usa mi `marca.json`».
+
+Además, **las imágenes de Canva se contaron**: la prueba usó 1 de 4 permitidas.
+
 ## Peso de lo que se carga (medido)
 
 El plugin creative-architect pesa unos 200 KB si se leyera entero, pero **no se carga entero**: su skill de entrada pesa 2,7 KB y cada oficio se carga solo cuando hace falta. El archivo más grande, el de un proveedor concreto (Higgsfield, 24 KB), solo se abre si ese proveedor está conectado. Un encargo típico carga la entrada, `proveedores`, `direccion-de-arte` y un oficio. Orden de magnitud: unas decenas de KB, no los 200.

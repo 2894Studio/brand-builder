@@ -7,6 +7,7 @@ Con `rsvg-convert` instalado se genera además manual-de-marca.pdf. No hace falt
 """
 import argparse
 import json
+import re
 import os
 import shutil
 import subprocess
@@ -45,7 +46,9 @@ class Generador:
                 self.est.aviso(f"el logo «{l['version']}» apunta a {l['archivo']}, que no existe")
         self.laminas = []          # [(nombre_archivo, titulo, svg)]
         self.n = 0                 # numeración de láminas de contenido
-        self.total = 12 if kit.get("mockups") else 11   # contenido numerado; portada y divisores no cuentan
+        self.expresivo = kit.get("expresivo", True)      # tipografía a sangre y láminas de principio; false = sobrio
+        self.refs = marca.get("referencias") or []
+        self.total = 11 + (1 if kit.get("mockups") else 0) + (1 if self.refs else 0)   # contenido numerado; portada, divisores y principio no cuentan
 
     def pend(self, valor, que):
         if valor:
@@ -60,7 +63,13 @@ class Generador:
 
     def portada(self):
         e = self.est
-        c = [L.rect(0, 0, L.W, L.H, e.ink), L.rect(L.x(10), 0, L.COL * 3 + L.GUT * 2, L.H, e.brand, op=0.9)]
+        c = [L.rect(0, 0, L.W, L.H, e.ink)]
+        if self.expresivo:
+            # inicial gigante, tono sobre tono, recortada por el borde derecho: el gesto que quita el aire de plantilla
+            tono = m.mezclar(e.ink, e.brand, 0.55)
+            c.append(L.t_sangre(e, e.nombre[:1].lower(), L.W + 150, 1180, 1600, tono, anchor="end"))
+        else:
+            c.append(L.rect(L.x(10), 0, L.COL * 3 + L.GUT * 2, L.H, e.brand, op=0.9))
         c.append(L.logo(e, L.MARGIN_X, 300, 900, 240, "invertida", e.base, self.logos, self.salida, ancla="start"))
         c.append(L.firma_filete(e, L.MARGIN_X, 620, e.acento))
         c.append(L.t(e, "Manual de marca", L.MARGIN_X, 668, 34, e.base))
@@ -72,11 +81,37 @@ class Generador:
     def divisor(self, num, titulo):
         e = self.est
         c = [L.rect(0, 0, L.W, L.H, e.brand)]
-        c.append(L.t(e, f"{num:02d}", L.MARGIN_X, 330, 160, e.sobre_marca, "bold", lh=1.0, rol="titulos"))
-        c.append(L.firma_filete(e, L.MARGIN_X, 560, e.sobre_marca))
-        ls = L.envolver(titulo, 72, span(1, 4)[1], "bold")[:2]
-        c.append(L.t(e, ls, L.MARGIN_X, 600, 72, e.sobre_marca, "bold", lh=1.1, rol="titulos"))
+        if self.expresivo:
+            # número enorme recortado por abajo y por la derecha, apenas más claro que el fondo
+            c.append(L.t_sangre(e, f"{num:02d}", L.W + 80, 1010, 820, m.mezclar(e.brand, e.sobre_marca, 0.12), anchor="end"))
+            c.append(L.firma_filete(e, L.MARGIN_X, 470, e.sobre_marca))
+            ls = L.envolver(titulo, 104, span(1, 7)[1], "bold")[:2]
+            c.append(L.t(e, ls, L.MARGIN_X, 520, 104, e.sobre_marca, "bold", lh=1.05, rol="titulos"))
+            c.append(L.t(e, f"{num:02d}", L.MARGIN_X, L.Y_KICKER, 20, e.sobre_marca, "bold", espaciado=3))
+        else:
+            c.append(L.t(e, f"{num:02d}", L.MARGIN_X, 330, 160, e.sobre_marca, "bold", lh=1.0, rol="titulos"))
+            c.append(L.firma_filete(e, L.MARGIN_X, 560, e.sobre_marca))
+            ls = L.envolver(titulo, 72, span(1, 4)[1], "bold")[:2]
+            c.append(L.t(e, ls, L.MARGIN_X, 600, 72, e.sobre_marca, "bold", lh=1.1, rol="titulos"))
         self._add(f"divisor-{L.m.slug(titulo)}", f"Divisor: {titulo}", "".join(c), e.brand)
+
+    def principio(self):
+        """Arquetipo F: una frase a página completa. No se numera (como un divisor)."""
+        e = self.est
+        texto = self.kit.get("principio") or self.kit.get("promesa") or self.pend(None, "principio (una frase)")
+        size, ancho = 92, span(1, 10)[1]
+        ls = L.envolver(texto, size, ancho, "normal")
+        if len(ls) > 4:
+            e.aviso(f"el principio ocupa {len(ls)} líneas; acórtalo a 4")
+            ls = ls[:4]
+        alto = int(len(ls) * size * 1.12)
+        y0 = int((L.H - alto) / 2) - 20
+        c = [L.rect(0, 0, L.W, L.H, e.brand),
+             L.t_sangre(e, "\u201c", -30, 980, 1100, m.mezclar(e.brand, e.sobre_marca, 0.10), peso="normal"),
+             L.firma_filete(e, L.MARGIN_X, y0 - 70, e.sobre_marca),
+             L.t(e, ls, L.MARGIN_X, y0, size, e.sobre_marca, "normal", lh=1.12, rol="titulos"),
+             L.t(e, e.nombre, L.MARGIN_X, y0 + alto + 56, 26, e.sobre_marca, "bold", espaciado=2)]
+        self._add("principio", "Principio", "".join(c), e.brand)
 
     def contenido(self, kicker, titulo, lead, cuerpo, visual, slug):
         """Arquetipo C: texto en tramo 1–5, zona visual en 6–12."""
@@ -145,14 +180,43 @@ class Generador:
             self.pend(None, "valores (3–4, cada uno con una frase)")
             valores = [{"nombre": "Valor", "frase": PEND}] * 3
         vx, vw = span(6, 12)
-        vis, y = [], L.Y_VIS_TOP
-        alto = (L.Y_VIS_BOT - L.Y_VIS_TOP - 24 * (len(valores[:4]) - 1)) // len(valores[:4])
-        for v in valores[:4]:
-            vis.append(L.rect(vx, y, vw, alto, e.base, rx=e.firma["radio"], stroke=e.neutro))
-            vis.append(L.t(e, v.get("nombre", ""), vx + 28, y + 22, 28, e.brand, "bold", rol="titulos"))
-            s, _ = L.bloque(e, v.get("frase", ""), vx + 28, y + 66, 24, vw - 56, 2, lh=1.4, que="valor")
-            vis.append(s)
-            y += alto + 24
+        vis = []
+        vals = valores[:4]
+        n, gap, disp = len(vals), 20, L.Y_VIS_BOT - L.Y_VIS_TOP
+
+        def tarjeta(v, xx, yy, ancho, alto, size, maxl):
+            r = [L.rect(xx, yy, ancho, alto, e.base, rx=e.firma["radio"], stroke=e.neutro),
+                 L.t(e, v.get("nombre", ""), xx + 28, yy + 22, 28, e.brand, "bold", rol="titulos")]
+            s, _ = L.bloque(e, v.get("frase", ""), xx + 28, yy + 22 + int(28 * 1.2) + 12, size, ancho - 56, maxl, lh=1.4, que="valor")
+            return r + [s]
+
+        def altura(ancho, size, maxl):
+            return max(int(22 + 28 * 1.2 + 12 + min(maxl, len(L.envolver(v.get("frase", ""), size, ancho - 56))) * size * 1.4 + 22)
+                       for v in vals)
+
+        apiladas = None
+        for size in (24, 22, 20):                      # 1) pila vertical, bajando el cuerpo si hace falta
+            need = altura(vw, size, 2)
+            if need * n + gap * (n - 1) <= disp:
+                apiladas = (size, max(need, (disp - gap * (n - 1)) // n))
+                break
+        if apiladas:
+            size, alto = apiladas
+            y = L.Y_VIS_TOP
+            for v in vals:
+                vis += tarjeta(v, vx, y, vw, alto, size, 2)
+                y += alto + gap
+        else:                                          # 2) rejilla de 2 columnas, con hasta 4 líneas por tarjeta
+            cw = (vw - gap) // 2
+            filas = (n + 1) // 2
+            ch = (disp - gap * (filas - 1)) // filas
+            for size in (24, 22, 20):
+                if altura(cw, size, 4) <= ch:
+                    break
+            else:
+                e.aviso("los valores no caben en la lámina ni en rejilla: acorta las frases")
+            for i_, v in enumerate(vals):
+                vis += tarjeta(v, vx + (i_ % 2) * (cw + gap), L.Y_VIS_TOP + (i_ // 2) * (ch + gap), cw, ch, size, 4)
         pub = self.marca.get("publico") or self.pend(None, "«publico» en marca.json")
         cuerpo = f"Para {pub}."
         self.contenido("La marca", "Qué prometemos", self.pend(k.get("promesa"), "promesa"), cuerpo,
@@ -211,7 +275,9 @@ class Generador:
         muestra = f"{self.est.nombre} cuida de lo que usas cada día. Dos familias, una jerarquía."
         s, _ = L.bloque(e, muestra, vx, 760, 28, vw, 3, lh=1.5, que="muestra")
         vis.append(s)
-        lic = " y ".join(f"{tp.get(k, {}).get('familia', '?')}: {tp.get(k, {}).get('licencia', 'licencia por comprobar')}"
+        def corta(s):            # «OFL (pendiente de verificar…)» -> «OFL»; el detalle va al documento de marca
+            return (re.split(r"\s*[\(:;,]", s or "")[0].strip() or "licencia por comprobar")
+        lic = " · ".join(f"{tp.get(k, {}).get('familia', '?')}: {corta(tp.get(k, {}).get('licencia'))}"
                          for k in ("titulos", "texto"))
         cuerpo = "Escala: 120 / 72 / 34 / 28 / 22 / 20 px.\nTítulos en negrita, texto en regular.\nLicencia: " + lic
         self.contenido("Sistema", "Tipografía", "Dos familias y una jerarquía clara.", cuerpo, "".join(vis), "tipografia")
@@ -230,8 +296,23 @@ class Generador:
             s2, _ = L.bloque(e, "Así no: " + r.get("asi_no", ""), vx, y + 44 + 66, 22, vw, 2, e.muted, lh=1.4, que="así no")
             vis += [s, s2]
             y += 188
-        cuerpo = f"Tono: {self.marca['tono']}.\nNo decimos: " + ", ".join(self.marca["palabrasProhibidas"][:4]) + "."
+        propias = [w for w in self.marca["palabrasProhibidas"] if w.lower() not in m.LEXICO]   # las del sector, no las genéricas
+        lista = (propias or self.marca["palabrasProhibidas"])[:5]
+        cuerpo = f"Tono: {self.marca['tono'].rstrip('. ')}.\nNo decimos: " + ", ".join(lista) + "."
         self.contenido("Sistema", "Voz", "Comportamiento, no adjetivos.", cuerpo, "".join(vis), "voz")
+
+    def referencias(self):
+        """Lámina de referencias: lo que el alumno admira (y lo que evita), con el atributo concreto."""
+        e = self.est
+        orden = sorted(self.refs, key=lambda r: r.get("tipo", "si") == "no")        # primero las que sí
+        items = orden[:5]
+
+        def ficha(it, xx, yy, cw):
+            es_no = it.get("tipo", "si") == "no"
+            s, _ = L.bloque(e, it.get("atributo", ""), xx, yy + 352, 22, cw, 3, e.muted if es_no else e.ink, lh=1.4, que="atributo")
+            return (L.foto(e, xx, yy, cw, 300, ("evitar · " if es_no else "") + it.get("nombre", ""))
+                    + L.t(e, ("Evitar: " if es_no else "") + it.get("nombre", ""), xx, yy + 316, 26, e.ink, "bold", rol="titulos") + s)
+        self.fichas("Sistema", "Referencias", "Lo que admiramos y lo que no queremos parecer.", items, "referencias", ficha)
 
     def elementos(self):
         e = self.est
@@ -282,6 +363,8 @@ class Generador:
     def generar(self):
         self.portada()
         self.divisor(1, "La marca")
+        if self.expresivo:
+            self.principio()
         self.la_marca()
         self.divisor(2, "Identidad")
         self.logo_principal()
@@ -290,6 +373,8 @@ class Generador:
         self.divisor(3, "Sistema")
         self.tipografia()
         self.voz()
+        if self.refs:
+            self.referencias()
         self.elementos()
         self.fotografia()
         self.usos()

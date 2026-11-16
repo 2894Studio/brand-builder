@@ -19,6 +19,7 @@ Desarrollado por [2894 Studio](https://github.com/2894Studio) a partir del caso 
 - [Guion de introducción](docs/guion-introduccion.md) y [guion de la sesión de contenido](docs/guion-sesion-contenido.md): la clase siguiente, con posts fijos y animados.
 - [Elegir herramienta](docs/elegir-herramienta.md): creative-architect, motion-architect y video-editor-architect, comparadas.
 - [Ahorro de tokens y créditos](docs/ahorro-tokens.md): dónde se gasta y qué hacer, con datos medidos.
+- [Informe de la prueba real](docs/informe-prueba-real.md): qué funcionó, qué falló y qué se corrigió en un recorrido completo con una marca nueva.
 
 ## Instalación
 
@@ -107,7 +108,7 @@ Probado con Python 3.11 y 3.13. Solo librería estándar.
 
 - Un logo generado por IA es referencia: el logotipo final se reconstruye en vector y se retoca a mano (kerning, ligaduras). La skill lo dice en cada entrega.
 - Sin `rsvg-convert` no se genera el PDF directamente; se imprime `index.html` desde el navegador.
-- Los marcadores de fotografía del manual se sustituyen por fotografía propia.
+- Los marcadores de fotografía del manual se sustituyen por fotografía propia. Un manual generado puede ser correcto y aburrido: `skills/laminas/references/criterio-visual.md` explica cómo juzgarlo y el paso de referencias entrena el gusto, pero no sustituyen a una persona de diseño.
 - Sin modo oscuro en los tokens de esta versión.
 - Las comprobaciones de nombre, claims y licencias de fuentes quedan señaladas como pendientes de validación profesional. La skill no da asesoría legal.
 - El módulo de Canva describe el conector tal como se documentó en la versión anterior y no se ha vuelto a verificar.

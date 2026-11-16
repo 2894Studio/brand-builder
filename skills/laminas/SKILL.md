@@ -9,7 +9,7 @@ license: MIT
 
 Convierte `marca.json` y un `kit.json` de contenido en un manual presentable. Solo con Claude y Python; no hace falta ninguna cuenta. Requiere logo y paleta aprobados.
 
-Lee `references/sistema-laminas.md` (rejilla, escala, arquetipos, firmas, revisión) y `references/imperfeccion.md`. El formato de `kit.json` está en `references/kit-json.md`.
+Lee `references/sistema-laminas.md` (rejilla, escala, arquetipos, firmas, revisión), `references/criterio-visual.md` y `references/imperfeccion.md`. El formato de `kit.json` está en `references/kit-json.md`.
 
 ## Orden de trabajo
 
@@ -22,10 +22,11 @@ Lee `references/sistema-laminas.md` (rejilla, escala, arquetipos, firmas, revisi
 python3 tools/generar_kit.py marca.json --kit trabajo/<fecha>-marca-<slug>/kit.json --salida trabajo/<fecha>-marca-<slug>/kit
 ```
 
-Sale: portada, 4 divisores y 11 láminas de contenido (12 con mockup), `index.html` con todo el pase y, si `rsvg-convert` está instalado, `manual-de-marca.pdf`. Sin él, imprime `index.html` a PDF desde el navegador.
+Sale: portada con inicial gigante, 4 divisores con número recortado, una lámina de principio (frase a página completa) y 11 láminas de contenido (12 con mockup, 12 más con lámina de referencias si `marca.json` las trae), `index.html` con todo el pase y, si `rsvg-convert` está instalado, `manual-de-marca.pdf`. Sin él, imprime `index.html` a PDF desde el navegador.
 
 3. **Lee los avisos.** Cada texto recortado, título largo, logo provisional o dato que falta en `kit.json` se dice en voz alta. Un título de más de dos líneas se **acorta**, no se baja el resto.
-4. **Revisa el pase entero en miniatura** con las ocho preguntas de la sección 8 de `sistema-laminas.md`. El autotest (`python3 tools/verificar_laminas.py`) cubre las mecánicas; el ritmo y la coherencia los juzgas tú.
+4. **Aplica `references/criterio-visual.md`**: las cinco preguntas y la lista de señales de plantilla. Un manual correcto puede ser aburrido; el criterio lo pones tú.
+5. **Revisa el pase entero en miniatura** con las ocho preguntas de la sección 8 de `sistema-laminas.md`. El autotest (`python3 tools/verificar_laminas.py`) cubre las mecánicas; el ritmo y la coherencia los juzgas tú.
 
 ## Reglas que no se negocian
 

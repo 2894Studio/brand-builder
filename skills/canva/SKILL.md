@@ -16,6 +16,7 @@ Lee `references/canva-creditos.md` **antes de la primera llamada**: recetas del 
 - **Imagen suelta:** `generate-image`. Acepta proporciones como `PORTRAIT_4_5` (feed de Instagram) y `PORTRAIT_9_16` (stories y reels). Devuelve un trabajo; el enlace de la imagen se entrega siempre al terminar. El prompt se pasa tal cual lo da la persona: si lo ha escrito `direccion-de-arte` y ella lo ha aprobado, es su prompt.
 - **Diseño completo con la marca:** `generate-design` con `brand_kit_id` (primero `list-brand-kits`). **`create-design` no puede aplicar un Brand Kit.** El Brand Kit tiene que existir ya en la cuenta: el conector no los crea.
 - **Formato de Instagram en `generate-design`:** `instagram_post` sale a 1080×1350 (4:5).
+- **La imagen completa no llega al disco:** el conector deja solo una miniatura de 160 px en el equipo. La resolución real vive en Canva: descárgala desde el enlace («Open generated image») y guárdala en la carpeta del proyecto antes de componer el texto.
 - Pide la imagen **sin texto** y añade el texto encima con la fuente de la marca: la tipografía que dibuja un modelo no es fiable.
 - No he probado generaciones reales con el conector (gastan créditos): lo anterior sale de leer sus descripciones, no de resultados.
 

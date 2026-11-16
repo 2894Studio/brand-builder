@@ -9,7 +9,7 @@ license: MIT
 
 Antes de dibujar nada se decide qué es la marca. Aquí no se genera ninguna imagen y no cuesta nada: es donde se ahorra todo lo que se gastaría después.
 
-Lee ahora `references/entrevista.md` (banco de preguntas y cómo leer las respuestas) y `references/posicionamiento.md` (jerarquía de decisiones, posicionamiento, arquetipos). Lee `../identidad/references/lexico-prohibido.md`: decide cómo escribes durante todo el proceso.
+Lee ahora `references/referencias.md` (cómo entrenar el gusto), `references/entrevista.md` (banco de preguntas y cómo leer las respuestas) y `references/posicionamiento.md` (jerarquía de decisiones, posicionamiento, arquetipos). Lee `../identidad/references/lexico-prohibido.md`: decide cómo escribes durante todo el proceso.
 
 Si la marca ya existe y solo hay que documentarla, salta los territorios y usa las respuestas para completar `marca.json`.
 
@@ -25,6 +25,14 @@ Cierra con un resumen de 3 a 5 líneas y pide confirmación. **No sigas sin ella
 
 **Sí:** reconoce lo que ya contó y pregunta solo lo que falta · insiste en el «nunca debe parecer» · si le gusta una referencia, pregunta qué atributo.
 **No:** no preguntes por colores ni tipografías (son consecuencia) · no aceptes «moderno, limpio, profesional» sin un ejemplo concreto · no sigas sin saber qué nunca debe parecer.
+
+## 1b. Referencias (5 minutos, antes de los territorios)
+
+Pide **ocho referencias visuales**: 4 que le encantan, 2 que no quiere parecer y 2 de otra categoría. Por cada una, **qué atributo** le gusta o rechaza (la escala del titular, el color que aparece una vez…), nunca solo el nombre. Si falta el atributo, repregunta una vez por referencia y **no lo inventes**. Guárdalas en `marca.json` → `referencias`. Método, ejemplos y ejercicios en `references/referencias.md`. Esto entrena el gusto de la persona y evita que la marca salga como la media.
+
+## 1c. Comprueba el nombre
+
+Si tienes búsqueda web, busca el nombre **ahora**, antes de dibujar un logo: si ya existe una empresa con ese nombre en el sector, díselo en este momento. «Es descriptivo» no basta. Dilo como pendiente de validación profesional, no como asesoría legal.
 
 ## 2. Tres territorios (texto, coste cero)
 

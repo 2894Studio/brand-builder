@@ -48,6 +48,8 @@ Lo que hace el conector (por su descripción, verificada): `generate-image` acep
 - **Un intento razonado.** Si el resultado no convence, cambia el prompt y di qué cambiaste. No regeneres a ciegas.
 - **Para un diseño completo con la marca de Canva** (no solo una imagen), `create-design` no puede aplicar un Brand Kit; hay que usar `generate-design` con el `brand_kit_id` del alumno, y el Brand Kit hay que haberlo subido a mano a Canva (el conector no los crea). Con el manual de la clase anterior, ya tienen el paquete.
 
+**Aviso antes del paso 3: la imagen no llega entera al disco.** En la prueba real el conector dejó solo una miniatura de 160 px; la imagen completa está en Canva. Que cada alumno abra el enlace «Open generated image», la **descargue en PNG** y la guarde en su carpeta `post/`. Cuenta esto en clase como parte del proceso, no como un fallo.
+
 **Paso 3, el texto encima (10 min).** En Canva, añade el titular con la fuente de la marca y el color de texto del manual. Revisa el contraste con `tokens/contraste.md`.
 
 **Errores típicos:** «Me sale con letras raras» → el prompt pedía texto en la imagen; que lo quiten. «Los colores no son los míos» → no dijeron «usa mi marca.json». «Sale genérico» → revisa el `visual.estilo` de `marca.json`: si es una lista de adjetivos, hay que reescribirlo como técnica (luz, grano, encuadre).

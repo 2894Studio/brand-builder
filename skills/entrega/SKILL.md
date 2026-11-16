@@ -13,6 +13,8 @@ Una marca entregada sin decir qué falta se publica con acabado de plantilla. Aq
 
 Recorre el checklist y escribe **fortalezas y riesgos con el mismo rigor**, no halagos. Vuelve a ejecutar `python3 ../tokens/tools/validar_marca.py marca.json` y `python3 ../laminas/tools/verificar_laminas.py`. Si algo falla, se corrige antes de entregar.
 
+Pasa además la lista de `../laminas/references/criterio-visual.md` y confirma que los logos llevan la fuente incrustada (`../identidad/tools/incrustar_fuente.py`). Si no has podido ver el manual renderizado, dilo.
+
 ## 2. Paquete
 
 En `trabajo/<fecha>-marca-<slug>/entrega/`:

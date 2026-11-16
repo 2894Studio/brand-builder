@@ -45,4 +45,16 @@ Logo y paleta se aprueban **juntos**. Con la elegida:
 2. Completa `marca.json`: `visual.colores` (roles `primario`, `fondo`, `acento`, `texto`; el neutro va en `brandKit.neutro`, porque el contrato no tiene rol para él), `visual.estilo` (técnica: luz, grano, paleta, encuadre; no adjetivos), `tipografia` y `brandKit.logo`.
 3. Valida: `python3 ../tokens/tools/validar_marca.py marca.json`. Corrige los errores; lee los avisos.
 
+## 5. Que el logo se vea igual en todas partes
+
+Si el nombre del logo es **texto vivo** (usa una fuente), el archivo no es seguro tal cual: dentro de `<img>`, en el manual o sin conexión sale en una fuente de reserva, y si usa una clase CSS compartida dos logos en la misma página se pisan. Antes de dar el logo por cerrado:
+
+```
+python3 tools/incrustar_fuente.py <carpeta-logo>/*.svg --google <Familia>
+```
+
+Incrusta la fuente en el propio SVG y pasa las clases a atributos. Con `pip install fonttools` el archivo queda en unos 5 KB; sin él, incrusta la fuente completa (unos 140 KB). Comprueba la licencia de la fuente. La versión definitiva sigue siendo convertir a contornos en un editor vectorial.
+
+**Mira el resultado renderizado** antes de presentarlo: ábrelo en un navegador o dilo claramente si no puedes verlo. Un logo que nadie ha visto no se presenta como terminado.
+
 Siguiente: `voz`.

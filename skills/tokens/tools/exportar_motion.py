@@ -31,7 +31,7 @@ def modulo_fuente(familia):
 
 
 def primera_frase(texto, maximo=140):
-    f = re.split(r"(?<=[.;])\s", texto.strip())[0].rstrip(".")
+    f = re.split(r"(?<=[.;])\s", texto.strip())[0].rstrip(".;, ")
     if len(f) <= maximo:
         return f
     return f[: maximo - 1].rsplit(" ", 1)[0].rstrip(" ,;") + "…"      # corta en palabra, no a mitad

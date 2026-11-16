@@ -91,6 +91,8 @@ Escribe en Claude Code. Las frases de ejemplo sirven tal cual, pero habla con tu
 
 Te hace **tres rondas de preguntas**, una por mensaje. La más importante es la segunda: **qué nunca debe parecer tu marca**. Responde con ejemplos concretos, no con «moderna y profesional».
 
+Después te pide **ocho referencias visuales**: 4 que te encantan, 2 que no quieres parecer y 2 de otra categoría (una revista, un cartel, un edificio). De cada una te pregunta **qué te gusta**: «la escala enorme del titular», no «me gusta Deloitte». Es el paso que más educa tu gusto y evita que la marca salga como la media.
+
 Cuando termina, te resume lo entendido. Si es correcto, di «confirmado». Hasta entonces no se genera nada.
 
 Después recibes **tres territorios** (tres direcciones para tu marca). Elige uno o mezcla dos, y te escribe el manifiesto de la marca en primera persona.
@@ -104,6 +106,7 @@ Recibes **dos propuestas de logo**, siempre dos, y la recomendada. También una 
 - Si tienes un generador de imagen conectado, crea las imágenes. Si no, te da **un prompt por propuesta**: pégalo en la herramienta que uses.
 - Guarda el logo elegido en `trabajo/…/logo/` y dile: «Este es el logo elegido».
 - Cuando apruebas logo y paleta, la skill escribe `marca.json` y lo valida.
+- Los logos son archivos SVG con tu nombre en texto. La skill incrusta la fuente dentro del archivo para que se vea igual en cualquier sitio; mira el resultado en el navegador antes de aprobar.
 
 ### Paso 3. Voz
 
@@ -157,6 +160,8 @@ Abre `kit/index.html` en el navegador y usa **Imprimir → Guardar como PDF**, c
 | `ERROR el texto … da 2.39:1; mínimo 4,5:1` | El color de tu texto casi no se lee sobre el fondo | Cambia el color de texto o el de fondo en `marca.json`. La skill no parchea los tokens |
 | `aviso el acento … no para texto` | Tu color de acento es bonito pero no sirve para letra pequeña | No es un error. Úsalo en líneas, iconos grandes o fondos |
 | El logo del manual es solo tu nombre en letras | Falta el archivo del logo | Es el logotipo provisional. Guarda tu logo en `logo/` y vuelve a generar el manual |
+| La imagen de Canva solo llega pequeña | El conector deja una miniatura en el equipo; la imagen completa está en Canva | Abre el enlace «Open generated image», descárgala en PNG y guárdala en la carpeta del proyecto |
+| El manual se ve correcto pero aburrido | Es normal: la herramienta cumple reglas, no tiene gusto | Pasa las cinco preguntas de `criterio-visual.md` y completa tus referencias |
 | Las fuentes se ven distintas a las elegidas | Se cargan desde Google Fonts y no hay conexión | Conéctate, o instala la fuente en tu ordenador |
 | Un texto del manual acaba en «…» | No cabía en la lámina | Es intencionado: lo largo va al documento, no a la lámina |
 

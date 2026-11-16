@@ -4,69 +4,216 @@
   "title": "marca.json",
   "description": "Contrato de marca.json de creative-architect (nombre, categoria, tono, palabrasProhibidas, idioma, visual) más extensiones opcionales de brand-kit-builder (tipografia, publico, competidores, brandKit). Los oficios de creative-architect ignoran los campos que no usan. La validación completa, incluidos contrastes y léxico, la hace tools/validar_marca.py.",
   "type": "object",
-  "required": ["nombre", "categoria", "tono", "palabrasProhibidas", "idioma", "visual"],
+  "required": [
+    "nombre",
+    "categoria",
+    "tono",
+    "palabrasProhibidas",
+    "idioma",
+    "visual"
+  ],
   "properties": {
-    "nombre": { "type": "string", "minLength": 1 },
-    "categoria": { "type": "string", "minLength": 1 },
-    "tono": { "type": "string", "minLength": 1 },
-    "palabrasProhibidas": { "type": "array", "items": { "type": "string" } },
-    "idioma": { "type": "string", "pattern": "^[a-z]{2}(-[A-Z]{2})?$" },
+    "nombre": {
+      "type": "string",
+      "minLength": 1
+    },
+    "categoria": {
+      "type": "string",
+      "minLength": 1
+    },
+    "tono": {
+      "type": "string",
+      "minLength": 1
+    },
+    "palabrasProhibidas": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "idioma": {
+      "type": "string",
+      "pattern": "^[a-z]{2}(-[A-Z]{2})?$"
+    },
     "visual": {
       "type": "object",
-      "required": ["colores", "estilo"],
+      "required": [
+        "colores",
+        "estilo"
+      ],
       "properties": {
         "colores": {
           "type": "array",
           "minItems": 3,
           "items": {
             "type": "object",
-            "required": ["nombre", "hex", "rol"],
+            "required": [
+              "nombre",
+              "hex",
+              "rol"
+            ],
             "properties": {
-              "nombre": { "type": "string" },
-              "hex": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" },
-              "rol": { "enum": ["primario", "fondo", "acento", "texto"] }
+              "nombre": {
+                "type": "string"
+              },
+              "hex": {
+                "type": "string",
+                "pattern": "^#[0-9A-Fa-f]{6}$"
+              },
+              "rol": {
+                "enum": [
+                  "primario",
+                  "fondo",
+                  "acento",
+                  "texto"
+                ]
+              }
             }
           }
         },
-        "estilo": { "type": "string", "minLength": 20 }
+        "estilo": {
+          "type": "string",
+          "minLength": 20
+        }
       }
     },
     "tipografia": {
       "type": "object",
-      "required": ["titulos", "texto"],
+      "required": [
+        "titulos",
+        "texto"
+      ],
       "additionalProperties": false,
       "properties": {
-        "titulos": { "$ref": "#/$defs/familia" },
-        "texto": { "$ref": "#/$defs/familia" }
+        "titulos": {
+          "$ref": "#/$defs/familia"
+        },
+        "texto": {
+          "$ref": "#/$defs/familia"
+        }
       }
     },
-    "publico": { "type": "string" },
-    "competidores": { "type": "array", "items": { "type": "string" } },
+    "publico": {
+      "type": "string"
+    },
+    "competidores": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
     "brandKit": {
       "type": "object",
       "properties": {
-        "version": { "type": "string" },
-        "territorio": { "enum": ["artesanal", "editorial", "tecnologico", "natural", "cercano"] },
+        "version": {
+          "type": "string"
+        },
+        "territorio": {
+          "enum": [
+            "artesanal",
+            "editorial",
+            "tecnologico",
+            "natural",
+            "cercano"
+          ]
+        },
         "neutro": {
           "type": "object",
-          "required": ["nombre", "hex"],
-          "properties": { "nombre": { "type": "string" }, "hex": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" } }
+          "required": [
+            "nombre",
+            "hex"
+          ],
+          "properties": {
+            "nombre": {
+              "type": "string"
+            },
+            "hex": {
+              "type": "string",
+              "pattern": "^#[0-9A-Fa-f]{6}$"
+            }
+          }
         },
-        "logo": { "type": "array", "items": { "type": "object", "required": ["version", "archivo"],
-          "properties": { "version": { "enum": ["principal", "invertida", "monocroma", "simbolo", "reducida"] }, "archivo": { "type": "string" } } } },
-        "tokens": { "type": "string" }
+        "logo": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "version",
+              "archivo"
+            ],
+            "properties": {
+              "version": {
+                "enum": [
+                  "principal",
+                  "invertida",
+                  "monocroma",
+                  "simbolo",
+                  "reducida"
+                ]
+              },
+              "archivo": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "tokens": {
+          "type": "string"
+        }
+      }
+    },
+    "referencias": {
+      "type": "array",
+      "description": "Referencias visuales del alumno: el ATRIBUTO que le gusta (o que rechaza), no solo la marca.",
+      "items": {
+        "type": "object",
+        "required": [
+          "nombre",
+          "atributo"
+        ],
+        "properties": {
+          "nombre": {
+            "type": "string"
+          },
+          "atributo": {
+            "type": "string",
+            "minLength": 3
+          },
+          "tipo": {
+            "enum": [
+              "si",
+              "no"
+            ]
+          },
+          "enlace": {
+            "type": "string"
+          }
+        }
       }
     }
   },
   "$defs": {
     "familia": {
       "type": "object",
-      "required": ["familia"],
+      "required": [
+        "familia"
+      ],
       "properties": {
-        "familia": { "type": "string" },
-        "pesos": { "type": "array", "items": { "type": "integer" } },
-        "licencia": { "type": "string" },
-        "fuente": { "type": "string" }
+        "familia": {
+          "type": "string"
+        },
+        "pesos": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "licencia": {
+          "type": "string"
+        },
+        "fuente": {
+          "type": "string"
+        }
       }
     }
   }
