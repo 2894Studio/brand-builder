@@ -1,8 +1,32 @@
+<p align="center">
+  <img src="assets/banner.png" alt="Brand Kit Builder, de 2894_: crea la identidad de una marca con Claude Code. Siete pasos: estrategia, gusto, identidad, voz, tokens, manual y entrega." width="100%">
+</p>
+
 # brand-kit-builder
 
 Plugin de Claude Code para crear la identidad de una marca de principio a fin: **entrevista, estrategia, logo, paleta, tipografía, voz, tokens de diseño para web y app, y manual de marca**. Funciona sin ninguna herramienta de pago, y deja un `marca.json` que [creative-architect](https://github.com/Hainrixz/creative-architect) ya sabe leer.
 
 Desarrollado por [2894 Studio](https://github.com/2894Studio) a partir del caso práctico de la formación **Marketing potenciado por IA**.
+
+## Cómo funciona, paso a paso
+
+Un paso cada vez, y **siempre con tu aprobación**: sin tu visto bueno no pasa al siguiente.
+
+<p align="center">
+  <img src="assets/paso-a-paso.png" alt="Infografía del paso a paso: 1 Estrategia, 2 Gusto, 3 Identidad, 4 Voz, 5 Tokens, 6 Manual, 7 Entrega. Para cada paso: qué hace la skill, qué haces tú y qué archivos te llevas." width="100%">
+</p>
+
+| # | Paso | Qué hace la skill | Qué haces tú | Te llevas |
+|---|---|---|---|---|
+| 1 | `/estrategia` | Entrevista en tres rondas (una por mensaje), busca el nombre en la web, propone tres territorios y un manifiesto | Respondes y confirmas el resumen; hasta entonces no se genera ninguna imagen | `estrategia.md` |
+| 2 | `/gusto` | Mide tus imágenes de referencia, lee su tono (serio, divertido, tecnológico) y fija una proporción | Traes de 6 a 8 referencias con una nota de qué te gusta y confirmas su lectura | `gusto.json` |
+| 3 | `/identidad` | Dos propuestas de logo (ni una más), paleta de cinco colores con contraste comprobado y dos tipografías como máximo | Eliges logo y paleta juntos | `logo/` y `marca.json` validado |
+| 4 | `/voz` | Define el trato, tres rasgos con «así sí / así no», seis situaciones difíciles y las palabras que no se usan | Apruebas cómo habla tu marca | `voz.md` |
+| 5 | `/tokens` | Convierte `marca.json` en variables CSS, tokens W3C y Tailwind v3 y v4, con tabla de contraste y página de ejemplo | Solo si tu marca va a una web o una app | `tokens/` |
+| 6 | `/laminas` | Monta el manual de marca en láminas SVG con rejilla de 12 columnas y un `index.html` navegable | Revisas el manual y dices qué ajustar | `kit/` (y PDF si es posible) |
+| 7 | `/entrega` | Revisión de experto con fortalezas y riesgos, paquete con LEEME y la lista de lo que queda por hacer a mano | Decides qué publicas y qué intervienes a mano | `entrega/` |
+
+**Después, para crear contenido:** escribe «usa mi `marca.json`» y pide posts, banners o pantallas. La skill `gusto` los revisa con un crítico automático; creative-architect y motion-architect (opcionales) leen tu marca, y Canva solo si lo pides.
 
 ## Qué resuelve
 
