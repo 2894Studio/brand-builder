@@ -13,3 +13,13 @@ El crítico encuentra defectos; no sabe si la pieza vale. Estas cinco preguntas,
 Una pieza de este nivel tiene, como mínimo, **tres capas**: un campo con profundidad (degradado con luz), un recurso visual con su prueba (interfaz, mapa, cifra) y elementos que flotan encima (tarjetas de cristal, fotos con borde, rótulos). Si solo tiene un fondo y texto, o una foto con dos rótulos, **no llega**, aunque el crítico no encuentre errores: el crítico detecta defectos, no calidad.
 
 Señales de plantilla: todas las cajas del mismo tamaño, avatares genéricos, iconos de librería sin relación con el mensaje, tres columnas iguales sin jerarquía, un degradado sin función, mucho aire sin intención.
+
+
+## Huellas de plantilla (las detecta el crítico como `anti-plantilla:`)
+Estas señales delatan una pieza de plantilla de IA. Dos o más en una pieza cierran la puerta de entrega (se justifican con `tells_ok` en el brief):
+- Solo la tipografía por defecto (Inter, Arial, Helvetica, Roboto, del sistema).
+- Texto gris sobre un fondo de color.
+- Negro o gris puro sin tintar (tiñe la tinta hacia el color de marca).
+- Degradado morado a azul.
+- Tarjetas dentro de tarjetas dentro de tarjetas.
+Ideas inspiradas en la lista de anti-patrones de Impeccable (Apache-2.0); aquí reescritas y medidas sobre el render de nuestras piezas.

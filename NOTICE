@@ -7,3 +7,6 @@ Compatibilidad: este plugin escribe un marca.json con el formato que documenta c
 (https://github.com/Hainrixz/creative-architect, MIT, autoría de Enrique Rocha). La estructura de plugin
 (skill de entrada que enruta a skills de oficio, manifiestos de plugin y marketplace) sigue el mismo patrón
 de organización. No se ha copiado texto ni código de ese repositorio.
+
+---
+Ideas de las reglas anti-plantilla (skills/gusto/references/criterio.md, critico_render.py) y del vocabulario de ajustes (skills/lanzamiento/references/ajustes.md) inspiradas en Impeccable, de Paul Bakaus (https://github.com/pbakaus/impeccable), licencia Apache-2.0. No se copia su texto ni su código: las reglas están reescritas y medidas sobre el render de este plugin.

@@ -110,6 +110,11 @@ with tempfile.TemporaryDirectory() as d:
         s = r.stdout
         ok("«Aa»" not in s, "un titular gigante con line-height < 1 no da falso solape con el texto de debajo")
         ok("GHOSTWORD" not in s, "un texto data-decorativo no se juzga (ni se sale del lienzo ni se pisa)")
+        r = py(os.path.join(AQUI, "critico_render.py"), os.path.join(FIX, "plantilla.html"))
+        for frag, msg in (("tipografía por defecto", "tipografía por defecto"), ("texto gris sobre un fondo de color", "gris sobre color"), ("negro o gris puro", "negro o gris puro"), ("degradado morado a azul", "degradado morado a azul"), ("tarjetas dentro de tarjetas", "tarjetas anidadas")):
+            ok(frag in r.stdout, f"anti-plantilla detecta: {msg}")
+        r = py(os.path.join(AQUI, "critico_render.py"), os.path.join(FIX, "bien.html"), "--marca", marca)
+        ok(r.returncode == 0 and not any(x in r.stdout for x in ("gris sobre un fondo", "negro o gris puro", "degradado morado", "tarjetas dentro")), "una pieza correcta no da falsos positivos de color, degradado ni tarjetas")
         r = py(os.path.join(AQUI, "critico_render.py"), os.path.join(FIX, "recorte.html"))
         ok(r.returncode == 1 and "recortado por su contenedor" in r.stdout and r.stdout.count("recortado") == 1, "detecta el texto recortado por un contenedor (y solo ese)")
         r = py(os.path.join(AQUI, "critico_render.py"), os.path.join(FIX, "partida.html"), "--ancho", "800", "--alto", "300")

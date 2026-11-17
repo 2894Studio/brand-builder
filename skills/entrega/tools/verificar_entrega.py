@@ -74,6 +74,18 @@ def main():
             break
         errs = [l.strip() for l in r.stdout.splitlines() if l.strip().startswith("ERROR")]
         ok(r.returncode == 0, f"{n}: el crítico da 0 errores" + ("" if r.returncode == 0 else " → " + "; ".join(errs[:3])))
+        tells = [l.strip() for l in r.stdout.splitlines() if "anti-plantilla:" in l]
+        justificado = False
+        bpath = os.path.join(c, "brief.json")
+        if os.path.exists(bpath):
+            try:
+                justificado = bool(str(json.load(open(bpath, encoding="utf-8")).get("tells_ok", "")).strip())
+            except Exception:  # noqa: BLE001
+                pass
+        if len(tells) >= 2 and not justificado:
+            ok(False, f"{n}: {len(tells)} huellas de plantilla (" + "; ".join(t.split("anti-plantilla:")[1].strip()[:60] for t in tells[:2]) + ") — corrígelas o justifícalas con «tells_ok» en el brief")
+        elif tells:
+            print("  aviso  " + f"{n}: " + tells[0].split("anti-plantilla:")[1].strip()[:110])
     print("3. Marcadores")
     for n, _, _ in PIEZAS:
         p = os.path.join(c, n + ".html")

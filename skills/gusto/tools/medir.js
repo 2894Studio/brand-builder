@@ -59,7 +59,7 @@
     }
     const lineas = []; palabras.forEach(p => { const l = lineas.find(l => Math.abs(l.top - p.top) < size * 0.5); l ? l.ps.push(p) : lineas.push({top: p.top, ps: [p]}); });
     out.textos.push({texto: t.slice(0, 60), tag: el.tagName.toLowerCase(), x: r.left, y: r.top, w: r.width, h: r.height, size, peso, contraste, fondoNoMedible: !bg.opaco ? bg.motivo : null, bleed, deco, recorte, partidas,
-      fuente: cs.fontFamily, lineas: lineas.length, ultima: lineas.length ? lineas[lineas.length - 1].ps.map(p => p.w) : [], color: cs.color, _el: el});
+      fuente: cs.fontFamily, fgRgb: fg ? [Math.round(fg.r), Math.round(fg.g), Math.round(fg.b)] : null, bgRgb: bg.opaco ? [Math.round(bg.r), Math.round(bg.g), Math.round(bg.b)] : null, lineas: lineas.length, ultima: lineas.length ? lineas[lineas.length - 1].ps.map(p => p.w) : [], color: cs.color, _el: el});
   }
   // solapes entre cajas de texto (no anidadas)
   out.solapes = [];
@@ -84,6 +84,18 @@
   out.fuentesDisponibles = out.fuentesUsadas.map(f => ({familia: f, ok: existe(f)}));
   out.tamanos = T.map(t => t.size);
   out.caracteres = T.reduce((s, t) => s + t.texto.length, 0);
+  // huellas de plantilla (anti-patrones): degradados y tarjetas anidadas
+  const degradados = [], tarjetas = new Set();
+  document.querySelectorAll('body, body *').forEach(el => {
+    const cs = getComputedStyle(el);
+    if (cs.backgroundImage && cs.backgroundImage.includes('gradient')) degradados.push([...cs.backgroundImage.matchAll(/rgba?\(([^)]+)\)/g)].map(m => m[1].split(',').slice(0, 3).map(s => parseFloat(s))));
+    const rad = parseFloat(cs.borderTopLeftRadius) || 0, b = el.getBoundingClientRect();
+    const fondo = parseColor(cs.backgroundColor), conCaja = (fondo && fondo.a >= 0.5) || (cs.boxShadow && cs.boxShadow !== 'none') || (parseFloat(cs.borderTopWidth) > 0 && parseColor(cs.borderTopColor) && parseColor(cs.borderTopColor).a > 0);
+    if (rad >= 12 && conCaja && b.width >= 120 && b.height >= 80 && b.width < innerWidth - 2) tarjetas.add(el);
+  });
+  let profundidad = 0;
+  tarjetas.forEach(el => { let d = 1; for (let a = el.parentElement; a; a = a.parentElement) if (tarjetas.has(a)) d++; profundidad = Math.max(profundidad, d); });
+  out.huellas = {degradados, tarjetasAnidadas: profundidad};
   out.textos = T.map(({_el, ...r}) => r);
   return out;
 }

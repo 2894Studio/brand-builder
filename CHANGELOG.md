@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.6.3 (2026-11-17)
+
+- **Huellas de plantilla en el crítico (`anti-plantilla:`):** avisa de tipografía solo por defecto (Inter, Arial, Roboto…), texto gris sobre un fondo de color, negro o gris puro sin tintar, degradado morado a azul y tarjetas dentro de tarjetas dentro de tarjetas. La puerta de entrega se cierra con **2 o más por pieza**, salvo `tells_ok` con motivo en el brief. Ideas tomadas de la lista de anti-patrones de [Impeccable](https://github.com/pbakaus/impeccable) (Apache-2.0), reescritas y medidas sobre el render.
+- **Vocabulario de ajustes** (`lanzamiento/references/ajustes.md`): más atrevido, más sobrio, simplificar, más humano, más técnico, más tipografía, más aire, más contraste, menos genérico; cada verbo, un cambio concreto en el brief.
+
 ## 2.6.2 (2026-11-17)
 
 - **Etiquetador de referencias (interfaz):** `gusto/tools/etiquetador.html` (un solo archivo, funciona sin conexión) para arrastrar o pegar imágenes, marcarlas (me gusta / no quiero parecerme / otra categoría), escribir la nota y las decisiones por dimensión (con ejemplos y la marca de «distintiva»), y una lista de comprobación viva (6 a 8 referencias, al menos 3 sí y 2 no, notas y decisiones completas). Guarda con `etiquetador.py` (servidor local solo en 127.0.0.1: crea `referencias/` y actualiza `gusto.json`) o con **Descargar ZIP** + `importar_etiquetado.py` (copia, mide con `analizar_referencias.py` y vuelca tipo, nota y decisiones; rechaza nombres y formatos peligrosos). Probado en Chromium de punta a punta.

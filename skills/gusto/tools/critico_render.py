@@ -196,7 +196,47 @@ def juzgar(r, marca_ruta, png=None):
                 fuera.append("#%02X%02X%02X" % rgb)
         if fuera:
             av.append("colores fuera de marca.json: " + ", ".join(sorted(set(fuera))) + " (¿son tintes intencionados? añádelos a la marca o quítalos)")
+    av.extend(huellas_de_plantilla(r))
     return err, av
+
+
+def _hsv(rgb):
+    import colorsys
+    h, s, v = colorsys.rgb_to_hsv(*(x / 255.0 for x in rgb))
+    return h * 360, s, v
+
+
+TIPOGRAFIAS_POR_DEFECTO = ("Inter", "Arial", "Helvetica", "Helvetica Neue", "Roboto", "system-ui", "Segoe UI", "-apple-system", "Open Sans", "sans-serif")
+
+
+def huellas_de_plantilla(r):
+    """Anti-patrones que delatan una plantilla de IA (aviso, no error). Cada línea empieza por «anti-plantilla:» para que la puerta de entrega las cuente."""
+    h = []
+    usadas = [f for f in r.get("fuentesUsadas", []) if f]
+    if usadas and all(any(f == d or f.startswith(d + " ") for d in TIPOGRAFIAS_POR_DEFECTO) for f in usadas) and len(set(usadas)) <= 1:
+        h.append(f"anti-plantilla: solo usa la tipografía por defecto de las plantillas («{usadas[0]}»); elige una con carácter para los titulares o justifícala")
+    gris = []
+    for t in r.get("textos", []):
+        fg, bg = t.get("fgRgb"), t.get("bgRgb")
+        if fg and bg and not t.get("deco"):
+            _, sf, vf = _hsv(fg)
+            _, sb, _ = _hsv(bg)
+            if sf < 0.15 and 0.25 < vf < 0.75 and sb > 0.4:
+                gris.append(t["texto"][:24])
+    if gris:
+        h.append("anti-plantilla: texto gris sobre un fondo de color (" + ", ".join(f"«{x}»" for x in gris[:3]) + "): usa un tono del propio color o blanco/tinta")
+    total = sum(len(t["texto"]) for t in r.get("textos", [])) or 1
+    puro = sum(len(t["texto"]) for t in r.get("textos", []) if t.get("fgRgb") and ((t["fgRgb"][0] == t["fgRgb"][1] == t["fgRgb"][2]) and t["fgRgb"][0] < 255))
+    if puro / total >= 0.4:
+        h.append("anti-plantilla: la mayor parte del texto va en negro o gris puro sin tintar; tiñe la tinta hacia el color de la marca")
+    for grad in r.get("huellas", {}).get("degradados", []):
+        hs = [_hsv(c) for c in grad if len(c) == 3]
+        if any(255 <= x[0] <= 300 and x[1] > 0.35 and x[2] > 0.3 for x in hs) and any(190 <= x[0] < 255 and x[1] > 0.35 for x in hs):
+            h.append("anti-plantilla: degradado morado a azul (la huella más repetida de las plantillas de IA); usa un campo plano o los colores de la marca")
+            break
+    if r.get("huellas", {}).get("tarjetasAnidadas", 0) >= 3:
+        h.append("anti-plantilla: tarjetas dentro de tarjetas dentro de tarjetas; quita un nivel de cajas")
+    return h
 
 
 def main():

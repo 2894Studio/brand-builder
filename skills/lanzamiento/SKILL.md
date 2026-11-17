@@ -107,6 +107,9 @@ python3 skills/lanzamiento/tools/post_base.py marca.json --tipo atributo --fotos
 ### 4b. Contrastar con las referencias
 Si `gusto.json` tiene decisiones, `kit_lanzamiento.py` deja `contacto-gusto.png` y `revision-gusto.md`: míralos y revisa **cada regla** (cumple, parcial, no cumple, no aplica y dónde se ve). Lo que no cumple se corrige en el brief y se vuelve a ejecutar. La puerta de entrega lo exige.
 
+### 4c. Ajustes con verbos
+Si la persona dice que una pieza no convence, pídele un verbo (más atrevido, más sobrio, simplificar, más humano, más técnico, más tipografía, más aire, más contraste, menos genérico) y aplica **un** cambio de `references/ajustes.md`; vuelve a ejecutar `kit_lanzamiento.py`.
+
 ### 5. Revisar (máximo 2 vueltas por pieza)
 ```
 python3 skills/gusto/tools/critico_render.py pieza.html --ancho 1080 --alto 1440 --marca marca.json --png pieza.png
@@ -117,7 +120,7 @@ Corrige los **errores**, vuelve a pasarlo y mira la captura con `../gusto/refere
 ```
 python3 skills/entrega/tools/verificar_entrega.py trabajo/<fecha>-marca-<slug>/lanzamiento --marca marca.json --kits trabajo
 ```
-Comprueba archivos, tamaños de PNG, crítico sin errores, ausencia de marcadores y variedad. **Si sale «PUERTA CERRADA», no entregas ni dices «terminado»**: corriges y repites (máximo 2 vueltas por pieza; si no se puede, la entrega dice qué falla).
+Comprueba archivos, tamaños de PNG, crítico sin errores, **huellas de plantilla** (2 o más por pieza cierran la puerta salvo `tells_ok` con motivo en el brief), ausencia de marcadores y variedad. **Si sale «PUERTA CERRADA», no entregas ni dices «terminado»**: corriges y repites (máximo 2 vueltas por pieza; si no se puede, la entrega dice qué falla).
 
 ### 7. Entregar
 En `trabajo/<fecha>-marca-<slug>/lanzamiento/`: `logo/`, `bento.png` y `.html`, `post-1-que-es.png` y `.html`, `post-2-atributo.png` y `.html`, y un `LEEME.md` que diga, pieza por pieza, qué es, qué es **de ejemplo** y qué queda por hacer a mano. Los PNG se capturan con `--png` del crítico; los HTML son la fuente editable.
