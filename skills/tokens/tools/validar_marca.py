@@ -4,6 +4,12 @@
 Uso:  python3 validar_marca.py marca.json
 Salida: 0 si es válido (aunque haya avisos), 1 si hay errores, 2 si no se puede leer.
 """
+import sys as _sys
+for _flujo in (_sys.stdout, _sys.stderr):      # Windows: con la salida en una tubería Python usaría cp1252 y se rompería con «→», «≈», etc.
+    try:
+        _flujo.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:  # noqa: BLE001
+        pass
 import json
 import os
 import sys

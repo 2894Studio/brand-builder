@@ -15,6 +15,12 @@ NO juzga si la pieza es bonita ni si transmite lo que debe: eso lo valoran el mo
 Necesita Playwright (Node: npm i playwright · o Python: pip install playwright) y un Chromium.
 Sin él, lo dice y sale con código 2 sin dar la pieza por buena.
 """
+import sys as _sys
+for _flujo in (_sys.stdout, _sys.stderr):      # Windows: con la salida en una tubería Python usaría cp1252 y se rompería con «→», «≈», etc.
+    try:
+        _flujo.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:  # noqa: BLE001
+        pass
 import argparse
 import json
 import os
@@ -42,15 +48,15 @@ const r=await p.evaluate(fn,{});console.log(JSON.stringify(r));await b.close()})
 """
     d = tempfile.mkdtemp()
     ruta = os.path.join(d, "run.js")
-    open(ruta, "w").write(runner)
+    open(ruta, "w", encoding="utf-8").write(runner)
     # busca playwright instalado globalmente o en el proyecto
     env = dict(os.environ)
     try:
-        raiz = subprocess.run([shutil.which("npm") or "npm", "root", "-g"], capture_output=True, text=True, timeout=20).stdout.strip()
+        raiz = subprocess.run([shutil.which("npm") or "npm", "root", "-g"], capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=20).stdout.strip()
         env["NODE_PATH"] = os.pathsep.join(filter(None, [env.get("NODE_PATH", ""), raiz, os.path.join(os.getcwd(), "node_modules")]))
     except Exception:
         pass
-    r = subprocess.run([node, ruta, url, str(ancho), str(alto), png or "", MEDIR], capture_output=True, text=True, env=env, timeout=120)
+    r = subprocess.run([node, ruta, url, str(ancho), str(alto), png or "", MEDIR], capture_output=True, text=True, encoding="utf-8", errors="replace", env=env, timeout=120)
     if r.returncode != 0:
         return None
     return json.loads(r.stdout)
@@ -260,7 +266,7 @@ def main():
         return 2
     err, av = juzgar(r, a.marca, a.png)
     if a.json:
-        json.dump({"errores": err, "avisos": av, "medidas": r}, open(a.json, "w"), ensure_ascii=False, indent=1)
+        json.dump({"errores": err, "avisos": av, "medidas": r}, open(a.json, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     for e in err:
         print("  ERROR ", e)
     for x in av:

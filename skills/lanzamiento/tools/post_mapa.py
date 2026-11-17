@@ -13,6 +13,12 @@ Uso:  python3 post_mapa.py marca.json --salida lanzamiento/post-2-atributo.html 
 Las ciudades y los perfiles son tuyos: si son de ejemplo, anótalo en el LEEME.md. La distancia de la persona destacada se calcula
 con las coordenadas, no se escribe a mano.
 """
+import sys as _sys
+for _flujo in (_sys.stdout, _sys.stderr):      # Windows: con la salida en una tubería Python usaría cp1252 y se rompería con «→», «≈», etc.
+    try:
+        _flujo.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:  # noqa: BLE001
+        pass
 import argparse
 import json
 import math
@@ -67,7 +73,7 @@ def main():
         if s.strip():
             n, co = s.split("|")
             ciudades.append((n.strip(), par(co)))
-    r = subprocess.run(["node", MAPA, "--bbox", a.bbox, "--centro", cc, "--puntos", ";".join(f"{lo},{la}" for _, (lo, la) in ciudades)], capture_output=True, text=True)
+    r = subprocess.run(["node", MAPA, "--bbox", a.bbox, "--centro", cc, "--puntos", ";".join(f"{lo},{la}" for _, (lo, la) in ciudades)], capture_output=True, text=True, encoding="utf-8", errors="replace")
     if r.returncode != 0:
         print("No se pudo generar el mapa:", (r.stderr or r.stdout).strip()[:300])
         print("¿Falta Node o los paquetes? En tu carpeta de trabajo:  npm i world-atlas topojson-client d3-geo")

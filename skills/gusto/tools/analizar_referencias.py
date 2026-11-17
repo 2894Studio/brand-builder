@@ -10,6 +10,12 @@ densidad de detalle y cuántos tonos distintos hay (si domina uno solo). NO mide
 para que los complete el modelo viéndolas y los confirme la persona.
 Necesita Pillow (pip install pillow). Sin Pillow lo dice y sale sin tocar nada.
 """
+import sys as _sys
+for _flujo in (_sys.stdout, _sys.stderr):      # Windows: con la salida en una tubería Python usaría cp1252 y se rompería con «→», «≈», etc.
+    try:
+        _flujo.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:  # noqa: BLE001
+        pass
 import argparse
 import colorsys
 import os

@@ -9,6 +9,12 @@ Los prompts salen de prompts_fotos.py. El modelo por defecto es el primero de la
 de modelo cambian con el tiempo: si uno falla, ejecuta «modelos» y elige otro. **La clave es gratis, pero el nivel gratuito tiene límite 0 para imágenes (verificado el 2026-11-17): hace falta activar la facturación en AI Studio.**
 No se pega la clave en el chat ni en archivos: solo variable de entorno. Receta **no verificada con la API real** en este plugin (probada con un servidor simulado).
 """
+import sys as _sys
+for _flujo in (_sys.stdout, _sys.stderr):      # Windows: con la salida en una tubería Python usaría cp1252 y se rompería con «→», «≈», etc.
+    try:
+        _flujo.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:  # noqa: BLE001
+        pass
 import argparse
 import base64
 import json
@@ -104,7 +110,7 @@ def main():
     if os.path.exists(destino) and not a.reemplazar:
         sys.exit(f"{destino} ya existe; usa --reemplazar o elige otro nombre.")
     open(destino, "wb").write(datos)
-    r = subprocess.run([sys.executable, os.path.join(AQUI, "registrar_foto.py"), destino, "--origen", "ia", "--fuente", f"Gemini API ({modelo}, generada)"], capture_output=True, text=True)
+    r = subprocess.run([sys.executable, os.path.join(AQUI, "registrar_foto.py"), destino, "--origen", "ia", "--fuente", f"Gemini API ({modelo}, generada)"], capture_output=True, text=True, encoding="utf-8", errors="replace")
     print(f"ok {destino} (modelo {modelo})")
     print(r.stdout.strip() or r.stderr.strip())
     print("Mira la imagen antes de aceptarla (manos, texto fantasma). Siguiente: preparar_fotos.py fotos --salida lanzamiento/fotos")

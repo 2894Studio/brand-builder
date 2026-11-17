@@ -14,6 +14,12 @@ Uso:  python3 post_telefono.py marca.json --salida lanzamiento/post-1-que-es.htm
 Lo que la pantalla muestra es del cliente: pon datos reales o plausibles y anótalos en el LEEME.md. Sin fotos, las tarjetas de
 foto no se dibujan (no deja marcadores). El texto de la pantalla mide 19 px o más. Revisa con critico_render.py.
 """
+import sys as _sys
+for _flujo in (_sys.stdout, _sys.stderr):      # Windows: con la salida en una tubería Python usaría cp1252 y se rompería con «→», «≈», etc.
+    try:
+        _flujo.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:  # noqa: BLE001
+        pass
 import argparse
 import os
 import sys

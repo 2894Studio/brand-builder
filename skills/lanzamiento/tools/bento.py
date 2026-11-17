@@ -18,6 +18,12 @@ Uso:  python3 bento.py marca.json --salida lanzamiento/bento.html [opciones]
   --plano                    la tarjeta del logo va en color liso (por defecto lleva degradado con luz)
 Lo que no se aporta queda como **marcador visible**, nunca inventado. Luego se revisa con gusto/tools/critico_render.py.
 """
+import sys as _sys
+for _flujo in (_sys.stdout, _sys.stderr):      # Windows: con la salida en una tubería Python usaría cp1252 y se rompería con «→», «≈», etc.
+    try:
+        _flujo.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:  # noqa: BLE001
+        pass
 import argparse
 import os
 import sys

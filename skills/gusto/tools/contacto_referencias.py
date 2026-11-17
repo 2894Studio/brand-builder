@@ -7,6 +7,12 @@ Uso:  python3 contacto_referencias.py --gusto gusto.json --referencias referenci
 Genera  <salida>/contacto-gusto.png  y  <salida>/revision-gusto.md  (no lo sobrescribe si ya existe).
 Sale con 1 si gusto.json no tiene decisiones (sin ellas no hay nada que comprobar).
 """
+import sys as _sys
+for _flujo in (_sys.stdout, _sys.stderr):      # Windows: con la salida en una tubería Python usaría cp1252 y se rompería con «→», «≈», etc.
+    try:
+        _flujo.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:  # noqa: BLE001
+        pass
 import argparse
 import glob
 import os

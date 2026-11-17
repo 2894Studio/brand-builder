@@ -8,6 +8,12 @@ Hace tres cosas: (1) copia las imágenes a referencias/ (solo png, jpg, jpeg o w
 (colores, aire, saturación…) y (3) vuelca en gusto.json lo que dijo la persona: tipo (sí, no, otra), su nota, las decisiones por dimensión, y marca
 la referencia como confirmada. Valida al final y dice qué falta. No borra referencias que ya existan.
 """
+import sys as _sys
+for _flujo in (_sys.stdout, _sys.stderr):      # Windows: con la salida en una tubería Python usaría cp1252 y se rompería con «→», «≈», etc.
+    try:
+        _flujo.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:  # noqa: BLE001
+        pass
 import argparse
 import base64
 import io
@@ -43,7 +49,7 @@ def importar(meta, imagen_de, gusto, carpeta_ref):
         escritas.append(nombre)
     if not os.path.exists(gusto):
         G.guardar(G.nuevo(), gusto)
-    subprocess.run([sys.executable, os.path.join(AQUI, "analizar_referencias.py"), carpeta_ref, "--gusto", gusto], capture_output=True, text=True)
+    subprocess.run([sys.executable, os.path.join(AQUI, "analizar_referencias.py"), carpeta_ref, "--gusto", gusto], capture_output=True, text=True, encoding="utf-8", errors="replace")
     g = G.cargar(gusto)
     por_archivo = {x.get("archivo"): x for x in g.get("referencias", [])}
     for r in meta.get("referencias", []):

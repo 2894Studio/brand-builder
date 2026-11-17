@@ -5,6 +5,12 @@ Uso:  python3 verificar_tokens.py
 Comprueba: los 6 archivos de tokens, el contraste obligatorio, el fallo con un texto ilegible,
 la forma exacta de brand.json de motion-architect y que no se sobrescribe sin --forzar.
 """
+import sys as _sys
+for _flujo in (_sys.stdout, _sys.stderr):      # Windows: con la salida en una tubería Python usaría cp1252 y se rompería con «→», «≈», etc.
+    try:
+        _flujo.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:  # noqa: BLE001
+        pass
 import copy
 import json
 import os
@@ -25,7 +31,7 @@ def ok(cond, msg):
 
 
 def run(*args):
-    return subprocess.run([sys.executable] + list(args), capture_output=True, text=True)
+    return subprocess.run([sys.executable] + list(args), capture_output=True, text=True, encoding="utf-8", errors="replace")
 
 
 marca = json.load(open(FIX, encoding="utf-8"))
@@ -43,7 +49,7 @@ with tempfile.TemporaryDirectory() as tmp:
         if c["rol"] == "texto":
             c["hex"] = "#9AA0AA"
     pm = os.path.join(tmp, "mala.json")
-    json.dump(mala, open(pm, "w"))
+    json.dump(mala, open(pm, "w", encoding="utf-8"))
     ok(run(os.path.join(AQUI, "generar_tokens.py"), pm, "--salida", os.path.join(tmp, "m")).returncode == 1,
        "un texto con contraste 2,4:1 debe fallar")
 

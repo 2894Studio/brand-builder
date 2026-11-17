@@ -11,6 +11,12 @@ Salida (en DIR, por defecto ./tokens junto a marca.json):
   ejemplo.html         botón, tarjeta y formulario con los tokens
 Falla (exit 1) si un par obligatorio de texto no llega a 4,5:1.
 """
+import sys as _sys
+for _flujo in (_sys.stdout, _sys.stderr):      # Windows: con la salida en una tubería Python usaría cp1252 y se rompería con «→», «≈», etc.
+    try:
+        _flujo.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:  # noqa: BLE001
+        pass
 import argparse
 import html
 import json

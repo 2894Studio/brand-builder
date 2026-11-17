@@ -10,6 +10,12 @@ Compara la estructura (clases CSS y etiquetas usadas, sin textos ni colores) con
 Sale con 1 si alguna pareja supera el umbral. Es una alarma, no un juez: si dos piezas comparten
 generador y aun así son distintas a propósito, justifícalo en el LEEME.md.
 """
+import sys as _sys
+for _flujo in (_sys.stdout, _sys.stderr):      # Windows: con la salida en una tubería Python usaría cp1252 y se rompería con «→», «≈», etc.
+    try:
+        _flujo.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:  # noqa: BLE001
+        pass
 import argparse
 import glob
 import os

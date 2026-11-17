@@ -17,6 +17,12 @@ Después: python3 preparar_fotos.py fotos --salida lanzamiento/fotos
 Reglas de Pexels que se respetan: la foto se descarga y se acredita al autor con enlace. No se sugiere que una
 persona que sale en la foto respalda la marca ni se presenta como el equipo o los clientes reales.
 """
+import sys as _sys
+for _flujo in (_sys.stdout, _sys.stderr):      # Windows: con la salida en una tubería Python usaría cp1252 y se rompería con «→», «≈», etc.
+    try:
+        _flujo.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:  # noqa: BLE001
+        pass
 import argparse
 import json
 import os

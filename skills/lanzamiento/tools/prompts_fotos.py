@@ -9,6 +9,12 @@ Cada prompt sale de marca.json (categoría, público, estilo fotográfico, color
 Las imágenes generadas se guardan como fotos/<nombre>.png, se anotan en creditos.md con origen «ia» y NUNCA
 se presentan como el equipo o los clientes reales de una empresa.
 """
+import sys as _sys
+for _flujo in (_sys.stdout, _sys.stderr):      # Windows: con la salida en una tubería Python usaría cp1252 y se rompería con «→», «≈», etc.
+    try:
+        _flujo.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:  # noqa: BLE001
+        pass
 import argparse
 import json
 import os

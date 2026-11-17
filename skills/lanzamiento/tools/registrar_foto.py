@@ -7,6 +7,12 @@ Uso:  python3 registrar_foto.py fotos/equipo-1.png --origen ia --fuente "Canva (
       python3 registrar_foto.py fotos/equipo-2.jpg --origen propia --fuente "Estudio X" --permiso sí
 origen: propia | banco | ia. banco exige --fuente y --licencia. propia con personas (equipo, retrato) exige --permiso sí.
 """
+import sys as _sys
+for _flujo in (_sys.stdout, _sys.stderr):      # Windows: con la salida en una tubería Python usaría cp1252 y se rompería con «→», «≈», etc.
+    try:
+        _flujo.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:  # noqa: BLE001
+        pass
 import argparse
 import os
 import sys

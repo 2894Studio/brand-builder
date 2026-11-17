@@ -10,6 +10,12 @@
 Las llamadas a FLORA (subir el logo con flora_create_asset, presupuesto, flora_run_technique) las hace el agente con el conector; este script
 no gasta nada ni se conecta a FLORA con credenciales: solo descarga URLs públicas de media.flora.ai.
 """
+import sys as _sys
+for _flujo in (_sys.stdout, _sys.stderr):      # Windows: con la salida en una tubería Python usaría cp1252 y se rompería con «→», «≈», etc.
+    try:
+        _flujo.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:  # noqa: BLE001
+        pass
 import argparse
 import json
 import os
@@ -32,7 +38,7 @@ def preparar(a):
         sys.exit("Falta Pillow (pip install pillow).")
     os.makedirs(a.salida, exist_ok=True)
     with tempfile.TemporaryDirectory() as tmp:
-        r = subprocess.run([sys.executable, EXPORTAR, a.marca, "--salida", tmp, "--ancho", "1600"], capture_output=True, text=True)
+        r = subprocess.run([sys.executable, EXPORTAR, a.marca, "--salida", tmp, "--ancho", "1600"], capture_output=True, text=True, encoding="utf-8", errors="replace")
         png = os.path.join(tmp, "principal.png")
         if not os.path.exists(png):
             cand = [f for f in os.listdir(tmp) if f.endswith(".png")]
@@ -79,7 +85,7 @@ def guardar(a):
             shutil.copy(fuente, destino)
         print("ok", destino)
     medidas = os.path.join(a.salida, "medidas-flora.json")
-    r = subprocess.run([sys.executable, ANALIZAR, carpeta, "--gusto", medidas, "--tipo", "otra"], capture_output=True, text=True)
+    r = subprocess.run([sys.executable, ANALIZAR, carpeta, "--gusto", medidas, "--tipo", "otra"], capture_output=True, text=True, encoding="utf-8", errors="replace")
     if not os.path.exists(medidas):
         sys.exit("No se pudieron medir los tableros (¿falta Pillow?):\n" + (r.stdout + r.stderr)[-300:])
     refs = {x["archivo"]: x["medido"] for x in json.load(open(medidas, encoding="utf-8"))["referencias"]}

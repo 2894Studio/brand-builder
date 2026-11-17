@@ -10,6 +10,12 @@ Uso:  python3 post_foto.py marca.json --salida lanzamiento/post-1-que-es.html --
   --tema    oscuro: bloque inferior del color profundo de la marca; claro: bloque con el fondo de la marca
 Sin foto no hay post: el script se niega (para eso están post_pantalla, post_telefono o post_comparativa).
 """
+import sys as _sys
+for _flujo in (_sys.stdout, _sys.stderr):      # Windows: con la salida en una tubería Python usaría cp1252 y se rompería con «→», «≈», etc.
+    try:
+        _flujo.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:  # noqa: BLE001
+        pass
 import argparse
 import os
 import sys

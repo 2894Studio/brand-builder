@@ -8,6 +8,12 @@ No diseña el post: deja la estructura (campo de color, titular, hueco para el r
 componentes CSS listos (.cristal, .foto, .rotulo, .telefono, .pantalla). El recurso visual lo eliges y lo construyes tú con
 `references/recursos-visuales.md`. Después: critico_render.py sobre el resultado.
 """
+import sys as _sys
+for _flujo in (_sys.stdout, _sys.stderr):      # Windows: con la salida en una tubería Python usaría cp1252 y se rompería con «→», «≈», etc.
+    try:
+        _flujo.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:  # noqa: BLE001
+        pass
 import argparse
 import os
 import sys

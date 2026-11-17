@@ -11,6 +11,12 @@ Uso:  python3 post_pantalla.py marca.json --salida lanzamiento/post-1-que-es.htm
         --filas "Frontend|React y Tailwind;Backend|Node y APIs" --estado "En vivo" --tarjeta "Grupos|5 alumnos" [--tema claro|oscuro]
       o con código:  --codigo "const grupo = 5;;await clase.empezar(grupo);"   (cada línea separada por «;», máximo 7)
 """
+import sys as _sys
+for _flujo in (_sys.stdout, _sys.stderr):      # Windows: con la salida en una tubería Python usaría cp1252 y se rompería con «→», «≈», etc.
+    try:
+        _flujo.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:  # noqa: BLE001
+        pass
 import argparse
 import os
 import sys

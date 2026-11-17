@@ -5,6 +5,12 @@ Uso:  python3 generar_kit.py marca.json [--kit kit.json] [--salida DIR]
 Sin kit.json, las láminas de contenido salen con textos «pendiente» y se avisa.
 Con `rsvg-convert` instalado se genera además manual-de-marca.pdf. No hace falta para nada más.
 """
+import sys as _sys
+for _flujo in (_sys.stdout, _sys.stderr):      # Windows: con la salida en una tubería Python usaría cp1252 y se rompería con «→», «≈», etc.
+    try:
+        _flujo.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:  # noqa: BLE001
+        pass
 import argparse
 import json
 import re
@@ -474,7 +480,7 @@ def main(argv=None):
                 with open(destino, "w", encoding="utf-8") as fh:
                     fh.write(s2)
                 ins.append(destino)
-            r = subprocess.run([rsvg, "-f", "pdf", "-o", pdf] + ins, capture_output=True, text=True)
+            r = subprocess.run([rsvg, "-f", "pdf", "-o", pdf] + ins, capture_output=True, text=True, encoding="utf-8", errors="replace")
         print("ok " + pdf if r.returncode == 0 else "aviso: no se pudo crear el PDF: " + r.stderr.strip()[:120])
     else:
         print("aviso: sin rsvg-convert no se genera el PDF (abre index.html e imprime a PDF desde el navegador)")

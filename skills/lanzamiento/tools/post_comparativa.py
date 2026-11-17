@@ -11,6 +11,12 @@ Uso:  python3 post_comparativa.py marca.json --salida lanzamiento/post-2-atribut
         --nosotros "Fullstacker|10 € / mes|Grupos de 5 alumnos;A tu ritmo" [--insignia "Sin permanencia"] [--tema claro|oscuro]
 Formato de cada columna: «Etiqueta|Dato principal|detalle;detalle» (hasta 3 detalles).
 """
+import sys as _sys
+for _flujo in (_sys.stdout, _sys.stderr):      # Windows: con la salida en una tubería Python usaría cp1252 y se rompería con «→», «≈», etc.
+    try:
+        _flujo.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:  # noqa: BLE001
+        pass
 import argparse
 import os
 import sys

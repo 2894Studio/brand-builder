@@ -5,6 +5,12 @@ las reglas de maquetación: rejilla, márgenes, título en ≤2 líneas, SVG bie
 Uso:  python3 verificar_laminas.py
 Sale con 0 si todo pasa y con 1 si alguna regla falla.
 """
+import sys as _sys
+for _flujo in (_sys.stdout, _sys.stderr):      # Windows: con la salida en una tubería Python usaría cp1252 y se rompería con «→», «≈», etc.
+    try:
+        _flujo.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:  # noqa: BLE001
+        pass
 import copy
 import json
 import os
@@ -115,12 +121,12 @@ if os.path.exists(marca_p) and sys.platform != "win32":      # el rsvg falso es 
     with tempfile.TemporaryDirectory() as tmp:
         falso = os.path.join(tmp, "rsvg-convert")
         reg = os.path.join(tmp, "visto.txt")
-        with open(falso, "w") as fh:
+        with open(falso, "w", encoding="utf-8") as fh:
             fh.write('#!/bin/sh\nfor a in "$@"; do case "$a" in *.svg) grep -c "../logo/" "$a" >> %s;; esac; done\ntouch "$4"\n' % reg)
         os.chmod(falso, 0o755)
         env = dict(os.environ, PATH=tmp + os.pathsep + os.environ.get("PATH", ""))
-        r = subprocess.run([sys.executable, os.path.join(os.path.dirname(os.path.abspath(__file__)), "generar_kit.py"), marca_p, "--salida", os.path.join(tmp, "kit")], capture_output=True, text=True, env=env)
-        visto = open(reg).read().split() if os.path.exists(reg) else []
+        r = subprocess.run([sys.executable, os.path.join(os.path.dirname(os.path.abspath(__file__)), "generar_kit.py"), marca_p, "--salida", os.path.join(tmp, "kit")], capture_output=True, text=True, encoding="utf-8", errors="replace", env=env)
+        visto = open(reg, encoding="utf-8").read().split() if os.path.exists(reg) else []
         comprobar(bool(visto) and all(v == "0" for v in visto), "PDF: las láminas llegan a rsvg-convert con los logos incrustados, sin rutas «../logo/»")
 
 if fallos:

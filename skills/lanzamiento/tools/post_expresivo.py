@@ -14,6 +14,12 @@ Uso:  python3 post_expresivo.py marca.json --modo gigante|precio --salida lanzam
   --ejemplo        el precio es de ejemplo: se escribe «Precio de ejemplo» en la pieza (nada inventado se presenta como real)
 Colores: el primario es el campo; el acento, los detalles y la palabra clave; el color profundo o la tinta, el bloque oscuro.
 """
+import sys as _sys
+for _flujo in (_sys.stdout, _sys.stderr):      # Windows: con la salida en una tubería Python usaría cp1252 y se rompería con «→», «≈», etc.
+    try:
+        _flujo.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:  # noqa: BLE001
+        pass
 import argparse
 import math
 import os

@@ -6,6 +6,12 @@ Uso:  python3 exportar_logos.py marca.json --salida lanzamiento/logo [--ancho 30
 Usa rsvg-convert si está instalado; si no, Chromium con Playwright (el mismo que el crítico de gusto).
 Sin ninguno de los dos sale con código 2 y no da nada por exportado: entrega los SVG, que son el original.
 """
+import sys as _sys
+for _flujo in (_sys.stdout, _sys.stderr):      # Windows: con la salida en una tubería Python usaría cp1252 y se rompería con «→», «≈», etc.
+    try:
+        _flujo.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:  # noqa: BLE001
+        pass
 import argparse
 import os
 import re
@@ -41,14 +47,14 @@ def con_chromium(svg, png, ancho):
     html = os.path.join(d, "l.html")
     open(html, "w", encoding="utf-8").write(f'<body style="margin:0;background:transparent"><img src="file://{os.path.abspath(svg)}" style="width:{ancho}px;height:{alto}px;display:block"></body>')
     run = os.path.join(d, "r.js")
-    open(run, "w").write(RUNNER)
+    open(run, "w", encoding="utf-8").write(RUNNER)
     env = dict(os.environ)
     try:
-        raiz = subprocess.run([shutil.which("npm") or "npm", "root", "-g"], capture_output=True, text=True, timeout=20).stdout.strip()
+        raiz = subprocess.run([shutil.which("npm") or "npm", "root", "-g"], capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=20).stdout.strip()
         env["NODE_PATH"] = os.pathsep.join(filter(None, [env.get("NODE_PATH", ""), raiz, os.path.join(os.getcwd(), "node_modules")]))
     except Exception:  # noqa: BLE001
         pass
-    r = subprocess.run([node, run, "file://" + html, str(ancho), str(alto), png], capture_output=True, text=True, env=env, timeout=120)
+    r = subprocess.run([node, run, "file://" + html, str(ancho), str(alto), png], capture_output=True, text=True, encoding="utf-8", errors="replace", env=env, timeout=120)
     return r.returncode == 0 and os.path.exists(png)
 
 

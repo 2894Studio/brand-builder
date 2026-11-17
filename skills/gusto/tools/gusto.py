@@ -7,6 +7,12 @@
   python3 gusto.py validar [--gusto gusto.json]
   python3 gusto.py ab --a serio --b tecnologico --elige a --motivo "se entiende antes" [--gusto gusto.json]
 """
+import sys as _sys
+for _flujo in (_sys.stdout, _sys.stderr):      # Windows: con la salida en una tubería Python usaría cp1252 y se rompería con «→», «≈», etc.
+    try:
+        _flujo.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:  # noqa: BLE001
+        pass
 import argparse
 import datetime
 import os

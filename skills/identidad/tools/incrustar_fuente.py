@@ -16,6 +16,12 @@ Uso:
 Por defecto sobrescribe cada SVG y guarda una copia `.bak`. Antes de publicar, comprueba la licencia de la
 fuente (las de Google Fonts son OFL y permiten incrustar). Solo librería estándar; fonttools es opcional.
 """
+import sys as _sys
+for _flujo in (_sys.stdout, _sys.stderr):      # Windows: con la salida en una tubería Python usaría cp1252 y se rompería con «→», «≈», etc.
+    try:
+        _flujo.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:  # noqa: BLE001
+        pass
 import argparse
 import base64
 import os

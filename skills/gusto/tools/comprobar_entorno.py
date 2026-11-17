@@ -8,6 +8,12 @@ No instala nada. Prueba de verdad la cadena (abre una página en Chromium y la m
 Con --marca comprueba además que las fuentes de tu marca están instaladas en este equipo.
 Sale con 0 si Python es suficiente; el resto son capacidades opcionales (se listan como FALTA).
 """
+import sys as _sys
+for _flujo in (_sys.stdout, _sys.stderr):      # Windows: con la salida en una tubería Python usaría cp1252 y se rompería con «→», «≈», etc.
+    try:
+        _flujo.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:  # noqa: BLE001
+        pass
 import argparse
 import json
 import os
@@ -39,7 +45,7 @@ def cmd(clave):
 
 def corre(args, tiempo=60):
     try:
-        r = subprocess.run(args, capture_output=True, text=True, timeout=tiempo)
+        r = subprocess.run(args, capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=tiempo)
         return r.returncode, r.stdout, r.stderr
     except Exception as e:  # noqa: BLE001
         return 99, "", str(e)

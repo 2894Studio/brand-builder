@@ -16,6 +16,12 @@ direcciones.json: lista de 2 a 3 direcciones, cada una distinta de verdad (otra 
 La dirección sale del **análisis del logo hecho por el modelo** (letras, construcción, color, acabado) y de la estrategia; lo que dibuje un tablero
 son decisiones, no medidas: los colores se comprueban con contraste.py antes de pasarlos a marca.json.
 """
+import sys as _sys
+for _flujo in (_sys.stdout, _sys.stderr):      # Windows: con la salida en una tubería Python usaría cp1252 y se rompería con «→», «≈», etc.
+    try:
+        _flujo.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:  # noqa: BLE001
+        pass
 import argparse
 import json
 import os
@@ -131,7 +137,7 @@ def main():
     for i, d in enumerate(ds, 1):
         h = os.path.join(a.salida, f"direccion-{i}.html")
         open(h, "w", encoding="utf-8").write(tablero(m, lg, d, i, fotos))
-        r = subprocess.run([sys.executable, CRITICO, h, "--ancho", "1920", "--alto", "1080", "--png", h.replace(".html", ".png")], capture_output=True, text=True)
+        r = subprocess.run([sys.executable, CRITICO, h, "--ancho", "1920", "--alto", "1080", "--png", h.replace(".html", ".png")], capture_output=True, text=True, encoding="utf-8", errors="replace")
         errs = [x.strip() for x in r.stdout.splitlines() if x.strip().startswith("ERROR")]
         print(f"direccion-{i}: {d['nombre']} → {h.replace('.html', '.png')}" + ("" if r.returncode == 2 else f"  ({len(errs)} error(es) del crítico)"))
         for x in errs[:3]:

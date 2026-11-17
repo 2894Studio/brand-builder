@@ -5,6 +5,12 @@ Uso:
   python3 contraste.py "#00C27A" "#F3F4F6"          un par (primero el color del texto, luego el fondo)
   python3 contraste.py --base "#F3F4F6" "#2F4BD8" "#00C27A" "#14181F"   varios colores sobre una base
 """
+import sys as _sys
+for _flujo in (_sys.stdout, _sys.stderr):      # Windows: con la salida en una tubería Python usaría cp1252 y se rompería con «→», «≈», etc.
+    try:
+        _flujo.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:  # noqa: BLE001
+        pass
 import os
 import sys
 

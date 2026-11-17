@@ -7,6 +7,12 @@ Sirve etiquetador.html en http://127.0.0.1:PUERTO; el botón «Guardar en el pro
 (mide las imágenes y guarda tus notas y decisiones). Sin este servidor, abre etiquetador.html a mano y usa «Descargar ZIP» + importar_etiquetado.py.
 Solo escucha en 127.0.0.1. Ctrl+C para cerrar.
 """
+import sys as _sys
+for _flujo in (_sys.stdout, _sys.stderr):      # Windows: con la salida en una tubería Python usaría cp1252 y se rompería con «→», «≈», etc.
+    try:
+        _flujo.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:  # noqa: BLE001
+        pass
 import argparse
 import http.server
 import json

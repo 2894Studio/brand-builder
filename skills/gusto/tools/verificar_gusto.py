@@ -5,6 +5,12 @@ Lo que no se puede ejecutar por falta de Pillow o de Playwright se marca SALTADO
 
 Uso:  python3 verificar_gusto.py     (sale con 1 si algo falla; los SALTADO no hacen fallar)
 """
+import sys as _sys
+for _flujo in (_sys.stdout, _sys.stderr):      # Windows: con la salida en una tubería Python usaría cp1252 y se rompería con «→», «≈», etc.
+    try:
+        _flujo.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:  # noqa: BLE001
+        pass
 import json
 import os
 import subprocess
@@ -27,7 +33,7 @@ def ok(cond, msg):
 
 
 def py(*args):
-    return subprocess.run([sys.executable, *args], capture_output=True, text=True)
+    return subprocess.run([sys.executable, *args], capture_output=True, text=True, encoding="utf-8", errors="replace")
 
 
 # 1. proporción de tonos
@@ -58,7 +64,7 @@ with tempfile.TemporaryDirectory() as d:
     ok(py(os.path.join(AQUI, "gusto.py"), "init", "--gusto", ruta).returncode == 1, "init no sobrescribe")
     r = py(os.path.join(AQUI, "gusto.py"), "ab", "--gusto", ruta, "--a", "serio", "--b", "divertido", "--elige", "b", "--motivo", "prueba")
     ok(r.returncode == 0, "ab registra una elección")
-    gj = json.load(open(ruta))
+    gj = json.load(open(ruta, encoding="utf-8"))
     ok(gj["tonos"]["divertido"] > 20 and sum(gj["tonos"].values()) == 100 and len(gj["elecciones_ab"]) == 1, "la elección mueve la proporción y se guarda")
 
     # 4. analizador (Pillow)
@@ -73,14 +79,14 @@ with tempfile.TemporaryDirectory() as d:
         gr = os.path.join(d, "g.json")
         r = py(os.path.join(AQUI, "analizar_referencias.py"), carp, "--gusto", gr, "--tipo", "no")
         ok(r.returncode == 0, "analizar_referencias termina bien")
-        refs = {x["nombre"]: x for x in json.load(open(gr))["referencias"]}
+        refs = {x["nombre"]: x for x in json.load(open(gr, encoding="utf-8"))["referencias"]}
         ok(refs["lisa"]["medido"]["aire_pct"] >= 90, f"imagen lisa: aire alto ({refs['lisa']['medido']['aire_pct']}%)")
         ok(refs["ruido"]["medido"]["aire_pct"] < refs["lisa"]["medido"]["aire_pct"], "imagen con detalle: menos aire que la lisa")
         ok(refs["lisa"]["medido"]["dominantes"][0]["hex"].startswith("#1"), "color dominante de la lisa ≈ azul")
         ok(refs["lisa"]["tipo"] == "no" and refs["lisa"]["interpretacion"]["tono"] is None, "el tono queda sin interpretar (no se inventa)")
-        n1 = len(json.load(open(gr))["referencias"])
+        n1 = len(json.load(open(gr, encoding="utf-8"))["referencias"])
         py(os.path.join(AQUI, "analizar_referencias.py"), carp, "--gusto", gr)
-        ok(len(json.load(open(gr))["referencias"]) == n1, "volver a analizar no duplica referencias")
+        ok(len(json.load(open(gr, encoding="utf-8"))["referencias"]) == n1, "volver a analizar no duplica referencias")
     except ImportError:
         saltados.append("analizador (falta Pillow)")
         print("  SALTADO analizador: falta Pillow")

@@ -11,6 +11,12 @@ entre comillas o no lleve «: » ni « #»).
 
 Uso:  python3 verificar_skills.py [carpeta_raiz_del_repo]      Sale con 1 si algo falla.
 """
+import sys as _sys
+for _flujo in (_sys.stdout, _sys.stderr):      # Windows: con la salida en una tubería Python usaría cp1252 y se rompería con «→», «≈», etc.
+    try:
+        _flujo.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:  # noqa: BLE001
+        pass
 import glob
 import os
 import re

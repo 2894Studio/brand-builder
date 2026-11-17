@@ -14,6 +14,12 @@ Uso:  python3 post_tipografico.py marca.json --modo cifra|pasos|manifiesto --sal
   --pie "…"            texto pequeño opcional
 Cifra con datos de terceros: lleva fuente o se marca --ejemplo. Una cifra propia de la marca (plazas, años, precio) no necesita fuente.
 """
+import sys as _sys
+for _flujo in (_sys.stdout, _sys.stderr):      # Windows: con la salida en una tubería Python usaría cp1252 y se rompería con «→», «≈», etc.
+    try:
+        _flujo.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:  # noqa: BLE001
+        pass
 import argparse
 import os
 import sys

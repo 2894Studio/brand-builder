@@ -14,6 +14,12 @@ accent, accent2}, fonts{display, body}, radius, style.
 IMPORTANTE: en motion-architect la fuente real es la de los imports de src/brand/brand.ts; `fonts` del
 JSON es solo informativo. Este script imprime las líneas exactas que hay que cambiar en brand.ts.
 """
+import sys as _sys
+for _flujo in (_sys.stdout, _sys.stderr):      # Windows: con la salida en una tubería Python usaría cp1252 y se rompería con «→», «≈», etc.
+    try:
+        _flujo.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:  # noqa: BLE001
+        pass
 import argparse
 import json
 import os

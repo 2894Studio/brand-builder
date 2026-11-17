@@ -14,6 +14,12 @@ Con --crear-creditos escribe esa tabla con las fotos que encuentre y sale sin m�
 Salida: recortes 3:4, 4:3 y 1:1 en JPEG y un manifiesto.json con el origen de cada foto. Las de origen «ia» quedan marcadas
 en el manifiesto; que la pieza lo diga o no lo decide la persona (opción --declarar-ia del bento y de los posts). Necesita Pillow (pip install pillow).
 """
+import sys as _sys
+for _flujo in (_sys.stdout, _sys.stderr):      # Windows: con la salida en una tubería Python usaría cp1252 y se rompería con «→», «≈», etc.
+    try:
+        _flujo.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:  # noqa: BLE001
+        pass
 import argparse
 import json
 import os

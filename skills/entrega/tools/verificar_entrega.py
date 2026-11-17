@@ -12,6 +12,12 @@ Comprueba, en este orden:
   6. Los dos posts no comparten composición (variedad.py < 0,6), ni se parecen a los de otros kits (--kits).
 Sale con 1 si algo falla. Sin esta puerta en verde no se entrega ni se dice «revisado».
 """
+import sys as _sys
+for _flujo in (_sys.stdout, _sys.stderr):      # Windows: con la salida en una tubería Python usaría cp1252 y se rompería con «→», «≈», etc.
+    try:
+        _flujo.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:  # noqa: BLE001
+        pass
 import argparse
 import glob
 import json
@@ -67,7 +73,7 @@ def main():
         if not os.path.exists(p):
             continue
         cmd = [sys.executable, CRITICO, p, "--ancho", str(w), "--alto", str(h)] + (["--marca", a.marca] if a.marca else [])
-        r = subprocess.run(cmd, capture_output=True, text=True)
+        r = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8", errors="replace")
         if r.returncode == 2:
             avisos.append("el crítico no se pudo ejecutar (falta Playwright): las piezas NO están revisadas")
             print("  SALTADO crítico: falta Playwright")
@@ -166,14 +172,14 @@ def main():
     print("6. Variedad")
     p1, p2 = (os.path.join(c, f"{n}.html") for n in ("post-1-que-es", "post-2-atributo"))
     if os.path.exists(p1) and os.path.exists(p2):
-        r = subprocess.run([sys.executable, VARIEDAD, p1, p2], capture_output=True, text=True)
+        r = subprocess.run([sys.executable, VARIEDAD, p1, p2], capture_output=True, text=True, encoding="utf-8", errors="replace")
         ok(r.returncode == 0, "los dos posts no comparten composición ni arquetipo" + ("" if r.returncode == 0 else ": " + r.stdout.strip().splitlines()[0]))
         if a.kits:
             otros = glob.glob(os.path.join(a.kits, "*", "lanzamiento", "post-*.html"))
             otros = [o for o in otros if os.path.abspath(os.path.dirname(o)) != os.path.abspath(c)]
             for p in (p1, p2):
                 if otros:
-                    r = subprocess.run([sys.executable, VARIEDAD, p] + otros, capture_output=True, text=True)
+                    r = subprocess.run([sys.executable, VARIEDAD, p] + otros, capture_output=True, text=True, encoding="utf-8", errors="replace")
                     ok(r.returncode == 0, f"{os.path.basename(p)} no se parece a los posts de otros kits")
     print()
     for x in avisos:
@@ -181,7 +187,7 @@ def main():
     print("PUERTA DE ENTREGA: ABIERTA" if not fallos else f"PUERTA CERRADA: {len(fallos)} fallo(s). Corrige antes de entregar.")
     marca = os.path.join(c, ".puerta-ok")
     if not fallos and not avisos:
-        open(marca, "w").write("puerta abierta\n")      # lo lee hooks/guardia_entrega.py
+        open(marca, "w", encoding="utf-8").write("puerta abierta\n")      # lo lee hooks/guardia_entrega.py
     elif os.path.exists(marca):
         os.remove(marca)
     return 1 if fallos else 0

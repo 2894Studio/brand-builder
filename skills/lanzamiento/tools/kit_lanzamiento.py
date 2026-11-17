@@ -22,6 +22,12 @@ Los argumentos de cada recurso están en la cabecera de su script (post_tipograf
 Si la marca es visual (fotografía, gastronomía, moda, viajes, interiorismo…) y no hay fotos, añade `"sin_fotos": "motivo"` al brief solo si se decide a propósito.
 Sale con 1 si algún generador falla o la puerta de entrega se cierra; imprime qué corregir en el brief y se repite.
 """
+import sys as _sys
+for _flujo in (_sys.stdout, _sys.stderr):      # Windows: con la salida en una tubería Python usaría cp1252 y se rompería con «→», «≈», etc.
+    try:
+        _flujo.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:  # noqa: BLE001
+        pass
 import json
 import os
 import re
@@ -52,7 +58,7 @@ def flags(args):
 
 
 def run(cmd):
-    return subprocess.run([sys.executable] + cmd, capture_output=True, text=True)
+    return subprocess.run([sys.executable] + cmd, capture_output=True, text=True, encoding="utf-8", errors="replace")
 
 
 def main():

@@ -7,6 +7,12 @@
 Escribe/lee trabajo/<…>/proveedor-imagen.json. Proveedores: canva, flora, higgsfield, magnific, spaces, gemini, flow, otro, ninguno.
 Sale con 0 y escribe el nombre si hay proveedor; con 1 si no se ha preguntado todavía (así las skills saben que toca preguntar).
 """
+import sys as _sys
+for _flujo in (_sys.stdout, _sys.stderr):      # Windows: con la salida en una tubería Python usaría cp1252 y se rompería con «→», «≈», etc.
+    try:
+        _flujo.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:  # noqa: BLE001
+        pass
 import argparse
 import glob
 import json

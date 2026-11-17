@@ -7,6 +7,12 @@ Cada combinación usa dos arquetipos diferentes y dice qué hay que aportar. Las
 El orden depende de la categoría y de lo que haya (fotos, datos, producto digital); los empates los rompe el nombre de la marca,
 así dos marcas parecidas no acaban con el mismo par. Muestra las tres con un diálogo y deja elegir; no elijas tú por defecto la interfaz.
 """
+import sys as _sys
+for _flujo in (_sys.stdout, _sys.stderr):      # Windows: con la salida en una tubería Python usaría cp1252 y se rompería con «→», «≈», etc.
+    try:
+        _flujo.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:  # noqa: BLE001
+        pass
 import argparse
 import hashlib
 import json

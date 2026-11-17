@@ -5,6 +5,12 @@ Lo que necesita navegador (revisión con el crítico) se marca SALTADO si falta 
 
 Uso:  python3 verificar_lanzamiento.py
 """
+import sys as _sys
+for _flujo in (_sys.stdout, _sys.stderr):      # Windows: con la salida en una tubería Python usaría cp1252 y se rompería con «→», «≈», etc.
+    try:
+        _flujo.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:  # noqa: BLE001
+        pass
 import json
 import os
 import subprocess
@@ -28,7 +34,7 @@ def ok(c, msg):
 
 
 def py(*a):
-    return subprocess.run([sys.executable, *a], capture_output=True, text=True)
+    return subprocess.run([sys.executable, *a], capture_output=True, text=True, encoding="utf-8", errors="replace")
 
 
 # 1. color
@@ -58,24 +64,24 @@ with tempfile.TemporaryDirectory() as d:
     ok("Territorio" in h and "Tecnológico" in h, "sin gusto.json: muestra el territorio con su tilde")
     # con gusto.json
     gj = os.path.join(d, "gusto.json")
-    json.dump({"tonos": {"serio": 50, "divertido": 20, "tecnologico": 30}}, open(gj, "w"))
+    json.dump({"tonos": {"serio": 50, "divertido": 20, "tecnologico": 30}}, open(gj, "w", encoding="utf-8"))
     py(os.path.join(AQUI, "bento.py"), PULSO, "--salida", salida, "--gusto", gj)
     h2 = open(salida, encoding="utf-8").read()
     ok("Proporción" in h2 and ">50<" in h2, "con gusto.json: muestra la proporción de tonos")
 
     # 4. logos reales: se incrustan como data URI
     svg = os.path.join(d, "invertida.svg")
-    open(svg, "w").write('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60"><rect width="200" height="60" fill="#fff"/></svg>')
+    open(svg, "w", encoding="utf-8").write('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60"><rect width="200" height="60" fill="#fff"/></svg>')
     mm = json.load(open(PULSO, encoding="utf-8"))
     mm["brandKit"]["logo"] = [{"version": "invertida", "archivo": "invertida.svg"}]
     mp = os.path.join(d, "marca.json")
-    json.dump(mm, open(mp, "w"))
+    json.dump(mm, open(mp, "w", encoding="utf-8"))
     py(os.path.join(AQUI, "bento.py"), mp, "--salida", salida)
     ok("data:image/svg+xml;base64," in open(salida, encoding="utf-8").read(), "el logo se incrusta en el bento (no depende de rutas)")
 
     # 5. marca mínima no rompe
     mmn = os.path.join(d, "min.json")
-    json.dump(m_min, open(mmn, "w"))
+    json.dump(m_min, open(mmn, "w", encoding="utf-8"))
     r = py(os.path.join(AQUI, "bento.py"), mmn, "--salida", os.path.join(d, "b2.html"))
     ok(r.returncode == 0, "bento.py con una marca mínima no falla")
 
@@ -153,7 +159,7 @@ with tempfile.TemporaryDirectory() as d:
             ok(rc.returncode == 0, "post_telefono pasa el crítico sin errores")
     except Exception as e:  # noqa: BLE001
         ok(False, f"post_telefono falló: {e}")
-    r = subprocess.run(["node", "-e", "require.resolve('d3-geo')"], capture_output=True, text=True)
+    r = subprocess.run(["node", "-e", "require.resolve('d3-geo')"], capture_output=True, text=True, encoding="utf-8", errors="replace")
     if r.returncode != 0 and not os.path.isdir(os.path.join(os.getcwd(), "node_modules", "d3-geo")):
         saltados.append("post_mapa (faltan los paquetes npm de mapa en esta carpeta)")
         print("  SALTADO post_mapa: faltan los paquetes npm (npm i world-atlas topojson-client d3-geo)")
@@ -221,11 +227,11 @@ with tempfile.TemporaryDirectory() as d:
         env = dict(os.environ, PEXELS_API_BASE="http://127.0.0.1:%d/v1" % srv.server_port, PEXELS_API_KEY="K")
         carp = os.path.join(d, "fotos-px")
         BF = os.path.join(AQUI, "buscar_fotos.py")
-        sin = subprocess.run([sys.executable, BF, "buscar", "x", "--carpeta", carp], capture_output=True, text=True, env={**env, "PEXELS_API_KEY": ""})
+        sin = subprocess.run([sys.executable, BF, "buscar", "x", "--carpeta", carp], capture_output=True, text=True, encoding="utf-8", errors="replace", env={**env, "PEXELS_API_KEY": ""})
         ok(sin.returncode != 0 and "gratis" in (sin.stdout + sin.stderr).lower(), "buscar_fotos sin clave explica cómo conseguirla (gratis)")
-        r1 = subprocess.run([sys.executable, BF, "buscar", "equipo", "--carpeta", carp], capture_output=True, text=True, env=env)
+        r1 = subprocess.run([sys.executable, BF, "buscar", "equipo", "--carpeta", carp], capture_output=True, text=True, encoding="utf-8", errors="replace", env=env)
         ok(r1.returncode == 0 and os.path.exists(os.path.join(carp, "_candidatas", "pexels-42.jpg")), "buscar_fotos deja miniaturas candidatas")
-        r2 = subprocess.run([sys.executable, BF, "elegir", "42", "--como", "equipo-1", "--carpeta", carp], capture_output=True, text=True, env=env)
+        r2 = subprocess.run([sys.executable, BF, "elegir", "42", "--como", "equipo-1", "--carpeta", carp], capture_output=True, text=True, encoding="utf-8", errors="replace", env=env)
         cred = open(os.path.join(carp, "creditos.md"), encoding="utf-8").read() if os.path.exists(os.path.join(carp, "creditos.md")) else ""
         ok(r2.returncode == 0 and "| equipo-1.jpg | banco |" in cred and "Pexels License" in cred, "buscar_fotos elegir descarga y rellena creditos.md")
         r3 = py(os.path.join(AQUI, "preparar_fotos.py"), carp, "--salida", os.path.join(d, "fotos-out"))
@@ -260,8 +266,8 @@ with tempfile.TemporaryDirectory() as d:
     PUERTA = os.path.join(RAIZ, "skills", "entrega", "tools", "verificar_entrega.py")
     kit = os.path.join(d, "kit", "lanzamiento")
     os.makedirs(os.path.join(kit, "logo"))
-    open(os.path.join(kit, "logo", "x.svg"), "w").write("<svg xmlns='http://www.w3.org/2000/svg'/>")
-    open(os.path.join(kit, "LEEME.md"), "w").write("# kit\n")
+    open(os.path.join(kit, "logo", "x.svg"), "w", encoding="utf-8").write("<svg xmlns='http://www.w3.org/2000/svg'/>")
+    open(os.path.join(kit, "LEEME.md"), "w", encoding="utf-8").write("# kit\n")
     py(os.path.join(AQUI, "bento.py"), PULSO, "--salida", os.path.join(kit, "bento.html"))
     rp = py(PUERTA, kit)
     ok(rp.returncode == 1 and "bento: sin marcadores" in rp.stdout and "PUERTA CERRADA" in rp.stdout, "la puerta de entrega se cierra con un bento de marcadores y sin PNG")
@@ -309,7 +315,7 @@ with tempfile.TemporaryDirectory() as d:
         json.dump(mv, open(marca_v, "w", encoding="utf-8"), ensure_ascii=False)
         rv = py(PUERTA, kit, "--marca", marca_v)
         ok("la marca es visual" in rv.stdout and "PUERTA CERRADA" in rv.stdout, "la puerta exige fotos a una marca visual")
-        json.dump({"sin_fotos": "decisión de la persona"}, open(os.path.join(kit, "brief.json"), "w"))
+        json.dump({"sin_fotos": "decisión de la persona"}, open(os.path.join(kit, "brief.json"), "w", encoding="utf-8"))
         rv = py(PUERTA, kit, "--marca", marca_v)
         ok("la marca es visual" not in rv.stdout, "«sin_fotos» con motivo evita el cierre por falta de fotos")
     except ImportError:
@@ -397,9 +403,9 @@ with tempfile.TemporaryDirectory() as d:
         md = open(os.path.join(sal, "direccion-flora.md"), encoding="utf-8").read() if os.path.exists(os.path.join(sal, "direccion-flora.md")) else ""
         ok(r.returncode == 0 and "#E8A33D" in md.upper() and "#1F5C99" in md.upper() and "no son fiables" in md, "flora_logo guardar mide los colores de los tableros y escribe direccion-flora.md")
         svg = os.path.join(d, "l.svg")
-        open(svg, "w").write('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 100"><rect width="300" height="100" rx="20" fill="#1F5C99"/></svg>')
+        open(svg, "w", encoding="utf-8").write('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 100"><rect width="300" height="100" rx="20" fill="#1F5C99"/></svg>')
         mj = os.path.join(d, "mlogo.json")
-        json.dump({"nombre": "T", "visual": {"colores": [{"nombre": "x", "hex": "#1F5C99", "rol": "primario"}]}, "brandKit": {"logo": [{"version": "principal", "archivo": "l.svg"}]}}, open(mj, "w"))
+        json.dump({"nombre": "T", "visual": {"colores": [{"nombre": "x", "hex": "#1F5C99", "rol": "primario"}]}, "brandKit": {"logo": [{"version": "principal", "archivo": "l.svg"}]}}, open(mj, "w", encoding="utf-8"))
         r = py(FL, "preparar", mj, "--salida", os.path.join(d, "flora_in"))
         if r.returncode != 0 and "No se pudo exportar" in (r.stdout + r.stderr):
             saltados.append("flora_logo preparar (sin rsvg-convert ni Chromium)")
@@ -412,11 +418,11 @@ with tempfile.TemporaryDirectory() as d:
     TI = os.path.join(RAIZ, "skills", "identidad", "tools", "tableros_identidad.py")
     dj = os.path.join(d, "dirs.json")
     base_d = {"nombre": "A", "idea": "x", "colores": {"primario": "#2F4BD8", "profundo": "#10163A", "acento": "#00C27A", "fondo": "#F4F5F7", "texto": "#12141A"}, "tipografia": {"titulos": "Inter", "texto": "Inter"}, "firma": "horizonte", "frase": "Hola", "radio": 12}
-    json.dump([base_d, dict(base_d, nombre="B", firma="puntos", colores=dict(base_d["colores"], primario="#E8A33D"))], open(dj, "w"))
+    json.dump([base_d, dict(base_d, nombre="B", firma="puntos", colores=dict(base_d["colores"], primario="#E8A33D"))], open(dj, "w", encoding="utf-8"))
     r = py(TI, PULSO, dj, "--salida", os.path.join(d, "tabs"))
     ok(r.returncode == 0 and os.path.exists(os.path.join(d, "tabs", "direccion-2.html")), "tableros_identidad genera un tablero por dirección")
-    ok("se parecen" in py(TI, PULSO, json.dump([base_d, dict(base_d, nombre="B")], open(dj, "w")) or dj, "--salida", os.path.join(d, "tabs2")).stdout, "tableros_identidad avisa si las direcciones se parecen")
-    json.dump([base_d], open(dj, "w"))
+    ok("se parecen" in py(TI, PULSO, json.dump([base_d, dict(base_d, nombre="B")], open(dj, "w", encoding="utf-8")) or dj, "--salida", os.path.join(d, "tabs2")).stdout, "tableros_identidad avisa si las direcciones se parecen")
+    json.dump([base_d], open(dj, "w", encoding="utf-8"))
     ok(py(TI, PULSO, dj, "--salida", os.path.join(d, "tabs3")).returncode != 0, "tableros_identidad exige de 2 a 3 direcciones")
 
     # 7l: proveedor de imagen guardado y Gemini API simulada
@@ -457,10 +463,10 @@ with tempfile.TemporaryDirectory() as d:
         threading.Thread(target=gs.serve_forever, daemon=True).start()
         genv = dict(os.environ, GEMINI_API_BASE="http://127.0.0.1:%d/v1beta" % gs.server_port, GEMINI_API_KEY="K")
         GG = os.path.join(AQUI, "generar_gemini.py")
-        sc = subprocess.run([sys.executable, GG, "modelos"], capture_output=True, text=True, env={**genv, "GEMINI_API_KEY": ""})
+        sc = subprocess.run([sys.executable, GG, "modelos"], capture_output=True, text=True, encoding="utf-8", errors="replace", env={**genv, "GEMINI_API_KEY": ""})
         ok(sc.returncode != 0 and "aistudio.google.com/apikey" in (sc.stdout + sc.stderr), "generar_gemini sin clave explica cómo conseguirla")
         cg = os.path.join(d, "gfotos")
-        sg = subprocess.run([sys.executable, GG, "generar", "x", "--como", "objeto-1", "--aspecto", "4:5", "--carpeta", cg], capture_output=True, text=True, env=genv)
+        sg = subprocess.run([sys.executable, GG, "generar", "x", "--como", "objeto-1", "--aspecto", "4:5", "--carpeta", cg], capture_output=True, text=True, encoding="utf-8", errors="replace", env=genv)
         cred = open(os.path.join(cg, "creditos.md"), encoding="utf-8").read() if os.path.exists(os.path.join(cg, "creditos.md")) else ""
         ok(sg.returncode == 0 and os.path.exists(os.path.join(cg, "objeto-1.png")) and "| objeto-1.png | ia |" in cred and "Gemini API" in cred, "generar_gemini guarda la imagen y anota los créditos (servidor simulado)")
         gs.shutdown()
