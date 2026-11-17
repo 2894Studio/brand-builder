@@ -169,6 +169,14 @@ def prompt_imagen(b, d):
 
 def prompt_claude(b, brief_md):  # el brief completo (con las reglas de gusto y lo que se evita) va dentro
     nombre = b["nombre"]
+    col = b.get("colores") or {}
+    if col.get("tinta") and col.get("acento"):
+        tinta_regla = f"Una tinta ({col['tinta']}) más un acento ({col['acento']}); el logo tiene que seguir funcionando si el acento se sustituye por la misma tinta."
+    elif col.get("tinta"):
+        tinta_regla = f"Una sola tinta ({col['tinta']})."
+    else:
+        tinta_regla = "Una sola tinta; elige la que mejor defienda el brief y dime por qué."
+    brief_md = re.sub(r"\n## Tres direcciones a explorar.*?(?=\n## Cómo se elige)", "\n", brief_md, flags=re.S)   # las direcciones ya van detalladas abajo
     dirs = "\n".join(f"{i}. **{d['nombre']}** ({d['tipo']}): {d['idea']} Forma: {d['descripcion_visual']} Riesgo: {d['riesgo']}" for i, d in enumerate(b["direcciones"], 1))
     return f"""Eres un director de diseño de marca con oficio de identidad visual. Voy a darte un brief de logo. Quiero que **explores** opciones, no que me des una sola respuesta.
 
@@ -182,7 +190,7 @@ Diseña **tres logos** en SVG, uno por cada dirección de abajo, en un único ar
 
 # Reglas de oficio (no negociables)
 - Solo formas vectoriales y el nombre como texto. Sin fuentes externas: usa una fuente del sistema o dibuja la letra con formas, y dime cuál usarías de verdad.
-- Una sola tinta{(" (" + b['colores']['tinta'] + ")") if (b.get('colores') or {}).get('tinta') else ''}; el acento solo si la dirección lo necesita y se ve igual en una tinta.
+- {tinta_regla}
 - Sin degradados, sombras ni efectos. Geometría construida (círculos, rectángulos, arcos), no dibujo a mano alzada.
 - Evita estos tópicos de la categoría: {', '.join(b['cliches'])}.
 - Cumple las restricciones: {'; '.join(b.get('restricciones') or ['ninguna adicional'])}.

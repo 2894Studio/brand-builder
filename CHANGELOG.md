@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.10.3 (2026-11-17)
+
+- **Prompt de Claude (B) sin repeticiones ni contradicciones:** ya no incluye dos veces las tres direcciones (van una sola vez, detalladas) y la regla de color coincide con el brief («una tinta más un acento que se pueda sustituir por la misma tinta»).
+
 ## 2.10.2 (2026-11-17)
 
 - **Prompts de imagen más limpios:** el prompt «natural» va solo en positivo (nombrar lo que no quieres, como «literal bee», puede hacer que el modelo lo dibuje) y los «negative prompt» van aparte, con la indicación de usarlos solo si la herramienta tiene ese campo. Se corrige la contradicción «una sola tinta» frente a «tinta más acento»: ahora dice «one ink colour plus one accent colour» cuando hay acento.
