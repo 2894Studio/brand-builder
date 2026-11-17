@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.1.0 (2026-11-17)
+
+- **Las rondas de la estrategia se hacen siempre con el diálogo nativo** (`AskUserQuestion`; `ask_question` en Antigravity), también las abiertas: las opciones son 2 a 4 respuestas típicas y contrapuestas, que hacen de ejemplos, y la persona escribe lo suyo en «Other». Antes las abiertas iban en texto del chat y no aparecían como preguntas nativas.
+- **Brevedad para ahorrar tokens:** sin preámbulos ni explicación del método, pregunta de una línea, el porqué en menos de 12 palabras, espejo de máximo 5 líneas y cero relleno entre diálogos.
+
 ## 3.0.1 (2026-11-17)
 
 - **Rondas más ligeras:** 3 o 4 preguntas por ronda como máximo (la cerrada cuenta) y cada pregunta con un solo signo de interrogación; el porqué y los ejemplos de respuesta van sin interrogaciones. En una prueba con Sonnet las rondas llegaron a 5 preguntas numeradas más una cerrada, con varias interrogaciones encadenadas.

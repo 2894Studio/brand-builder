@@ -18,7 +18,7 @@ La entrevista es el producto. Una pregunta buena obliga a **recordar una escena 
 ## 1. Cómo preguntar
 
 - **3 o 4 preguntas por ronda, nunca más**, en un mensaje, de tú. Elige las que más hagan pensar a **esta** persona; el banco no se recorre entero. La pregunta cerrada cuenta dentro de las 3 o 4.
-- **Cada pregunta, con su porqué** en una línea («te lo pregunto porque…»).
+- **Cada pregunta, corta; el porqué solo si hace falta**, en menos de 12 palabras y dentro del diálogo (descripción de las opciones).
 - **Escenas, no definiciones.** «Cuéntame la última vez que…», «imagina que…», «¿qué hizo esa persona cuando…?».
 - **Si es difícil**, dos ejemplos de respuesta **contrapuestos** («por ejemplo, “porque el otro es caro” o “porque nadie me contestaba”») para que no copie uno.
 - **Lo que ya contó no se vuelve a preguntar.** Se cita («me dijiste que…») y se sube de nivel.

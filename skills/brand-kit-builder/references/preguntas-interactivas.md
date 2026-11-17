@@ -2,27 +2,30 @@
 
 Cuando el entorno lo permite, las preguntas **cerradas** se hacen con la herramienta nativa de preguntas con opciones: la persona elige con el teclado o el ratón en vez de escribir. En Claude Code esa herramienta se llama `AskUserQuestion`. Si el entorno tiene otra equivalente, úsala igual (en Google Antigravity, según `AGENTS.md`, es `ask_question`). Si no hay ninguna (modo no interactivo, otro agente o una superficie sin diálogos), pasa a la **alternativa en el chat** de más abajo. Esta convención no cambia qué se pregunta ni el orden: solo cómo.
 
-## Qué va en diálogo y qué no
+## En la estrategia, TODAS las preguntas van en diálogo nativo
 
-| En diálogo (cerradas) | En el chat (abiertas) |
-|---|---|
-| Elegir entre territorios, logo A o B, tono (serio, divertido, tecnológico) | Qué hace el negocio, a quién, por qué existe |
-| Mockups: sí / no / al ver el logo · ¿web o app? · soporte principal | **Qué nunca debe parecer la marca** |
-| Confirmar un resumen o una lectura: «es correcto» / «hay que ajustar» | Qué le gusta de una referencia (el atributo) |
-| Aprobar un paso y pasar al siguiente · tipo de referencia (sí / no / otra) · **proveedor de imagen** (Canva / otro de pago / Gemini o Flow gratis / ninguno) | Cualquier ajuste: «qué cambia exactamente» |
+Las rondas de `estrategia` (2 o 3, de 3 o 4 preguntas) se hacen **siempre con la herramienta nativa**, no en texto del chat. Las preguntas **abiertas** (escenas, origen, qué nunca haría) también: pon como opciones **2 a 4 respuestas típicas y contrapuestas** (ejemplos de respuesta, de una o dos palabras con una descripción breve) y la persona escribe lo suyo con «Other» cuando ninguna encaja. Así las opciones hacen de ejemplos y no hace falta explicarlos en un párrafo. Solo cuando no haya herramienta de diálogo se usa la alternativa en el chat (abajo).
 
-Regla práctica: si hay 2 a 4 respuestas razonables, diálogo; si la respuesta es una frase propia, chat. Una pregunta abierta forzada a opciones empobrece la respuesta, y la entrevista depende de respuestas ricas.
+Fuera de la estrategia, lo cerrado va en diálogo (territorio, tono, aprobar un paso, mockups, proveedor de imagen) y lo que es una frase propia, en el chat.
+
+## Brevedad (ahorrar tokens)
+
+- **Nada de preámbulos**: ni «voy a empezar con…», ni explicar el método, ni repetir lo que la persona ya dijo.
+- **La pregunta, corta** (una línea) y entendible sola. El porqué, solo si no es obvio y en **una frase de menos de 12 palabras**, dentro de la descripción de las opciones o del encabezado, no en un párrafo.
+- **El espejo**: máximo 5 líneas (lo que oigo, lo que chirría, lo que falta), sin repetir sus palabras enteras.
+- Entre diálogos, **cero texto de relleno**: el espejo y la siguiente ronda. Nada de «¡genial!» ni resúmenes de lo que vas a hacer.
+- Si una respuesta ya cubre varias preguntas de la siguiente ronda, **quítalas**.
 
 ## Reglas del diálogo
 
-1. **Hasta 4 preguntas por diálogo** y de 2 a 4 opciones cada una. No añadas «Otro»: la herramienta ya deja escribir otra respuesta.
+1. **Hasta 4 preguntas por diálogo** y de 2 a 4 opciones cada una. No añadas «Otro»: la herramienta ya deja escribir otra respuesta ("Other").
 2. **Cada pregunta se entiende sola.** Quien responde puede ver solo el diálogo: di de qué pieza o decisión hablas y nombra las opciones por lo que son, no «la de antes».
 3. **Etiqueta corta** (1 a 5 palabras) y una descripción con **la consecuencia** de elegirla.
 4. **Recomendación solo si la tienes y puedes justificarla:** ponla primera y añade «(Recomendada)». Si no hay motivo, no recomiendes.
 5. **Selección múltiple** solo si las opciones no se excluyen.
 6. **Las imágenes no caben en el diálogo.** Enseña primero las opciones (los dos logos, los territorios) y después pregunta cuál. Nunca preguntes por algo que la persona aún no ha visto.
 7. **No uses el diálogo para pedir permiso de seguir** («¿procedo?»). Pregunta para decidir, no para avanzar sin más.
-8. **Mantén las tres rondas de la entrevista:** cada ronda sigue siendo un solo turno. Dentro de la ronda, lo abierto va en el chat y lo cerrado en un único diálogo.
+8. **Mantén las rondas de la entrevista:** cada ronda es un solo diálogo de 3 o 4 preguntas.
 
 ## Alternativa en el chat (sin herramienta de diálogo)
 

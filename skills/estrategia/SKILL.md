@@ -13,6 +13,9 @@ Lee antes: `../brand-kit-builder/references/criterio-experto.md`, `references/en
 
 ## Cómo es la conversación
 
+- **Cada ronda es UN diálogo nativo** (`AskUserQuestion`; en Antigravity, `ask_question`), con 3 o 4 preguntas y de 2 a 4 respuestas típicas por pregunta; la persona escribe lo suyo en «Other». **No hagas las preguntas en texto del chat** salvo que no haya herramienta de diálogo (`../brand-kit-builder/references/preguntas-interactivas.md`).
+- **Sé breve, ahorra tokens:** sin preámbulos ni explicaciones del método; pregunta de una línea; el porqué, en menos de 12 palabras y solo si hace falta; espejo de máximo 5 líneas; nada de relleno entre diálogos.
+
 - **Dos o tres rondas.** Cada ronda es **un solo mensaje** tuyo, **de tú**, con **3 o 4 preguntas numeradas, nunca más** (la pregunta cerrada también cuenta). **Cada pregunta es UNA sola, con un solo signo de interrogación**: si te salen dos en la misma, es otra pregunta, y la quitas o la dejas para la siguiente ronda. Mejor pocas y buenas que muchas: la persona tiene que poder contestarlas de una sentada.
 - **Preguntas buenas, no un formulario:** abiertas, concretas y sobre **situaciones reales** («cuéntame el último cliente que casi no te compró»), nunca abstracciones («¿cuál es tu propuesta de valor?»). Cada pregunta lleva, en una línea, **por qué la haces** (la persona aprende a pensar su marca mientras contesta). Si la pregunta es difícil, da **dos ejemplos de respuesta contrapuestos** para que no copie uno.
 - **Entre rondas, un espejo** (ver abajo). Es lo que más ayuda: devolver lo que has oído, señalar lo que chirría y decir lo que aún no sabes.

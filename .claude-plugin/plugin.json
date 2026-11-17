@@ -2,7 +2,7 @@
   "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "brand-kit-builder",
   "displayName": "Brand Kit Builder",
-  "version": "3.0.1",
+  "version": "3.1.0",
   "description": "Crea una identidad de marca completa, de la entrevista al manual y a los tokens de diseño para web y app. Independiente de herramientas; Canva opcional. Deja un marca.json que creative-architect ya sabe leer.",
   "author": {
     "name": "2894 Studio",
