@@ -171,7 +171,8 @@ def main():
                         plantillas_ok = bool(str(json.load(open(bpg, encoding="utf-8")).get("plantillas_ok", "")).strip())
                     except Exception:  # noqa: BLE001
                         pass
-                ok(any(x in ("compuesto", "propio") for x in arqs) or plantillas_ok or not arqs, "tu gusto tiene reglas de composición para posts: al menos un post es composición a medida (post_compuesto.py o HTML propio), no solo plantillas" + (f" (ahora: {', '.join(arqs)})" if arqs else ""))
+                a_medida = [x in ("compuesto", "propio") for x in arqs]
+                ok(all(a_medida) or plantillas_ok or not arqs, "tu gusto tiene reglas de composición para posts: los dos posts son composición a medida (post_compuesto.py o HTML propio), no plantillas" + (f" (ahora: {', '.join(arqs)})" if arqs else ""))
             ids = {r["id"] for r in reglas}
             for cf in sorted(glob.glob(os.path.join(c, "composicion-*.json"))):
                 try:
@@ -179,6 +180,15 @@ def main():
                 except Exception:  # noqa: BLE001
                     rf = []
                 ok(bool(rf) and all(x in ids for x in rf), f"{os.path.basename(cf)} cita reglas de gusto que existen" + ("" if rf and all(x in ids for x in rf) else f" ({', '.join(x for x in rf if x not in ids) or 'sin referencias'})"))
+                # la composición debe aplicar al menos una regla de símbolo, forma, firma o imagen (no solo «aire»), y llevar algún elemento gráfico
+                graf = {r["id"] for r in reglas if r["dimension"] in ("simbolo", "firma", "forma", "imagen") and "post" in (r["aplica_en"] or []) and not r["prohibe"]}
+                if graf:
+                    ok(bool(graf & set(rf)), f"{os.path.basename(cf)} aplica al menos una regla gráfica de tus referencias ({', '.join(sorted(graf)[:6])}), no solo las de aire y tipografía")
+                try:
+                    els = json.load(open(cf, encoding="utf-8")).get("elementos") or []
+                except Exception:  # noqa: BLE001
+                    els = []
+                ok(any(e.get("tipo") in ("forma", "firma", "foto", "insignia", "simbolo", "palabra") for e in els), f"{os.path.basename(cf)} lleva algún elemento gráfico (forma, firma, foto, insignia, símbolo o palabra gigante), no solo texto")
             rev = os.path.join(c, "revision-gusto.md")
             ok(os.path.exists(rev), "revision-gusto.md existe (contraste de las piezas con las referencias)")
             if os.path.exists(rev):

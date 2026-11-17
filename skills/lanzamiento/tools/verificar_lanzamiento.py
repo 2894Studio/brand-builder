@@ -13,6 +13,7 @@ for _flujo in (_sys.stdout, _sys.stderr):      # Windows: con la salida en una t
         pass
 import json
 import os
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -506,7 +507,7 @@ with tempfile.TemporaryDirectory() as d:
     json.dump(gg2, open(gj2, "w", encoding="utf-8"))
     open(rev, "w", encoding="utf-8").write("- R1 [composicion] x → cumple: a\n- R2 [simbolo] x → cumple: b\n- R3 [color] x → cumple: c\n- R4 [tipografia] x → cumple: d\n")
     r4 = py(PUERTA, kit, "--marca", PULSO, "--gusto", gj2)
-    ok("al menos un post es composición a medida" in r4.stdout and "PUERTA CERRADA" in r4.stdout, "con reglas de composición para posts, dos posts de plantilla cierran la puerta")
+    ok("los dos posts son composición a medida" in r4.stdout and "PUERTA CERRADA" in r4.stdout, "con reglas de composición para posts, dos posts de plantilla cierran la puerta")
     spec = os.path.join(d, "spec_t.json")
     json.dump({"concepto": {"referencias": ["R1"], "decisiones": "recorte en el borde"}, "fondo": {"color": "primario"},
                "elementos": [{"tipo": "palabra", "texto": "bici", "x": 560, "y": -40, "tam": 600, "color": "fondo", "giro": 90}, {"tipo": "texto", "texto": "Tu bici <b>a punto</b>", "x": 70, "y": 160, "ancho": 460, "tam": 96, "peso": 300}]}, open(spec, "w", encoding="utf-8"))
@@ -516,11 +517,90 @@ with tempfile.TemporaryDirectory() as d:
     json.dump({"fondo": {"color": "primario"}, "elementos": []}, open(sin, "w", encoding="utf-8"))
     ok(py(os.path.join(AQUI, "post_compuesto.py"), PULSO, "--spec", sin, "--salida", os.path.join(d, "x.html")).returncode != 0, "post_compuesto se niega sin «concepto» que cite reglas de gusto")
     r5 = py(PUERTA, kit, "--marca", PULSO, "--gusto", gj2)
-    ok("al menos un post es composición a medida" not in r5.stdout.split("PUERTA")[0].split("FALLO")[-1] if "FALLO  tu gusto" in r5.stdout else True, "con un post compuesto se cumple la exigencia de composición a medida")
+    ok("FALLO  tu gusto tiene reglas de composición para posts: los dos posts" in r5.stdout, "con solo UN post a medida y el otro de plantilla la puerta sigue cerrada")
+    spec1 = os.path.join(d, "spec_1.json")
+    json.dump({"concepto": {"referencias": ["R1"], "decisiones": "forma grande de acento"}, "fondo": {"color": "fondo"},
+               "elementos": [{"tipo": "forma", "forma": "circulo", "x": 500, "y": 700, "w": 700, "h": 700, "color": "acento"}, {"tipo": "texto", "texto": "Otra <b>idea</b>", "x": 70, "y": 900, "ancho": 520, "tam": 96}]}, open(spec1, "w", encoding="utf-8"))
+    py(os.path.join(AQUI, "post_compuesto.py"), PULSO, "--spec", spec1, "--salida", os.path.join(kit, "post-1-que-es.html"))
+    shutil.copyfile(spec1, os.path.join(kit, "composicion-1.json"))
+    shutil.copyfile(spec, os.path.join(kit, "composicion-2.json"))
+    r5b = py(PUERTA, kit, "--marca", PULSO, "--gusto", gj2)
+    ok("FALLO  tu gusto tiene reglas de composición para posts" not in r5b.stdout, "con los dos posts a medida se cumple la exigencia de composición")
+    ok("OK     los dos posts no comparten composición ni arquetipo" in r5b.stdout or "FALLO  los dos posts no comparten" not in r5b.stdout, "dos composiciones a medida distintas no cuentan como la misma plantilla")
+    # solo texto: el script se niega
+    solo = os.path.join(d, "spec_solo.json")
+    json.dump({"concepto": {"referencias": ["R1"], "decisiones": "x"}, "fondo": {"color": "fondo"}, "elementos": [{"tipo": "texto", "texto": "Solo texto", "x": 70, "y": 200, "ancho": 800, "tam": 100}]}, open(solo, "w", encoding="utf-8"))
+    rs = py(os.path.join(AQUI, "post_compuesto.py"), PULSO, "--spec", solo, "--salida", os.path.join(d, "solo.html"))
+    ok(rs.returncode != 0 and "solo texto" in (rs.stdout + rs.stderr), "post_compuesto se niega a dibujar una composición que es solo texto")
+    sim = os.path.join(d, "spec_sim.json")
+    json.dump({"concepto": {"referencias": ["R1"], "decisiones": "x"}, "fondo": {"color": "fondo"}, "elementos": [{"tipo": "simbolo", "x": 100, "y": 100, "w": 500}]}, open(sim, "w", encoding="utf-8"))
+    rm = py(os.path.join(AQUI, "post_compuesto.py"), PULSO, "--spec", sim, "--salida", os.path.join(d, "sim.html"))
+    ok(rm.returncode != 0 and "simbolo" in (rm.stdout + rm.stderr), "el elemento «simbolo» exige que el logo tenga versión «simbolo»")
+    # la puerta exige aplicar una regla gráfica si el gusto las tiene para posts
+    gg3 = _GL.nuevo()
+    gg3["referencias"] = [{"nombre": "r1", "tipo": "si", "nota_usuario": "x", "decisiones": [
+        {"dimension": "composicion", "regla": "elemento recortado por el borde", "aplica_en": ["post"]},
+        {"dimension": "forma", "regla": "formas geométricas grandes de acento", "aplica_en": ["post"]}]}]
+    gj3 = os.path.join(d, "gusto_g3.json")
+    json.dump(gg3, open(gj3, "w", encoding="utf-8"))
+    json.dump({"concepto": {"referencias": ["R1"], "decisiones": "solo el recorte"}, "fondo": {"color": "primario"},
+               "elementos": [{"tipo": "palabra", "texto": "bici", "x": 560, "y": -40, "tam": 600, "color": "fondo", "giro": 90}]}, open(os.path.join(kit, "composicion-2.json"), "w", encoding="utf-8"))
+    open(rev, "w", encoding="utf-8").write("- R1 [composicion] x → cumple: a\n- R2 [forma] x → cumple: b\n")
+    r5c = py(PUERTA, kit, "--marca", PULSO, "--gusto", gj3)
+    ok("FALLO  composicion-2.json aplica al menos una regla gráfica" in r5c.stdout, "una composición que no aplica ninguna regla gráfica del gusto cierra la puerta")
+    shutil.copyfile(spec, os.path.join(kit, "composicion-2.json"))
     open(rev, "w", encoding="utf-8").write("- R1 [composicion] x → parcial: a\n- R2 [simbolo] x → parcial: b\n- R3 [color] x → cumple: c\n- R4 [tipografia] x → cumple, queda pendiente cambiar d\n")
     r6 = py(PUERTA, kit, "--marca", PULSO, "--gusto", gj2)
     ok("máximo 25 %" in r6.stdout and "FALLO  «parcial» en 2 de 4" in r6.stdout, "demasiadas reglas en «parcial» cierran la puerta")
     ok("ninguna regla confiesa trabajo sin hacer (R4)" in r6.stdout and "FALLO  ninguna regla confiesa" in r6.stdout, "una regla que confiesa trabajo pendiente cierra la puerta")
+
+    # 7o: símbolos geométricos para el logo y variedad entre composiciones a medida
+    SIMB = os.path.join(AQUI, "..", "..", "identidad", "tools", "simbolo_geometrico.py")
+    so = os.path.join(d, "simbolos")
+    base_args = ["--nombre", "Pulso", "--tinta", "#0E1A2B", "--acento", "#E8B04B", "--fondo", "#F5F3EE", "--salida", so]
+    rg = py(SIMB, *base_args, "--tipos", "baldosa,bloques")
+    import xml.dom.minidom as _md
+    svgs_ok = rg.returncode == 0
+    for ll in ("a", "b"):
+        for n in ("principal", "invertida", "monocroma", "simbolo"):
+            try:
+                _md.parse(os.path.join(so, f"opcion-{ll}", n + ".svg"))
+            except Exception:  # noqa: BLE001
+                svgs_ok = False
+    ok(svgs_ok and os.path.exists(os.path.join(so, "comparar.html")), "simbolo_geometrico genera dos opciones con principal, invertida, monocroma y símbolo (SVG válidos) y la hoja de comparación")
+    ok(py(SIMB, *base_args, "--tipos", "arcos,arcos").returncode != 0, "simbolo_geometrico exige dos tipos distintos")
+    ok(py(SIMB, *base_args, "--tipos", "arcos").returncode != 0, "simbolo_geometrico exige exactamente dos tipos")
+    ok(py(SIMB, "--nombre", "Pulso", "--tinta", "#EEEEEE", "--acento", "#E8B04B", "--fondo", "#FFFFFF", "--salida", so, "--tipos", "arcos,orbita").returncode != 0, "simbolo_geometrico rechaza una tinta sin contraste con el fondo")
+    a1 = open(os.path.join(so, "opcion-a", "simbolo.svg"), encoding="utf-8").read()
+    py(SIMB, *base_args, "--tipos", "baldosa,bloques")
+    ok(a1 == open(os.path.join(so, "opcion-a", "simbolo.svg"), encoding="utf-8").read(), "el símbolo es determinista para el mismo nombre y variante")
+    py(SIMB, *base_args[:-2], "--nombre", "Otra", "--salida", so + "2", "--tipos", "baldosa,bloques")
+    ok(a1 != open(os.path.join(so + "2", "opcion-a", "simbolo.svg"), encoding="utf-8").read(), "dos marcas distintas no obtienen el mismo símbolo")
+    dst = os.path.join(d, "logo-elegido")
+    rel = py(SIMB, "--elegir", "b", "--salida", so, "--destino", dst)
+    ok(rel.returncode == 0 and all(os.path.exists(os.path.join(dst, n + ".svg")) for n in ("principal", "invertida", "monocroma", "simbolo", "simbolo-invertido")), "--elegir copia la opción a la carpeta del logo")
+    # variedad: dos composiciones a medida con la misma disposición son la misma plantilla; con otra disposición, no
+    VAR = os.path.join(AQUI, "variedad.py")
+    ca, cb = os.path.join(d, "ca.html"), os.path.join(d, "cb.html")
+    mk = lambda pos: '<meta name="arquetipo" content="compuesto">' + "".join(f'<div class="{c}" style="left:{x}px;top:{y}px">x</div>' for c, x, y in pos)  # noqa: E731
+    open(ca, "w", encoding="utf-8").write(mk([("t", 70, 180), ("f", 500, 700), ("t", 70, 1180)]))
+    open(cb, "w", encoding="utf-8").write(mk([("t", 70, 180), ("f", 500, 700), ("t", 70, 1180)]))
+    ok(py(VAR, ca, cb).returncode == 1, "variedad: dos composiciones a medida con la misma disposición son PARECIDAS")
+    open(cb, "w", encoding="utf-8").write(mk([("g", 600, -40), ("s", 70, 700), ("t", 700, 1200), ("f", 0, 0)]))
+    ok(py(VAR, ca, cb).returncode == 0, "variedad: dos composiciones a medida con otra disposición no lo son")
+
+    # el crítico mide el texto contra la forma que tiene debajo (antes un texto oscuro sobre un círculo oscuro pasaba con «0 errores»)
+    ocul = os.path.join(d, "spec_oculto.json")
+    json.dump({"concepto": {"referencias": ["R1"], "decisiones": "x"}, "fondo": {"color": "acento"},
+               "elementos": [{"tipo": "forma", "forma": "circulo", "x": 100, "y": 500, "w": 800, "h": 800, "color": "texto"},
+                             {"tipo": "texto", "texto": "Texto oscuro sobre un círculo oscuro", "x": 200, "y": 800, "ancho": 600, "tam": 70, "color": "texto"}]}, open(ocul, "w", encoding="utf-8"))
+    ho = os.path.join(d, "oculto.html")
+    py(os.path.join(AQUI, "post_compuesto.py"), PULSO, "--spec", ocul, "--salida", ho)
+    rco = py(CRITICO, ho, "--ancho", "1080", "--alto", "1440")
+    if rco.returncode == 2:
+        print("  SALTADO crítico bajo el texto: falta Playwright")
+    else:
+        ok(rco.returncode != 0 and "contraste" in rco.stdout, "el crítico detecta un texto oscuro sobre una forma oscura que hay debajo")
 
     # 8. el crítico acepta el bento
     r = py(CRITICO, salida, "--ancho", "1920", "--alto", "1080")

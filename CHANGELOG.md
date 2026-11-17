@@ -1,5 +1,14 @@
 # Changelog
 
+## 2.8.0 (2026-11-17)
+
+La prueba 3 con tu gusto entrenado (2.7.0) dio un post de titular sobre fondo liso y otro con una cifra: seguía siendo plantilla. Se cierran las vías fáciles:
+
+- **Los dos posts a medida:** con reglas de composición para posts en el gusto, **ambos** posts deben ser `compuesto` (o `html` propio). `kit_lanzamiento.py` lo comprueba antes de renderizar y la puerta de nuevo. Dos composiciones a medida solo cuentan como distintas si cambia su disposición (`variedad.py` compara dónde están los elementos).
+- **Nada de «solo aire»:** cada composición debe citar al menos una regla gráfica del gusto (símbolo, forma, firma o imagen) y llevar al menos un elemento gráfico; `post_compuesto.py` se niega a dibujar una composición que es solo texto. Elemento nuevo `simbolo`: el símbolo del logo a gran tamaño y recortado por el borde.
+- **El crítico mira lo que hay debajo del texto:** un círculo o bloque opaco bajo un texto cuenta como su fondo (se mide el peor punto). Una prueba real con un texto sobre un círculo del mismo color se había escapado con «0 errores».
+- **Logo con símbolo, gratis:** `identidad/tools/simbolo_geometrico.py` genera dos opciones de logo con símbolo (baldosa, órbita, pliegue, bloques, arcos) con la paleta de la marca: principal, invertida, monocroma, símbolo y símbolo invertido (para fondos oscuros), más una hoja de comparación. El agente elige los dos tipos con una razón escrita y el resultado alimenta el bento y los posts. Es un punto de partida honesto, no sustituye a un dibujo a mano.
+
 ## 2.7.0 (2026-11-17)
 
 - **Composición a medida (contra las plantillas):** `post_compuesto.py` dibuja una composición que **diseña el agente** con una especificación JSON (texto, palabra gigante recortada, formas, gráfico firma, foto con marco de sello o redondeado, insignia, cifra, línea, logo), con la paleta y fuentes de la marca; exige `concepto.referencias` que cite reglas de gusto (R#). `contacto_referencias.py --para post|logo|bento|web` deja una hoja con solo las referencias y reglas de ese destino para **mirarlas antes de diseñar**. Guía en `lanzamiento/references/composicion-a-medida.md`; recurso `compuesto` en `kit_lanzamiento.py`.

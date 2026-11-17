@@ -46,6 +46,15 @@ def arquetipo(ruta):
     return m.group(1) if m else ""
 
 
+def disposicion(ruta):
+    """Para composiciones a medida: (clase, celda de 270×360) de cada elemento absoluto; dos piezas con la misma disposición son el mismo esqueleto."""
+    h = re.sub(r"data:[^\"')]+", "", open(ruta, encoding="utf-8").read())
+    out = set()
+    for m in re.finditer(r'<div class="([a-z]+)"[^>]*style="left:(-?\d+)px;top:(-?\d+)px', h):
+        out.add((m.group(1), int(m.group(2)) // 270, int(m.group(3)) // 360))
+    return out
+
+
 def jaccard(a, b):
     return len(a & b) / len(a | b) if a | b else 0.0
 
@@ -70,6 +79,13 @@ def main():
     for o in otras:
         j = jaccard(f0, firma(o))
         fam0, fam1 = arquetipo(a.pieza), arquetipo(o)
+        if fam0 == fam1 == "compuesto":              # a medida: el arquetipo no basta, se compara la disposición real de los elementos
+            d0, d1 = disposicion(a.pieza), disposicion(o)
+            jd = jaccard(d0, d1)
+            parecida = jd >= 0.6
+            print(f"  {'PARECIDA' if parecida else 'ok':9} {jd:.2f}  {_rel(o)}  (a medida: disposición de elementos)")
+            mal += parecida
+            continue
         misma = bool(fam0) and fam0 == fam1          # mismo arquetipo de composición = misma plantilla, aunque cambien textos y colores
         ambas = bool(fam0) and bool(fam1)
         # con arquetipo declarado en las dos piezas manda el arquetipo (otro arquetipo = otra composición); sin él, el índice de clases

@@ -49,6 +49,27 @@
     const fg = parseColor(cs.color), bg = fondoEfectivo(el);
     let contraste = null;
     if (fg && bg.opaco) { const f = fg.a < 1 ? {r: fg.r * fg.a + bg.r * (1 - fg.a), g: fg.g * fg.a + bg.g * (1 - fg.a), b: fg.b * fg.a + bg.b * (1 - fg.a)} : fg; contraste = Math.round(ratio(f, bg) * 100) / 100; }
+    // lo que hay DEBAJO del texto: una forma opaca (círculo, bloque) que no es su ancestro también es su fondo; se mide el peor punto
+    if (fg && !el.closest('[data-decorativo]')) {
+      try {
+        const rg2 = document.createRange(); rg2.selectNodeContents(el);
+        const cajas = Array.from(rg2.getClientRects()).filter(q => q.width > 2 && q.height > 2).slice(0, 8);
+        for (const q of cajas) for (const fx of [0.08, 0.5, 0.92]) {
+          const px = q.left + q.width * fx, py = q.top + q.height * 0.5;
+          if (px < 0 || py < 0 || px >= W || py >= H) continue;
+          const pila = document.elementsFromPoint(px, py);
+          let idx = -1; pila.forEach((s, i) => { if (el.contains(s)) idx = i; });
+          for (let k = idx + 1; k < pila.length; k++) {
+            const sc = getComputedStyle(pila[k]);
+            const esAncestro = pila[k].contains(el);          // el fondo de los ancestros ya está medido arriba: solo cuentan las formas que NO lo son
+            if (sc.backgroundImage && sc.backgroundImage !== 'none') break;
+            const c = parseColor(sc.backgroundColor);
+            if (esAncestro) { if (c && c.a >= 0.99) break; continue; }
+            if (c && c.a >= 0.99) { const f = fg.a < 1 ? {r: fg.r * fg.a + c.r * (1 - fg.a), g: fg.g * fg.a + c.g * (1 - fg.a), b: fg.b * fg.a + c.b * (1 - fg.a)} : fg; const rt = Math.round(ratio(f, c) * 100) / 100; if (contraste === null || rt < contraste) contraste = rt; break; }
+          }
+        }
+      } catch (e) { /* sin medición extra */ }
+    }
     const size = parseFloat(cs.fontSize), peso = parseInt(cs.fontWeight) || 400;
     // líneas por palabra
     const partidas = []; const palabras = []; const rg = document.createRange();

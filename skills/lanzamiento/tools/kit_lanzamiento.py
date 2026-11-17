@@ -83,7 +83,19 @@ def main():
     # arquetipos: los dos posts no pueden ser de la misma familia, y la interfaz (móvil, ventana) solo para productos digitales
     fam = {"telefono": "ui", "pantalla": "ui", "comparativa": "datos", "mapa": "mapa", "foto": "foto", "compuesto": "compuesto", "expresivo_gigante": "expresivo:gigante", "expresivo_precio": "expresivo:precio", "cifra": "tipografico:cifra", "pasos": "tipografico:pasos", "manifiesto": "tipografico:manifiesto"}
     r1, r2 = b.get("post1", {}).get("recurso", ""), b.get("post2", {}).get("recurso", "")
-    if r1 in fam and r1 == r2 or (r1 in fam and r2 in fam and fam[r1] == fam[r2]):
+    # con gusto entrenado que tiene reglas de composición para posts, los dos posts se diseñan a medida (post_compuesto.py o html propio)
+    if gusto and os.path.exists(gusto) and not b.get("plantillas_ok"):
+        try:
+            sys.path.insert(0, os.path.join(AQUI, "..", "..", "gusto", "tools"))
+            import gusto_lib as GL
+            comp = [x for x in GL.reglas_numeradas(GL.cargar(gusto)) if x["dimension"] == "composicion" and "post" in (x["aplica_en"] or []) and not x["prohibe"]]
+        except Exception:  # noqa: BLE001
+            comp = []
+        plant = [n for n, rr in (("post1", r1), ("post2", r2)) if rr not in ("compuesto", "html")]
+        if comp and plant:
+            print(f"FALLO tu gusto tiene reglas de composición para posts ({', '.join(x['id'] for x in comp[:5])}…): {' y '.join(plant)} debe ser «compuesto» (composición a medida, ver skills/lanzamiento/references/composicion-a-medida.md). Si de verdad no procede, añade \"plantillas_ok\": \"motivo\" al brief.")
+            return 1
+    if r1 in fam and r1 == r2 and r1 != "compuesto" or (r1 in fam and r2 in fam and fam[r1] == fam[r2] and fam[r1] != "compuesto"):
         print(f"FALLO los dos posts son del mismo arquetipo ({fam[r1]}): {r1} y {r2}. Cambia uno (python3 {os.path.join(AQUI, 'proponer_posts.py')} {marca} propone combinaciones distintas)")
         return 1
     if "ui" in (fam.get(r1), fam.get(r2)) and not b.get("ui_ok"):

@@ -17,6 +17,7 @@ La especificación es un JSON; las coordenadas son píxeles del lienzo (post 108
     {"tipo": "foto", "cual": "retrato|equipo|producto|local", "x": 70, "y": 700, "w": 560, "h": 560, "marco": "sello|redondeado|recto|circulo", "giro": -4},
     {"tipo": "insignia", "x": 470, "y": 60, "d": 210, "giro": -12, "color": "fondo"},        (insignia festoneada con el símbolo del logo)
     {"tipo": "cifra", "valor": "5", "unidad": "alumnos por grupo", "x": 70, "y": 300, "tam": 440, "color": "acento"},
+    {"tipo": "simbolo", "x": 560, "y": 700, "w": 700, "giro": -10, "opacidad": 1},                 (el símbolo del logo a gran tamaño, puede salirse del lienzo; sobre fondo oscuro usa «simbolo_invertido» si el logo lo tiene; "tema": "oscuro|claro" lo fuerza)
     {"tipo": "linea", "x": 70, "y": 120, "w": 60, "grosor": 5, "color": "acento"},
     {"tipo": "logo", "x": 70, "y": 1310, "h": 62}
   ]
@@ -33,6 +34,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import lib_lanzamiento as L  # noqa: E402
 import post_expresivo as X  # noqa: E402
 
+GRAFICOS = ("forma", "firma", "foto", "insignia", "simbolo", "palabra")
 LIENZOS = {"post": (1080, 1440), "cuadrado": (1080, 1080), "historia": (1080, 1920)}
 EJEMPLO = {
     "concepto": {"referencias": ["R19", "R23"], "decisiones": "Directo y minimalista con un color llamativo y una imagen principal (R19, R23): palabra gigante recortada y una foto con marco."},
@@ -65,6 +67,8 @@ def main():
     refs = (spec.get("concepto") or {}).get("referencias") or []
     if not refs or not (spec["concepto"].get("decisiones") or "").strip():
         sys.exit("La composición necesita «concepto»: {\"referencias\": [\"R19\", …], \"decisiones\": \"qué se toma de ellas y cómo se traduce aquí\"} (reglas de gusto.py reglas)")
+    if not any(e.get("tipo") in GRAFICOS for e in spec.get("elementos", [])):
+        sys.exit("La composición es solo texto. Añade al menos un elemento gráfico (" + ", ".join(GRAFICOS) + "): una forma, la firma, una foto, el símbolo del logo a gran tamaño, una insignia o una palabra gigante recortada. Un post sin nada gráfico es una plantilla con otro nombre.")
     m = L.cargar_marca(a.marca)
     base = os.path.dirname(os.path.abspath(a.marca))
     c = L.colores(m)
@@ -125,6 +129,16 @@ def main():
             else:
                 rad = {"circulo": "50%", "recto": "0", "redondeado": f"{e.get('radio', 28)}px"}.get(marco, "28px")
                 partes.append(f'<div class="s" style="left:{x}px;top:{y}px;width:{w_}px;height:{h_}px;border-radius:{rad};overflow:hidden;{giro}background:url({L.data_uri(ruta)}) center/cover"></div>')
+        elif t == "simbolo":
+            if "simbolo" not in lg:
+                sys.exit(f"elemento {i + 1} (simbolo): el logo no tiene versión «simbolo». Genera uno con skills/identidad/tools/simbolo_geometrico.py (o pídelo en el paso de identidad) y regístralo en marca.json → brandKit.logo.")
+            w_ = e.get("w", 600)
+            oscuro_ = (e.get("tema") == "oscuro") or (e.get("tema") is None and L.luminancia(base_bg) < 0.25)
+            clave = "simbolo_invertido" if oscuro_ and "simbolo_invertido" in lg else "simbolo"
+            if oscuro_ and clave == "simbolo":
+                avisos.append(f"elemento {i + 1} (simbolo): fondo oscuro y el logo no tiene «simbolo_invertido»; el símbolo puede perderse (registra simbolo_invertido en brandKit.logo)")
+            partes.append(f'<div class="f" data-decorativo="1" data-bleed="1" style="left:{x}px;top:{y}px;width:{w_}px;height:{e.get("h", w_)}px;opacity:{e.get("opacidad", 1)};{giro}">'
+                          f'<img src="{L.data_uri(lg[clave])}" alt="" style="width:100%;height:100%;object-fit:contain"></div>')
         elif t == "insignia":
             d = e.get("d", 200)
             contenido = simbolo or ""
