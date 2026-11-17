@@ -2,6 +2,8 @@
 
 ## 2.10.1 (2026-11-17)
 
+- **El proveedor de imagen ya no se pregunta en la cadena por defecto** (brief de logo y prompts): no se genera ninguna imagen. Solo con el kit completo. Salió de la prueba con Sonnet, que lo preguntaba sin necesitarlo.
+
 - **El nombre es obligatorio y no se inventa** (`estrategia`): si falta, se pregunta en el primer mensaje; si la persona lo delega, se proponen tres con su razón y se comprueban. Salió de una prueba real con Sonnet en la que el agente inventó un nombre «provisional» y lo arrastró por todo el brief.
 - **`brief_logo.py` marca las reglas de gusto sin confirmar** (referencias armadas por el agente de memoria) en lugar de presentarlas como gustos de la persona.
 - **Arnés e2e:** el primer turno contesta siempre con los datos de la persona; escenario `agencia_talento_ia` para el flujo por defecto (brief de logo) y mediciones del brief.
