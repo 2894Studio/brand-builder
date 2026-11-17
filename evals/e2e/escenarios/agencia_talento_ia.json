@@ -1,0 +1,20 @@
+{
+ "nombre": "Agencia de talento en IA (Combbi), flujo por defecto: brief de logo",
+ "mensaje_inicial": "/brand-kit-builder Quiero crear una marca para una empresa de búsqueda de profesionales calificados en IA",
+ "respuesta_por_defecto": "Se llama Combbi. Buscamos ingenieros de machine learning y de LLMs para empresas medianas (50 a 300 personas) que quieren montar su equipo de IA. Cobramos un 15 % del salario anual cuando el candidato se incorpora. Lo que nos diferencia: entrevistamos a cada candidato con un ingeniero antes de presentarlo, pero todavía no tengo cifras. Queremos que se sienta seria pero no corporativa; nunca debe parecer una ETT ni una consultora grande. Tuteamos. Se verá sobre todo en LinkedIn y en una web sencilla. No tengo referencias de marcas: interprétalo tú y decide lo que haga falta. Sin mockups. Quiero como resultado final el brief de logo y los prompts para crear el logo con IA. Si hay opciones, elige la recomendada.",
+ "respuestas": [
+  {
+   "cuando": [
+    "territorio"
+   ],
+   "responde": "Elige tú el territorio que mejor encaje y sigue."
+  },
+  {
+   "cuando": [
+    "referencia",
+    "gusto"
+   ],
+   "responde": "No tengo referencias ni imágenes: construye tú el punto de partida desde la categoría y sigue."
+  }
+ ]
+}
