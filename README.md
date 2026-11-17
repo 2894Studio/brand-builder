@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/portada.png" alt="brand-kit-builder: piensa tu marca antes de diseñarla. Tres rondas de preguntas, un brief estratégico con tres vías y tres palabras clave para buscar referencias. Sin logo, sin paleta y sin recomendaciones visuales." width="100%">
+</p>
+
 # brand-kit-builder
 
 **Un plugin para pensar tu marca antes de diseñarla.**

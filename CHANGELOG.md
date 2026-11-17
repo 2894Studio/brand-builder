@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.1.2 (2026-11-17)
+
+- **Portada del GitHub** (`assets/portada.png`, fuente editable en `assets/src/portada.html`) con la identidad de 2894_ Studio: qué es, qué te llevas y qué no hace.
+
 ## 4.1.1 (2026-11-17)
 
 - El repositorio pasa a llamarse `2894Studio/brand-builder`: README y manifiestos apuntan a la nueva ubicación (el nombre del plugin sigue siendo `brand-kit-builder`).
