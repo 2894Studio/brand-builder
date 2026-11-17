@@ -1,172 +1,76 @@
-<p align="center">
-  <img src="assets/banner.png" alt="Brand Kit Builder, de 2894_: crea la identidad de una marca con Claude Code. Ocho pasos: estrategia, gusto, identidad, voz, tokens, manual, lanzamiento y entrega." width="100%">
-</p>
-
 # brand-kit-builder
 
-Plugin de Claude Code para crear la identidad de una marca de principio a fin: **entrevista, estrategia, logo, paleta, tipografía, voz, tokens de diseño para web y app, y manual de marca**. Funciona sin ninguna herramienta de pago, y deja un `marca.json` que [creative-architect](https://github.com/Hainrixz/creative-architect) ya sabe leer.
+**Un plugin para pensar tu marca antes de diseñarla.**
 
-Desarrollado por [2894 Studio](https://github.com/2894Studio) a partir del caso práctico de la formación **Marketing potenciado por IA**.
+Te hace buenas preguntas en 3 rondas, te devuelve un espejo de lo que oye, y te deja:
 
-## Qué te llevas al final
+1. un **brief estratégico** con **tres vías generales** para tu marca, y
+2. **tres palabras clave** para buscar referencias en **Behance, Pinterest y Dribbble**.
 
-- **El logo**, en SVG y en PNG con fondo transparente.
-- **El bento de la marca**: logo, símbolo, color, tipografía, voz, fotografía y proporción de tonos en un solo tablero.
-- **Dos posts**: el primero explica **qué es la marca** y el segundo muestra **su principal atributo**, los dos de forma visual (una interfaz, un mapa, una cifra con su fuente, una persona con su rol).
-- Además, el manual de marca, los tokens de diseño para web y app y `marca.json`.
+Y nada más. **No hace el logo, ni la paleta, ni la tipografía, ni da recomendaciones visuales.** Esto es lo que va *antes*: aclarar qué es tu marca, para quién y qué actitud tiene, para que lo que diseñes después tenga una razón.
 
-## Cómo funciona, paso a paso
+Desarrollado por [2894 Studio](https://github.com/2894Studio) a partir del caso práctico de la formación **Marketing potenciado por IA**. Funciona en Claude Code y en Google Antigravity.
 
-Un paso cada vez, y **siempre con tu aprobación**: sin tu visto bueno no pasa al siguiente.
+## Para quién es
 
-<p align="center">
-  <img src="assets/paso-a-paso.png" alt="Infografía del paso a paso: 1 Estrategia, 2 Gusto, 3 Identidad, 4 Voz, 5 Tokens, 6 Manual, 7 Lanzamiento, 8 Entrega. Para cada paso: qué hace la skill, qué haces tú y qué archivos te llevas." width="100%">
-</p>
+Para estudiantes, emprendedores y equipos que quieren crear o replantear una marca y no saben por dónde empezar, o que ya probaron a pedirle un logo a una IA y les salió genérico. Un buen logo sale de un buen brief; este plugin hace el brief.
 
-| # | Paso | Qué hace la skill | Qué haces tú | Te llevas |
-|---|---|---|---|---|
-| 1 | `/estrategia` | Entrevista en tres rondas (una por mensaje), busca el nombre en la web, propone tres territorios y un manifiesto | Respondes y confirmas el resumen; hasta entonces no se genera ninguna imagen | `estrategia.md` |
-| 2 | `/gusto` | Mide tus imágenes de referencia, lee su tono (serio, divertido, tecnológico) y fija una proporción | Traes de 6 a 8 referencias con una nota de qué te gusta y confirmas su lectura | `gusto.json` |
-| 3 | `/identidad` | Dos propuestas de logo (ni una más), paleta de cinco colores con contraste comprobado y dos tipografías como máximo | Eliges logo y paleta juntos | `logo/` y `marca.json` validado |
-| 4 | `/voz` | Define el trato, tres rasgos con «así sí / así no», seis situaciones difíciles y las palabras que no se usan | Apruebas cómo habla tu marca | `voz.md` |
-| 5 | `/tokens` | Convierte `marca.json` en variables CSS, tokens W3C y Tailwind v3 y v4, con tabla de contraste y página de ejemplo | Solo si tu marca va a una web o una app | `tokens/` |
-| 6 | `/laminas` | Monta el manual de marca en láminas SVG con rejilla de 12 columnas y un `index.html` navegable | Revisas el manual y dices qué ajustar | `kit/` (y PDF si es posible) |
-| 7 | `/lanzamiento` | Exporta el logo (SVG y PNG), monta el bento de la marca y **dos posts con tus fotos**: qué es la marca y su principal atributo, cada uno con un recurso visual y revisado por el crítico | Eliges el atributo entre tres candidatos y aportas tus fotos (propias, de banco o generadas) | `lanzamiento/`: logo, bento y 2 posts |
-| 8 | `/entrega` | Revisión de experto con fortalezas y riesgos, paquete con LEEME y la lista de lo que queda por hacer a mano | Decides qué publicas y qué intervienes a mano | `entrega/` |
+## Cómo funciona
 
-**Después, para crear contenido:** escribe «usa mi `marca.json`» y pide posts, banners o pantallas. La skill `gusto` los revisa con un crítico automático; creative-architect y motion-architect (opcionales) leen tu marca, y Canva solo si lo pides.
+| Ronda | Cómo | De qué va |
+|---|---|---|
+| **1** | **Abierta**, en el chat | Cuentas con tus palabras qué haces, para quién, una escena con un cliente y por qué lo haces tú |
+| **2** | Diálogo con opciones | Qué te diferencia, qué puedes demostrar, qué no harías nunca y dónde te colocas |
+| **3** | Diálogo con opciones | Cómo se comporta tu marca, con qué no quieres que te confundan y cómo quieres que se sienta tu cliente |
 
-## Qué resuelve
+- Tras cada ronda, un **espejo** corto: lo que oye, lo que le llama la atención y lo que aún no sabe.
+- Las **opciones de las rondas 2 y 3 salen de lo que tú contaste**, no de un catálogo. Siempre puedes escribir tu propia respuesta.
+- Al final, **tres vías generales** de actitud y promesa (por ejemplo, «la que demuestra», «la que acompaña», «la que discute»). Tú eliges una o mezclas dos; el plugin no elige por ti.
+- Cierra con la **idea rectora** (una frase) y **las tres palabras clave** para buscar referencias.
 
-- **Una marca que se defiende:** entrevista en tres rondas, territorios anclados fuera de la categoría y un manifiesto con el miedo de la marca. Contra la marca promedio que devuelve la IA por defecto.
-- **Una marca que funciona en producto:** los tokens (`tokens.json`, variables CSS, Tailwind v3 y v4) salen del mismo `marca.json` que el manual, con el contraste comprobado. Quien programa no reinterpreta nada.
-- **Una marca que no se explica dos veces:** `marca.json` se escribe en cuanto se aprueban logo y paleta, y lo leen las demás skills de creative-architect.
-- **Sin dependencias:** el manual sale como SVG y HTML con Python estándar. Canva es un módulo opcional.
+## Qué te llevas
 
-## Guías
+- `trabajo/<fecha>-marca-<slug>/estrategia.md`: el brief (situación, público y tensión, mapa de la categoría, posicionamiento, promesa y prueba, personalidad, lo que no es, las tres vías, la vía elegida, la idea rectora, lo que aún no sabes, palabras clave y riesgos).
+- **Tres palabras clave** generales, por ejemplo `fintech brand identity`, `freelancer invoicing app` y `transparent minimal branding`, y la indicación de guardar **3 referencias** (2 que te gustan y 1 que no quieres parecer) anotando qué *actitud* te gusta de cada una.
 
-- [Guía del alumno](docs/guia-alumnos.md): instalación, uso paso a paso y problemas frecuentes.
-- [Elegir herramienta](docs/elegir-herramienta.md): creative-architect, motion-architect y video-editor-architect, comparadas.
-- [Ahorro de tokens y créditos](docs/ahorro-tokens.md): dónde se gasta y qué hacer, con datos medidos.
+Un ejemplo completo de brief (ficticio), en [`evals/fixtures/estrategia/brief-bueno.md`](evals/fixtures/estrategia/brief-bueno.md).
 
-## Requisitos
+## Instalar
 
-- **Imprescindible:** Claude Code y Python 3.11 o superior.
-- **Recomendado (revisión visual, bento y posts):** Pillow, Node 18+, Playwright con Chromium y la fuente de la marca instalada. Compruébalo con `python3 skills/gusto/tools/comprobar_entorno.py --marca marca.json`.
-- **Tus referencias visuales las aportas tú** (o las buscas con un MCP como Refero, Taste o Mobbin, que es opcional): [Buscar buenas referencias](skills/gusto/references/buscar-referencias.md).
+En Claude Code:
 
-## Instalación
-
-**Instálalo, no lo clones solo para leerlo:** si Claude solo lee las skills a mano, no tiene los comandos ni los generadores de piezas y el resultado sale pobre. Desde GitHub: `claude plugin marketplace add 2894Studio/brand-kit-builder` y después `claude plugin install brand-kit-builder@brand-kit-builder`. También se puede instalar desde una carpeta o un ZIP descomprimido (`claude plugin marketplace add ./brand-kit-builder`). Las dos rutas están en la [guía del alumno](docs/guia-alumnos.md).
-
-Como plugin, igual que creative-architect:
-
-```bash
-claude plugin marketplace add 2894Studio/brand-kit-builder
-claude plugin install brand-kit-builder@brand-kit-builder
+```
+/plugin marketplace add 2894Studio/brand-kit-builder
+/plugin install brand-kit-builder@brand-kit-builder
 ```
 
-Desde una copia local:
+Después, escribe **«quiero crear una marca»** (o `/brand-kit-builder`). Para Antigravity y otros agentes, las instrucciones están en [`AGENTS.md`](AGENTS.md).
 
-```bash
-git clone https://github.com/2894Studio/brand-kit-builder.git ~/brand-kit-builder
-claude plugin marketplace add ~/brand-kit-builder
-claude plugin install brand-kit-builder@brand-kit-builder
-```
+## Qué NO hace
 
-### Instalación en Google Antigravity
+- No diseña logos, paletas, tipografías, manuales ni piezas visuales.
+- No da recomendaciones visuales: lo único «visual» es la sensación general de cada vía, con una palabra («sobria», «cálida», «atrevida»).
+- No inventa datos de mercado ni el nombre de tu marca: lo que no comprueba, lo marca como *Supuesto*.
+- No es asesoría legal: las anterioridades del nombre y los claims quedan como **pendiente de validación profesional** (OEPM, EUIPO).
 
-Como plugin global (disponible en cualquier proyecto):
+## Cómo se comprueba la calidad
 
-```bash
-git clone https://github.com/2894Studio/brand-kit-builder.git ~/.gemini/config/plugins/brand-kit-builder
-```
-
-Para actualizarlo más adelante: `git -C ~/.gemini/config/plugins/brand-kit-builder pull`.
-
-**Alternativa para cualquier agente** (instala solo las skills, sin `AGENTS.md`): `npx skills add 2894Studio/brand-kit-builder -a antigravity`. Esa herramienta copia las skills a `.agents/skills/` en el proyecto o a `~/.gemini/config/skills/` con `-g`; probado con una copia local. Las instrucciones del agente están en `AGENTS.md` y el manifiesto en `plugin.json`, ambos en la raíz. Claude Code ignora esos dos archivos: sigue usando `.claude-plugin/`.
-
-Para producir imágenes con un proveedor, instala también creative-architect (opcional; sin él, la skill entrega prompts para pegar):
-
-```bash
-claude plugin marketplace add Hainrixz/creative-architect
-claude plugin install creative-architect@creative-architect
-```
-
-## Uso
-
-Habla normal:
-
-> «Necesito crear la marca de una panadería de barrio en Lavapiés.»
-> «Quiero que mi marca funcione en mi web con Tailwind.»
-
-Skills, cada una con su comando:
-
-| Skill | Hace |
-|---|---|
-| `/brand-kit-builder` | Entrada: lee la petición y enruta |
-| `/estrategia` | Entrevista, tres territorios, manifiesto |
-| `/identidad` | Dos logos, paleta de cinco colores, tipografía |
-| `/voz` | Trato, rasgos, seis situaciones, palabras prohibidas |
-| `/tokens` | `marca.json` → tokens para web y app |
-| `/laminas` | Manual de marca en SVG, HTML y PDF |
-| `/gusto` | Entrena el gusto visual: mide referencias, fija tonos, revisa piezas |
-| `/entrega` | Revisión, paquete y lista de lo que queda a mano |
-| `/canva` | Opcional: montar el kit en Canva |
-
-## Cómo se conecta con creative-architect
-
-`marca.json` en la raíz del proyecto es el contrato. Esta skill escribe exactamente los campos que creative-architect documenta (`nombre`, `categoria`, `tono`, `palabrasProhibidas`, `idioma`, `visual.colores`, `visual.estilo`) y añade extensiones que sus oficios ignoran (`tipografia`, `publico`, `competidores`, `brandKit`). El neutro de la paleta va en `brandKit.neutro`, porque el contrato solo admite los roles `primario`, `fondo`, `acento` y `texto`. Detalle en [docs/arquitectura.md](docs/arquitectura.md).
+- `skills/estrategia/tools/verificar_brief.py` revisa que el brief es un brief y no un formulario: secciones con contenido, tensión con dos mitades, al menos tres alternativas, posicionamiento completo, exactamente tres vías con riesgo, tres cosas por descubrir, tres palabras clave, **sin recomendaciones visuales** y sin léxico de relleno.
+- `skills/estrategia/tools/verificar_estrategia.py` es el autotest (acepta un brief bueno y rechaza quince tipos de brief malo). Se ejecuta en Linux, macOS y Windows en cada cambio.
+- `evals/e2e/ejecutar.py` simula a una persona respondiendo las tres rondas con un modelo real y mide cuántas preguntas hace por ronda, si se cuela lenguaje visual y si el brief sale correcto.
 
 ## Estructura
 
 ```
-.claude-plugin/        plugin.json · marketplace.json
-agents/                brand-kit-builder.md
-skills/
-  brand-kit-builder/   entrada
-  estrategia/          references/
-  identidad/           references/ · tools/contraste.py
-  voz/                 references/
-  tokens/              references/ · tools/ · marca.schema.json · marca.plantilla.json
-  laminas/             references/ · tools/
-  gusto/               references/ · tools/ (analizar_referencias, critico_render, gusto)
-  entrega/             references/
-  canva/               references/ (opcional)
-evals/                 casos de evaluación y marca de prueba (PULSO)
-docs/arquitectura.md
+skills/brand-kit-builder/   punto de entrada y criterio de trabajo
+skills/estrategia/          el proceso: preguntas, espejo, vías, brief y palabras clave
+evals/                      pruebas con un modelo real y un brief de ejemplo
 ```
 
-## Comprobar que funciona
+## Historial
 
-```bash
-python3 skills/laminas/tools/verificar_laminas.py
-python3 skills/tokens/tools/verificar_tokens.py
-python3 skills/gusto/tools/verificar_gusto.py
-python3 skills/brand-kit-builder/tools/verificar_skills.py
-python3 skills/tokens/tools/validar_marca.py evals/fixtures/pulso/marca.json
-python3 skills/tokens/tools/generar_tokens.py evals/fixtures/pulso/marca.json --salida /tmp/pulso-tokens
-```
-
-Probado con Python 3.11 y 3.13. Solo librería estándar.
-
-## Puente a motion-architect
-
-`skills/tokens/tools/exportar_motion.py` convierte `marca.json` en el `brand.json` de motion-architect, para que sus animaciones usen tu marca. Detalle y límites en `skills/tokens/SKILL.md`.
-
-## Límites conocidos
-
-- Un logo generado por IA es referencia: el logotipo final se reconstruye en vector y se retoca a mano (kerning, ligaduras). La skill lo dice en cada entrega.
-- Sin `rsvg-convert` no se genera el PDF directamente; se imprime `index.html` desde el navegador.
-- Los marcadores de fotografía del manual se sustituyen por fotografía propia. Un manual generado puede ser correcto y aburrido: `skills/laminas/references/criterio-visual.md` explica cómo juzgarlo y el paso de referencias entrena el gusto, pero no sustituyen a una persona de diseño.
-- Sin modo oscuro en los tokens de esta versión.
-- Las comprobaciones de nombre, claims y licencias de fuentes quedan señaladas como pendientes de validación profesional. La skill no da asesoría legal.
-- El módulo de Canva describe el conector tal como se documentó en la versión anterior y no se ha vuelto a verificar.
-
-## Hoja de ruta
-
-Naming con comprobación guiada de dominio y anterioridades · arquitectura de marca y submarcas · kit de lanzamiento (perfiles, firma de correo, plantilla de propuesta, icono de app) · modo oscuro en los tokens.
+Hasta la versión 3.2.1 el plugin cubría también logo, paleta, voz, tokens, manual y piezas finales. Se retiró para centrarse en la fase previa; ese código sigue en el historial de git, en la etiqueta [`v3.2.1-cadena-visual`](../../tree/v3.2.1-cadena-visual). Cambios en [`CHANGELOG.md`](CHANGELOG.md).
 
 ## Licencia
 
-MIT. Créditos en [NOTICE](NOTICE).
+MIT. © 2026 2894 Studio.

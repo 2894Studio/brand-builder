@@ -1,6 +1,6 @@
 name: Pruebas
 
-# Ejecuta los autotests del plugin en Linux, macOS y Windows (la clase puede usar cualquiera).
+# Autotests del plugin en Linux, macOS y Windows.
 # Sin PYTHONUTF8 a propósito: así se ven los fallos de codificación que tendría una persona real en Windows.
 on:
   push:
@@ -12,7 +12,7 @@ jobs:
   autotests:
     name: ${{ matrix.os }} · Python ${{ matrix.python }}
     runs-on: ${{ matrix.os }}
-    timeout-minutes: 25
+    timeout-minutes: 10
     strategy:
       fail-fast: false
       matrix:
@@ -23,24 +23,11 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python }}
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "20"
       - name: Dependencias de Python
-        run: python -m pip install --quiet pillow pyyaml
-      - name: Chromium con Playwright (para el crítico de render)
-        run: |
-          npm install -g playwright
-          npx playwright install chromium
-      - name: Compilar todos los scripts
-        run: python -m compileall -q skills hooks
+        run: python -m pip install --quiet pyyaml
+      - name: Compilar los scripts
+        run: python -m compileall -q skills evals
       - name: Skills (YAML estricto)
         run: python skills/brand-kit-builder/tools/verificar_skills.py
-      - name: Gusto
-        run: python skills/gusto/tools/verificar_gusto.py
-      - name: Láminas
-        run: python skills/laminas/tools/verificar_laminas.py
-      - name: Tokens
-        run: python skills/tokens/tools/verificar_tokens.py
-      - name: Lanzamiento
-        run: python skills/lanzamiento/tools/verificar_lanzamiento.py
+      - name: Estrategia (verificador del brief)
+        run: python skills/estrategia/tools/verificar_estrategia.py

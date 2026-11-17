@@ -2,11 +2,13 @@
 
 Cuando el entorno lo permite, las preguntas **cerradas** se hacen con la herramienta nativa de preguntas con opciones: la persona elige con el teclado o el ratón en vez de escribir. En Claude Code esa herramienta se llama `AskUserQuestion`. Si el entorno tiene otra equivalente, úsala igual (en Google Antigravity, según `AGENTS.md`, es `ask_question`). Si no hay ninguna (modo no interactivo, otro agente o una superficie sin diálogos), pasa a la **alternativa en el chat** de más abajo. Esta convención no cambia qué se pregunta ni el orden: solo cómo.
 
-## En la estrategia, TODAS las preguntas van en diálogo nativo
+## Qué va en diálogo y qué va abierto
 
-Las rondas de `estrategia` (2 o 3, de 3 o 4 preguntas) se hacen **siempre con la herramienta nativa**, no en texto del chat. Las preguntas **abiertas** (escenas, origen, qué nunca haría) también: pon como opciones **2 a 4 respuestas típicas y contrapuestas** (ejemplos de respuesta, de una o dos palabras con una descripción breve) y la persona escribe lo suyo con «Other» cuando ninguna encaja. Así las opciones hacen de ejemplos y no hace falta explicarlos en un párrafo. Solo cuando no haya herramienta de diálogo se usa la alternativa en el chat (abajo).
-
-Fuera de la estrategia, lo cerrado va en diálogo (territorio, tono, aprobar un paso, mockups, proveedor de imagen) y lo que es una frase propia, en el chat.
+- **Ronda 1: abierta, en el chat.** Una sola petición para que la persona cuente con sus palabras. Aquí no se dan opciones.
+- **Rondas 2 y 3: diálogo nativo** (3 o 4 preguntas, 2 a 4 opciones). **Las opciones se construyen con lo que la persona ya contó**, no con respuestas de catálogo; así hacen de ejemplos y la persona escribe lo suyo con «Other» cuando ninguna encaja.
+- **Elegir una vía** y confirmar un resumen: diálogo.
+- Si una respuesta sale delgada (una etiqueta), **una pregunta abierta corta** en el chat antes de seguir.
+- Solo cuando no haya herramienta de diálogo se usa la alternativa en el chat (abajo).
 
 ## Brevedad (ahorrar tokens)
 
@@ -23,7 +25,7 @@ Fuera de la estrategia, lo cerrado va en diálogo (territorio, tono, aprobar un 
 3. **Etiqueta corta** (1 a 5 palabras) y una descripción con **la consecuencia** de elegirla.
 4. **Recomendación solo si la tienes y puedes justificarla:** ponla primera y añade «(Recomendada)». Si no hay motivo, no recomiendes.
 5. **Selección múltiple** solo si las opciones no se excluyen.
-6. **Las imágenes no caben en el diálogo.** Enseña primero las opciones (los dos logos, los territorios) y después pregunta cuál. Nunca preguntes por algo que la persona aún no ha visto.
+6. **Nunca preguntes por algo que la persona aún no ha visto**: enseña primero las opciones (las tres vías) y después pregunta cuál.
 7. **No uses el diálogo para pedir permiso de seguir** («¿procedo?»). Pregunta para decidir, no para avanzar sin más.
 8. **Mantén las rondas de la entrevista:** cada ronda es un solo diálogo de 3 o 4 preguntas.
 
@@ -32,10 +34,10 @@ Fuera de la estrategia, lo cerrado va en diálogo (territorio, tono, aprobar un 
 Mismas preguntas, en un solo mensaje, con opciones numeradas y la opción de contestar otra cosa:
 
 ```
-¿Incluimos mockups?
-  1) Sí, desde el principio
-  2) No
-  3) Decido cuando vea el logo
+¿Con qué vía te quedas?
+  1) A
+  2) B
+  3) C
 (o escribe otra cosa)
 ```
 

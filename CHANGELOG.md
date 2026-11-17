@@ -1,5 +1,14 @@
 # Changelog
 
+## 4.0.0 (2026-11-17)
+
+**El plugin se reduce a su objetivo: explorar la marca con buenas preguntas, dejar un brief con tres vías generales y dar tres palabras clave para buscar referencias.** Se retiran logo, paleta, tipografía, voz, tokens, manual, posts, entrega y todo lo visual (siguen en el historial de git, etiqueta `v3.2.1-cadena-visual`).
+
+- **Proceso revisado para que cuente más la persona:** la **ronda 1 es abierta** (cuenta con sus palabras qué hace, para quién, una escena con un cliente y por qué lo hace). Las rondas 2 y 3 son diálogo nativo con **opciones construidas con lo que contó**, no respuestas de catálogo. Si una respuesta sale delgada, una repregunta abierta. Pregunta abierta final en la ronda 3. Cada pregunta existe porque alimenta una sección del brief (tabla en `estrategia/references/entrevista.md`); se descartan las que no cambian el brief.
+- **El brief incluye «Palabras clave para buscar referencias»** (tres generales y guardar 3 referencias: 2 que gustan y 1 que no) y el verificador lo exige.
+- **README del GitHub reescrito:** para qué sirve, para quién, cómo funciona, qué te llevas y, con la misma claridad, **qué no hace**. Manifiestos, marketplace, agente y `AGENTS.md` alineados.
+- **Pruebas y CI recortados** a lo que queda: `verificar_skills.py` y `verificar_estrategia.py` (acepta un brief bueno y rechaza quince tipos de brief malo) en Linux, macOS y Windows. El arnés `evals/e2e/ejecutar.py` simula las tres rondas con un modelo real.
+
 ## 3.2.1 (2026-11-17)
 
 - **Para el logo, solo 3 referencias** (2 que le gustan y 1 que no quiere parecer), con la actitud de cada una; las 6 a 8 quedan para el entrenamiento de toda la cadena visual.

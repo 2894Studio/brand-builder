@@ -46,6 +46,13 @@ Una sola frase (máximo 25 palabras) que resuma la vía elegida y de la que se d
 ## Lo que aún no sabes
 Tres o más cosas que faltan por descubrir, cada una con **cómo averiguarla esta semana** (hablar con tres clientes, probar la frase con alguien del sector, conseguir un dato).
 
+## Palabras clave para buscar referencias
+Las 3 generales, en una línea cada una (`palabras-clave.md`): sector + `brand identity`, cliente + producto, actitud de la vía + `branding`.
+- `…`
+- `…`
+- `…`
+Guardar 3 referencias (2 que le gustan y 1 que no quiere parecer), con la actitud de cada una.
+
 ## Riesgos y pendientes
 Nombre (anterioridades pendientes de validación), claims, lo que no se puede prometer, *Supuestos* que hizo el agente sin confirmación.
 ```
@@ -54,7 +61,7 @@ Nombre (anterioridades pendientes de validación), claims, lo que no se puede pr
 
 - **Hechos y palabras de la persona, no adjetivos.** «Cada candidato habla antes con un ingeniero» es un hecho; «profesionales de calidad» no.
 - **Ninguna frase vale para un competidor** cambiando el nombre.
-- **Sin léxico prohibido** (`../identidad/references/lexico-prohibido.md`): el verificador lo cuenta.
+- **Sin léxico prohibido** (`lexico-prohibido.md`): el verificador lo cuenta.
 - **El posicionamiento sigue la fórmula**, completa. Si falta la razón para creerlo, es un hueco que se dice, no se rellena con un adjetivo.
 - **La tensión tiene dos mitades.**
 - **Los supuestos se marcan** como *Supuesto* para que la persona los corrija.

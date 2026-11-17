@@ -1,6 +1,6 @@
 # Palabras clave para buscar referencias (Behance, Pinterest, Dribbble)
 
-Se usa cuando la persona pide referencias o dice que no sabe dónde buscarlas. Se deducen del **brief** (`estrategia.md`), no se inventan. Las plataformas indexan mejor en **inglés**; en Pinterest funcionan también en español.
+Es el último paso del plugin: se dan siempre al terminar el brief. Se deducen del **brief** (`estrategia.md`), no se inventan. Las plataformas indexan mejor en **inglés**; en Pinterest funcionan también en español.
 
 ## Por defecto: solo las 3 generales
 
@@ -22,16 +22,16 @@ Cinco búsquedas por plataforma, **derivadas de las tres generales**:
 - **Dribbble** (piezas sueltas y producto): `<producto> ui`, `<cliente> dashboard`, `calm|<actitud> <sector> ui`, `<producto> empty state`, `<producto> landing`.
 - **Pinterest** (sensación; también en español): `<actitud> brand design`, `<sector> editorial layout`, `identidad visual <sector> <cliente>`, `<actitud> packaging|stationery`.
 
-## Para el rechazo (guardar 2 como «no quiero esto»)
+## Para el rechazo (solo si lo pide; 1 de las 3 referencias es «no quiero esto»)
 Del «No es» del brief: `<lo que no es> branding` (`traditional accounting firm branding`, `corporate bank branding`, `crypto gradient`).
 
 ## Para la actitud, no el sector
 `no-nonsense brand`, `straight-talking brand`, `brands that <promesa de la vía>` (`brands that show their prices`).
 
 ## Cómo usarlas (en tres líneas)
-1. **Para el logo, solo 3 referencias**: **2 que le gustan y 1 que no quiere parecer**. Pocas y bien elegidas: con más, el logo se vuelve un promedio. (El entrenamiento completo de 6 a 8 es solo para la cadena visual entera.)
+1. **Solo 3 referencias**: **2 que le gustan y 1 que no quiere parecer**. Pocas y bien elegidas: con más, el logo se vuelve un promedio. 
 2. Apuntar, por cada una, **qué actitud** le gusta (no «me gusta el color»): «dice el precio sin adornos».
-3. Con esas tres y el brief se parte para el logo (`brief-logo` o `identidad`).
+3. Con eso la persona ya puede empezar a explorar visualmente por su cuenta o con otra herramienta; este plugin termina aquí.
 
 ## Reglas
 - Para el logo, **3 referencias**, no más.

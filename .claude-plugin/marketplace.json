@@ -1,18 +1,31 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-plugin-marketplace.json",
   "name": "brand-kit-builder",
-  "owner": { "name": "2894 Studio", "url": "https://github.com/2894Studio" },
-  "description": "Identidad de marca completa para alumnos y equipos: estrategia, logo, paleta, tipografía, voz, tokens de diseño y manual.",
+  "owner": {
+    "name": "2894 Studio",
+    "url": "https://github.com/2894Studio"
+  },
+  "description": "Explora tu marca con buenas preguntas y llévate un brief estratégico con tres vías y palabras clave para buscar referencias.",
   "plugins": [
     {
       "name": "brand-kit-builder",
       "source": "./",
-      "description": "Del briefing al manual de marca y a los tokens de diseño, con marca.json compatible con creative-architect.",
-      "author": { "name": "2894 Studio", "url": "https://github.com/2894Studio" },
+      "description": "Tres rondas de preguntas (la primera abierta), un brief estratégico con tres vías generales y tres palabras clave para buscar referencias. Sin recomendaciones visuales.",
+      "author": {
+        "name": "2894 Studio",
+        "url": "https://github.com/2894Studio"
+      },
       "homepage": "https://github.com/2894Studio/brand-kit-builder",
       "license": "MIT",
       "category": "design",
-      "keywords": ["marca", "branding", "logo", "tokens", "manual-de-marca", "español"]
+      "keywords": [
+        "marca",
+        "branding",
+        "brief",
+        "estrategia-de-marca",
+        "referencias",
+        "español"
+      ]
     }
   ]
 }

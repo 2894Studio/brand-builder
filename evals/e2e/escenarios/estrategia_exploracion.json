@@ -1,22 +1,10 @@
 {
  "nombre": "Estrategia: explorar la marca con preguntas (Combbi, agencia de talento en IA)",
- "termina_con_brief": true,
  "mensaje_inicial": "/brand-kit-builder Quiero crear una marca para una empresa de búsqueda de profesionales calificados en IA",
  "por_turno": [
   "Se llama Combbi (se dice «com-bi»). Buscamos ingenieros de machine learning y de LLMs para empresas medianas de 50 a 300 personas. Un cliente típico: una directora de producto que quiere montar su primer equipo de IA y no sabe a quién fichar; antes buscaba por LinkedIn o le pasaban CVs de agencias generalistas. Cuando sale bien, tiene a alguien que arranca sin que ella tenga que supervisar lo técnico. Empecé porque trabajé de ingeniera y vi cómo fichaban a gente que no sabía lo que ponía en el CV.",
   "Creo que nos elegirían porque antes de presentar a alguien lo entrevista un ingeniero de verdad. Lo que me irrita del sector: todos dicen «talento de primer nivel» y te mandan CVs sin criterio. Nunca presentaría a alguien que no he visto trabajar aunque el cliente tenga prisa. Demostrar hoy puedo poco: tengo 6 colocaciones, ninguna cifra seria todavía; me gustaría poder decir que nuestros candidatos duran más. Cobramos un 15 % del salario anual cuando se incorpora, y prefiero ser exclusiva antes que barata.",
   "Si fuera una persona sería una ingeniera senior que te dice la verdad aunque pierda la venta; diría «este candidato no te conviene», nunca «talento de primer nivel». Admiro la actitud de Basecamp: dicen lo que piensan y no venden humo. No querría parecer una ETT ni Randstad. Quiero que el cliente termine tranquilo y con la sensación de que alguien con criterio miró por él. La gente nos conocerá sobre todo por LinkedIn."
  ],
- "respuesta_por_defecto": "Elijo la vía que recomiendas, con un toque de cercanía en el trato. Sigue y deja el brief cerrado.",
- "respuestas": [
-  {
-   "cuando": [
-    "tres vías",
-    "vía a",
-    "vía elegida",
-    "elige"
-   ],
-   "responde": "Elijo la vía que recomiendas, con un toque de cercanía en el trato. Cierra el brief."
-  }
- ]
+ "respuesta_final": "Elijo la vía que recomiendas, con un toque de cercanía en el trato. Cierra el brief y dame las palabras clave."
 }

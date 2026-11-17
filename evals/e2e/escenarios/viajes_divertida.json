@@ -1,9 +1,0 @@
-{
-  "nombre": "Viajes divertida (agencia para jóvenes)",
-  "mensaje_inicial": "/brand-kit-builder Quiero crear una marca para una agencia de viajes para gente de 20 a 35 años que viaja con poco presupuesto. Se llama Rumbo Loco. Divertida, atrevida y directa, de tú, nunca corporativa ni aburrida. Hazme el proceso completo hasta el kit final: logo, bento y 2 posts.",
-  "respuesta_por_defecto": "Sí, adelante. Decide tú con criterio, para las preguntas con opciones elige la recomendada, y sigue hasta el kit final (logo, bento y 2 posts). No tengo fotos ni proveedor de imagen por ahora.",
-  "respuestas": [
-    {"cuando": ["territorio"], "responde": "Elige tú el que mejor encaje y sigue."},
-    {"cuando": ["proveedor de imagen"], "responde": "Ninguno por ahora."}
-  ]
-}

@@ -64,5 +64,11 @@ La prueba técnica antes del contrato.
 - Si los clientes valoran ver la corrección: enseñársela a tres clientes y preguntar qué cambiarían.
 - Si el nombre está libre: consultar OEPM y EUIPO con alguien que sepa.
 
+## Palabras clave para buscar referencias
+- `technical recruiting brand identity`
+- `startup hiring platform`
+- `rigorous no-nonsense branding`
+Guardar 3 referencias (2 que le gustan y 1 que no quiere parecer), con la actitud de cada una.
+
 ## Riesgos y pendientes
 El nombre Cribo está pendiente de validación de anterioridades. No se puede prometer plazo de contratación. *Supuesto: el precio es por contratación cerrada; confirmar.*
