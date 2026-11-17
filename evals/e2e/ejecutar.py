@@ -123,10 +123,12 @@ def ejecutar(esc_ruta, a):
         if esc.get("termina_con_brief") and est_ and sh([sys.executable, os.path.join(RAIZ, "skills", "estrategia", "tools", "verificar_brief.py"), est_[-1]]).returncode == 0:
             break
         por_turno = esc.get("por_turno") or []
-        if turnos - 1 < len(por_turno) and not any(k in texto.lower() for k in ("tres vías", "vía a")) or (turnos == 1 and not por_turno):
-            msg = por_turno[turnos - 1] if por_turno else esc["respuesta_por_defecto"]      # rondas de la persona, en orden
+        if turnos - 1 < len(por_turno):
+            msg = por_turno[turnos - 1]                      # las rondas de la persona, en orden
+        elif por_turno:
+            msg = respuesta(esc, texto)                      # después de las rondas: elegir la vía, cerrar
         else:
-            msg = respuesta(esc, texto)
+            msg = esc["respuesta_por_defecto"] if turnos == 1 else respuesta(esc, texto)
         log[-1]["respuesta"] = msg[:300]
     m = medir(proy)
     inf = {"escenario": esc["nombre"], "modelo": a.modelo, "turnos": turnos, "coste_usd": round(gasto, 3), "minutos": round((time.time() - t0) / 60, 1), "gusto": bool(a.gusto_zip), "medidas": m, "turnos_log": log}

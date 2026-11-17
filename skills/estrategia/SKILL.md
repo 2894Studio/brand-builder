@@ -13,12 +13,12 @@ Lee antes: `../brand-kit-builder/references/criterio-experto.md`, `references/en
 
 ## Cómo es la conversación
 
-- **Dos o tres rondas.** Cada ronda es **un solo mensaje** tuyo, **de tú**, con **3 a 5 preguntas** como máximo.
+- **Dos o tres rondas.** Cada ronda es **un solo mensaje** tuyo, **de tú**, con **3 o 4 preguntas numeradas, nunca más** (la pregunta cerrada también cuenta). **Cada pregunta es UNA sola, con un solo signo de interrogación**: si te salen dos en la misma, es otra pregunta, y la quitas o la dejas para la siguiente ronda. Mejor pocas y buenas que muchas: la persona tiene que poder contestarlas de una sentada.
 - **Preguntas buenas, no un formulario:** abiertas, concretas y sobre **situaciones reales** («cuéntame el último cliente que casi no te compró»), nunca abstracciones («¿cuál es tu propuesta de valor?»). Cada pregunta lleva, en una línea, **por qué la haces** (la persona aprende a pensar su marca mientras contesta). Si la pregunta es difícil, da **dos ejemplos de respuesta contrapuestos** para que no copie uno.
 - **Entre rondas, un espejo** (ver abajo). Es lo que más ayuda: devolver lo que has oído, señalar lo que chirría y decir lo que aún no sabes.
 - **No repreguntes lo que ya contó.** Si el primer mensaje ya responde algo, lo das por recogido y subes el nivel de la pregunta.
 - **Si una respuesta es vaga** («moderna, cercana, profesional»), pide **una escena o un ejemplo**, una sola vez. No es un interrogatorio.
-- Las preguntas **cerradas** (elegir entre opciones, confirmar un resumen, escoger una vía) van en un diálogo con opciones; las **abiertas**, en el chat. Reglas en `../brand-kit-builder/references/preguntas-interactivas.md`.
+- Las preguntas **cerradas** (elegir entre opciones, confirmar un resumen, escoger una vía) van en un diálogo con opciones (y cuentan dentro de las 3 o 4); las **abiertas**, en el chat. Reglas en `../brand-kit-builder/references/preguntas-interactivas.md`.
 - **El nombre**: si no lo ha dado, pregúntalo en la ronda 1 (y cómo se pronuncia, y por qué ese). **Nunca lo inventes.** Si lo delega, propón tres con su razón y deja que elija. Si tienes búsqueda web, comprueba el nombre y di lo que encuentres como pendiente de validación profesional (OEPM, EUIPO), no como asesoría legal.
 - **Si tienes búsqueda web**, antes de la ronda 2 mira 3 o 4 alternativas del sector **para preguntar mejor** (qué prometen, cómo hablan). No vuelques la investigación a la persona: úsala para afinar preguntas y, después, el mapa del brief. Sin búsqueda, usa lo que sabes y dilo; nunca inventes datos de mercado.
 
@@ -40,7 +40,7 @@ No des soluciones ni recomendaciones en el espejo: solo ayuda a ver.
 
 ## El cierre: tres vías generales
 
-Con lo que tienes, escribe **tres vías** (`references/vias.md`): formas **generales** de ser esa marca, que se separan por **actitud y promesa**, no por estética. Cada una con: idea, a quién habla y qué promete, cómo suena (comportamiento al hablar), sensación general (una palabra de registro), riesgo, y «encaja si…». Recomienda una y di por qué. La persona elige una o mezcla dos (con un diálogo). Después, escribe la **idea rectora** en una frase.
+Con lo que tienes, escribe **tres vías** (`references/vias.md`): formas **generales** de ser esa marca, que se separan por **actitud y promesa**, no por estética. Cada una con: idea, a quién habla y qué promete, cómo suena (comportamiento al hablar), sensación general (una palabra de registro), riesgo, y «encaja si…». Recomienda una y di por qué. **Enséñale las tres vías en el chat y espera a que elija** (una o una mezcla de dos, con un diálogo): no elijas por ella. Si no contesta, deja «Vía elegida: pendiente» y la idea rectora provisional. Cuando elija, escribe la **idea rectora** en una frase.
 
 **No des nada más visual que eso.** Si te piden colores, logo o tipografía, di que esta fase es para tener claro qué es la marca y que eso viene después; ofrécelo como siguiente paso (`identidad` o `brief-logo`), no lo hagas ahora.
 

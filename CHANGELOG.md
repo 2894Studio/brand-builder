@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.0.1 (2026-11-17)
+
+- **Rondas más ligeras:** 3 o 4 preguntas por ronda como máximo (la cerrada cuenta) y cada pregunta con un solo signo de interrogación; el porqué y los ejemplos de respuesta van sin interrogaciones. En una prueba con Sonnet las rondas llegaron a 5 preguntas numeradas más una cerrada, con varias interrogaciones encadenadas.
+- **La persona elige la vía:** se enseñan las tres vías en el chat y se espera su elección; si no contesta, «Vía elegida: pendiente».
+- Arnés e2e: las rondas de la persona se contestan en orden.
+
 ## 3.0.0 (2026-11-17)
 
 **Nuevo objetivo: ayudar a explorar la marca con buenas preguntas, sin recomendaciones visuales.** El resultado por defecto ya no es un logo ni un brief de logo, sino la conversación y un brief estratégico con tres vías generales.

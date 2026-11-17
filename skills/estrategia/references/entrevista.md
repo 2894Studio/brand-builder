@@ -17,12 +17,12 @@ La entrevista es el producto. Una pregunta buena obliga a **recordar una escena 
 
 ## 1. Cómo preguntar
 
-- **3 a 5 preguntas por ronda**, en un mensaje, de tú. Elige las que más hagan pensar a **esta** persona; el banco no se recorre entero.
+- **3 o 4 preguntas por ronda, nunca más**, en un mensaje, de tú. Elige las que más hagan pensar a **esta** persona; el banco no se recorre entero. La pregunta cerrada cuenta dentro de las 3 o 4.
 - **Cada pregunta, con su porqué** en una línea («te lo pregunto porque…»).
 - **Escenas, no definiciones.** «Cuéntame la última vez que…», «imagina que…», «¿qué hizo esa persona cuando…?».
 - **Si es difícil**, dos ejemplos de respuesta **contrapuestos** («por ejemplo, “porque el otro es caro” o “porque nadie me contestaba”») para que no copie uno.
 - **Lo que ya contó no se vuelve a preguntar.** Se cita («me dijiste que…») y se sube de nivel.
-- Una pregunta, una idea. Nada de «¿cómo es tu cliente y qué precio tienes y dónde vendes?».
+- **Una pregunta, un solo signo de interrogación, una idea.** Nada de «¿cómo es tu cliente y qué precio tienes y dónde vendes?», ni de preguntas con dos o tres «¿…?» encadenados: si hay varias, son varias preguntas y se quitan. Los ejemplos de respuesta y el porqué van **sin** signos de interrogación.
 
 ---
 
@@ -100,5 +100,5 @@ Sin hablar de estética. De comportamiento y actitud:
 
 - Colores, tipografías, estilo, logo, referencias estéticas: **todo eso viene después**, y solo si la persona lo pide.
 - Preguntas de formulario sueltas («¿cuál es tu misión, visión y valores?»).
-- Más de cinco preguntas en un mensaje.
+- Más de cuatro preguntas en un mensaje, ni dos interrogaciones dentro de la misma pregunta.
 - Lo que se puede deducir de lo que ya dijo.
