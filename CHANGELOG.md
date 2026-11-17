@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.2.1 (2026-11-17)
+
+- **Para el logo, solo 3 referencias** (2 que le gustan y 1 que no quiere parecer), con la actitud de cada una; las 6 a 8 quedan para el entrenamiento de toda la cadena visual.
+
 ## 3.2.0 (2026-11-17)
 
 - **Palabras clave para buscar referencias** (`gusto/references/palabras-clave.md`): por defecto, **tres búsquedas generales** que sirven igual en Behance, Pinterest y Dribbble (sector + `brand identity`, cliente + producto, actitud de la vía elegida + `branding`), deducidas del brief; más, por plataforma y para el rechazo, solo si la persona las pide. Enlazado desde `estrategia`, `gusto` y el router.

@@ -29,11 +29,12 @@ Del «No es» del brief: `<lo que no es> branding` (`traditional accounting firm
 `no-nonsense brand`, `straight-talking brand`, `brands that <promesa de la vía>` (`brands that show their prices`).
 
 ## Cómo usarlas (en tres líneas)
-1. Guardar **6 a 8** referencias (4 que le gustan, 2 que no quiere parecer, 2 de otra categoría).
+1. **Para el logo, solo 3 referencias**: **2 que le gustan y 1 que no quiere parecer**. Pocas y bien elegidas: con más, el logo se vuelve un promedio. (El entrenamiento completo de 6 a 8 es solo para la cadena visual entera.)
 2. Apuntar, por cada una, **qué actitud** le gusta (no «me gusta el color»): «dice el precio sin adornos».
-3. Eso entra en `gusto.json` (`gusto/references/entrenar.md`).
+3. Con esas tres y el brief se parte para el logo (`brief-logo` o `identidad`).
 
 ## Reglas
-- Dar **las 3 generales** salvo que pida más; el resto, solo si lo pide.
+- Para el logo, **3 referencias**, no más.
+- Dar **las 3 búsquedas generales** salvo que pida más; el resto, solo si lo pide.
 - **Nada de nombres de marcas para copiar**: son búsquedas por tema.
 - Las búsquedas salen del brief: si el brief cambia, cambian.
