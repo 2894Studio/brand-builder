@@ -36,21 +36,6 @@ import lib_lanzamiento as L  # noqa: E402
 CRITICO = os.path.join(RAIZ, "skills", "gusto", "tools", "critico_render.py")
 
 
-def firma_svg(tipo, color, w=420, h=300):
-    if tipo == "puntos":
-        pts = "".join(f'<circle cx="{14 + x * 28}" cy="{14 + y * 28}" r="5" fill="{color}"/>' for x in range(15) for y in range(11))
-        return f'<svg width="{w}" height="{h}" viewBox="0 0 {w} {h}">{pts}</svg>'
-    if tipo == "diagonal":
-        ls = "".join(f'<line x1="{i * 30 - 100}" y1="{h}" x2="{i * 30 + 100}" y2="0" stroke="{color}" stroke-width="8"/>' for i in range(0, 22))
-        return f'<svg width="{w}" height="{h}" viewBox="0 0 {w} {h}">{ls}</svg>'
-    if tipo == "ondas":
-        o = "".join(f'<path d="M0 {20 + k * 34} q35 -24 70 0 t70 0 t70 0 t70 0 t70 0 t70 0 t70 0" fill="none" stroke="{color}" stroke-width="6"/>' for k in range(8))
-        return f'<svg width="{w}" height="{h}" viewBox="0 0 {w} {h}">{o}</svg>'
-    return (f'<svg width="{w}" height="{h}" viewBox="0 0 {w} {h}"><path d="M110 210a100 100 0 0 1 200 0z" fill="{color}"/>'
-            f'<rect x="40" y="210" width="340" height="8" fill="{color}"/>'
-            + "".join(f'<rect x="{40 + k * 34}" y="{236 + (k % 2) * 4}" width="22" height="6" fill="{color}" opacity=".55"/>' for k in range(10)) + '</svg>')
-
-
 def tablero(m, lg, d, idx, fotos):
     nombre = m.get("nombre", "Marca")
     c = d["colores"]
@@ -74,7 +59,7 @@ def tablero(m, lg, d, idx, fotos):
     if fotos and fotos.get("retrato") and d.get("imagen", "foto") != "firma":
         img = f'<img src="{L.data_uri(fotos["retrato"]["ruta_3x4"])}" style="width:100%;height:100%;object-fit:cover">'
     else:
-        img = f'<div style="position:absolute;inset:0;display:grid;place-items:center;background:{c["profundo"]}">{firma_svg(d.get("firma", "horizonte"), c["acento"])}</div>'
+        img = f'<div style="position:absolute;inset:0;display:grid;place-items:center;background:{c["profundo"]}">{L.firma_svg(d.get("firma", "horizonte"), c["acento"])}</div>'
     css = f"""
 :root{{--ft:'{ft}',system-ui,sans-serif;--fx:'{fx}',system-ui,sans-serif}}
 *{{box-sizing:border-box}}body{{margin:0;font-family:var(--fx)}}

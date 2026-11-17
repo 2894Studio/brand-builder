@@ -51,6 +51,9 @@ Para cada referencia «sí» escribe **qué copio y qué no**, por dimensión, c
 ### 4. Aplicar
 Antes de maquetar, lee `references/tonos.md` y `references/patrones-saas.md`. La proporción manda: el tono dominante decide la forma de la pieza y el secundario aparece en **un** elemento (una persona con rol, una cifra). No mezcles los tres a partes iguales.
 
+### 4b. Mirar antes de diseñar
+Antes de componer un post, un bento o un logo: `contacto_referencias.py --para post|bento|logo|web` deja una hoja con **solo** las referencias y reglas de ese destino. Ábrela, escribe el concepto (qué reglas traduces y cómo) y diseña (`lanzamiento/references/composicion-a-medida.md`).
+
 ### 5a. Contrastar con las referencias
 Con las piezas hechas: `python3 skills/gusto/tools/contacto_referencias.py --gusto gusto.json --referencias referencias/ --piezas lanzamiento/ --salida lanzamiento/` (`kit_lanzamiento.py` ya lo hace). Mira `contacto-gusto.png` y rellena `revision-gusto.md` regla por regla; lo que no cumple se corrige.
 

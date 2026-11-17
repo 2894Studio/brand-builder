@@ -155,6 +155,30 @@ def main():
                 avisos.append("hay referencias «sí» pero sin decisiones transferables: las piezas no se han contrastado con ellas (gusto/references/entrenar.md)")
                 print("  aviso  referencias sin decisiones: no hay nada que contrastar")
         else:
+            # composición a medida: si el gusto tiene reglas de composición para posts, al menos un post no puede ser de plantilla
+            comp = [r for r in reglas if r["dimension"] == "composicion" and "post" in (r["aplica_en"] or []) and not r["prohibe"]]
+            if comp:
+                arqs = []
+                for n in ("post-1-que-es", "post-2-atributo"):
+                    hp = os.path.join(c, n + ".html")
+                    if os.path.exists(hp):
+                        mm = re.search(r'<meta name="arquetipo" content="([^"]+)"', open(hp, encoding="utf-8").read())
+                        arqs.append(mm.group(1) if mm else "propio")
+                plantillas_ok = False
+                bpg = os.path.join(c, "brief.json")
+                if os.path.exists(bpg):
+                    try:
+                        plantillas_ok = bool(str(json.load(open(bpg, encoding="utf-8")).get("plantillas_ok", "")).strip())
+                    except Exception:  # noqa: BLE001
+                        pass
+                ok(any(x in ("compuesto", "propio") for x in arqs) or plantillas_ok or not arqs, "tu gusto tiene reglas de composición para posts: al menos un post es composición a medida (post_compuesto.py o HTML propio), no solo plantillas" + (f" (ahora: {', '.join(arqs)})" if arqs else ""))
+            ids = {r["id"] for r in reglas}
+            for cf in sorted(glob.glob(os.path.join(c, "composicion-*.json"))):
+                try:
+                    rf = (json.load(open(cf, encoding="utf-8")).get("concepto") or {}).get("referencias") or []
+                except Exception:  # noqa: BLE001
+                    rf = []
+                ok(bool(rf) and all(x in ids for x in rf), f"{os.path.basename(cf)} cita reglas de gusto que existen" + ("" if rf and all(x in ids for x in rf) else f" ({', '.join(x for x in rf if x not in ids) or 'sin referencias'})"))
             rev = os.path.join(c, "revision-gusto.md")
             ok(os.path.exists(rev), "revision-gusto.md existe (contraste de las piezas con las referencias)")
             if os.path.exists(rev):
@@ -168,6 +192,17 @@ def main():
                     elif "no cumple" in bajo and "corregido" not in bajo:
                         mal_.append(r["id"])
                 ok(not pend, "todas las reglas de las referencias están revisadas" + (f" (faltan {', '.join(pend)})" if pend else ""))
+                # «parcial» con dientes: no más de un 25 % de las reglas aplicables, y ninguna que confiese trabajo sin hacer
+                estados = {}
+                for r in reglas:
+                    l = next((x for x in lineas if f" {r['id']} " in x or x.lstrip("- ").startswith(r["id"] + " ")), "")
+                    bajo = l.lower().split("→", 1)[-1]
+                    estados[r["id"]] = "noaplica" if "no aplica" in bajo else ("nocumple" if "no cumple" in bajo else ("parcial" if "parcial" in bajo else "cumple"))
+                aplicables = [i for i, e in estados.items() if e != "noaplica"]
+                parciales = [i for i in aplicables if estados[i] == "parcial"]
+                ok(len(parciales) <= max(1, int(0.25 * len(aplicables))), f"«parcial» en {len(parciales)} de {len(aplicables)} reglas aplicables (máximo 25 %): mejora las piezas en vez de matizar la revisión" + (f" ({', '.join(parciales[:6])})" if len(parciales) > max(1, int(0.25 * len(aplicables))) else ""))
+                confesiones = [r["id"] for r in reglas if any(w in next((x for x in lineas if f" {r['id']} " in x), "").lower() for w in ("pendiente de cambiar", "queda pendiente", "lo dejo para", "más adelante", "no lo he podido"))]
+                ok(not confesiones, "ninguna regla confiesa trabajo sin hacer" + (f" ({', '.join(confesiones)})" if confesiones else ""))
                 ok(not mal_, "ninguna regla queda en «no cumple» sin corregir" + (f" ({', '.join(mal_)})" if mal_ else ""))
     print("6. Variedad")
     p1, p2 = (os.path.join(c, f"{n}.html") for n in ("post-1-que-es", "post-2-atributo"))

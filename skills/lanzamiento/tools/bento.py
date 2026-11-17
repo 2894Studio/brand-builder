@@ -78,8 +78,8 @@ def main():
     # símbolo
     if "simbolo" in lg:
         simbolo = f'<img src="{L.data_uri(lg["simbolo"])}" style="width:150px">'
-    else:
-        simbolo = f'<div style="width:150px;height:150px;border-radius:34px;background:{c["primario"]};color:{L.legible(c["primario"])};display:grid;place-items:center;font:700 84px var(--f-titulos)">{L.esc(nombre[:1].upper())}</div>'
+    else:      # sin símbolo no se inventa una inicial en un cuadrado: se muestra el gráfico firma
+        simbolo = L.firma_svg("horizonte", c["acento"], 220, 160)
 
     elegidas = L.elegir_fotos(a.fotos) if a.fotos else {}
     if "equipo" in elegidas and not a.foto_equipo:
@@ -208,7 +208,7 @@ grid-template-areas:AREAS}
     if "invertida" not in lg and L.luminancia(c["primario"]) <= 0.5:
         avisos.append("sin logo «invertida»: la tarjeta de logo muestra el nombre en texto")
     if "simbolo" not in lg:
-        avisos.append("sin logo «simbolo»: se usa la inicial")
+        avisos.append("sin logo «simbolo»: la tarjeta muestra el gráfico firma (no una inicial)")
     if not a.foto_equipo:
         avisos.append("sin foto de equipo: marcador visible (usa --datos \"Etiqueta|Valor;...\" con cifras reales para sustituirlo)")
     if not a.foto_persona:

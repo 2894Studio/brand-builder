@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.7.0 (2026-11-17)
+
+- **Composición a medida (contra las plantillas):** `post_compuesto.py` dibuja una composición que **diseña el agente** con una especificación JSON (texto, palabra gigante recortada, formas, gráfico firma, foto con marco de sello o redondeado, insignia, cifra, línea, logo), con la paleta y fuentes de la marca; exige `concepto.referencias` que cite reglas de gusto (R#). `contacto_referencias.py --para post|logo|bento|web` deja una hoja con solo las referencias y reglas de ese destino para **mirarlas antes de diseñar**. Guía en `lanzamiento/references/composicion-a-medida.md`; recurso `compuesto` en `kit_lanzamiento.py`.
+- **La puerta tiene más dientes con gusto entrenado:** si el gusto tiene reglas de composición para posts, al menos un post debe ser composición a medida (o HTML propio), salvo `plantillas_ok` con motivo; «parcial» no puede pasar del 25 % de las reglas aplicables; ninguna regla puede confesar trabajo pendiente; cada `composicion-*.json` debe citar reglas que existan.
+- **Bento:** sin símbolo en el logo ya no pinta una inicial en un cuadrado (contradecía reglas como «símbolo que no sea una letra»): muestra el gráfico firma.
+- **Windows (descubierto con el nuevo CI):** salida y lectura en UTF-8 en todas las herramientas y `relpath` seguro entre unidades. **CI** en Linux, macOS y Windows (Python 3.11 y 3.13) en `.github/workflows/pruebas.yml`.
+- **Prueba de punta a punta** (`evals/e2e/ejecutar.py`, tres escenarios): un agente barato recorre el flujo y se mide con la puerta, las huellas de plantilla y la revisión contra el gusto (unos 0,3 USD con Haiku).
+
 ## 2.6.3 (2026-11-17)
 
 - **Huellas de plantilla en el crítico (`anti-plantilla:`):** avisa de tipografía solo por defecto (Inter, Arial, Roboto…), texto gris sobre un fondo de color, negro o gris puro sin tintar, degradado morado a azul y tarjetas dentro de tarjetas dentro de tarjetas. La puerta de entrega se cierra con **2 o más por pieza**, salvo `tells_ok` con motivo en el brief. Ideas tomadas de la lista de anti-patrones de [Impeccable](https://github.com/pbakaus/impeccable) (Apache-2.0), reescritas y medidas sobre el render.

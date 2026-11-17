@@ -13,12 +13,12 @@ brief.json:
   "kits": "trabajo",                                         (kits anteriores, para comprobar la variedad)
   "fotos": "lanzamiento/fotos",                              (opcional: salida de preparar_fotos.py)
   "bento": {"variante": "educativa", "lema": "…", "prueba": "Título|Valor", "ruta": "a;b;c", "datos": "E|V;E|V", "puntos": "a;b", "persona": "N|R"},
-  "post1": {"recurso": "expresivo_gigante|expresivo_precio|cifra|pasos|manifiesto|foto|pantalla|telefono|comparativa|mapa|html", "args": {"titular": "…", "ventana": "…", "tema": "claro"}},
+  "post1": {"recurso": "compuesto|expresivo_gigante|expresivo_precio|cifra|pasos|manifiesto|foto|pantalla|telefono|comparativa|mapa|html", "args": {"titular": "…", "ventana": "…", "tema": "claro"}},
   "post2": {"recurso": "…", "args": {…}},
   "notas": ["lo que es de ejemplo o queda a mano, una frase cada una"]
 }
 En "args" cada clave es una opción del generador (guiones bajos = guiones: tarjeta_izq → --tarjeta-izq); true = opción sin valor.
-Los argumentos de cada recurso están en la cabecera de su script (post_tipografico.py para cifra, pasos y manifiesto; post_expresivo.py para expresivo_gigante y expresivo_precio; post_foto.py, post_pantalla.py, post_telefono.py, post_comparativa.py, post_mapa.py).
+Los argumentos de cada recurso están en la cabecera de su script (post_compuesto.py para «compuesto»: composición a medida con args.spec; post_tipografico.py para cifra, pasos y manifiesto; post_expresivo.py para expresivo_gigante y expresivo_precio; post_foto.py, post_pantalla.py, post_telefono.py, post_comparativa.py, post_mapa.py).
 Si la marca es visual (fotografía, gastronomía, moda, viajes, interiorismo…) y no hay fotos, añade `"sin_fotos": "motivo"` al brief solo si se decide a propósito.
 Sale con 1 si algún generador falla o la puerta de entrega se cierra; imprime qué corregir en el brief y se repite.
 """
@@ -38,7 +38,7 @@ AQUI = os.path.dirname(os.path.abspath(__file__))
 RAIZ = os.path.abspath(os.path.join(AQUI, "..", "..", ".."))
 CRITICO = os.path.join(RAIZ, "skills", "gusto", "tools", "critico_render.py")
 PUERTA = os.path.join(RAIZ, "skills", "entrega", "tools", "verificar_entrega.py")
-GEN = {"expresivo_gigante": "post_expresivo.py", "expresivo_precio": "post_expresivo.py", "cifra": "post_tipografico.py", "pasos": "post_tipografico.py", "manifiesto": "post_tipografico.py", "foto": "post_foto.py", "telefono": "post_telefono.py", "pantalla": "post_pantalla.py", "comparativa": "post_comparativa.py", "mapa": "post_mapa.py"}
+GEN = {"compuesto": "post_compuesto.py", "expresivo_gigante": "post_expresivo.py", "expresivo_precio": "post_expresivo.py", "cifra": "post_tipografico.py", "pasos": "post_tipografico.py", "manifiesto": "post_tipografico.py", "foto": "post_foto.py", "telefono": "post_telefono.py", "pantalla": "post_pantalla.py", "comparativa": "post_comparativa.py", "mapa": "post_mapa.py"}
 TAM = {"bento": (1920, 1080), "post-1-que-es": (1080, 1440), "post-2-atributo": (1080, 1440)}
 
 
@@ -81,7 +81,7 @@ def main():
     mal += r.returncode != 0
 
     # arquetipos: los dos posts no pueden ser de la misma familia, y la interfaz (móvil, ventana) solo para productos digitales
-    fam = {"telefono": "ui", "pantalla": "ui", "comparativa": "datos", "mapa": "mapa", "foto": "foto", "expresivo_gigante": "expresivo:gigante", "expresivo_precio": "expresivo:precio", "cifra": "tipografico:cifra", "pasos": "tipografico:pasos", "manifiesto": "tipografico:manifiesto"}
+    fam = {"telefono": "ui", "pantalla": "ui", "comparativa": "datos", "mapa": "mapa", "foto": "foto", "compuesto": "compuesto", "expresivo_gigante": "expresivo:gigante", "expresivo_precio": "expresivo:precio", "cifra": "tipografico:cifra", "pasos": "tipografico:pasos", "manifiesto": "tipografico:manifiesto"}
     r1, r2 = b.get("post1", {}).get("recurso", ""), b.get("post2", {}).get("recurso", "")
     if r1 in fam and r1 == r2 or (r1 in fam and r2 in fam and fam[r1] == fam[r2]):
         print(f"FALLO los dos posts son del mismo arquetipo ({fam[r1]}): {r1} y {r2}. Cambia uno (python3 {os.path.join(AQUI, 'proponer_posts.py')} {marca} propone combinaciones distintas)")
@@ -137,10 +137,21 @@ def main():
         cmd = [os.path.join(AQUI, GEN[rec]), marca, "--salida", salida]
         if GEN[rec] == "post_tipografico.py":
             cmd += ["--modo", rec]
+        elif GEN[rec] == "post_compuesto.py":
+            spec = ruta(base, a_spec) if (a_spec := dict(p.get("args", {})).pop("spec", None)) else ""
+            if not spec or not os.path.exists(spec):
+                print(f"{nombre}: FALLO el recurso «compuesto» necesita args.spec con la ruta de la composición (JSON; ver post_compuesto.py --ejemplo)")
+                mal += 1
+                continue
+            copia = os.path.join(carpeta, f"composicion-{nombre.split('-')[1]}.json")
+            if os.path.abspath(spec) != os.path.abspath(copia):
+                open(copia, "w", encoding="utf-8").write(open(spec, encoding="utf-8").read())
+            cmd += ["--spec", copia]
         elif GEN[rec] == "post_expresivo.py":
             cmd += ["--modo", rec.split("_", 1)[1]]
         a = dict(p.get("args", {}))
-        if fotos and os.path.isdir(fotos) and rec in ("telefono", "mapa", "foto") and "fotos" not in a and "foto" not in a:
+        a.pop("spec", None)
+        if fotos and os.path.isdir(fotos) and rec in ("telefono", "mapa", "foto", "compuesto") and "fotos" not in a and "foto" not in a:
             a["fotos"] = fotos
         r = run(cmd + flags(a))
         print(f"{nombre}: {rec} " + ("ok" if r.returncode == 0 else "FALLO " + (r.stdout + r.stderr).strip()[-300:]))

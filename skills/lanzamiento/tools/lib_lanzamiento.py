@@ -229,3 +229,18 @@ def logo_html(m, lg, tema, nombre):
     if clave in lg:
         return f'<img class="logo" src="{data_uri(lg[clave])}" alt="{esc(nombre)}">'
     return f'<div class="logo-texto">{esc(nombre)}</div>'
+
+
+def firma_svg(tipo, color, w=420, h=300):
+    if tipo == "puntos":
+        pts = "".join(f'<circle cx="{14 + x * 28}" cy="{14 + y * 28}" r="5" fill="{color}"/>' for x in range(15) for y in range(11))
+        return f'<svg width="{w}" height="{h}" viewBox="0 0 {w} {h}">{pts}</svg>'
+    if tipo == "diagonal":
+        ls = "".join(f'<line x1="{i * 30 - 100}" y1="{h}" x2="{i * 30 + 100}" y2="0" stroke="{color}" stroke-width="8"/>' for i in range(0, 22))
+        return f'<svg width="{w}" height="{h}" viewBox="0 0 {w} {h}">{ls}</svg>'
+    if tipo == "ondas":
+        o = "".join(f'<path d="M0 {20 + k * 34} q35 -24 70 0 t70 0 t70 0 t70 0 t70 0 t70 0 t70 0" fill="none" stroke="{color}" stroke-width="6"/>' for k in range(8))
+        return f'<svg width="{w}" height="{h}" viewBox="0 0 {w} {h}">{o}</svg>'
+    return (f'<svg width="{w}" height="{h}" viewBox="0 0 {w} {h}"><path d="M110 210a100 100 0 0 1 200 0z" fill="{color}"/>'
+            f'<rect x="40" y="210" width="340" height="8" fill="{color}"/>'
+            + "".join(f'<rect x="{40 + k * 34}" y="{236 + (k % 2) * 4}" width="22" height="6" fill="{color}" opacity=".55"/>' for k in range(10)) + '</svg>')

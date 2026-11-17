@@ -478,7 +478,7 @@ with tempfile.TemporaryDirectory() as d:
     sys.path.insert(0, os.path.join(RAIZ, "skills", "gusto", "tools"))
     import gusto_lib as _GL
     gg = _GL.nuevo()
-    gg["referencias"] = [{"nombre": "r1", "tipo": "si", "nota_usuario": "x", "decisiones": [{"dimension": "simbolo", "regla": "2D plano", "aplica_en": ["logo"]}, {"dimension": "composicion", "regla": "recorte en el borde", "aplica_en": ["post"]}]}]
+    gg["referencias"] = [{"nombre": "r1", "tipo": "si", "nota_usuario": "x", "decisiones": [{"dimension": "simbolo", "regla": "2D plano", "aplica_en": ["logo"]}, {"dimension": "composicion", "regla": "recorte en el borde", "aplica_en": ["bento"]}]}]
     json.dump(gg, open(gjp, "w", encoding="utf-8"))
     rev = os.path.join(kit, "revision-gusto.md")
     if os.path.exists(rev):
@@ -494,6 +494,33 @@ with tempfile.TemporaryDirectory() as d:
     open(rev, "w", encoding="utf-8").write("- R1 [simbolo] 2D plano → no cumple, corregido: logo plano\n- R2 [composicion] recorte en el borde → cumple: post 2, la cifra\n")
     r3 = py(PUERTA, kit, "--marca", PULSO, "--gusto", gjp)
     ok("PUERTA DE ENTREGA: ABIERTA" in r3.stdout, "con todas las reglas revisadas y corregidas la puerta se abre")
+
+    # 7n: composición a medida exigida, «parcial» con dientes y conceptos que citan reglas reales
+    gg2 = _GL.nuevo()
+    gg2["referencias"] = [{"nombre": "r1", "tipo": "si", "nota_usuario": "x", "decisiones": [
+        {"dimension": "composicion", "regla": "elemento recortado por el borde", "aplica_en": ["post"]},
+        {"dimension": "simbolo", "regla": "2D plano", "aplica_en": ["logo"]},
+        {"dimension": "color", "regla": "tres colores", "aplica_en": ["post"]},
+        {"dimension": "tipografia", "regla": "titulares grandes", "aplica_en": ["post"]}]}]
+    gj2 = os.path.join(d, "gusto_g2.json")
+    json.dump(gg2, open(gj2, "w", encoding="utf-8"))
+    open(rev, "w", encoding="utf-8").write("- R1 [composicion] x → cumple: a\n- R2 [simbolo] x → cumple: b\n- R3 [color] x → cumple: c\n- R4 [tipografia] x → cumple: d\n")
+    r4 = py(PUERTA, kit, "--marca", PULSO, "--gusto", gj2)
+    ok("al menos un post es composición a medida" in r4.stdout and "PUERTA CERRADA" in r4.stdout, "con reglas de composición para posts, dos posts de plantilla cierran la puerta")
+    spec = os.path.join(d, "spec_t.json")
+    json.dump({"concepto": {"referencias": ["R1"], "decisiones": "recorte en el borde"}, "fondo": {"color": "primario"},
+               "elementos": [{"tipo": "palabra", "texto": "bici", "x": 560, "y": -40, "tam": 600, "color": "fondo", "giro": 90}, {"tipo": "texto", "texto": "Tu bici <b>a punto</b>", "x": 70, "y": 160, "ancho": 460, "tam": 96, "peso": 300}]}, open(spec, "w", encoding="utf-8"))
+    rc4 = py(os.path.join(AQUI, "post_compuesto.py"), PULSO, "--spec", spec, "--salida", os.path.join(kit, "post-2-atributo.html"))
+    ok(rc4.returncode == 0 and 'content="compuesto"' in open(os.path.join(kit, "post-2-atributo.html"), encoding="utf-8").read(), "post_compuesto dibuja la composición y declara el arquetipo")
+    sin = os.path.join(d, "spec_sin.json")
+    json.dump({"fondo": {"color": "primario"}, "elementos": []}, open(sin, "w", encoding="utf-8"))
+    ok(py(os.path.join(AQUI, "post_compuesto.py"), PULSO, "--spec", sin, "--salida", os.path.join(d, "x.html")).returncode != 0, "post_compuesto se niega sin «concepto» que cite reglas de gusto")
+    r5 = py(PUERTA, kit, "--marca", PULSO, "--gusto", gj2)
+    ok("al menos un post es composición a medida" not in r5.stdout.split("PUERTA")[0].split("FALLO")[-1] if "FALLO  tu gusto" in r5.stdout else True, "con un post compuesto se cumple la exigencia de composición a medida")
+    open(rev, "w", encoding="utf-8").write("- R1 [composicion] x → parcial: a\n- R2 [simbolo] x → parcial: b\n- R3 [color] x → cumple: c\n- R4 [tipografia] x → cumple, queda pendiente cambiar d\n")
+    r6 = py(PUERTA, kit, "--marca", PULSO, "--gusto", gj2)
+    ok("máximo 25 %" in r6.stdout and "FALLO  «parcial» en 2 de 4" in r6.stdout, "demasiadas reglas en «parcial» cierran la puerta")
+    ok("ninguna regla confiesa trabajo sin hacer (R4)" in r6.stdout and "FALLO  ninguna regla confiesa" in r6.stdout, "una regla que confiesa trabajo pendiente cierra la puerta")
 
     # 8. el crítico acepta el bento
     r = py(CRITICO, salida, "--ancho", "1920", "--alto", "1080")
