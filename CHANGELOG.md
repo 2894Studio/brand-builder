@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.0.1 (2026-11-17)
+
+- La pregunta abierta final de la ronda 3 cuenta dentro del máximo de 4 (en una prueba con Sonnet salieron 4 más la abierta). La ronda 1 abierta puede desglosarse en como mucho 3 puntos cortos más el nombre.
+
 ## 4.0.0 (2026-11-17)
 
 **El plugin se reduce a su objetivo: explorar la marca con buenas preguntas, dejar un brief con tres vías generales y dar tres palabras clave para buscar referencias.** Se retiran logo, paleta, tipografía, voz, tokens, manual, posts, entrega y todo lo visual (siguen en el historial de git, commit `b1b8134`, versión 3.2.1).
