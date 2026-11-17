@@ -1,0 +1,139 @@
+{
+  "nombre": "Combbi",
+  "categoria": "App de moda: agente de estilo que recomienda outfits con tu propio armario según el clima y el estado de ánimo",
+  "tono": "De tú, como un amigo. Humor sobre la prenda, nunca sobre ti. Frases cortas y concretas.",
+  "palabrasProhibidas": [
+    "elevar",
+    "potenciar",
+    "revolucionar",
+    "transformar",
+    "premium",
+    "exclusivo",
+    "sofisticado",
+    "colección",
+    "tendencias",
+    "imprescindible",
+    "look perfecto",
+    "estilismo",
+    "inteligencia artificial",
+    "IA",
+    "algoritmo",
+    "personalización",
+    "experiencia",
+    "sinergia"
+  ],
+  "idioma": "es-ES",
+  "publico": "Jóvenes en España a quienes les gusta salir bien vestidos y preparados para el clima del día",
+  "competidores": [
+    "Whering",
+    "Cladwell",
+    "YouCloset"
+  ],
+  "brandKit": {
+    "version": "1.0.0",
+    "territorio": "cercano",
+    "neutro": {
+      "nombre": "Niebla",
+      "hex": "#DDE6F5"
+    },
+    "logo": [
+      {
+        "version": "principal",
+        "archivo": "trabajo/2026-11-17-marca-combbi/logo/principal.svg"
+      },
+      {
+        "version": "invertida",
+        "archivo": "trabajo/2026-11-17-marca-combbi/logo/invertida.svg"
+      },
+      {
+        "version": "monocroma",
+        "archivo": "trabajo/2026-11-17-marca-combbi/logo/monocroma.svg"
+      },
+      {
+        "version": "simbolo",
+        "archivo": "trabajo/2026-11-17-marca-combbi/logo/simbolo.svg"
+      },
+      {
+        "version": "simbolo_invertido",
+        "archivo": "trabajo/2026-11-17-marca-combbi/logo/simbolo-invertido.svg"
+      },
+      {
+        "version": "reducida",
+        "archivo": "trabajo/2026-11-17-marca-combbi/logo/reducida.svg"
+      }
+    ],
+    "tokens": "trabajo/2026-11-17-marca-combbi/tokens"
+  },
+  "referencias": [
+    {
+      "nombre": "Símbolo: letra de trazo continuo con piernas",
+      "atributo": "Un personaje con piernas, dibujado con una sola línea gruesa",
+      "tipo": "si"
+    },
+    {
+      "nombre": "lille",
+      "atributo": "Volumen blando e hinchado del logotipo, en un solo azul",
+      "tipo": "si"
+    },
+    {
+      "nombre": "bask",
+      "atributo": "Juventud: rotulado a mano con energía",
+      "tipo": "si"
+    },
+    {
+      "nombre": "Cladwell",
+      "atributo": "Serif fina y foto de revista: elegante, no Combbi",
+      "tipo": "no"
+    },
+    {
+      "nombre": "Acloset",
+      "atributo": "App de IA genérica: fondo blanco y «AI» en el titular",
+      "tipo": "no"
+    }
+  ],
+  "visual": {
+    "colores": [
+      {
+        "nombre": "Cobalto",
+        "hex": "#2B6AD1",
+        "rol": "primario"
+      },
+      {
+        "nombre": "Crudo",
+        "hex": "#FAF7F0",
+        "rol": "fondo"
+      },
+      {
+        "nombre": "Rosa chicle",
+        "hex": "#FF9EC4",
+        "rol": "acento"
+      },
+      {
+        "nombre": "Noche",
+        "hex": "#1B2340",
+        "rol": "texto"
+      }
+    ],
+    "estilo": "Trazo grueso y continuo con remates redondeados, sin sombras ni degradados. Un color de marca sobre crudo liso. Personaje con piernas como firma. Fotos de jóvenes reales en la calle, con luz natural. Portada y bento a sangre en cobalto o cielo."
+  },
+  "tipografia": {
+    "titulos": {
+      "familia": "Baloo 2",
+      "pesos": [
+        700,
+        800
+      ],
+      "licencia": "SIL Open Font License 1.1 (uso comercial permitido)",
+      "fuente": "https://fonts.google.com/specimen/Baloo+2"
+    },
+    "texto": {
+      "familia": "DM Sans",
+      "pesos": [
+        400,
+        500
+      ],
+      "licencia": "SIL Open Font License 1.1 (uso comercial permitido)",
+      "fuente": "https://fonts.google.com/specimen/DM+Sans"
+    }
+  }
+}
