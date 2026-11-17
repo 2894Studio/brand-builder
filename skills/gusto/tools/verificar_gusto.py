@@ -156,6 +156,43 @@ with tempfile.TemporaryDirectory() as td:
     except ImportError:
         saltados.append("contacto_referencias (falta Pillow)")
 
+# ---- etiquetador: importar ZIP y servidor local ----
+try:
+    import io as _io
+    import zipfile as _z
+    import threading as _th
+    import base64 as _b64
+    import urllib.request as _ur
+    from PIL import Image as _PI
+    def _png(c):
+        b = _io.BytesIO(); _PI.new("RGB", (300, 400), c).save(b, "PNG"); return b.getvalue()
+    meta = {"version": 1, "referencias": [
+        {"archivo": "uno.png", "nombre": "uno", "tipo": "si", "nota_usuario": "me gusta", "decisiones": [{"dimension": "nombre", "regla": "minúsculas gordas", "aplica_en": ["logo"]}, {"dimension": "firma", "regla": "sello", "aplica_en": ["post"]}]},
+        {"archivo": "../../peligro.png", "nombre": "p", "tipo": "no", "nota_usuario": "x", "decisiones": []},
+        {"archivo": "malo.exe", "nombre": "m", "tipo": "si", "nota_usuario": "x", "decisiones": []}]}
+    with tempfile.TemporaryDirectory() as te:
+        zp = os.path.join(te, "e.zip")
+        with _z.ZipFile(zp, "w") as zf:
+            zf.writestr("etiquetas.json", _j.dumps(meta)); zf.writestr("referencias/uno.png", _png("#3355CC")); zf.writestr("referencias/peligro.png", _png("#CC5533")); zf.writestr("referencias/malo.exe", b"x")
+        r = py(os.path.join(AQUI, "importar_etiquetado.py"), zp, "--gusto", os.path.join(te, "g.json"), "--referencias", os.path.join(te, "refs"))
+        gi = _j.load(open(os.path.join(te, "g.json"), encoding="utf-8")) if os.path.exists(os.path.join(te, "g.json")) else {"referencias": []}
+        uno = next((x for x in gi["referencias"] if x.get("archivo") == "uno.png"), {})
+        ok(r.returncode == 0 and uno.get("tipo") == "si" and uno.get("confirmado") and len(uno.get("decisiones", [])) == 2 and uno.get("medido"), "importar_etiquetado copia, mide y vuelca tipo, nota y decisiones")
+        ok(os.path.exists(os.path.join(te, "refs", "uno.png")) and not os.path.exists(os.path.join(te, "refs", "malo.exe")) and not os.path.exists(os.path.join(te, "..", "peligro.png")), "importar_etiquetado rechaza nombres y formatos peligrosos")
+        sys.path.insert(0, AQUI)
+        import etiquetador as _E
+        srv = _E.servidor(os.path.join(te, "proy"), 0)
+        _th.Thread(target=srv.serve_forever, daemon=True).start()
+        base = f"http://127.0.0.1:{srv.server_port}"
+        ok(_j.loads(_ur.urlopen(base + "/ping").read()).get("ok") is True and b"Etiquetador de referencias" in _ur.urlopen(base + "/").read(), "el servidor del etiquetador sirve la interfaz y responde al sondeo")
+        m2 = {"version": 1, "referencias": [{"archivo": "a.png", "nombre": "a", "tipo": "si", "nota_usuario": "n", "decisiones": [], "_datos": "data:image/png;base64," + _b64.b64encode(_png("#118833")).decode()}]}
+        rq = _ur.Request(base + "/guardar", data=_j.dumps(m2).encode(), headers={"Content-Type": "application/json"})
+        resp = _j.loads(_ur.urlopen(rq).read())
+        ok(resp.get("ok") and os.path.exists(os.path.join(te, "proy", "referencias", "a.png")) and os.path.exists(os.path.join(te, "proy", "gusto.json")), "el servidor guarda referencias/ y gusto.json en el proyecto")
+        srv.shutdown()
+except ImportError:
+    saltados.append("etiquetador (falta Pillow)")
+
 print()
 if saltados:
     print("SALTADO:", "; ".join(saltados))

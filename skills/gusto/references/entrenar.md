@@ -22,7 +22,13 @@ Una frase por dimensión que de verdad destaque en esa referencia, con **qué co
 
 **Mínimo:** al menos **2 dimensiones de las distintivas** (nombre, símbolo, tipografía, imagen, composición, firma). Forma y color solas son lo genérico.
 
-## 3. Cómo se registran
+## 2b. La forma fácil: el etiquetador (interfaz)
+```
+python3 skills/gusto/tools/etiquetador.py          # abre el navegador y guarda directo en el proyecto
+```
+Arrastras las imágenes (o las pegas), eliges «Me gusta / No quiero parecerme / De otra categoría», escribes tu nota y las decisiones por dimensión (con ejemplos), y una lista de comprobación te dice qué falta. «Guardar en el proyecto» crea `referencias/` y `gusto.json` (mide las imágenes y guarda tus notas y decisiones). Sin servidor, abre `skills/gusto/tools/etiquetador.html` a mano, usa **Descargar ZIP** y ejecuta `python3 skills/gusto/tools/importar_etiquetado.py referencias-etiquetadas.zip`.
+
+## 3. Cómo se registran (a mano, si no usas el etiquetador)
 ```
 python3 skills/gusto/tools/gusto.py decision --ref maze_landing --dimension simbolo --regla "geometría 2D plana, trazo grueso redondeado, sin 3D" --aplica logo
 python3 skills/gusto/tools/gusto.py decision --ref maze_landing --dimension composicion --regla "un elemento recortado por el borde y mucho aire" --aplica post,bento

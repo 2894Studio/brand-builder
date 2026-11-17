@@ -29,6 +29,8 @@ Las referencias las aporta **la persona**: no las inventes ni las elijas por ell
 
 Las imágenes de otras marcas son referencia interna: no se reutilizan en las piezas, no se publican y no se copian en el plugin.
 
+**Forma fácil:** `python3 skills/gusto/tools/etiquetador.py` abre una interfaz para cargar las imágenes, etiquetarlas (me gusta / no / otra), escribir la nota y las decisiones por dimensión, y guardarlo todo en `referencias/` y `gusto.json` (o `etiquetador.html` + `importar_etiquetado.py` si no hay servidor). Ver `references/entrenar.md`.
+
 ### 2. Medir
 ```
 python3 skills/gusto/tools/analizar_referencias.py referencias/ --gusto gusto.json [--tipo si|no|otra]

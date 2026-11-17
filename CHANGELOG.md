@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.6.2 (2026-11-17)
+
+- **Etiquetador de referencias (interfaz):** `gusto/tools/etiquetador.html` (un solo archivo, funciona sin conexión) para arrastrar o pegar imágenes, marcarlas (me gusta / no quiero parecerme / otra categoría), escribir la nota y las decisiones por dimensión (con ejemplos y la marca de «distintiva»), y una lista de comprobación viva (6 a 8 referencias, al menos 3 sí y 2 no, notas y decisiones completas). Guarda con `etiquetador.py` (servidor local solo en 127.0.0.1: crea `referencias/` y actualiza `gusto.json`) o con **Descargar ZIP** + `importar_etiquetado.py` (copia, mide con `analizar_referencias.py` y vuelca tipo, nota y decisiones; rechaza nombres y formatos peligrosos). Probado en Chromium de punta a punta.
+
 ## 2.6.1 (2026-11-17)
 
 - **Entrenar el gusto de verdad (a partir de la prueba de la escuela de código, donde las referencias no mejoraron nada):** las referencias ahora se convierten en **decisiones transferables por dimensión** (nombre, símbolo, tipografía, imagen, composición, firma, forma, color, voz) con `gusto.py decision`, numeradas R1…Rn con `gusto.py reglas` (las de las referencias «no» son «EVITAR»); `validar` avisa si una referencia «sí» no tiene decisiones o si solo toca forma y color (lo genérico). `kit_lanzamiento.py` deja `contacto-gusto.png` (referencias | piezas | reglas) y `revision-gusto.md`, y la **puerta de entrega** no se abre con reglas sin revisar o en «no cumple» sin corregir. Protocolo para la persona: `gusto/references/entrenar.md`.
