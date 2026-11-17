@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.1.1 (2026-11-17)
+
+- El repositorio pasa a llamarse `2894Studio/brand-builder`: README y manifiestos apuntan a la nueva ubicación (el nombre del plugin sigue siendo `brand-kit-builder`).
+
 ## 4.1.0 (2026-11-17)
 
 - **Qué buscar y qué evitar al mirar referencias:** al final, junto a las palabras clave, tres cosas que buscar y tres que evitar, cada una con su «porque» sacado del brief. **Es el único sitio donde se permiten aspectos visuales**, y en general (aire, tono, peso de la tipografía en abstracto, uso de la imagen, ornamento, temperatura): sin colores concretos ni hex, nombres de fuentes, formas de logo ni marcas para imitar. Nueva sección del brief; el verificador exige 3 y 3, con «porque» y sin colores concretos.

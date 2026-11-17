@@ -2,14 +2,14 @@
   "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "brand-kit-builder",
   "displayName": "Brand Kit Builder",
-  "version": "4.1.0",
+  "version": "4.1.1",
   "description": "Te ayuda a explorar tu marca con buenas preguntas (3 rondas, la primera abierta), te deja un brief estratégico con tres vías generales y tres palabras clave para buscar referencias en Behance, Pinterest y Dribbble. Sin logo, paleta ni recomendaciones visuales.",
   "author": {
     "name": "2894 Studio",
     "url": "https://github.com/2894Studio"
   },
-  "homepage": "https://github.com/2894Studio/brand-kit-builder",
-  "repository": "https://github.com/2894Studio/brand-kit-builder",
+  "homepage": "https://github.com/2894Studio/brand-builder",
+  "repository": "https://github.com/2894Studio/brand-builder",
   "license": "MIT",
   "keywords": [
     "marca",

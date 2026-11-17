@@ -40,7 +40,7 @@ Un ejemplo completo de brief (ficticio), en [`evals/fixtures/estrategia/brief-bu
 En Claude Code:
 
 ```
-/plugin marketplace add 2894Studio/brand-kit-builder
+/plugin marketplace add 2894Studio/brand-builder
 /plugin install brand-kit-builder@brand-kit-builder
 ```
 
