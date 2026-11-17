@@ -59,4 +59,4 @@ No lo presentes hasta que salga «BRIEF CORRECTO». A la persona, enséñale un 
 
 Señales de alarma que dices en voz alta: nombre descriptivo y común (difícil de registrar) · promesa con un claim regulado («natural», «sostenible», «de especialidad») · una promesa sin prueba · referencia de otra categoría y otro precio · dos cosas que no caben a la vez («exclusiva» y «para todos»).
 
-Siguiente, **solo si la persona lo pide**: `identidad` (logo, paleta, tipografía) o `brief-logo` (brief y prompts para explorar logos con IA).
+Si la persona pide **referencias** o dice que no sabe dónde buscarlas, dale solo **las 3 palabras clave generales** para Behance, Pinterest y Dribbble, deducidas del brief (`../gusto/references/palabras-clave.md`); más, solo si las pide. Siguiente, **solo si la persona lo pide**: `identidad` (logo, paleta, tipografía) o `brief-logo` (brief y prompts para explorar logos con IA).

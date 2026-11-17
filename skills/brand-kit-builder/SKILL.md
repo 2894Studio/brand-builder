@@ -44,7 +44,7 @@ Los scripts de `tokens`, `laminas` e `identidad` necesitan Python 3.11 o superio
 | Manual de marca, brand book, presentación de la marca | `laminas` |
 | El kit visual final: logo en PNG, el bento y los dos posts (qué es la marca y su principal atributo) | `lanzamiento` |
 | Revisar lo hecho, saber qué falta, cerrar y entregar | `entrega` |
-| Que se vea menos genérico, entrenar el gusto, aportar referencias, diseñar un post, banner o pantalla, «más profesional / más humano / más tecnológico» | `gusto` |
+| Que se vea menos genérico, entrenar el gusto, **buscar referencias (palabras clave para Behance, Pinterest y Dribbble)**, aportar referencias, diseñar un post, banner o pantalla, «más profesional / más humano / más tecnológico» | `gusto` |
 | Montarlo en Canva | `canva` |
 
 **Cadena por defecto** cuando pide «la marca», «ayúdame con mi marca» o «el logo»: **solo `estrategia`**. Son 2 o 3 rondas de preguntas, un espejo entre rondas y un cierre con un brief (`estrategia.md`) y **tres vías generales** (actitud y promesa, sin colores, logos ni tipografías). Si la persona pide logo, colores o tipografía, dile que eso viene después de tener clara la marca y ofrécelo como siguiente paso.

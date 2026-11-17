@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.2.0 (2026-11-17)
+
+- **Palabras clave para buscar referencias** (`gusto/references/palabras-clave.md`): por defecto, **tres búsquedas generales** que sirven igual en Behance, Pinterest y Dribbble (sector + `brand identity`, cliente + producto, actitud de la vía elegida + `branding`), deducidas del brief; más, por plataforma y para el rechazo, solo si la persona las pide. Enlazado desde `estrategia`, `gusto` y el router.
+
 ## 3.1.0 (2026-11-17)
 
 - **Las rondas de la estrategia se hacen siempre con el diálogo nativo** (`AskUserQuestion`; `ask_question` en Antigravity), también las abiertas: las opciones son 2 a 4 respuestas típicas y contrapuestas, que hacen de ejemplos, y la persona escribe lo suyo en «Other». Antes las abiertas iban en texto del chat y no aparecían como preguntas nativas.
