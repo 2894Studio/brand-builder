@@ -4,7 +4,7 @@ Uso:  python3 verificar_brief.py trabajo/<fecha>-marca-<slug>/estrategia.md
 Comprueba: todas las secciones (Situación, Público y tensión, Mapa de la categoría, Posicionamiento, Promesa y prueba, Personalidad,
 No es, Las tres vías, Vía elegida, Idea rectora, Lo que aún no sabes, Palabras clave para buscar referencias, Riesgos y pendientes) con contenido real; la tensión con dos mitades;
 al menos 3 alternativas; la fórmula del posicionamiento completa; al menos 3 «no es»; EXACTAMENTE tres vías con sus campos; una idea rectora
-de máximo 25 palabras; al menos 3 cosas por descubrir; 3 palabras clave para buscar referencias; sin recomendaciones visuales (colores, hex, logo, tipografía, paleta, prompts) en las
+de máximo 25 palabras; al menos 3 cosas por descubrir; 3 palabras clave para buscar referencias; 3 cosas que buscar y 3 que evitar en las referencias, con «porque» y sin colores concretos; sin recomendaciones visuales (colores, hex, logo, tipografía, paleta, prompts) en las
 vías, la idea rectora, el posicionamiento y la personalidad; sin marcadores sin rellenar ni léxico prohibido. No juzga el acierto: sí impide
 entregar un brief vacío o que se salte la fase. Sale con 1 si algo falla.
 Comprueba que el brief estratégico (estrategia.md) es un brief y no un formulario rellenado.
@@ -38,6 +38,7 @@ SECCIONES = [
     ("idea rectora", "Idea rectora", 10),
     ("lo que aún no sabes", "Lo que aún no sabes", 60),
     ("palabras clave", "Palabras clave para buscar referencias", 30),
+    ("qué buscar", "Qué buscar y qué evitar en las referencias", 150),
     ("riesgos", "Riesgos y pendientes", 20),
 ]
 VISUAL = [r"#[0-9a-f]{3,8}\b", r"\blogo", r"\blogotipo", r"\bisotipo", r"\bs[ií]mbolo", r"\bicono", r"\btipograf", r"\bpaleta", r"\bmockup", r"\bprompt", r"\bserif", r"\bsans\b", r"\bdegradado", r"\bfotograf", r"\bilustraci",
@@ -100,6 +101,14 @@ def main():
     ok(bool(re.search(r"\brecomendad[ao]\b|\brecomiendo\b", cuerpo["Las tres vías"], re.I)), "se recomienda una de las tres vías")
     claves = re.findall(r"`([^`\n]{4,60})`", cuerpo["Palabras clave para buscar referencias"])
     ok(len(claves) >= 3 and not any(c.strip() in ("…", "...") for c in claves), f"hay 3 palabras clave para buscar referencias ({len(claves)})")
+    bq = cuerpo["Qué buscar y qué evitar en las referencias"]
+    i_ev = bq.lower().find("evitar:")
+    buscar, evitar = (bq[:i_ev], bq[i_ev:]) if i_ev >= 0 else (bq, "")
+    pts = lambda t: [l for l in t.splitlines() if re.match(r"^\s*([-*]|\d+[.)])\s+\S", l)]  # noqa: E731
+    ok(len(pts(buscar)) >= 3 and len(pts(evitar)) >= 3, f"hay 3 cosas que buscar y 3 que evitar ({len(pts(buscar))} y {len(pts(evitar))})")
+    ok(all("porque" in l.lower() for l in pts(buscar) + pts(evitar)) and bool(pts(buscar)), "cada cosa que buscar o evitar lleva su «porque»")
+    prohibido = sorted({m.group(0).lower() for pat in (VISUAL[0], VISUAL[-1]) for m in re.finditer(pat, bq, re.I)})
+    ok(not prohibido, "lo visual de «qué buscar y evitar» va en general: sin colores concretos ni hex" + (f" ({', '.join(prohibido[:4])})" if prohibido else ""))
     pend = [l for l in cuerpo["Lo que aún no sabes"].splitlines() if re.match(r"^\s*([-*]|\d+[.)])\s+\S", l)]
     ok(len(pend) >= 3, f"hay al menos 3 cosas por descubrir, con cómo averiguarlas ({len(pend)})")
     for nombre in ("Las tres vías", "Idea rectora", "Posicionamiento", "Personalidad"):

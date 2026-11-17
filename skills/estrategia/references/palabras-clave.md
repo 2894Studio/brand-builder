@@ -22,6 +22,17 @@ Cinco búsquedas por plataforma, **derivadas de las tres generales**:
 - **Dribbble** (piezas sueltas y producto): `<producto> ui`, `<cliente> dashboard`, `calm|<actitud> <sector> ui`, `<producto> empty state`, `<producto> landing`.
 - **Pinterest** (sensación; también en español): `<actitud> brand design`, `<sector> editorial layout`, `identidad visual <sector> <cliente>`, `<actitud> packaging|stationery`.
 
+## Qué buscar y qué evitar (el único lugar donde se habla de lo visual)
+
+Junto a las palabras clave, 3 cosas **que buscar** y 3 **que evitar** al mirar referencias. Orientan la búsqueda; **no son una recomendación de diseño**. Salen de la vía elegida, la personalidad y el «No es» del brief, y cada punto lleva su «porque».
+
+**Se permite, en general:** densidad (aire frente a denso), tono (sobrio, cálido, atrevido, técnico), peso de la tipografía en abstracto (titulares grandes, texto pequeño y técnico), uso de la imagen (personas, ilustración, solo texto, datos a la vista), nivel de ornamento, ritmo, temperatura (frío o cálido).
+**No se permite:** colores concretos o códigos hex, nombres de fuentes, formas de logo, ni nombres de marcas para imitar.
+
+Formato (una línea cada uno):
+- **Buscar:** «composiciones con mucho aire y pocos elementos, porque la voz es seca y no necesita adornos»
+- **Evitar:** «aspecto de agencia corporativa de recursos humanos, porque su cliente huye de eso»
+
 ## Para el rechazo (solo si lo pide; 1 de las 3 referencias es «no quiero esto»)
 Del «No es» del brief: `<lo que no es> branding` (`traditional accounting firm branding`, `corporate bank branding`, `crypto gradient`).
 
@@ -34,7 +45,8 @@ Del «No es» del brief: `<lo que no es> branding` (`traditional accounting firm
 3. Con eso la persona ya puede empezar a explorar visualmente por su cuenta o con otra herramienta; este plugin termina aquí.
 
 ## Reglas
-- Para el logo, **3 referencias**, no más.
+- **3 referencias**, no más.
 - Dar **las 3 búsquedas generales** salvo que pida más; el resto, solo si lo pide.
 - **Nada de nombres de marcas para copiar**: son búsquedas por tema.
+- Lo visual solo aparece en «Qué buscar y qué evitar», en general y con «porque»; en el resto del plugin sigue prohibido.
 - Las búsquedas salen del brief: si el brief cambia, cambian.

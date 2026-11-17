@@ -5,7 +5,7 @@
 Te hace buenas preguntas en 3 rondas, te devuelve un espejo de lo que oye, y te deja:
 
 1. un **brief estratégico** con **tres vías generales** para tu marca, y
-2. **tres palabras clave** para buscar referencias en **Behance, Pinterest y Dribbble**.
+2. **tres palabras clave** para buscar referencias en **Behance, Pinterest y Dribbble**, con **qué buscar y qué evitar** al mirarlas.
 
 Y nada más. **No hace el logo, ni la paleta, ni la tipografía, ni da recomendaciones visuales.** Esto es lo que va *antes*: aclarar qué es tu marca, para quién y qué actitud tiene, para que lo que diseñes después tenga una razón.
 
@@ -26,12 +26,12 @@ Para estudiantes, emprendedores y equipos que quieren crear o replantear una mar
 - Tras cada ronda, un **espejo** corto: lo que oye, lo que le llama la atención y lo que aún no sabe.
 - Las **opciones de las rondas 2 y 3 salen de lo que tú contaste**, no de un catálogo. Siempre puedes escribir tu propia respuesta.
 - Al final, **tres vías generales** de actitud y promesa (por ejemplo, «la que demuestra», «la que acompaña», «la que discute»). Tú eliges una o mezclas dos; el plugin no elige por ti.
-- Cierra con la **idea rectora** (una frase) y **las tres palabras clave** para buscar referencias.
+- Cierra con la **idea rectora** (una frase), **las tres palabras clave** y **qué buscar y qué evitar** en las referencias.
 
 ## Qué te llevas
 
 - `trabajo/<fecha>-marca-<slug>/estrategia.md`: el brief (situación, público y tensión, mapa de la categoría, posicionamiento, promesa y prueba, personalidad, lo que no es, las tres vías, la vía elegida, la idea rectora, lo que aún no sabes, palabras clave y riesgos).
-- **Tres palabras clave** generales, por ejemplo `fintech brand identity`, `freelancer invoicing app` y `transparent minimal branding`, y la indicación de guardar **3 referencias** (2 que te gustan y 1 que no quieres parecer) anotando qué *actitud* te gusta de cada una.
+- **Tres palabras clave** generales, por ejemplo `fintech brand identity`, `freelancer invoicing app` y `transparent minimal branding`, **tres cosas que buscar y tres que evitar** en las referencias (por ejemplo, «mucho aire, porque la voz es seca» o «aspecto de agencia corporativa, porque su cliente huye de eso») y la indicación de guardar **3 referencias** (2 que te gustan y 1 que no quieres parecer) anotando qué *actitud* te gusta de cada una.
 
 Un ejemplo completo de brief (ficticio), en [`evals/fixtures/estrategia/brief-bueno.md`](evals/fixtures/estrategia/brief-bueno.md).
 
@@ -49,7 +49,7 @@ Después, escribe **«quiero crear una marca»** (o `/brand-kit-builder`). Para 
 ## Qué NO hace
 
 - No diseña logos, paletas, tipografías, manuales ni piezas visuales.
-- No da recomendaciones visuales: lo único «visual» es la sensación general de cada vía, con una palabra («sobria», «cálida», «atrevida»).
+- No da recomendaciones visuales. Solo hay dos excepciones, siempre en general y con un «porque»: la sensación de cada vía (una palabra: «sobria», «cálida», «atrevida») y, al final, **qué buscar y qué evitar** al mirar referencias (aire, tono, uso de la imagen, ornamento). Nunca colores concretos, fuentes, formas de logo ni marcas para imitar.
 - No inventa datos de mercado ni el nombre de tu marca: lo que no comprueba, lo marca como *Supuesto*.
 - No es asesoría legal: las anterioridades del nombre y los claims quedan como **pendiente de validación profesional** (OEPM, EUIPO).
 

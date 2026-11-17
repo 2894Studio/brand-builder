@@ -70,5 +70,15 @@ La prueba técnica antes del contrato.
 - `rigorous no-nonsense branding`
 Guardar 3 referencias (2 que le gustan y 1 que no quiere parecer), con la actitud de cada una.
 
+## Qué buscar y qué evitar en las referencias
+**Buscar:**
+- Composiciones con mucho aire y pocos elementos, porque la voz es seca y no necesita adornos.
+- Titulares grandes con datos a la vista (cifras, pasos), porque la prueba es el centro de la marca.
+- Un tono sobrio con un toque humano, porque el riesgo de la vía es sonar frío.
+**Evitar:**
+- Aspecto de agencia corporativa de recursos humanos, con fotos de equipos sonriendo, porque su cliente huye de eso.
+- Estética de «marca de IA» llena de brillos y redes de puntos, porque no vende IA sino criterio.
+- Exceso de ornamento, porque la marca promete sencillez.
+
 ## Riesgos y pendientes
 El nombre Cribo está pendiente de validación de anterioridades. No se puede prometer plazo de contratación. *Supuesto: el precio es por contratación cerrada; confirmar.*

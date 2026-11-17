@@ -49,6 +49,11 @@ cambios = {
     "sin palabras clave": txt[:txt.index("## Palabras clave")] + txt[txt.index("## Riesgos y pendientes"):],
     "con palabras clave sin rellenar": txt.replace("- `technical recruiting brand identity`\n- `startup hiring platform`\n- `rigorous no-nonsense branding`", "- `…`\n- `…`\n- `…`"),
     "con léxico prohibido": txt.replace("Seca, concreta y sin adornos.", "Una marca innovadora que quiere revolucionar y potenciar el sector con una solución integral."),
+    "sin la sección de qué buscar y qué evitar": txt[:txt.index("## Qué buscar")] + txt[txt.index("## Riesgos y pendientes"):],
+    "con solo dos cosas que evitar": txt.replace("- Exceso de ornamento, porque la marca promete sencillez.\n", ""),
+    "con una cosa que buscar sin «porque»": txt.replace("- Un tono sobrio con un toque humano, porque el riesgo de la vía es sonar frío.", "- Un tono sobrio con un toque humano."),
+    "con un color concreto en qué buscar": txt.replace("- Composiciones con mucho aire y pocos elementos,", "- Composiciones con fondo azul y pocos elementos,"),
+    "con un código hex en qué evitar": txt.replace("- Exceso de ornamento, porque", "- Exceso de ornamento (#FF0000), porque"),
     "vacío": "# Brief\n\n## Situación\nUna marca innovadora.\n",
 }
 d = tempfile.mkdtemp()

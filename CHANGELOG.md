@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.1.0 (2026-11-17)
+
+- **Qué buscar y qué evitar al mirar referencias:** al final, junto a las palabras clave, tres cosas que buscar y tres que evitar, cada una con su «porque» sacado del brief. **Es el único sitio donde se permiten aspectos visuales**, y en general (aire, tono, peso de la tipografía en abstracto, uso de la imagen, ornamento, temperatura): sin colores concretos ni hex, nombres de fuentes, formas de logo ni marcas para imitar. Nueva sección del brief; el verificador exige 3 y 3, con «porque» y sin colores concretos.
+
 ## 4.0.1 (2026-11-17)
 
 - La pregunta abierta final de la ronda 3 cuenta dentro del máximo de 4 (en una prueba con Sonnet salieron 4 más la abierta). La ronda 1 abierta puede desglosarse en como mucho 3 puntos cortos más el nombre.

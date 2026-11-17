@@ -7,7 +7,7 @@ license: MIT
 
 # Estrategia: explorar la marca con buenas preguntas
 
-El producto es **la conversación**: que la persona salga sabiendo de su marca cosas que no sabía al entrar. No hay recomendaciones visuales: ni colores, ni logos, ni tipografías, ni estilos, ni prompts. Lo único «visual» permitido es la **sensación general** de cada una de las tres vías del cierre, con una palabra de registro (sobria, cálida, atrevida…).
+El producto es **la conversación**: que la persona salga sabiendo de su marca cosas que no sabía al entrar. No hay recomendaciones visuales: ni colores, ni logos, ni tipografías, ni estilos, ni prompts. Lo único «visual» permitido es la **sensación general** de cada vía (una palabra de registro) y, al final, **qué buscar y qué evitar** al mirar referencias, en general y con «porque».
 
 Lee antes: `../brand-kit-builder/references/criterio-experto.md`, `references/entrevista.md` (qué preguntar y cómo escuchar), `references/vias.md`, `references/palabras-clave.md`, `references/brief-estrategico.md` (la plantilla) y `references/lexico-prohibido.md`.
 
@@ -53,10 +53,10 @@ No lo presentes hasta que salga «BRIEF CORRECTO».
 
 ## El final: las palabras clave
 
-Lo último. Del brief deduce **las 3 palabras clave generales** que sirven igual en Behance, Pinterest y Dribbble (`references/palabras-clave.md`), ponlas en la sección «Palabras clave para buscar referencias» y dáselas. Más búsquedas, solo si las pide. Dile que guarde **3 referencias** (2 que le gustan y 1 que no quiere parecer) y apunte **qué actitud** le gusta de cada una.
+Lo último. Del brief deduce **las 3 palabras clave generales** que sirven igual en Behance, Pinterest y Dribbble (`references/palabras-clave.md`), ponlas en la sección «Palabras clave para buscar referencias» y dáselas. Añade **qué buscar y qué evitar** al mirar referencias (3 y 3, cada uno con su «porque»): **es el único sitio donde se permiten aspectos visuales**, y solo en general (aire, tono, uso de la imagen, ornamento), sin colores concretos, fuentes, formas de logo ni marcas para imitar. Más búsquedas, solo si las pide. Dile que guarde **3 referencias** (2 que le gustan y 1 que no quiere parecer) y apunte **qué actitud** le gusta de cada una.
 
 ## Cómo cierras
 
-A la persona, **8 líneas como máximo**: qué descubrimos, la tensión, la vía elegida y la idea rectora, lo que aún no sabe (con qué hacer esta semana), las 3 palabras clave y la ruta del archivo. No pegues el documento. Con eso **termina el plugin**: no ofrezcas más pasos. Si pide colores, logo o tipografía, di que queda fuera de este plugin.
+A la persona, **8 líneas como máximo**: qué descubrimos, la tensión, la vía elegida y la idea rectora, lo que aún no sabe (con qué hacer esta semana), las 3 palabras clave con qué buscar y qué evitar, y la ruta del archivo. No pegues el documento. Con eso **termina el plugin**: no ofrezcas más pasos. Si pide colores, logo o tipografía, di que queda fuera de este plugin.
 
 Señales de alarma que dices en voz alta: nombre descriptivo y común · claim regulado («natural», «sostenible») · promesa sin prueba · referencia de otra categoría y otro precio · dos cosas que no caben juntas («exclusiva» y «para todos»).

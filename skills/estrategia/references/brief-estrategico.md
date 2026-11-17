@@ -53,6 +53,17 @@ Las 3 generales, en una línea cada una (`palabras-clave.md`): sector + `brand i
 - `…`
 Guardar 3 referencias (2 que le gustan y 1 que no quiere parecer), con la actitud de cada una.
 
+## Qué buscar y qué evitar en las referencias
+(El único lugar con aspectos visuales, en general y con «porque»; ver `palabras-clave.md`.)
+**Buscar:**
+- …, porque …
+- …, porque …
+- …, porque …
+**Evitar:**
+- …, porque …
+- …, porque …
+- …, porque …
+
 ## Riesgos y pendientes
 Nombre (anterioridades pendientes de validación), claims, lo que no se puede prometer, *Supuestos* que hizo el agente sin confirmación.
 ```
@@ -65,4 +76,4 @@ Nombre (anterioridades pendientes de validación), claims, lo que no se puede pr
 - **El posicionamiento sigue la fórmula**, completa. Si falta la razón para creerlo, es un hueco que se dice, no se rellena con un adjetivo.
 - **La tensión tiene dos mitades.**
 - **Los supuestos se marcan** como *Supuesto* para que la persona los corrija.
-- **Nada visual** en las vías, la idea rectora, el posicionamiento ni la personalidad: ni colores, ni logos, ni tipografías, ni estilos, ni prompts.
+- **Nada visual** en las vías, la idea rectora, el posicionamiento ni la personalidad: ni colores, ni logos, ni tipografías, ni estilos, ni prompts. Lo visual solo aparece, en general y con «porque», en «Qué buscar y qué evitar en las referencias».
