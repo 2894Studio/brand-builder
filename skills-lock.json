@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "skills": {
+    "brand-strategy": {
+      "source": "jeremylongshore/claude-code-plugins-plus-skills",
+      "commit": "8af744bbe1018c346429cedceccb51f8e144c9d3",
+      "sourceType": "github",
+      "skillPath": "skills/.curated/brand-strategy/SKILL.md",
+      "computedHash": "e2e81a811a5f791f5a07e0fbdf3d42969fb21c395c29bb74fdbd74ccbf16a597"
+    }
+  }
+}
