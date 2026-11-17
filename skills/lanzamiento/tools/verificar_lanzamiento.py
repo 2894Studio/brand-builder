@@ -419,6 +419,54 @@ with tempfile.TemporaryDirectory() as d:
     json.dump([base_d], open(dj, "w"))
     ok(py(TI, PULSO, dj, "--salida", os.path.join(d, "tabs3")).returncode != 0, "tableros_identidad exige de 2 a 3 direcciones")
 
+    # 7l: proveedor de imagen guardado y Gemini API simulada
+    PI = os.path.join(RAIZ, "skills", "brand-kit-builder", "tools", "proveedor_imagen.py")
+    ct = os.path.join(d, "trabajo", "2026-x-marca-y")
+    ok(py(PI, "leer", "--carpeta", ct).returncode == 1, "proveedor_imagen: sin guardar, avisa de que hay que preguntarlo")
+    py(PI, "guardar", "--carpeta", ct, "--proveedor", "higgsfield")
+    ok(py(PI, "leer", "--carpeta", ct).stdout.strip() == "higgsfield", "proveedor_imagen: guarda y lee el proveedor")
+    ok(py(PI, "guardar", "--carpeta", ct, "--proveedor", "inventado").returncode != 0, "proveedor_imagen: rechaza un proveedor desconocido")
+    for prov in ("higgsfield", "magnific", "spaces"):
+        pr = os.path.join(d, f"pr_{prov}.md")
+        r = py(os.path.join(AQUI, "prompts_fotos.py"), PULSO, "--salida", pr, "--proveedor", prov)
+        ok(r.returncode == 0 and "no verificada" in open(pr, encoding="utf-8").read(), f"prompts_fotos --proveedor {prov} avisa de que la receta no está verificada")
+    try:
+        import base64
+        import http.server
+        import threading
+        from PIL import Image as _I
+
+        class _G(http.server.BaseHTTPRequestHandler):
+            def log_message(self, *x):
+                pass
+
+            def _s(self, c, o):
+                b = json.dumps(o).encode()
+                self.send_response(c); self.send_header("Content-Type", "application/json"); self.end_headers(); self.wfile.write(b)
+
+            def do_GET(self):
+                if self.headers.get("x-goog-api-key") != "K":
+                    return self._s(403, {"error": {"message": "API key not valid"}})
+                self._s(200, {"models": [{"name": "models/g-image", "supportedGenerationMethods": ["generateContent"]}]})
+
+            def do_POST(self):
+                self.rfile.read(int(self.headers.get("Content-Length", 0)))
+                bio = io.BytesIO(); _I.new("RGB", (64, 80), "#456").save(bio, "PNG")
+                self._s(200, {"candidates": [{"content": {"parts": [{"inlineData": {"mimeType": "image/png", "data": base64.b64encode(bio.getvalue()).decode()}}]}}]})
+        gs = http.server.HTTPServer(("127.0.0.1", 0), _G)
+        threading.Thread(target=gs.serve_forever, daemon=True).start()
+        genv = dict(os.environ, GEMINI_API_BASE="http://127.0.0.1:%d/v1beta" % gs.server_port, GEMINI_API_KEY="K")
+        GG = os.path.join(AQUI, "generar_gemini.py")
+        sc = subprocess.run([sys.executable, GG, "modelos"], capture_output=True, text=True, env={**genv, "GEMINI_API_KEY": ""})
+        ok(sc.returncode != 0 and "aistudio.google.com/apikey" in (sc.stdout + sc.stderr), "generar_gemini sin clave explica cómo conseguirla")
+        cg = os.path.join(d, "gfotos")
+        sg = subprocess.run([sys.executable, GG, "generar", "x", "--como", "objeto-1", "--aspecto", "4:5", "--carpeta", cg], capture_output=True, text=True, env=genv)
+        cred = open(os.path.join(cg, "creditos.md"), encoding="utf-8").read() if os.path.exists(os.path.join(cg, "creditos.md")) else ""
+        ok(sg.returncode == 0 and os.path.exists(os.path.join(cg, "objeto-1.png")) and "| objeto-1.png | ia |" in cred and "Gemini API" in cred, "generar_gemini guarda la imagen y anota los créditos (servidor simulado)")
+        gs.shutdown()
+    except ImportError:
+        saltados.append("generar_gemini (falta Pillow)")
+
     # 8. el crítico acepta el bento
     r = py(CRITICO, salida, "--ancho", "1920", "--alto", "1080")
     if r.returncode == 2:

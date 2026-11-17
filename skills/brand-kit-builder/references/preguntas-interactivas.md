@@ -9,7 +9,7 @@ Cuando el entorno lo permite, las preguntas **cerradas** se hacen con la herrami
 | Elegir entre territorios, logo A o B, tono (serio, divertido, tecnológico) | Qué hace el negocio, a quién, por qué existe |
 | Mockups: sí / no / al ver el logo · ¿web o app? · soporte principal | **Qué nunca debe parecer la marca** |
 | Confirmar un resumen o una lectura: «es correcto» / «hay que ajustar» | Qué le gusta de una referencia (el atributo) |
-| Aprobar un paso y pasar al siguiente · tipo de referencia (sí / no / otra) | Cualquier ajuste: «qué cambia exactamente» |
+| Aprobar un paso y pasar al siguiente · tipo de referencia (sí / no / otra) · **proveedor de imagen** (Canva / otro de pago / Gemini o Flow gratis / ninguno) | Cualquier ajuste: «qué cambia exactamente» |
 
 Regla práctica: si hay 2 a 4 respuestas razonables, diálogo; si la respuesta es una frase propia, chat. Una pregunta abierta forzada a opciones empobrece la respuesta, y la entrevista depende de respuestas ricas.
 

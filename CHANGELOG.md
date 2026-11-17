@@ -1,6 +1,10 @@
 # Changelog
 
-## Sin publicar (compatibilidad con Google Antigravity)
+## 2.6.0 (2026-11-17)
+
+Resumen: la calidad de las piezas pasa de «plantilla» a «campaña». Compatibilidad con Google Antigravity, nuevos generadores (pantalla, comparativa, foto, tipográfico, expresivo), puerta de entrega y hook de parada, proveedores de imagen (Canva y FLORA verificados; Gemini API, Higgsfield, Magnific y Spaces sin verificar), tres direcciones de identidad y la pregunta del proveedor de imagen.
+
+- **Pregunta del proveedor de imagen:** el router pregunta una vez, con un diálogo, «¿Tienes algún proveedor de imagen para mejorar la calidad de las piezas?» (Canva · FLORA, Higgsfield, Magnific, Spaces u otro de pago · Gemini o Flow gratis · Ninguno) y lo guarda con `proveedor_imagen.py`; `identidad` y `lanzamiento` lo leen. Guía en `lanzamiento/references/proveedores-imagen.md`. `generar_gemini.py` usa la API de Gemini con `GEMINI_API_KEY` (probado solo con un servidor simulado); `prompts_fotos.py --proveedor higgsfield|magnific|spaces` avisa de que esas recetas no están verificadas.
 
 - **Nuevo:** `plugin.json` en la raíz (manifiesto de Antigravity) y `AGENTS.md`, un **puntero** corto al router (`skills/brand-kit-builder/SKILL.md`), que es la única fuente de las reglas: así no se desincronizan. `verificar_skills.py` comprueba que sus enlaces existan. Claude Code sigue leyendo solo `.claude-plugin/`.
 - **Arreglo importante:** 5 de las 10 skills (el router, `entrega`, `lanzamiento`, `tokens` y `voz`) las **saltaba en silencio** un lector de YAML estricto, porque su `description` llevaba «: » sin comillas. Claude Code lo toleraba. Ahora todas las descripciones van entre comillas y `verificar_skills.py` lo comprueba (con un YAML estricto) para que no vuelva a pasar.
@@ -29,7 +33,6 @@
 - **FLORA como proveedor de imágenes (probado con una cuenta real, 0,207 USD):** `prompts_fotos.py --proveedor flora` (con `aspect_ratio`, presupuesto previo `quote: true` y modelos probados) y nuevo prompt `objeto-1` (objeto sobre fondo liso del color de acento). Las imágenes se descargan directamente con `curl`, sin exportar un diseño como en Canva. Receta y límites (tope de proyectos del plan gratuito, la API no crea ni borra proyectos) en `lanzamiento/references/fotos.md`.
 - **Técnica «Logo to Brand Identity» de FLORA (opcional, de pago):** `identidad/tools/flora_logo.py` (`preparar` el logo de entrada sobre fondo liso; `guardar` y **medir** los tableros de salida con `analizar_referencias.py`), `identidad/references/direccion-flora.md` (pasos con el conector, presupuesto en vivo —4,282 USD el 2026-11-16—, reglas: los tableros son inspiración y la estrategia manda) y el paso 4c de `identidad`. **Aún sin una ejecución real de la técnica**; la integración se probó con tableros simulados.
 - **Tres direcciones de identidad dentro del plugin, gratis (alternativa a la técnica de FLORA):** `identidad/tools/tableros_identidad.py` renderiza 2 o 3 direcciones (`direcciones.json`: paleta, tipografía, gráfico firma, radio, estilo de imagen) como tableros HTML+PNG con el logo, la paleta, la tipografía, una tarjeta y un post de muestra; `identidad/references/tres-direcciones.md` explica cómo leer el logo y cruzarlo con la estrategia. El paso 4c de `identidad` pasa a ser este camino y deja FLORA como opción de pago.
-- Al publicarlo hay que subir la versión en **los dos manifiestos** (`plugin.json` y `.claude-plugin/plugin.json`) para que las instalaciones existentes vean el cambio.
 
 ## 2.5.1
 

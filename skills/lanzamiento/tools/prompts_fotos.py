@@ -10,6 +10,7 @@ Las imágenes generadas se guardan como fotos/<nombre>.png, se anotan en credito
 se presentan como el equipo o los clientes reales de una empresa.
 """
 import argparse
+import json
 import os
 import sys
 
@@ -30,10 +31,20 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("marca")
     ap.add_argument("--salida", default="lanzamiento/prompts-fotos.md")
-    ap.add_argument("--proveedor", choices=["canva", "flora", "gemini", "flow", "todos"], default="todos", help="adapta las instrucciones a la herramienta (por defecto, todas)")
+    ap.add_argument("--proveedor", choices=["auto", "canva", "flora", "higgsfield", "magnific", "spaces", "gemini", "flow", "todos"], default="auto", help="adapta las instrucciones a la herramienta; auto lee trabajo/*/proveedor-imagen.json (ver proveedor_imagen.py) y, si no hay, usa todos")
     for _, _, clave, _ in TIPOS:
         ap.add_argument("--" + clave)
     a = ap.parse_args()
+    if a.proveedor == "auto":
+        import glob
+        enc = sorted(glob.glob(os.path.join("trabajo", "*", "proveedor-imagen.json")), key=os.path.getmtime)
+        prov = ""
+        if enc:
+            try:
+                prov = json.load(open(enc[-1], encoding="utf-8")).get("proveedor", "")
+            except Exception:  # noqa: BLE001
+                prov = ""
+        a.proveedor = prov if prov in ("canva", "flora", "higgsfield", "magnific", "spaces", "gemini", "flow") else "todos"
     m = L.cargar_marca(a.marca)
     c = L.colores(m)
     nombre = m.get("nombre", "la marca")
@@ -68,6 +79,14 @@ def main():
                      "**Antes, pide el presupuesto con `quote: true` y dile a la persona el coste en USD.** Modelos probados: `t2i-elote-gateway` (Nano Banana 2.1, ~0,05 USD, acepta `aspect_ratio`), "
                      "`t2i-gpt-image-2-6-sunburst` (GPT Image, ~0,055 USD, el que mejor clava colores planos saturados) y, más barato, `t2i-seedream-5-5-t2i` (~0,024 USD, falló por proveedor caído en la prueba). "
                      "La imagen sale en `outputs[].url`: se descarga directamente con `curl` (sin exportar nada).")
+        elif a.proveedor == "gemini" and os.environ.get("GEMINI_API_KEY"):
+            donde = ("Hay clave de la API de Gemini: genera cada imagen con `python3 skills/lanzamiento/tools/generar_gemini.py generar \"<prompt>\" --como <archivo> --aspecto <formato>` "
+                     "(guarda la imagen y anota los créditos). Receta no verificada con la API real.")
+        elif a.proveedor in ("higgsfield", "magnific", "spaces"):
+            nom = {"higgsfield": "Higgsfield", "magnific": "Magnific", "spaces": "Spaces"}[a.proveedor]
+            donde = (f"Usa cada prompt en **{nom}**: con su conector MCP si lo tienes instalado (mira sus herramientas de imagen y pide el coste antes de generar) o pegándolo a mano en su web. "
+                     f"Guarda cada imagen en `fotos/` con el nombre indicado. **Receta no verificada con {nom} en este plugin:** el primer uso dirá qué ajustar. "
+                     + ("Magnific es sobre todo para **mejorar** (ampliar y dar detalle) una foto que ya tienes: pasa por él la foto elegida, no sustituye a un generador. " if a.proveedor == "magnific" else ""))
         elif a.proveedor in ("gemini", "flow"):
             donde = ("Pega cada prompt en **" + ("Gemini** (crear imágenes)" if a.proveedor == "gemini" else "Google Flow** (modo imagen)") +
                      ". Si la herramienta tiene selector de formato, elígelo; si no, el formato ya va dentro del prompt. "

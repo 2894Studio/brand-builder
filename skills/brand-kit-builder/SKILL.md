@@ -12,7 +12,7 @@ Esta skill no produce nada. Lee la petición, decide qué oficio hace falta y lo
 ## Antes de enrutar
 
 1. Si existe `marca.json` en la raíz del proyecto, léelo y valida con `skills/tokens/tools/validar_marca.py`. Lo que ya está resuelto no se vuelve a preguntar; empieza por lo que falta.
-2. Mira si la skill `proveedores` de creative-architect está disponible. Si lo está, la producción de imagen va por ahí. Si no, **no es un bloqueo**: el entregable de cada imagen es un prompt listo para pegar.
+2. **Proveedor de imagen.** Mira si ya está guardado (`python3 skills/brand-kit-builder/tools/proveedor_imagen.py leer`). Si no, **pregunta una vez, con un diálogo**: «¿Tienes algún proveedor de imagen para mejorar la calidad de las piezas?» (Canva · FLORA, Higgsfield, Magnific, Spaces u otro de pago · Gemini o Flow gratis · Ninguno por ahora) y guárdalo con `proveedor_imagen.py guardar`. Guía y estado de cada uno en `skills/lanzamiento/references/proveedores-imagen.md`. Si creative-architect está instalado, su skill `proveedores` también sirve. Sin proveedor **no es un bloqueo**: el entregable de cada imagen es un prompt listo para pegar.
 3. Mira si hay conector de Canva. Solo importa si la persona lo pide: Canva es opcional.
 
 ## Cómo hablas

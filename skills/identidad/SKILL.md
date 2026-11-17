@@ -24,7 +24,7 @@ Las dos propuestas heredan esas 3 líneas; lo que la persona pidió en palabras 
 ## 1. Dos propuestas de logo
 
 1. Del territorio elegido, define **exactamente dos** que se diferencien en el *tipo* de marca (emblema circular frente a wordmark con símbolo integrado), no en el acabado. Dos acabados del mismo dibujo no son dos opciones.
-2. Una imagen por propuesta, con la intención `imagen.generar`. Si creative-architect está instalado, carga su skill `proveedores` y `direccion-de-arte`; si no, entrega **un prompt por propuesta** para pegar. Cada prompt describe: tipo de marca, símbolo, tratamiento (trazo a mano, geométrico, grabado), **una sola tinta**, color de tinta y de fondo, y **fondo liso**.
+2. Una imagen por propuesta, con la intención `imagen.generar`. Usa el proveedor de imagen guardado (`proveedor_imagen.py leer`; si no hay, pregúntalo, ver el router). Si creative-architect está instalado, carga su skill `proveedores` y `direccion-de-arte`; si no, entrega **un prompt por propuesta** para pegar. Cada prompt describe: tipo de marca, símbolo, tratamiento (trazo a mano, geométrico, grabado), **una sola tinta**, color de tinta y de fondo, y **fondo liso**.
 3. Preséntalas **a la vez**, nunca de una en una, y di cuál recomiendas en dos líneas.
 4. Enseña **primero** los dos logos y luego pregunta cuál con un diálogo (A, B, «ninguno, hay que ajustar»). Si piden ajustes, **no regeneres a ciegas**: pregunta en el chat qué cambia y regenera una sola vez con ese cambio explícito.
 
