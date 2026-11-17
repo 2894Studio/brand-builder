@@ -616,6 +616,35 @@ with tempfile.TemporaryDirectory() as d:
     rg2 = py(PUERTA, kest, "--marca", PULSO)
     ok("FALLO  el brief estratégico" not in rg2.stdout and "ok     el brief estratégico" in rg2.stdout, "con un brief correcto la puerta lo da por bueno")
 
+    # 7q: brief de logo y prompts para explorar con IA
+    BL = os.path.join(AQUI, "..", "..", "brief-logo", "tools", "brief_logo.py")
+    bl = os.path.join(d, "bl")
+    os.makedirs(bl, exist_ok=True)
+    shutil.copyfile(bueno, os.path.join(bl, "estrategia.md"))
+    ej = json.loads(py(BL, "--ejemplo").stdout)
+    ej.pop("gusto", None)
+    bjp = os.path.join(bl, "brief-logo.json")
+    json.dump(ej, open(bjp, "w", encoding="utf-8"), ensure_ascii=False)
+    rb = py(BL, bjp)
+    ml = open(os.path.join(bl, "brief-logo.md"), encoding="utf-8").read() if os.path.exists(os.path.join(bl, "brief-logo.md")) else ""
+    pl = open(os.path.join(bl, "prompts-logo.md"), encoding="utf-8").read() if os.path.exists(os.path.join(bl, "prompts-logo.md")) else ""
+    ok(rb.returncode == 0 and "La prueba técnica antes del contrato." in ml and "handshake" in pl and "--no" in pl and "Cribo" in pl, "brief_logo ensambla brief-logo.md (con la idea rectora y el «no es» del brief) y prompts-logo.md (imagen en inglés, Midjourney, Claude y refinamiento)")
+    ok("Eres un director de diseño de marca" in pl and "tres logos" in pl and "Critícalas tú" in pl and "Un único cambio" not in pl and "único cambio" in pl, "los prompts de Claude y de refinamiento piden autocrítica y un solo cambio por vuelta")
+    ok("apretón de manos" not in pl.split("## B.")[0], "los prompts de imagen no mezclan español: los tópicos van en inglés")
+    for nombre, mod in (("sin tres direcciones", lambda e: e["direcciones"].pop()),
+                        ("con tres direcciones del mismo tipo", lambda e: [x.update(tipo="wordmark") for x in e["direcciones"]]),
+                        ("con una dirección de relleno", lambda e: e["direcciones"][0].update(idea="Logo moderno y limpio")),
+                        ("con prompt en español", lambda e: e["direcciones"][0].update(prompt_en="un círculo sólido con huecos redondos en diagonal para la marca")),
+                        ("sin tópicos a evitar", lambda e: e.update(cliches=["engranaje"])),
+                        ("con restricciones sin traducir", lambda e: e.update(restricciones_en=[]))):
+        e2 = json.loads(json.dumps(ej))
+        mod(e2)
+        json.dump(e2, open(os.path.join(bl, "malo.json"), "w", encoding="utf-8"), ensure_ascii=False)
+        ok(py(BL, os.path.join(bl, "malo.json")).returncode == 1, f"brief_logo rechaza un brief {nombre}")
+    os.remove(os.path.join(bl, "estrategia.md"))
+    open(os.path.join(bl, "estrategia.md"), "w", encoding="utf-8").write("# Brief\n\n## Situación\nUna marca innovadora.\n")
+    ok(py(BL, bjp).returncode == 1, "brief_logo se niega si estrategia.md no es un brief verificado")
+
     # el crítico mide el texto contra la forma que tiene debajo (antes un texto oscuro sobre un círculo oscuro pasaba con «0 errores»)
     ocul = os.path.join(d, "spec_oculto.json")
     json.dump({"concepto": {"referencias": ["R1"], "decisiones": "x"}, "fondo": {"color": "acento"},

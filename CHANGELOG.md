@@ -1,5 +1,14 @@
 # Changelog
 
+## 2.10.0 (2026-11-17)
+
+**Nuevo objetivo por defecto: un buen brief de logo y prompts para explorar logos con IA.** El resultado de «crea mi marca» deja de ser el kit completo: ahora es `estrategia.md` (brief estratégico), `brief-logo.md` y `prompts-logo.md`. El kit completo (paleta, manual, tokens, bento y posts) sigue disponible si la persona lo pide.
+
+- **Skill `brief-logo`** (`skills/brief-logo/`): el agente piensa **tres direcciones de tipo distinto** (idea, por qué, forma construible, riesgo, prompt en inglés), los tópicos de la categoría que no se usan y las restricciones; `tools/brief_logo.py` lo comprueba (se niega con estrategia.md sin verificar, con menos o más de tres direcciones, del mismo tipo, de relleno, sin inglés o sin tópicos) y lo ensambla con lo ya decidido: idea rectora, posicionamiento, tensión, personalidad, «no es» y las reglas de tu `gusto.json` que tocan al logo (y lo que hay que evitar).
+- **`prompts-logo.md`** trae: prompts para **modelos de imagen** (uno por dirección, en versión natural y de Midjourney, con «avoid» de los tópicos y las restricciones en inglés), un prompt para **Claude o Claude Design** que pide un tablero SVG con las tres direcciones sobre claro, oscuro y a 32 px, con autocrítica (tres debilidades y las cinco pruebas) y recomendación, y un prompt de **refinamiento** de un solo cambio por vuelta, más cómo decidir.
+- Router, estrategia y `AGENTS.md`: la cadena por defecto es `estrategia → gusto → brief-logo`; la completa pasa a ser opcional. El alcance por defecto es «brief de logo + prompts».
+- No verificado: qué sale de cada plataforma con estos prompts. `references/plataformas.md` recoge lo esperable y lo marca como tal.
+
 ## 2.9.0 (2026-11-17)
 
 **Cambio de enfoque.** Los resultados no acertaban porque el plugin trataba la estrategia como un cuestionario: preguntaba cinco cosas de «quién es la marca» y transcribía las respuestas, sin investigar ni opinar, y el resto de pasos solo comprobaba la forma. Ahora el agente trabaja como un director de marca:

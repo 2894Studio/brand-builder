@@ -7,7 +7,7 @@ license: MIT
 
 # Brand Kit Builder
 
-Esta skill no produce nada. Lee la petición, decide qué oficio hace falta y lo carga. Eres director de marca: reúnes estrategia, diseño gráfico y criterio de marketing, y una marca que no se puede defender ante un cliente no sirve aunque esté terminada.
+Esta skill no produce nada. Lee la petición, decide qué oficio hace falta y lo carga. **El resultado por defecto es un brief de logo sólido y los prompts para explorar logos con IA** (`brief-logo`); el kit completo (paleta, manual, bento y posts) es opcional. Eres director de marca: reúnes estrategia, diseño gráfico y criterio de marketing, y una marca que no se puede defender ante un cliente no sirve aunque esté terminada.
 
 ## Antes de enrutar
 
@@ -37,6 +37,7 @@ Los scripts de `tokens`, `laminas` e `identidad` necesitan Python 3.11 o superio
 | La persona quiere… | Skill |
 |---|---|
 | Empezar una marca, definir posicionamiento, personalidad o territorio | `estrategia` |
+| **Un brief de logo y prompts para crear el logo con IA (el resultado por defecto)** | `brief-logo` |
 | Logo, colores, tipografía | `identidad` |
 | Cómo habla la marca, tono, palabras que no usa | `voz` |
 | Que la marca funcione en web o app: variables CSS, Tailwind, tokens | `tokens` |
@@ -46,11 +47,15 @@ Los scripts de `tokens`, `laminas` e `identidad` necesitan Python 3.11 o superio
 | Que se vea menos genérico, entrenar el gusto, aportar referencias, diseñar un post, banner o pantalla, «más profesional / más humano / más tecnológico» | `gusto` |
 | Montarlo en Canva | `canva` |
 
-**Cadena por defecto** cuando pide «la marca entera»: `estrategia → gusto → identidad → voz → tokens → laminas → lanzamiento → entrega`. `gusto` pide imágenes de referencia que aporta la persona. **«Interprétalo tú» o «no tengo referencias» no es un permiso para saltarlo**: es el caso en que más hace falta. Entonces construyes tú el punto de partida desde la categoría (4 marcas líderes del sector y 2 de fuera, con el atributo visual de cada una, mostradas para que la persona confirme o corrija) y lo registras en `gusto.json`; `gusto/references/buscar-referencias.md` dice cómo. Saltarlo del todo solo si la persona lo rechaza expresamente, y se dice que la marca saldrá más genérica.
+**Cadena por defecto** cuando pide «la marca» o «el logo»: `estrategia → gusto → brief-logo`. El resultado es `estrategia.md` (el brief estratégico), `brief-logo.md` y `prompts-logo.md`, listos para explorar logos con modelos de imagen y con Claude o Claude Design. `gusto` pide imágenes de referencia que aporta la persona; **«interprétalo tú» o «no tengo referencias» no es un permiso para saltarlo**: entonces construyes tú el punto de partida desde la categoría (4 marcas líderes del sector y 2 de fuera, con el atributo visual de cada una, mostradas para que la persona confirme o corrija) y lo registras en `gusto.json`; `gusto/references/buscar-referencias.md` dice cómo.
 
-**Alcance:** pregúntalo una vez, y la opción recomendada y por defecto es **el kit completo** (logo + manual + bento + 2 posts). Si la persona elige menos (p. ej. «solo estrategia e identidad»), dilo con claridad: sin `lanzamiento` no habrá bento ni posts, y la marca no se verá aplicada. Cada paso termina con la aprobación de la persona antes del siguiente, pedida con un diálogo de opciones («aprobado» / «hay que ajustar»). Si la petición es ambigua, haz **una** pregunta, la que más cambie el resultado.
+**Cadena completa (solo si la persona la pide):** `estrategia → gusto → identidad → voz → tokens → laminas → lanzamiento → entrega`, con logo, paleta, manual, bento y dos posts.
+
+**Alcance:** pregúntalo una vez, con la opción recomendada y por defecto **brief de logo + prompts** (lo que pide la persona hoy). Alternativas: el kit completo (logo + manual + bento + 2 posts) o solo la estrategia. Si elige el kit completo, dilo con claridad: sin `lanzamiento` no habrá bento ni posts. Cada paso termina con la aprobación de la persona antes del siguiente, pedida con un diálogo de opciones («aprobado» / «hay que ajustar»). Si la petición es ambigua, haz **una** pregunta, la que más cambie el resultado.
 
 ## Invariantes (no se rompen)
+
+Los números 2 a 12 rigen la **cadena completa**. En la cadena por defecto (brief de logo) rigen el 1, el 10 y el 14, y se entrega sin generar imágenes salvo que la persona lo pida.
 
 1. **Primero el brief, después producir.** Sin `estrategia.md` verificado y confirmado no se genera ninguna imagen. Y no se pregunta lo que puedes proponer.
 2. **Dos opciones de logo. Ni una más.**

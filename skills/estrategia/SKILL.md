@@ -30,7 +30,7 @@ Un solo mensaje, **de tú**, con este orden:
 1. «Esto es lo que entiendo» (3 líneas con lo que ya sabes) y **tu hipótesis**: público que decide, tensión, posicionamiento tentativo, tres rasgos de personalidad y **tres cosas que nunca debe parecer** (propón pares opuestos y que elija de qué lado no quiere estar). Con tus razones en una línea cada una.
 2. Un diálogo cerrado: «¿Voy bien?» (voy bien / ajusta esto / el enfoque es otro). Si ajusta, pregunta **qué** en el chat.
 3. **Como mucho tres preguntas** que solo la persona puede responder y que cambian el resultado: el dato o la prueba que puede demostrar, el precio o el rango real, una restricción (símbolo obligatorio, color fijo, canal principal). Cada pregunta lleva tu respuesta recomendada por defecto.
-4. Una vez, con un diálogo, cuatro cuestiones de producción (no de estrategia): **alcance** (el kit completo es la opción por defecto), **mockups** (sí / no / al ver el logo), si la marca necesita **web o app**, y **el trato** (tutea o usted).
+4. Una vez, con un diálogo, cuatro cuestiones de producción (no de estrategia): **alcance** (por defecto, brief de logo y prompts; alternativa, el kit completo), **mockups** (sí / no / al ver el logo), si la marca necesita **web o app**, y **el trato** (tutea o usted).
 
 Máximo **dos rondas**. Si la persona dice «decide tú», «no sé» o no contesta, decides, lo marcas como *Supuesto* en el brief y sigues. Un resumen confirmado cierra la fase: pídelo con un diálogo («es correcto» / «hay que ajustar») y **no avances sin él**.
 
@@ -63,4 +63,4 @@ Con el territorio elegido: el manifiesto en primera persona (estructura en `refe
 
 Señales de alarma que dices en voz alta: nombre descriptivo y común (difícil de registrar) · símbolo obligatorio que es el tópico de la categoría · promesa con un claim regulado («de especialidad», «natural», «sostenible») · referencia de otra categoría y otro precio · una promesa sin prueba.
 
-Siguiente: `identidad`.
+Siguiente: `gusto` (referencias) y después `brief-logo` (el resultado por defecto: brief de logo y prompts). Si la persona pidió la marca completa, `identidad`.
