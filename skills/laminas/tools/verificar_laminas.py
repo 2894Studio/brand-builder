@@ -111,7 +111,7 @@ for terr, kit, expresivo in variantes:
 import subprocess  # noqa: E402
 RAIZ = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", ".."))
 marca_p = os.path.join(RAIZ, "evals", "fixtures", "pulso", "marca.json")
-if os.path.exists(marca_p):
+if os.path.exists(marca_p) and sys.platform != "win32":      # el rsvg falso es un script de shell
     with tempfile.TemporaryDirectory() as tmp:
         falso = os.path.join(tmp, "rsvg-convert")
         reg = os.path.join(tmp, "visto.txt")
