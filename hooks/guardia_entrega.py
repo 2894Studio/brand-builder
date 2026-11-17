@@ -11,6 +11,14 @@ import json
 import os
 import sys
 
+
+def _rel(ruta, base=None):
+    """os.path.relpath que no falla entre unidades distintas de Windows (devuelve la ruta absoluta)."""
+    try:
+        return os.path.relpath(ruta, base) if base else os.path.relpath(ruta)
+    except ValueError:
+        return os.path.abspath(ruta)
+
 try:
     ent = json.load(sys.stdin)
 except Exception:  # noqa: BLE001
@@ -29,7 +37,7 @@ if os.path.exists(marca) and os.path.getmtime(marca) >= max(os.path.getmtime(p) 
 raiz = os.environ.get("CLAUDE_PLUGIN_ROOT", "")
 solo_svg = not any(p.endswith(".html") for p in piezas)
 motivo = (
-    f"El kit de {os.path.relpath(d, cwd)} no ha pasado la puerta de entrega, así que no está terminado. "
+    f"El kit de {_rel(d, cwd)} no ha pasado la puerta de entrega, así que no está terminado. "
     + ("Las piezas son SVG o PNG sueltos y no vienen de los generadores del plugin: no se dibujan a mano. " if solo_svg else "")
     + "Escribe lanzamiento/brief.json (formato en la cabecera de skills/lanzamiento/tools/kit_lanzamiento.py) y ejecuta "
     + f"python3 \"{raiz}/skills/lanzamiento/tools/kit_lanzamiento.py\" <ruta del brief>. "

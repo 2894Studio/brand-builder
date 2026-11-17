@@ -21,6 +21,14 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import lib_lanzamiento as L  # noqa: E402
 
+
+def _rel(ruta, base=None):
+    """os.path.relpath que no falla entre unidades distintas de Windows (devuelve la ruta absoluta)."""
+    try:
+        return os.path.relpath(ruta, base) if base else os.path.relpath(ruta)
+    except ValueError:
+        return os.path.abspath(ruta)
+
 TIPOS = {"que-es": "Qué es la marca", "atributo": "Su principal atributo"}
 
 
@@ -49,7 +57,7 @@ def main():
     elegidas = L.elegir_fotos(a.fotos) if a.fotos else {}
     ia = a.declarar_ia and any(v.get("pie") for v in elegidas.values())
     pie = " · ".join(x for x in ["Imagen generada con IA" if ia else "", a.pie] if x)
-    lista = "".join(f"\n    {t}: {os.path.relpath(v['ruta_3x4'], os.path.dirname(os.path.abspath(a.salida)))} (3:4) · {os.path.relpath(v['ruta_4x3'], os.path.dirname(os.path.abspath(a.salida)))} (4:3) · {os.path.relpath(v['ruta_1x1'], os.path.dirname(os.path.abspath(a.salida)))} (1:1)" for t, v in elegidas.items())
+    lista = "".join(f"\n    {t}: {_rel(v['ruta_3x4'], os.path.dirname(os.path.abspath(a.salida)))} (3:4) · {_rel(v['ruta_4x3'], os.path.dirname(os.path.abspath(a.salida)))} (4:3) · {_rel(v['ruta_1x1'], os.path.dirname(os.path.abspath(a.salida)))} (1:1)" for t, v in elegidas.items())
     nota_fotos = f"<!-- FOTOS DISPONIBLES (úsalas en el recurso visual con <div class=\"foto\"><img src=\"…\"></div>):{lista}\n  -->" if elegidas else "<!-- Sin fotos: usa un recurso que se sostenga solo (mapa, interfaz, cifra) o marcadores visibles. -->"
     css = L.css_variables(m) + """
 .p{width:1080px;height:1440px;position:relative;overflow:hidden;color:var(--sobre-primario)}

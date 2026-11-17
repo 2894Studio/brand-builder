@@ -23,6 +23,14 @@ import re
 import sys
 
 
+def _rel(ruta, base=None):
+    """os.path.relpath que no falla entre unidades distintas de Windows (devuelve la ruta absoluta)."""
+    try:
+        return os.path.relpath(ruta, base) if base else os.path.relpath(ruta)
+    except ValueError:
+        return os.path.abspath(ruta)
+
+
 def firma(ruta):
     h = open(ruta, encoding="utf-8").read()
     h = re.sub(r"data:[^\"')]+", "", h)  # fuera imágenes incrustadas
@@ -66,7 +74,7 @@ def main():
         ambas = bool(fam0) and bool(fam1)
         # con arquetipo declarado en las dos piezas manda el arquetipo (otro arquetipo = otra composición); sin él, el índice de clases
         parecida = misma or (j >= (0.9 if ambas else a.umbral))
-        print(f"  {'PARECIDA' if parecida else 'ok':9} {j:.2f}  {os.path.relpath(o)}" + (f"  (mismo arquetipo: {fam0})" if misma else ""))
+        print(f"  {'PARECIDA' if parecida else 'ok':9} {j:.2f}  {_rel(o)}" + (f"  (mismo arquetipo: {fam0})" if misma else ""))
         mal += parecida
     if mal:
         print(f"{a.pieza}: se parece demasiado a {mal} pieza(s). Cambia la composición (otro recurso, otra jerarquía), no solo los textos y colores.")
