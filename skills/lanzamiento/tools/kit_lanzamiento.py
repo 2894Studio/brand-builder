@@ -176,8 +176,15 @@ def main():
         for x in notas or ["(rellena: qué es real, qué es de ejemplo y qué queda por hacer a mano)"]:
             fh.write(f"- {x}\n")
 
+    # contraste con las referencias (si el gusto tiene decisiones)
+    if gusto and os.path.exists(gusto):
+        cr = os.path.join(RAIZ, "skills", "gusto", "tools", "contacto_referencias.py")
+        r = run([cr, "--gusto", gusto, "--referencias", os.path.join(os.path.dirname(gusto), "referencias"), "--piezas", carpeta, "--salida", carpeta])
+        if r.returncode == 0 and "contacto-gusto.png" in r.stdout:
+            print("\nREFERENCIAS: mira " + os.path.join(carpeta, "contacto-gusto.png") + " (referencias | piezas) y rellena " + os.path.join(carpeta, "revision-gusto.md") + " regla por regla; corrige lo que no cumpla y vuelve a ejecutar.")
+
     # puerta
-    cmd = [PUERTA, carpeta, "--marca", marca] + (["--kits", ruta(base, b["kits"])] if b.get("kits") else [])
+    cmd = [PUERTA, carpeta, "--marca", marca] + (["--gusto", gusto] if gusto and os.path.exists(gusto) else []) + (["--kits", ruta(base, b["kits"])] if b.get("kits") else [])
     r = run(cmd)
     print("\n" + r.stdout.strip())
     return 1 if (mal or r.returncode) else 0

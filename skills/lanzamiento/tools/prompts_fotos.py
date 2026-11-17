@@ -81,7 +81,7 @@ def main():
                      "La imagen sale en `outputs[].url`: se descarga directamente con `curl` (sin exportar nada).")
         elif a.proveedor == "gemini" and os.environ.get("GEMINI_API_KEY"):
             donde = ("Hay clave de la API de Gemini: genera cada imagen con `python3 skills/lanzamiento/tools/generar_gemini.py generar \"<prompt>\" --como <archivo> --aspecto <formato>` "
-                     "(guarda la imagen y anota los créditos). Receta no verificada con la API real.")
+                     "(guarda la imagen y anota los créditos). Ojo: la API de imágenes de Gemini exige facturación activada (el nivel gratuito tiene límite 0).")
         elif a.proveedor in ("higgsfield", "magnific", "spaces"):
             nom = {"higgsfield": "Higgsfield", "magnific": "Magnific", "spaces": "Spaces"}[a.proveedor]
             donde = (f"Usa cada prompt en **{nom}**: con su conector MCP si lo tienes instalado (mira sus herramientas de imagen y pide el coste antes de generar) o pegándolo a mano en su web. "

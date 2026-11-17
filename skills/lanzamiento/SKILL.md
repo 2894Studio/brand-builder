@@ -104,6 +104,9 @@ python3 skills/lanzamiento/tools/post_base.py marca.json --tipo atributo --fotos
 ```
 `post_base.py` da el andamio (campo de color, titular, logo) y **lista las fotos disponibles** en un comentario. **El recurso visual lo construyes tú** dentro de `.visual` con los componentes de `recursos-visuales.md`, y **si hay fotos, las usas**: un post con fotos disponibles y sin fotos es un post incompleto. Si la persona pidió declarar las generadas con IA, usa `--declarar-ia`; si no, no escribas nada sobre ellas ni sobre la pieza. Después, el crítico a 1080×1440.
 
+### 4b. Contrastar con las referencias
+Si `gusto.json` tiene decisiones, `kit_lanzamiento.py` deja `contacto-gusto.png` y `revision-gusto.md`: míralos y revisa **cada regla** (cumple, parcial, no cumple, no aplica y dónde se ve). Lo que no cumple se corrige en el brief y se vuelve a ejecutar. La puerta de entrega lo exige.
+
 ### 5. Revisar (máximo 2 vueltas por pieza)
 ```
 python3 skills/gusto/tools/critico_render.py pieza.html --ancho 1080 --alto 1440 --marca marca.json --png pieza.png

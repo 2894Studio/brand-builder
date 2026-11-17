@@ -18,12 +18,16 @@ import gusto_lib as G  # noqa: E402
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("accion", choices=["init", "ver", "validar", "ab"])
+    ap.add_argument("accion", choices=["init", "ver", "validar", "ab", "decision", "reglas"])
     ap.add_argument("--gusto", default="gusto.json")
     ap.add_argument("--producto", default="SaaS")
     ap.add_argument("--a"); ap.add_argument("--b")
     ap.add_argument("--elige", choices=["a", "b"])
     ap.add_argument("--motivo", default="")
+    ap.add_argument("--ref", default="")
+    ap.add_argument("--dimension", default="")
+    ap.add_argument("--regla", default="")
+    ap.add_argument("--aplica", default="")
     x = ap.parse_args()
     if x.accion == "init":
         if os.path.exists(x.gusto):
@@ -46,6 +50,27 @@ def main():
             print("  aviso ", a_)
         print("válido: " + x.gusto if not err else "NO válido: " + x.gusto)
         return 1 if err else 0
+    if x.accion == "decision":
+        refs = [r for r in g["referencias"] if r.get("nombre") == x.ref]
+        if not refs:
+            print(f"No hay referencia «{x.ref}» (nombres: {', '.join(r.get('nombre', '?') for r in g['referencias'])})")
+            return 2
+        refs[0].setdefault("decisiones", []).append({"dimension": x.dimension, "regla": x.regla, "aplica_en": [s for s in x.aplica.split(",") if s]})
+        err, _ = G.validar(g)
+        if err:
+            print("  ERROR ", err[0])
+            return 1
+        G.guardar(g, x.gusto)
+        print(f"ok decisión añadida a {x.ref}: [{x.dimension}] {x.regla}")
+        return 0
+    if x.accion == "reglas":
+        rs = G.reglas_numeradas(g)
+        if not rs:
+            print("Sin decisiones todavía: añade con  gusto.py decision --ref NOMBRE --dimension tipografia --regla \"…\" --aplica logo,post")
+            return 1
+        for r in rs:
+            print(f"{r['id']} [{r['dimension']}] {'EVITAR: ' if r['prohibe'] else ''}{r['regla']}  (aplica en {', '.join(r['aplica_en']) or '—'}; de {r['origen']})")
+        return 0
     # ab
     if not (x.a and x.b and x.elige):
         print("Faltan --a, --b y --elige")

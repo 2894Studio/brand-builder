@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.6.1 (2026-11-17)
+
+- **Entrenar el gusto de verdad (a partir de la prueba de la escuela de código, donde las referencias no mejoraron nada):** las referencias ahora se convierten en **decisiones transferables por dimensión** (nombre, símbolo, tipografía, imagen, composición, firma, forma, color, voz) con `gusto.py decision`, numeradas R1…Rn con `gusto.py reglas` (las de las referencias «no» son «EVITAR»); `validar` avisa si una referencia «sí» no tiene decisiones o si solo toca forma y color (lo genérico). `kit_lanzamiento.py` deja `contacto-gusto.png` (referencias | piezas | reglas) y `revision-gusto.md`, y la **puerta de entrega** no se abre con reglas sin revisar o en «no cumple» sin corregir. Protocolo para la persona: `gusto/references/entrenar.md`.
+- **Gemini API verificada con una clave real:** lista 6 modelos de imagen, pero el nivel gratuito responde **429 «limit: 0»**: generar imágenes por API exige activar la facturación. Se corrigen los textos que decían «gratis»; el script explica el motivo y prefiere el modelo más reciente.
+
 ## 2.6.0 (2026-11-17)
 
 Resumen: la calidad de las piezas pasa de «plantilla» a «campaña». Compatibilidad con Google Antigravity, nuevos generadores (pantalla, comparativa, foto, tipográfico, expresivo), puerta de entrega y hook de parada, proveedores de imagen (Canva y FLORA verificados; Gemini API, Higgsfield, Magnific y Spaces sin verificar), tres direcciones de identidad y la pregunta del proveedor de imagen.

@@ -43,8 +43,14 @@ Fija la proporción de tonos con ella (tono dominante en un diálogo: serio, div
 python3 skills/gusto/tools/gusto.py validar --gusto gusto.json
 ```
 
+### 3b. Extraer decisiones transferables (obligatorio, es lo que hace que las referencias sirvan)
+Para cada referencia «sí» escribe **qué copio y qué no**, por dimensión, con `gusto.py decision` (ver `references/entrenar.md`): al menos **2 dimensiones distintivas** (nombre, símbolo, tipografía, imagen, composición, firma) además de forma y color. Las referencias «no» dan decisiones a evitar. `gusto.py reglas` lista R1…Rn. Sin decisiones, las referencias solo eligen un tono y las piezas salen genéricas.
+
 ### 4. Aplicar
 Antes de maquetar, lee `references/tonos.md` y `references/patrones-saas.md`. La proporción manda: el tono dominante decide la forma de la pieza y el secundario aparece en **un** elemento (una persona con rol, una cifra). No mezcles los tres a partes iguales.
+
+### 5a. Contrastar con las referencias
+Con las piezas hechas: `python3 skills/gusto/tools/contacto_referencias.py --gusto gusto.json --referencias referencias/ --piezas lanzamiento/ --salida lanzamiento/` (`kit_lanzamiento.py` ya lo hace). Mira `contacto-gusto.png` y rellena `revision-gusto.md` regla por regla; lo que no cumple se corrige.
 
 ### 5. Revisar el render (máximo 2 vueltas)
 Con la pieza en HTML:

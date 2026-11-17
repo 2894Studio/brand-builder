@@ -47,6 +47,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("carpeta")
     ap.add_argument("--marca")
+    ap.add_argument("--gusto", help="gusto.json: si tiene decisiones, exige revision-gusto.md resuelta")
     ap.add_argument("--kits", help="carpeta trabajo/ con kits anteriores para comparar la variedad")
     a = ap.parse_args()
     c = a.carpeta
@@ -121,7 +122,36 @@ def main():
             ok(digital or ui_ok, "la interfaz de móvil o de escritorio solo para productos digitales" + ("" if digital or ui_ok else f" ({', '.join(ui)}): elige otro recurso o añade «ui_ok» con motivo al brief"))
         except Exception:  # noqa: BLE001
             pass
-    print("5. Variedad")
+    if a.gusto and os.path.exists(a.gusto):
+        print("5. Referencias (gusto)")
+        gj, reglas = {}, []
+        try:
+            sys.path.insert(0, os.path.join(RAIZ, "skills", "gusto", "tools"))
+            import gusto_lib as GL
+            gj = GL.cargar(a.gusto)
+            reglas = GL.reglas_numeradas(gj)
+        except Exception:  # noqa: BLE001
+            pass
+        if not reglas:
+            if any(r.get("tipo") == "si" for r in gj.get("referencias", [])):
+                avisos.append("hay referencias «sí» pero sin decisiones transferables: las piezas no se han contrastado con ellas (gusto/references/entrenar.md)")
+                print("  aviso  referencias sin decisiones: no hay nada que contrastar")
+        else:
+            rev = os.path.join(c, "revision-gusto.md")
+            ok(os.path.exists(rev), "revision-gusto.md existe (contraste de las piezas con las referencias)")
+            if os.path.exists(rev):
+                lineas = open(rev, encoding="utf-8").read().splitlines()
+                pend, mal_ = [], []
+                for r in reglas:
+                    l = next((x for x in lineas if f" {r['id']} " in x or x.lstrip("- ").startswith(r["id"] + " ")), "")
+                    bajo = l.lower().split("→", 1)[-1]
+                    if not any(w in bajo for w in ("cumple", "parcial", "no aplica")) or "(pendiente)" in bajo:
+                        pend.append(r["id"])
+                    elif "no cumple" in bajo and "corregido" not in bajo:
+                        mal_.append(r["id"])
+                ok(not pend, "todas las reglas de las referencias están revisadas" + (f" (faltan {', '.join(pend)})" if pend else ""))
+                ok(not mal_, "ninguna regla queda en «no cumple» sin corregir" + (f" ({', '.join(mal_)})" if mal_ else ""))
+    print("6. Variedad")
     p1, p2 = (os.path.join(c, f"{n}.html") for n in ("post-1-que-es", "post-2-atributo"))
     if os.path.exists(p1) and os.path.exists(p2):
         r = subprocess.run([sys.executable, VARIEDAD, p1, p2], capture_output=True, text=True)

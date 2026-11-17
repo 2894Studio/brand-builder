@@ -121,6 +121,41 @@ with tempfile.TemporaryDirectory() as d:
         except ImportError:
             saltados.append("contraste muestreado (falta Pillow)")
 
+# ---- decisiones transferables y contraste con referencias ----
+import json as _j
+GJ = os.path.join(AQUI, "gusto.py")
+with tempfile.TemporaryDirectory() as td:
+    gj = os.path.join(td, "gusto.json")
+    py(GJ, "init", "--gusto", gj)
+    gd = _j.load(open(gj, encoding="utf-8"))
+    gd["referencias"] = [{"nombre": "ref_si", "archivo": "ref_si.png", "tipo": "si", "nota_usuario": "me gusta el aire"}, {"nombre": "ref_no", "archivo": "ref_no.png", "tipo": "no"}]
+    _j.dump(gd, open(gj, "w", encoding="utf-8"))
+    r = py(GJ, "validar", "--gusto", gj)
+    ok("sin decisiones transferables" in r.stdout, "validar avisa de referencias «sí» sin decisiones transferables")
+    r = py(GJ, "decision", "--ref", "ref_si", "--dimension", "inventada", "--regla", "x", "--gusto", gj)
+    ok(r.returncode != 0, "decision rechaza una dimensión que no existe")
+    py(GJ, "decision", "--ref", "ref_si", "--dimension", "forma", "--regla", "esquinas de 30 px", "--aplica", "post", "--gusto", gj)
+    r = py(GJ, "validar", "--gusto", gj)
+    ok("solo tocan forma o color" in r.stdout, "validar avisa si las decisiones solo son forma o color (lo genérico)")
+    py(GJ, "decision", "--ref", "ref_si", "--dimension", "simbolo", "--regla", "geometría 2D plana sin 3D", "--aplica", "logo", "--gusto", gj)
+    py(GJ, "decision", "--ref", "ref_si", "--dimension", "composicion", "--regla", "elemento recortado por el borde", "--aplica", "post,bento", "--gusto", gj)
+    py(GJ, "decision", "--ref", "ref_no", "--dimension", "imagen", "--regla", "ilustración 3D hinchada", "--gusto", gj)
+    r = py(GJ, "reglas", "--gusto", gj)
+    ok("R1 [forma]" in r.stdout and "R4 [imagen] EVITAR:" in r.stdout, "reglas numera las decisiones R1…Rn y marca las de «no» como EVITAR")
+    r = py(GJ, "validar", "--gusto", gj)
+    ok("solo tocan forma o color" not in r.stdout and "sin decisiones transferables" not in r.stdout, "con dimensiones distintivas desaparecen los avisos")
+    try:
+        from PIL import Image
+        rd = os.path.join(td, "referencias"); os.makedirs(rd)
+        Image.new("RGB", (800, 600), "#336699").save(os.path.join(rd, "ref_si.png"))
+        pz = os.path.join(td, "pz"); os.makedirs(pz)
+        Image.new("RGB", (1080, 1440), "#EE9933").save(os.path.join(pz, "post-1-que-es.png"))
+        CR = os.path.join(AQUI, "contacto_referencias.py")
+        r = py(CR, "--gusto", gj, "--referencias", rd, "--piezas", pz, "--salida", pz)
+        ok(r.returncode == 0 and os.path.exists(os.path.join(pz, "contacto-gusto.png")) and "R3" in open(os.path.join(pz, "revision-gusto.md"), encoding="utf-8").read(), "contacto_referencias genera la hoja de contraste y revision-gusto.md con todas las reglas")
+    except ImportError:
+        saltados.append("contacto_referencias (falta Pillow)")
+
 print()
 if saltados:
     print("SALTADO:", "; ".join(saltados))

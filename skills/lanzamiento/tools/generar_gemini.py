@@ -2,11 +2,11 @@
 # Copyright (c) 2026 2894 Studio · MIT
 """Genera una imagen con la API de Gemini (clave de Google AI Studio), la guarda en fotos/ y anota sus créditos (origen ia).
 
-Uso:  export GEMINI_API_KEY=tu_clave            (se pide gratis en aistudio.google.com/apikey; PowerShell: $env:GEMINI_API_KEY="tu_clave")
+Uso:  export GEMINI_API_KEY=tu_clave            (la clave se pide en aistudio.google.com/apikey; PowerShell: $env:GEMINI_API_KEY="tu_clave")
       python3 generar_gemini.py modelos                                      → lista los modelos que declaran generar imágenes
       python3 generar_gemini.py generar "prompt" --como equipo-1 --aspecto 4:3 [--tamano 2K] [--modelo ID] [--carpeta fotos]
 Los prompts salen de prompts_fotos.py. El modelo por defecto es el primero de la lista que declara imagen (o GEMINI_IMAGE_MODEL); los nombres
-de modelo cambian con el tiempo: si uno falla, ejecuta «modelos» y elige otro. La cuota gratuita, si existe para imágenes, la fija Google y cambia.
+de modelo cambian con el tiempo: si uno falla, ejecuta «modelos» y elige otro. **La clave es gratis, pero el nivel gratuito tiene límite 0 para imágenes (verificado el 2026-11-17): hace falta activar la facturación en AI Studio.**
 No se pega la clave en el chat ni en archivos: solo variable de entorno. Receta **no verificada con la API real** en este plugin (probada con un servidor simulado).
 """
 import argparse
@@ -25,7 +25,7 @@ AQUI = os.path.dirname(os.path.abspath(__file__))
 def clave():
     k = os.environ.get("GEMINI_API_KEY")
     if not k:
-        sys.exit("Falta GEMINI_API_KEY. Es gratis conseguirla: entra en aistudio.google.com/apikey con tu cuenta de Google, crea una clave y ejecuta\n"
+        sys.exit("Falta GEMINI_API_KEY. Conseguir la clave es gratis (pero generar imágenes por API exige activar la facturación en AI Studio): entra en aistudio.google.com/apikey con tu cuenta de Google, crea una clave y ejecuta\n"
                  "  export GEMINI_API_KEY=tu_clave        (PowerShell: $env:GEMINI_API_KEY=\"tu_clave\")\n"
                  "Sin clave puedes pegar los prompts a mano en Gemini (gemini.google.com) y guardar la imagen en fotos/ (prompts_fotos.py --proveedor gemini).")
     return k
@@ -46,7 +46,11 @@ def llamar(ruta, k, cuerpo=None):
         if e.code in (400, 403) and "API key" in detalle:
             sys.exit("Google rechazó la clave: revisa GEMINI_API_KEY.")
         if e.code == 429:
-            sys.exit("Google: cuota agotada (429). Espera o usa otro proveedor; la cuota gratuita la fija Google y cambia.")
+            if "limit: 0" in detalle and "Free Tier" in detalle:
+                sys.exit("Google: tu clave está en el nivel GRATUITO, que tiene límite 0 para generar imágenes (verificado el 2026-11-17 con una clave real). "
+                         "La clave funciona, pero la generación de imágenes con la API exige activar la facturación en Google AI Studio (pago por uso). "
+                         "Sin facturación, usa Gemini en la web (gemini.google.com) o Google Flow pegando los prompts de prompts_fotos.py, o Canva.")
+            sys.exit("Google: cuota agotada (429). Espera un rato o usa otro proveedor. Detalle: " + detalle[:240])
         sys.exit(f"Google respondió {e.code}: {detalle[:200]}")
     except urllib.error.URLError as e:
         sys.exit(f"No se pudo conectar con la API de Gemini ({e.reason}).")
@@ -76,7 +80,9 @@ def main():
         ms = modelos(k)
         print("\n".join(ms) if ms else "(la API no declara modelos con imagen para esta clave)")
         return 0
-    modelo = a.modelo or next(iter(modelos(k)), "")
+    ms = [] if a.modelo else modelos(k)
+    pref = ("gemini-3.1-flash-image", "gemini-3-pro-image", "gemini-2.5-flash-image")
+    modelo = a.modelo or next((p for p in pref if p in ms), "") or next(iter(ms), "")
     if not modelo:
         sys.exit("No hay un modelo de imagen disponible para esta clave: ejecuta «modelos» o define GEMINI_IMAGE_MODEL.")
     cfg = {"responseModalities": ["IMAGE"]}

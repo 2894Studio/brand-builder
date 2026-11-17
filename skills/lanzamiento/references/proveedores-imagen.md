@@ -6,8 +6,8 @@ Las piezas de calidad necesitan **imágenes buenas** (fotos de personas, objetos
 |---|---|---|---|
 | **Canva** | Conector: `generate-image` + exportar un diseño y descargar (receta en `fotos.md`) | Créditos de Canva | **Verificado** con una cuenta real. Imágenes 1080×1440; Canva a veces añade una página en blanco |
 | **FLORA** | Conector: `flora_create_generations` con presupuesto previo (`quote: true`); descarga directa con `curl` | USD por imagen (0,02–0,18) | **Verificado** (3 imágenes). Plan gratuito con tope de proyectos |
-| **Gemini (API)** | `tools/generar_gemini.py` con `GEMINI_API_KEY` (clave gratuita de AI Studio) | Según cuota de Google | Probado con un **servidor simulado**, no con la API real |
-| **Gemini / Google Flow (web)** | Pegar el prompt a mano y guardar la imagen | Cuota gratuita con cuenta Google | Sin ejecutar desde el plugin |
+| **Gemini (API)** | `tools/generar_gemini.py` con `GEMINI_API_KEY` (la clave se pide en AI Studio) | **De pago por uso**: el nivel gratuito tiene límite 0 para imágenes | Verificado con una clave real el 2026-11-17: lista 6 modelos de imagen y **responde 429 «free tier, limit: 0»** hasta activar la facturación. La generación completa solo está probada con un servidor simulado |
+| **Gemini / Google Flow (web)** | Pegar el prompt a mano y guardar la imagen | Cuota gratuita con cuenta Google (según el plan) | Sin ejecutar desde el plugin |
 | **Higgsfield** | Su conector MCP si lo tienes; si no, a mano | De pago | **No verificado** |
 | **Magnific** | Sobre todo **mejorar** una foto (ampliar, dar detalle): pasa por él la foto elegida | De pago | **No verificado** (existe un ampliador Magnific dentro de FLORA) |
 | **Spaces** (p. ej. de Freepik) | A mano o por su conector si lo hay | De pago | **No verificado** |

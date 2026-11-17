@@ -467,6 +467,28 @@ with tempfile.TemporaryDirectory() as d:
     except ImportError:
         saltados.append("generar_gemini (falta Pillow)")
 
+    # 7m: la puerta exige la revisión contra las referencias cuando el gusto tiene decisiones
+    gjp = os.path.join(d, "gusto_g.json")
+    sys.path.insert(0, os.path.join(RAIZ, "skills", "gusto", "tools"))
+    import gusto_lib as _GL
+    gg = _GL.nuevo()
+    gg["referencias"] = [{"nombre": "r1", "tipo": "si", "nota_usuario": "x", "decisiones": [{"dimension": "simbolo", "regla": "2D plano", "aplica_en": ["logo"]}, {"dimension": "composicion", "regla": "recorte en el borde", "aplica_en": ["post"]}]}]
+    json.dump(gg, open(gjp, "w", encoding="utf-8"))
+    rev = os.path.join(kit, "revision-gusto.md")
+    if os.path.exists(rev):
+        os.remove(rev)
+    r0 = py(PUERTA, kit, "--marca", PULSO, "--gusto", gjp)
+    ok("revision-gusto.md existe" in r0.stdout and "PUERTA CERRADA" in r0.stdout, "la puerta se cierra si faltan la revisión contra las referencias")
+    open(rev, "w", encoding="utf-8").write("- R1 [simbolo] 2D plano → (pendiente)\n- R2 [composicion] recorte en el borde → (pendiente)\n")
+    r1 = py(PUERTA, kit, "--marca", PULSO, "--gusto", gjp)
+    ok("faltan R1, R2" in r1.stdout, "la puerta exige revisar cada regla (pendientes)")
+    open(rev, "w", encoding="utf-8").write("- R1 [simbolo] 2D plano → no cumple: el logo tiene degradado\n- R2 [composicion] recorte en el borde → cumple: post 2, la cifra\n")
+    r2 = py(PUERTA, kit, "--marca", PULSO, "--gusto", gjp)
+    ok("ninguna regla queda en «no cumple» sin corregir (R1)" in r2.stdout, "la puerta no deja pasar una regla «no cumple» sin corregir")
+    open(rev, "w", encoding="utf-8").write("- R1 [simbolo] 2D plano → no cumple, corregido: logo plano\n- R2 [composicion] recorte en el borde → cumple: post 2, la cifra\n")
+    r3 = py(PUERTA, kit, "--marca", PULSO, "--gusto", gjp)
+    ok("PUERTA DE ENTREGA: ABIERTA" in r3.stdout, "con todas las reglas revisadas y corregidas la puerta se abre")
+
     # 8. el crítico acepta el bento
     r = py(CRITICO, salida, "--ancho", "1920", "--alto", "1080")
     if r.returncode == 2:

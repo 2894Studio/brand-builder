@@ -49,6 +49,17 @@ def mover(tonos, hacia, puntos=10):
     return normalizar(t)
 
 
+def reglas_numeradas(g):
+    """Todas las decisiones de las referencias «sí» (y las «no» como prohibiciones) con un id R1…Rn estable por orden."""
+    out = []
+    for r in g.get("referencias", []):
+        for d in r.get("decisiones", []) or []:
+            if d.get("regla"):
+                out.append({"id": f"R{len(out) + 1}", "dimension": d.get("dimension"), "regla": d["regla"], "aplica_en": d.get("aplica_en", []),
+                            "origen": r.get("nombre"), "prohibe": r.get("tipo") == "no"})
+    return out
+
+
 def validar(g):
     errores = []
     if g.get("version") != VERSION:
@@ -70,7 +81,28 @@ def validar(g):
             errores.append(f"referencias[{i}] tono «{r['tono']}» no válido")
         if r.get("confirmado") and not r.get("nota_usuario"):
             errores.append(f"referencias[{i}] marcada como confirmada pero sin nota_usuario (qué te gusta)")
+    DIM = ("nombre", "simbolo", "forma", "color", "tipografia", "imagen", "composicion", "firma", "voz")
+    APLICA = ("logo", "post", "bento", "web")
+    distintivas = set()
+    for i, r in enumerate(g.get("referencias", [])):
+        for j, d in enumerate(r.get("decisiones", []) or []):
+            if d.get("dimension") not in DIM:
+                errores.append(f"referencias[{i}].decisiones[{j}] «dimension» debe ser una de {', '.join(DIM)}")
+            if not (d.get("regla") or "").strip():
+                errores.append(f"referencias[{i}].decisiones[{j}] sin «regla»")
+            for ap_ in d.get("aplica_en", []) or []:
+                if ap_ not in APLICA:
+                    errores.append(f"referencias[{i}].decisiones[{j}] «aplica_en» {ap_} no válido ({', '.join(APLICA)})")
+            if r.get("tipo") == "si" and d.get("dimension") in ("nombre", "simbolo", "tipografia", "imagen", "composicion", "firma"):
+                distintivas.add(d["dimension"])
     avisos = []
+    refs_si = [r for r in g.get("referencias", []) if r.get("tipo") == "si"]
+    if refs_si:
+        sin_dec = [r.get("nombre") for r in refs_si if not r.get("decisiones")]
+        if sin_dec:
+            avisos.append("referencias «sí» sin decisiones transferables (qué copio y qué no, por dimensión): " + ", ".join(sin_dec) + ". Sin ellas la referencia solo elige un tono y las piezas salen genéricas")
+        elif len(distintivas) < 2:
+            avisos.append("las decisiones solo tocan forma o color (lo genérico): añade al menos 2 dimensiones de las distintivas (nombre, símbolo, tipografía, imagen, composición, firma)")
     if g.get("referencias"):
         if tipos["no"] == 0:
             avisos.append("ninguna referencia «no» (lo que NO quieres parecer): educa menos el gusto")
