@@ -69,7 +69,7 @@ evals/                      pruebas con un modelo real y un brief de ejemplo
 
 ## Historial
 
-Hasta la versión 3.2.1 el plugin cubría también logo, paleta, voz, tokens, manual y piezas finales. Se retiró para centrarse en la fase previa; ese código sigue en el historial de git, en la etiqueta [`v3.2.1-cadena-visual`](../../tree/v3.2.1-cadena-visual). Cambios en [`CHANGELOG.md`](CHANGELOG.md).
+Hasta la versión 3.2.1 el plugin cubría también logo, paleta, voz, tokens, manual y piezas finales. Se retiró para centrarse en la fase previa; ese código sigue en el historial de git, en el commit [`b1b8134`](../../tree/b1b8134) (versión 3.2.1). Cambios en [`CHANGELOG.md`](CHANGELOG.md).
 
 ## Licencia
 
