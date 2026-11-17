@@ -127,7 +127,11 @@ def reglas_gusto(b, base):
         return [], []
     sys.path.insert(0, os.path.join(RAIZ, "skills", "gusto", "tools"))
     import gusto_lib as GL
-    rs = GL.reglas_numeradas(GL.cargar(ruta))
+    g = GL.cargar(ruta)
+    rs = GL.reglas_numeradas(g)
+    conf = {r.get("nombre"): bool(r.get("confirmado")) for r in g.get("referencias", [])}
+    for r in rs:
+        r["sin_confirmar"] = not conf.get(r["origen"], False)
     dim = ("nombre", "simbolo", "tipografia", "forma", "color")
     ok = [r for r in rs if not r["prohibe"] and r["dimension"] in dim]
     no = [r for r in rs if r["prohibe"] and (r["dimension"] in dim or "logo" in (r["aplica_en"] or []))]
@@ -237,8 +241,8 @@ def main():
         md += ["## Colores tentativos", ", ".join(f"{k} {v}" for k, v in col.items()) + " (se confirman en identidad con el contraste comprobado).", ""]
     if ok or evitar:
         md += ["## Lo que enseñan tus referencias para el logo"]
-        md += [f"- {r['id']} [{r['dimension']}] {r['regla']}" for r in ok]
-        md += [f"- EVITAR {r['id']}: {r['regla']}" for r in no]
+        md += [f"- {r['id']} [{r['dimension']}] {r['regla']}" + (" (referencia sin confirmar por la persona)" if r.get("sin_confirmar") else "") for r in ok]
+        md += [f"- EVITAR {r['id']}: {r['regla']}" + (" (referencia sin confirmar por la persona)" if r.get("sin_confirmar") else "") for r in no]
         md += [""]
     md += ["## Tres direcciones a explorar (de tipo distinto)"]
     for i, d in enumerate(b["direcciones"], 1):

@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.10.1 (2026-11-17)
+
+- **El nombre es obligatorio y no se inventa** (`estrategia`): si falta, se pregunta en el primer mensaje; si la persona lo delega, se proponen tres con su razón y se comprueban. Salió de una prueba real con Sonnet en la que el agente inventó un nombre «provisional» y lo arrastró por todo el brief.
+- **`brief_logo.py` marca las reglas de gusto sin confirmar** (referencias armadas por el agente de memoria) en lugar de presentarlas como gustos de la persona.
+- **Arnés e2e:** el primer turno contesta siempre con los datos de la persona; escenario `agencia_talento_ia` para el flujo por defecto (brief de logo) y mediciones del brief.
+
 ## 2.10.0 (2026-11-17)
 
 **Nuevo objetivo por defecto: un buen brief de logo y prompts para explorar logos con IA.** El resultado de «crea mi marca» deja de ser el kit completo: ahora es `estrategia.md` (brief estratégico), `brief-logo.md` y `prompts-logo.md`. El kit completo (paleta, manual, tokens, bento y posts) sigue disponible si la persona lo pide.

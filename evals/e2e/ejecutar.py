@@ -118,7 +118,7 @@ def ejecutar(esc_ruta, a):
         print(f"  turno {turnos}: {gasto:.2f} USD")
         if glob.glob(os.path.join(proy, "trabajo", "*", "lanzamiento", ".puerta-ok")) or glob.glob(os.path.join(proy, "trabajo", "*", "prompts-logo.md")):
             break
-        msg = respuesta(esc, texto)
+        msg = esc["respuesta_por_defecto"] if turnos == 1 else respuesta(esc, texto)   # el primer turno: la persona cuenta sus datos
         log[-1]["respuesta"] = msg[:300]
     m = medir(proy)
     inf = {"escenario": esc["nombre"], "modelo": a.modelo, "turnos": turnos, "coste_usd": round(gasto, 3), "minutos": round((time.time() - t0) / 60, 1), "gusto": bool(a.gusto_zip), "medidas": m, "turnos_log": log}

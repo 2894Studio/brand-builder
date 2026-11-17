@@ -19,6 +19,7 @@ Si la marca ya existe y solo hay que documentarla, salta los territorios y compl
 
 ## 1. Lee la petición y la categoría (sin preguntar nada todavía)
 
+0. **El nombre es obligatorio y nunca lo inventas.** Si la persona no lo ha dado, es lo primero que preguntas (en el mismo mensaje de la hipótesis, sin bloquearla). Si te delega («pon tú el nombre»), propón **tres** nombres con su razón, comprueba cada uno en la búsqueda y deja que elija; un nombre «provisional» inventado por ti no se arrastra por todo el brief.
 1. Del mensaje de la persona saca todo lo que ya dijo: qué es, para quién, tono, nombre. **Lo que ya contó no se vuelve a preguntar.**
 2. **Investiga** (si tienes búsqueda web): de 4 a 6 competidores o alternativas, incluida al menos una que no se parezca pero resuelva lo mismo; qué promete cada uno, cuánto cuesta, y qué convención visual y verbal repite. Sin búsqueda, usa lo que sabes y dilo («no he podido comprobarlo»). **Nunca inventes datos de mercado.**
 3. **Comprueba el nombre** ahora, antes de dibujar: si existe una empresa con ese nombre en el sector, díselo. Dilo como pendiente de validación profesional (OEPM, EUIPO), no como asesoría legal.
