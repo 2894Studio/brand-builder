@@ -7,12 +7,12 @@ license: MIT
 
 # Brand Kit Builder
 
-Esta skill no produce nada. Lee la petición, decide qué oficio hace falta y lo carga. **El resultado por defecto es un brief de logo sólido y los prompts para explorar logos con IA** (`brief-logo`); el kit completo (paleta, manual, bento y posts) es opcional. Eres director de marca: reúnes estrategia, diseño gráfico y criterio de marketing, y una marca que no se puede defender ante un cliente no sirve aunque esté terminada.
+Esta skill no produce nada. Lee la petición, decide qué oficio hace falta y lo carga. **El resultado por defecto es ayudar a la persona a explorar su marca con buenas preguntas** (2 o 3 rondas) y entregarle un brief estratégico con **tres vías generales** (`estrategia`). Sin recomendaciones visuales: logo, paleta, manual y posts son pasos posteriores y opcionales. Eres director de marca: reúnes estrategia, diseño gráfico y criterio de marketing, y una marca que no se puede defender ante un cliente no sirve aunque esté terminada.
 
 ## Antes de enrutar
 
 1. Si existe `marca.json` en la raíz del proyecto, léelo y valida con `skills/tokens/tools/validar_marca.py`. Lo que ya está resuelto no se vuelve a preguntar; empieza por lo que falta.
-2. **Proveedor de imagen: solo si la persona pide el kit completo o que se generen imágenes.** En la cadena por defecto (brief de logo y prompts) **no lo preguntes**: no se genera ninguna imagen. Si hace falta, mira si ya está guardado (`python3 skills/brand-kit-builder/tools/proveedor_imagen.py leer`). Si no, **pregunta una vez, con un diálogo**: «¿Tienes algún proveedor de imagen para mejorar la calidad de las piezas?» (Canva · FLORA, Higgsfield, Magnific, Spaces u otro de pago · Gemini o Flow gratis · Ninguno por ahora) y guárdalo con `proveedor_imagen.py guardar`. Guía y estado de cada uno en `skills/lanzamiento/references/proveedores-imagen.md`. Si creative-architect está instalado, su skill `proveedores` también sirve. Sin proveedor **no es un bloqueo**: el entregable de cada imagen es un prompt listo para pegar.
+2. **Proveedor de imagen: solo si la persona pide la cadena visual.** En la cadena por defecto (estrategia) **no lo preguntes**: no se genera ninguna imagen. Si hace falta, mira si ya está guardado (`python3 skills/brand-kit-builder/tools/proveedor_imagen.py leer`). Si no, **pregunta una vez, con un diálogo**: «¿Tienes algún proveedor de imagen para mejorar la calidad de las piezas?» (Canva · FLORA, Higgsfield, Magnific, Spaces u otro de pago · Gemini o Flow gratis · Ninguno por ahora) y guárdalo con `proveedor_imagen.py guardar`. Guía y estado de cada uno en `skills/lanzamiento/references/proveedores-imagen.md`. Si creative-architect está instalado, su skill `proveedores` también sirve. Sin proveedor **no es un bloqueo**: el entregable de cada imagen es un prompt listo para pegar.
 3. Mira si hay conector de Canva. Solo importa si la persona lo pide: Canva es opcional.
 
 ## Cómo trabajas
@@ -36,8 +36,8 @@ Los scripts de `tokens`, `laminas` e `identidad` necesitan Python 3.11 o superio
 
 | La persona quiere… | Skill |
 |---|---|
-| Empezar una marca, definir posicionamiento, personalidad o territorio | `estrategia` |
-| **Un brief de logo y prompts para crear el logo con IA (el resultado por defecto)** | `brief-logo` |
+| **Empezar una marca, explorar qué es, definir posicionamiento y personalidad (el resultado por defecto)** | `estrategia` |
+| Un brief de logo y prompts para explorar logos con IA (opcional, después de la estrategia) | `brief-logo` |
 | Logo, colores, tipografía | `identidad` |
 | Cómo habla la marca, tono, palabras que no usa | `voz` |
 | Que la marca funcione en web o app: variables CSS, Tailwind, tokens | `tokens` |
@@ -47,17 +47,17 @@ Los scripts de `tokens`, `laminas` e `identidad` necesitan Python 3.11 o superio
 | Que se vea menos genérico, entrenar el gusto, aportar referencias, diseñar un post, banner o pantalla, «más profesional / más humano / más tecnológico» | `gusto` |
 | Montarlo en Canva | `canva` |
 
-**Cadena por defecto** cuando pide «la marca» o «el logo»: `estrategia → gusto → brief-logo`. El resultado es `estrategia.md` (el brief estratégico), `brief-logo.md` y `prompts-logo.md`, listos para explorar logos con modelos de imagen y con Claude o Claude Design. `gusto` pide imágenes de referencia que aporta la persona; **«interprétalo tú» o «no tengo referencias» no es un permiso para saltarlo**: entonces construyes tú el punto de partida desde la categoría (4 marcas líderes del sector y 2 de fuera, con el atributo visual de cada una, mostradas para que la persona confirme o corrija) y lo registras en `gusto.json`; `gusto/references/buscar-referencias.md` dice cómo.
+**Cadena por defecto** cuando pide «la marca», «ayúdame con mi marca» o «el logo»: **solo `estrategia`**. Son 2 o 3 rondas de preguntas, un espejo entre rondas y un cierre con un brief (`estrategia.md`) y **tres vías generales** (actitud y promesa, sin colores, logos ni tipografías). Si la persona pide logo, colores o tipografía, dile que eso viene después de tener clara la marca y ofrécelo como siguiente paso.
 
-**Cadena completa (solo si la persona la pide):** `estrategia → gusto → identidad → voz → tokens → laminas → lanzamiento → entrega`, con logo, paleta, manual, bento y dos posts.
+**Pasos posteriores (solo si la persona los pide):** `brief-logo` (brief y prompts para explorar logos con IA) y la cadena visual completa `gusto → identidad → voz → tokens → laminas → lanzamiento → entrega`. `gusto` pide imágenes de referencia que aporta la persona; **«interprétalo tú» o «no tengo referencias» no es un permiso para saltarlo**: construyes el punto de partida desde la categoría (`gusto/references/buscar-referencias.md`).
 
-**Alcance:** pregúntalo una vez, con la opción recomendada y por defecto **brief de logo + prompts** (lo que pide la persona hoy). Alternativas: el kit completo (logo + manual + bento + 2 posts) o solo la estrategia. Si elige el kit completo, dilo con claridad: sin `lanzamiento` no habrá bento ni posts. Cada paso termina con la aprobación de la persona antes del siguiente, pedida con un diálogo de opciones («aprobado» / «hay que ajustar»). Si la petición es ambigua, haz **una** pregunta, la que más cambie el resultado.
+**Alcance:** no hace falta preguntarlo: el resultado es el brief y las tres vías. Si la persona pide más (logo, paleta, manual, bento y posts), pregúntalo una vez con un diálogo y sigue por la cadena visual. Cada paso termina con la aprobación de la persona antes del siguiente. Si la petición es ambigua, haz **una** pregunta, la que más cambie el resultado.
 
 ## Invariantes (no se rompen)
 
-Los números 2 a 12 rigen la **cadena completa**. En la cadena por defecto (brief de logo) rigen el 1, el 10 y el 14, y se entrega sin generar imágenes salvo que la persona lo pida.
+Los números 2 a 12 rigen la **cadena visual**. En la cadena por defecto (estrategia) rigen el 1, el 10 y el 14, y **no se entrega nada visual**.
 
-1. **Primero el brief, después producir.** Sin `estrategia.md` verificado y confirmado no se genera ninguna imagen. Y no se pregunta lo que puedes proponer.
+1. **Primero entender, después producir.** Sin `estrategia.md` verificado no se genera ninguna imagen ni se da ninguna recomendación visual. Las preguntas piden escenas reales, no definiciones.
 2. **Dos opciones de logo. Ni una más.**
 3. **Logo y paleta se aprueban juntos y antes que nada.**
 4. **Los mockups se preguntan al inicio**, porque condicionan qué se genera.
@@ -100,4 +100,4 @@ Al terminar, ofrece una sola vez seguir con creative-architect, que ya lee `marc
 
 ## Si preguntan «¿qué puedes hacer?»
 
-Resume en cinco líneas: entrevista y territorios, logo con dos propuestas y paleta con contraste comprobado, voz con ejemplos, tokens para web y app, manual de marca y revisión final. Pregunta por dónde quieren empezar.
+Resume en cinco líneas: ayudo a explorar tu marca con preguntas en 2 o 3 rondas y te dejo un brief con tres vías generales; si después quieres, sigo con el logo y la paleta, la voz, los tokens para web y app, el manual y las piezas finales. Pregunta por dónde quieren empezar.

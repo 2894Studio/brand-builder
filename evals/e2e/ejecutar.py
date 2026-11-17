@@ -114,17 +114,26 @@ def ejecutar(esc_ruta, a):
         gasto += float(d.get("total_cost_usd") or 0)
         turnos += 1
         texto = d.get("result", "")
-        log.append({"turno": turnos, "coste": round(float(d.get("total_cost_usd") or 0), 4), "agente": texto[:2500 if turnos <= 2 else 600], "respuesta": ""})
+        log.append({"turno": turnos, "coste": round(float(d.get("total_cost_usd") or 0), 4), "agente": texto[:2500 if turnos <= 2 else 600], "agente_completo": texto, "preguntas": texto.count("?"),
+                    "visual": sorted({m.group(0).lower() for m in re.finditer(r"#[0-9a-f]{6}\b|\blogo\w*|\bpaleta\b|\btipograf\w*|\bprompt\w*", texto, re.I)}), "respuesta": ""})
         print(f"  turno {turnos}: {gasto:.2f} USD")
         if glob.glob(os.path.join(proy, "trabajo", "*", "lanzamiento", ".puerta-ok")) or glob.glob(os.path.join(proy, "trabajo", "*", "prompts-logo.md")):
             break
-        msg = esc["respuesta_por_defecto"] if turnos == 1 else respuesta(esc, texto)   # el primer turno: la persona cuenta sus datos
+        est_ = sorted(glob.glob(os.path.join(proy, "trabajo", "*", "estrategia.md")), key=os.path.getmtime)
+        if esc.get("termina_con_brief") and est_ and sh([sys.executable, os.path.join(RAIZ, "skills", "estrategia", "tools", "verificar_brief.py"), est_[-1]]).returncode == 0:
+            break
+        por_turno = esc.get("por_turno") or []
+        if turnos - 1 < len(por_turno) and not any(k in texto.lower() for k in ("tres vías", "vía a")) or (turnos == 1 and not por_turno):
+            msg = por_turno[turnos - 1] if por_turno else esc["respuesta_por_defecto"]      # rondas de la persona, en orden
+        else:
+            msg = respuesta(esc, texto)
         log[-1]["respuesta"] = msg[:300]
     m = medir(proy)
     inf = {"escenario": esc["nombre"], "modelo": a.modelo, "turnos": turnos, "coste_usd": round(gasto, 3), "minutos": round((time.time() - t0) / 60, 1), "gusto": bool(a.gusto_zip), "medidas": m, "turnos_log": log}
     json.dump(inf, open(os.path.join(base, "informe.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     b = m.get("brief") or {}
     L = [f"# {esc['nombre']}", "",
+         "- Rondas: " + ", ".join(f"turno {t['turno']}: {t.get('preguntas', 0)} «?»" + (f" · visual: {', '.join(t['visual'])}" if t.get('visual') else "") for t in log),
          f"- Brief estratégico: {b.get('verificador', 'no creado')}" + ("".join(f"\n  - {x}" for x in b.get("fallos", []))) + f" · brief-logo.md: {'sí' if b.get('brief_logo') else 'no'} · prompts-logo.md: {'sí' if b.get('prompts_logo') else 'no'}", f"- Modelo: {a.modelo} · turnos: {turnos} · coste: {gasto:.2f} USD · {inf['minutos']} min · gusto entrenado: {'sí' if a.gusto_zip else 'no'}",
          f"- Puerta de entrega: **{m['puerta']}**" if m["puerta"] else "- No llegó a crear `lanzamiento/`", f"- Piezas: {', '.join(m['piezas']) or '—'}",
          f"- Arquetipos: {m['arquetipos'] or '—'}", f"- Piezas dibujadas a mano (solo SVG): {'sí' if m['svg_a_mano'] else 'no'}",

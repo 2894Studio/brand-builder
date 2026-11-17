@@ -597,7 +597,11 @@ with tempfile.TemporaryDirectory() as d:
     for nombre, cambio in (("sin idea rectora", txt.replace("## Idea rectora\nLa prueba técnica antes del contrato.", "")),
                            ("posicionamiento sin fórmula", txt.replace("porque **cada perfil pasa por un reto de 90 minutos corregido por un ingeniero senior**", "con calidad")),
                            ("tensión con una sola mitad", txt.replace("pero las agencias solo les dan currículums sin prueba técnica", "")),
-                           ("solo dos competidores", txt.replace("| Los propios contactos del CTO | Alguien de confianza | Nada visual: boca a boca y LinkedIn |\n", "")),
+                           ("solo dos competidores", txt.replace("| Los propios contactos del CTO | Alguien de confianza | Informal, de boca a boca, sin garantía |\n", "")),
+                           ("con solo dos vías", txt[:txt.index("### Vía C")] + txt[txt.index("**Recomendada:**"):]),
+                           ("con una recomendación visual en las vías (color)", txt.replace("- **Sensación general:** sobria.", "- **Sensación general:** sobria, con un azul oscuro y tipografía técnica.")),
+                           ("con un código de color en la idea rectora", txt.replace("La prueba técnica antes del contrato.", "La prueba técnica antes del contrato (#1B1A17).")),
+                           ("sin cosas por descubrir", txt[:txt.index("## Lo que aún no sabes")] + txt[txt.index("## Riesgos y pendientes"):]),
                            ("idea rectora de relleno largo", txt.replace("La prueba técnica antes del contrato.", "Somos una compañía que existe para acompañar a todas las startups del mundo en el largo camino de encontrar a las personas adecuadas para sus proyectos.")),
                            ("con léxico prohibido", txt.replace("Seca, concreta y sin adornos.", "Una marca innovadora que quiere revolucionar y potenciar el sector con una solución integral."))):
         f = os.path.join(d, "brief_malo.md")

@@ -1,5 +1,16 @@
 # Changelog
 
+## 3.0.0 (2026-11-17)
+
+**Nuevo objetivo: ayudar a explorar la marca con buenas preguntas, sin recomendaciones visuales.** El resultado por defecto ya no es un logo ni un brief de logo, sino la conversación y un brief estratégico con tres vías generales.
+
+- **`estrategia` reescrita como exploración:** 2 o 3 rondas (un mensaje y de 3 a 5 preguntas por ronda), cada pregunta con su porqué; piden **escenas reales** y no definiciones. Banco de preguntas por ronda, repreguntas y cómo escuchar en `estrategia/references/entrevista.md`. **Espejo entre rondas** (lo que oigo, lo que me llama la atención, lo que aún no sé), sin soluciones.
+- **Cierre con tres vías generales** (`estrategia/references/vias.md`): se separan por actitud y promesa, no por estética; cada una con idea, a quién habla y qué promete, cómo suena, sensación general (una palabra de registro), riesgo y «encaja si»; una recomendada; la persona elige o mezcla dos y se resume en la idea rectora.
+- **Nada visual en esta fase:** ni colores, ni logos, ni tipografías, ni estilos, ni prompts. `verificar_brief.py` lo comprueba en las vías, la idea rectora, el posicionamiento y la personalidad, exige exactamente tres vías completas, una recomendación y al menos tres «cosas por descubrir» con cómo averiguarlas.
+- **Router y `AGENTS.md`:** cadena por defecto = solo `estrategia`. `brief-logo` y la cadena visual (`gusto → identidad → … → entrega`) pasan a ser pasos posteriores y opcionales; no se pregunta el proveedor de imagen salvo que se pida la cadena visual.
+- **Criterio experto** adaptado: «preguntas para hacer pensar, no para rellenar»; investigación solo para preguntar mejor.
+- **Arnés e2e:** escenario `estrategia_exploracion` con las rondas de un alumno y medidas de preguntas por ronda y de lenguaje visual que se cuela.
+
 ## 2.10.3 (2026-11-17)
 
 - **Prompt de Claude (B) sin repeticiones ni contradicciones:** ya no incluye dos veces las tres direcciones (van una sola vez, detalladas) y la regla de color coincide con el brief («una tinta más un acento que se pueda sustituir por la misma tinta»).

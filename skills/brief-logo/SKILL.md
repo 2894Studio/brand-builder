@@ -1,13 +1,13 @@
 ---
 name: brief-logo
-description: "Entrega final por defecto: un brief de logo sólido y prompts listos para explorar opciones de logo con IA (modelos de imagen como Ideogram, Recraft, Midjourney, GPT Image, Flux, y Claude o Claude Design en SVG). Úsala con «dame el brief de logo», «un prompt para crear mi logo con IA», «quiero explorar opciones de logo». Parte del brief estratégico y deja brief-logo.md y prompts-logo.md."
+description: "Paso opcional, solo si la persona lo pide después de la estrategia: un brief de logo sólido y prompts listos para explorar opciones de logo con IA (modelos de imagen como Ideogram, Recraft, Midjourney, GPT Image, Flux, y Claude o Claude Design en SVG). Úsala con «dame el brief de logo», «un prompt para crear mi logo con IA», «quiero explorar opciones de logo». Parte del brief estratégico y deja brief-logo.md y prompts-logo.md."
 license: MIT
 ---
 <!-- Copyright (c) 2026 2894 Studio · MIT -->
 
 # Brief de logo y prompts para explorarlo con IA
 
-El objetivo de este paso no es dibujar el logo: es darle a la persona **un brief tan bueno que cualquier modelo de diseño produzca opciones útiles**, y los prompts para pegar. Un logo genérico casi siempre viene de un brief genérico.
+**Este paso es opcional y posterior a `estrategia`: no se ofrece ni se hace hasta que la persona tenga clara su marca y pida el logo.** Su objetivo no es dibujar el logo: es darle a la persona **un brief tan bueno que cualquier modelo de diseño produzca opciones útiles**, y los prompts para pegar. Un logo genérico casi siempre viene de un brief genérico.
 
 Requiere `trabajo/<fecha>-marca-<slug>/estrategia.md` verificado (`estrategia`). Sin él, vuelve allí: un brief de logo sobre un brief estratégico flojo sale flojo. Lee `../brand-kit-builder/references/criterio-experto.md`, `../identidad/references/logo.md` y `references/direcciones.md`.
 

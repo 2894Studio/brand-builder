@@ -1,6 +1,13 @@
-#!/usr/bin/env python3
-# Copyright (c) 2026 2894 Studio · MIT
-"""Comprueba que el brief estratégico (estrategia.md) es un brief y no un formulario rellenado.
+"""Comprueba que el brief estratégico (estrategia.md) es un brief y no un formulario rellenado, y que no trae recomendaciones visuales.
+
+Uso:  python3 verificar_brief.py trabajo/<fecha>-marca-<slug>/estrategia.md
+Comprueba: todas las secciones (Situación, Público y tensión, Mapa de la categoría, Posicionamiento, Promesa y prueba, Personalidad,
+No es, Las tres vías, Vía elegida, Idea rectora, Lo que aún no sabes, Riesgos y pendientes) con contenido real; la tensión con dos mitades;
+al menos 3 alternativas; la fórmula del posicionamiento completa; al menos 3 «no es»; EXACTAMENTE tres vías con sus campos; una idea rectora
+de máximo 25 palabras; al menos 3 cosas por descubrir; sin recomendaciones visuales (colores, hex, logo, tipografía, paleta, prompts) en las
+vías, la idea rectora, el posicionamiento y la personalidad; sin marcadores sin rellenar ni léxico prohibido. No juzga el acierto: sí impide
+entregar un brief vacío o que se salte la fase. Sale con 1 si algo falla.
+Comprueba que el brief estratégico (estrategia.md) es un brief y no un formulario rellenado.
 
 Uso:  python3 verificar_brief.py trabajo/<fecha>-marca-<slug>/estrategia.md
 Comprueba: todas las secciones (Situación, Público y tensión, Mapa de la categoría, Posicionamiento, Promesa y prueba,
@@ -26,10 +33,14 @@ SECCIONES = [
     ("promesa", "Promesa y prueba", 40),
     ("personalidad", "Personalidad", 60),
     ("no es", "No es", 40),
+    ("las tres v", "Las tres vías", 300),
+    ("vía elegida", "Vía elegida", 10),
     ("idea rectora", "Idea rectora", 10),
+    ("lo que aún no sabes", "Lo que aún no sabes", 60),
     ("riesgos", "Riesgos y pendientes", 20),
-    ("cómo sabremos", "Cómo sabremos que acierta", 40),
 ]
+VISUAL = [r"#[0-9a-f]{3,8}\b", r"\blogo", r"\blogotipo", r"\bisotipo", r"\bs[ií]mbolo", r"\bicono", r"\btipograf", r"\bpaleta", r"\bmockup", r"\bprompt", r"\bserif", r"\bsans\b", r"\bdegradado", r"\bfotograf", r"\bilustraci",
+          r"\b(azul|rojo|verde|amarillo|naranja|morado|violeta|rosa|dorado|negro|blanco|gris|turquesa|beige|marr[oó]n)\b"]
 LEXICO = ["sinergia", "ecosistema", "tapiz", "universo", "viaje", "propuesta de valor", "solución integral", "apuesta",
           "elevar", "potenciar", "revolucionar", "transformar", "empoderar", "impulsar",
           "innovador", "innovadora", "disruptivo", "disruptiva", "único", "excepcional", "premium", "a medida", "de vanguardia",
@@ -70,18 +81,27 @@ def main():
     ok(bool(re.search(r"tensi[oó]n", pub, re.I)) and bool(re.search(r"\b(pero|aunque|sin embargo|mientras|en cambio|frente a)\b", pub, re.I)),
        "la tensión tiene dos mitades («quiere… pero…»)")
     mapa = cuerpo["Mapa de la categoría"]
-    filas = [l for l in mapa.splitlines() if l.strip().startswith("|") and not re.match(r"^\s*\|[\s:|-]+\|\s*$", l) and "competidor" not in l.lower()]
+    filas = [l for l in mapa.splitlines() if l.strip().startswith("|") and not re.match(r"^\s*\|[\s:|-]+\|\s*$", l) and not re.match(r"^\s*\|\s*(alternativa|competidor)", l, re.I)]
     items = [l for l in mapa.splitlines() if re.match(r"^\s*[-*]\s+\S", l)]
     ok(len(filas) >= 3 or len(items) >= 3, f"el mapa nombra al menos 3 competidores o alternativas ({max(len(filas), len(items))})")
-    ok(bool(re.search(r"rompemos", mapa, re.I)) and bool(re.search(r"respetamos", mapa, re.I)), "el mapa dice qué convención se respeta y cuál se rompe")
+    ok(bool(re.search(r"todas dicen", mapa, re.I)) and bool(re.search(r"haremos distinto", mapa, re.I)), "el mapa dice lo que todas dicen o hacen y lo único que se hará distinto")
     pos = cuerpo["Posicionamiento"].replace("*", "")
     ok(bool(re.search(r"^\s*para\b.+\bque\b.+\bes\b.+\bque\b.+\bporque\b", pos, re.I | re.S)), "el posicionamiento sigue la fórmula (Para… que…, X es… que…, porque…)")
     nes = [l for l in cuerpo["No es"].splitlines() if re.match(r"^\s*([-*]|\d+[.)])\s+\S", l)]
     ok(len(nes) >= 3, f"«No es» tiene al menos 3 puntos ({len(nes)})")
     idea = re.sub(r"[*_>«»\"“”]", "", cuerpo["Idea rectora"]).strip()
     ok(1 <= len(idea.split()) <= 25 and len([x for x in re.split(r"(?<=[.!?])\s+", idea) if x.strip()]) <= 2, f"la idea rectora es una frase de máximo 25 palabras ({len(idea.split())})")
-    crit = [l for l in cuerpo["Cómo sabremos que acierta"].splitlines() if re.match(r"^\s*([-*]|\d+[.)])\s+\S", l)]
-    ok(len(crit) >= 3, f"hay al menos 3 criterios de acierto ({len(crit)})")
+    vias = re.split(r"(?m)^###\s+", cuerpo["Las tres vías"])[1:]
+    ok(len(vias) == 3, f"hay exactamente tres vías ({len(vias)})")
+    for i, v in enumerate(vias[:3], 1):
+        faltan = [c for c in ("idea", "cómo suena", "riesgo", "encaja si") if c not in v.lower()]
+        ok(len(v) >= 150 and not faltan, f"la vía {i} está completa" + (f" (faltan: {', '.join(faltan)})" if faltan else ("" if len(v) >= 150 else " (muy corta)")))
+    ok(bool(re.search(r"recomend", cuerpo["Las tres vías"], re.I)), "se recomienda una de las tres vías")
+    pend = [l for l in cuerpo["Lo que aún no sabes"].splitlines() if re.match(r"^\s*([-*]|\d+[.)])\s+\S", l)]
+    ok(len(pend) >= 3, f"hay al menos 3 cosas por descubrir, con cómo averiguarlas ({len(pend)})")
+    for nombre in ("Las tres vías", "Idea rectora", "Posicionamiento", "Personalidad"):
+        vis = sorted({m.group(0).lower() for pat in VISUAL for m in re.finditer(pat, cuerpo[nombre], re.I)})
+        ok(not vis, f"sin recomendaciones visuales en «{nombre}»" + (f" ({', '.join(vis[:4])}): esta fase no las hace" if vis else ""))
     sin = [m for m in MARCADORES if re.search(m, texto, 0 if m == r"\bTODO\b" else re.I)]
     ok(not sin, "sin marcadores sin rellenar" + (f" ({', '.join(sin[:3])})" if sin else ""))
     bajo = texto.lower()
