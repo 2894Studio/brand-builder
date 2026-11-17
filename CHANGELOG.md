@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.10.2 (2026-11-17)
+
+- **Prompts de imagen más limpios:** el prompt «natural» va solo en positivo (nombrar lo que no quieres, como «literal bee», puede hacer que el modelo lo dibuje) y los «negative prompt» van aparte, con la indicación de usarlos solo si la herramienta tiene ese campo. Se corrige la contradicción «una sola tinta» frente a «tinta más acento»: ahora dice «one ink colour plus one accent colour» cuando hay acento.
+
 ## 2.10.1 (2026-11-17)
 
 - **El proveedor de imagen ya no se pregunta en la cadena por defecto** (brief de logo y prompts): no se genera ninguna imagen. Solo con el kit completo. Salió de la prueba con Sonnet, que lo preguntaba sin necesitarlo.

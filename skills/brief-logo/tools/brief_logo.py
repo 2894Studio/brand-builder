@@ -140,25 +140,31 @@ def reglas_gusto(b, base):
 
 def estilo_comun(b):
     c = b.get("colores") or {}
-    tinta = c.get("tinta")
-    fondo = c.get("fondo", "#FFFFFF")
-    if tinta:
-        tinta_txt = f"a single ink colour {tinta}"
+    tinta, acento, fondo = c.get("tinta"), c.get("acento"), c.get("fondo", "#FFFFFF")
+    if tinta and acento:
+        ink = f"one ink colour {tinta} plus one accent colour {acento}"
+    elif tinta:
+        ink = f"a single ink colour {tinta}"
     else:
-        tinta_txt = "a single dark ink colour"
-    return f"flat vector logo, solid shapes, {tinta_txt}, on a plain flat {fondo} background, centred, generous margin, crisp edges, no gradients, no shadows, no 3D, no texture, no mockup"
+        ink = "a single dark ink colour"
+    return f"flat vector logo, solid shapes, {ink}, on a plain flat {fondo} background, centred with generous margin, crisp edges"
+
+
+def negativos(b):
+    return ", ".join(["gradients", "drop shadows", "3D", "glow", "photo", "mockup", "extra text", "tiny details"] + list(b.get("cliches_en") or [])[:6])
 
 
 def prompt_imagen(b, d):
+    """Devuelve (natural, negativo, midjourney). El natural va en positivo: los modelos tienden a dibujar lo que se nombra, aunque sea para evitarlo."""
     nombre = b["nombre"]
     cuerpo = d["prompt_en"].rstrip(". ")
-    texto_nombre = (f"The only text is the name \"{nombre}\", spelled exactly like that." if d["tipo"] in ("wordmark", "simbolo+nombre", "emblema") else "No text at all.")
-    neg = ", ".join(["gradients", "drop shadows", "3D", "photo", "mockup", "extra text", "tiny details"] + list(b.get("cliches_en") or [])[:6])
-    reglas = ("; ".join(b.get("restricciones_en") or []))
     cuerpo = cuerpo[0].upper() + cuerpo[1:]
-    natural = f"Logo design. {cuerpo}. {estilo_comun(b)}. {texto_nombre}" + (f" Requirements: {reglas}." if reglas else "") + f" Avoid: {neg}."
+    texto_nombre = (f"The only text is the name \"{nombre}\", spelled exactly like that." if d["tipo"] in ("wordmark", "simbolo+nombre", "emblema") else "No text at all.")
+    reglas = "; ".join(b.get("restricciones_en") or [])
+    natural = f"Logo design. {cuerpo}. {estilo_comun(b)}. {texto_nombre}" + (f" Requirements: {reglas}." if reglas else "")
+    neg = negativos(b)
     mj = f"{cuerpo}, {estilo_comun(b)}, vector logo, graphic design --no {neg} --ar 1:1 --style raw"
-    return natural, mj
+    return natural, neg, mj
 
 
 def prompt_claude(b, brief_md):  # el brief completo (con las reglas de gusto y lo que se evita) va dentro
@@ -254,10 +260,12 @@ def main():
     p = ["# Prompts para explorar el logo", "",
          "Tres formas de usar el brief. Las imágenes generadas fallan con las letras y con los detalles pequeños: úsalas para **explorar ideas**, y reconstruye el logo elegido en vector (Claude, Figma o Illustrator).", "",
          "## A. Modelo de imagen (uno por dirección)",
-         "Pega cada prompt en Ideogram, Recraft, Midjourney, GPT Image, Imagen o Flux. Genera 4 variaciones por dirección y quédate con las que se entienden a 32 px. La versión «natural» sirve para casi todos; la de «Midjourney» lleva sus parámetros.", ""]
+         "Pega cada prompt en Ideogram, Recraft, Midjourney, GPT Image, Imagen o Flux. Genera 4 variaciones por dirección y quédate con las que se entienden a 32 px. La versión «natural» sirve para casi todos y va en positivo; los «negative prompt» van aparte; la de «Midjourney» lleva sus parámetros.", ""]
     for i, d in enumerate(b["direcciones"], 1):
-        nat, mj = prompt_imagen(b, d)
-        p += [f"### {i}. {d['nombre']} ({d['tipo']})", "**Natural (Ideogram, Recraft, GPT Image, Imagen, Flux):**", "```", nat, "```", "**Midjourney:**", "```", mj, "```", ""]
+        nat, neg, mj = prompt_imagen(b, d)
+        p += [f"### {i}. {d['nombre']} ({d['tipo']})", "**Natural (Ideogram, Recraft, GPT Image, Imagen, Flux):**", "```", nat, "```",
+              "**Negative prompt** (pégalo solo si la herramienta tiene ese campo, como Ideogram o Recraft; en GPT Image o Imagen déjalo fuera: nombrar lo que no quieres puede hacer que lo dibuje):", "```", neg, "```",
+              "**Midjourney:**", "```", mj, "```", ""]
     p += ["## B. Claude (diseño en SVG, tablero de las tres direcciones)",
           "Pega esto en Claude (o en Claude Design). Te devuelve un tablero HTML con los tres logos en SVG sobre claro, oscuro y a 32 px, con su autocrítica. Es lo mejor para el logotipo con texto, porque el nombre sale bien escrito.", "",
           "````", prompt_claude(b, brief_md), "````", "",

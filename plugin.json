@@ -1,6 +1,6 @@
 {
   "name": "brand-kit-builder",
   "displayName": "Brand Kit Builder",
-  "version": "2.10.1",
+  "version": "2.10.2",
   "description": "Crea una identidad de marca completa (estrategia, logo, paleta, voz, tokens de diseño y manual) dejando un marca.json validado compatible con creative-architect."
 }
