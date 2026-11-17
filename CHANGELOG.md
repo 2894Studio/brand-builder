@@ -1,5 +1,18 @@
 # Changelog
 
+## 2.9.0 (2026-11-17)
+
+**Cambio de enfoque.** Los resultados no acertaban porque el plugin trataba la estrategia como un cuestionario: preguntaba cinco cosas de «quién es la marca» y transcribía las respuestas, sin investigar ni opinar, y el resto de pasos solo comprobaba la forma. Ahora el agente trabaja como un director de marca:
+
+- **Criterio experto** (`brand-kit-builder/references/criterio-experto.md`): nueve hábitos (propone en vez de interrogar, investiga la categoría, busca la tensión, respeta una convención y rompe una, defiende cada decisión contra el brief, una pieza un mensaje, se critica antes de enseñar, dice la verdad con alternativa, no promete lo que no controla) y cinco pruebas de acierto (competidor, tres segundos, reducción, «no», defensor). El router lo exige al empezar.
+- **Estrategia reescrita:** investiga competidores y alternativas, comprueba el nombre y llega con una **hipótesis** (público, tensión, posicionamiento, personalidad, lo que nunca debe parecer) que la persona confirma o corrige; como mucho tres preguntas con respuesta recomendada y dos rondas. Si dice «decide tú», decide y marca el *Supuesto*.
+- **Brief estratégico verificable** (`estrategia.md`, plantilla en `estrategia/references/brief-estrategico.md`): situación, público y tensión, mapa de la categoría (convención que se respeta y la única que se rompe), posicionamiento con fórmula, promesa y prueba, personalidad, «no es», **idea rectora** en una frase, riesgos y criterios de acierto. `estrategia/tools/verificar_brief.py` lo comprueba (secciones con contenido, tensión con dos mitades, al menos tres competidores, fórmula completa, tres «no es», idea de máximo 25 palabras, sin marcadores ni léxico prohibido).
+- **Identidad:** parte de un concepto escrito (idea rectora, convención que se rompe, tipo de marca, qué debe verse a 25 mm), y critica sus dos logos (tres debilidades y las cinco pruebas) antes de enseñarlos, diciendo qué idea del brief expresa cada uno y por qué podría fallar. **Voz** sale de la personalidad y el «no es» del brief.
+- **Lanzamiento:** cada post declara su **intención** (mensaje, gancho, prueba, llamada) en `brief.json`; se copia al `LEEME.md`.
+- **Puerta de entrega:** comprueba `estrategia.md` con el verificador (se cierra si está vacío o es un formulario) y avisa si falta o si un post no tiene intención. `estrategia_ok` con motivo lo exceptúa.
+
+Aún no se ha repetido una prueba de punta a punta con este flujo: el efecto real sobre la calidad de los briefs hay que comprobarlo con casos reales.
+
 ## 2.8.0 (2026-11-17)
 
 La prueba 3 con tu gusto entrenado (2.7.0) dio un post de titular sobre fondo liso y otro con una cifra: seguía siendo plantilla. Se cierran las vías fáciles:

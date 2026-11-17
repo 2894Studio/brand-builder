@@ -43,6 +43,15 @@ python3 skills/lanzamiento/tools/preparar_fotos.py fotos --salida lanzamiento/fo
 ```
 Si da **error**, no sigas: falta una fila de créditos o una licencia.
 
+### 1b. La intención de cada post, antes del recurso visual
+
+Un post sin intención es decoración. Para **cada** post escribe en `brief.json` → `post1.intencion` / `post2.intencion`:
+- `mensaje`: **una sola** idea, sacada del brief (el post 1 explica qué es la marca y para quién; el post 2 prueba su principal atributo);
+- `gancho`: lo que hace parar el scroll en tres segundos (una cifra, una pregunta incómoda, una imagen inesperada);
+- `prueba`: el hecho que lo sostiene (dato, proceso, caso) o «sin prueba» si no la hay;
+- `llamada`: qué se espera que haga quien lo ve (seguir, escribir, probar), o «ninguna».
+Si el post necesita dos mensajes, son dos posts. Pasa tu propio post por la **prueba de los tres segundos** y la del **competidor** (`criterio-experto.md`) antes de generarlo. `kit_lanzamiento.py` copia la intención al `LEEME.md`, y la puerta de entrega avisa si falta.
+
 ### 2. Elegir el recurso visual de cada post (que no sea siempre el mismo)
 
 Ejecuta primero:

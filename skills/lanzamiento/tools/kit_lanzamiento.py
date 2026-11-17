@@ -15,7 +15,8 @@ brief.json:
   "bento": {"variante": "educativa", "lema": "…", "prueba": "Título|Valor", "ruta": "a;b;c", "datos": "E|V;E|V", "puntos": "a;b", "persona": "N|R"},
   "post1": {"recurso": "compuesto|expresivo_gigante|expresivo_precio|cifra|pasos|manifiesto|foto|pantalla|telefono|comparativa|mapa|html", "args": {"titular": "…", "ventana": "…", "tema": "claro"}},
   "post2": {"recurso": "…", "args": {…}},
-  "notas": ["lo que es de ejemplo o queda a mano, una frase cada una"]
+  "notas": ["lo que es de ejemplo o queda a mano, una frase cada una"],
+  (en post1 y post2, opcional pero esperado: "intencion": {"mensaje": "una sola idea", "gancho": "lo que hace parar el scroll", "prueba": "el hecho que lo sostiene", "llamada": "qué se espera que haga quien lo ve"})
 }
 En "args" cada clave es una opción del generador (guiones bajos = guiones: tarjeta_izq → --tarjeta-izq); true = opción sin valor.
 Los argumentos de cada recurso están en la cabecera de su script (post_compuesto.py para «compuesto»: composición a medida con args.spec; post_tipografico.py para cifra, pasos y manifiesto; post_expresivo.py para expresivo_gigante y expresivo_precio; post_foto.py, post_pantalla.py, post_telefono.py, post_comparativa.py, post_mapa.py).
@@ -204,6 +205,13 @@ def main():
         fh.write("# Kit de lanzamiento\n\nPiezas (HTML editable y PNG): logo/, bento, " + usa + ".\n\n## Qué es de ejemplo o queda a mano\n\n")
         for x in notas or ["(rellena: qué es real, qué es de ejemplo y qué queda por hacer a mano)"]:
             fh.write(f"- {x}\n")
+        for n, k in (("post-1-que-es", "post1"), ("post-2-atributo", "post2")):
+            it = (b.get(k) or {}).get("intencion") or {}
+            if it:
+                fh.write(f"\n## Intención de {n}\n\n")
+                for campo in ("mensaje", "gancho", "prueba", "llamada"):
+                    if it.get(campo):
+                        fh.write(f"- **{campo.capitalize()}:** {it[campo]}\n")
 
     # contraste con las referencias (si el gusto tiene decisiones)
     if gusto and os.path.exists(gusto):

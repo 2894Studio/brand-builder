@@ -589,6 +589,33 @@ with tempfile.TemporaryDirectory() as d:
     open(cb, "w", encoding="utf-8").write(mk([("g", 600, -40), ("s", 70, 700), ("t", 700, 1200), ("f", 0, 0)]))
     ok(py(VAR, ca, cb).returncode == 0, "variedad: dos composiciones a medida con otra disposición no lo son")
 
+    # 7p: el brief estratégico es un brief y la puerta lo exige
+    BRIEF = os.path.join(AQUI, "..", "..", "estrategia", "tools", "verificar_brief.py")
+    bueno = os.path.join(AQUI, "..", "..", "..", "evals", "fixtures", "estrategia", "brief-bueno.md")
+    ok(py(BRIEF, bueno).returncode == 0, "verificar_brief acepta un brief completo (con tensión, mapa, posicionamiento, «no es» e idea rectora)")
+    txt = open(bueno, encoding="utf-8").read()
+    for nombre, cambio in (("sin idea rectora", txt.replace("## Idea rectora\nLa prueba técnica antes del contrato.", "")),
+                           ("posicionamiento sin fórmula", txt.replace("porque **cada perfil pasa por un reto de 90 minutos corregido por un ingeniero senior**", "con calidad")),
+                           ("tensión con una sola mitad", txt.replace("pero las agencias solo les dan currículums sin prueba técnica", "")),
+                           ("solo dos competidores", txt.replace("| Los propios contactos del CTO | Alguien de confianza | Nada visual: boca a boca y LinkedIn |\n", "")),
+                           ("idea rectora de relleno largo", txt.replace("La prueba técnica antes del contrato.", "Somos una compañía que existe para acompañar a todas las startups del mundo en el largo camino de encontrar a las personas adecuadas para sus proyectos.")),
+                           ("con léxico prohibido", txt.replace("Seca, concreta y sin adornos.", "Una marca innovadora que quiere revolucionar y potenciar el sector con una solución integral."))):
+        f = os.path.join(d, "brief_malo.md")
+        open(f, "w", encoding="utf-8").write(cambio)
+        ok(py(BRIEF, f).returncode == 1, f"verificar_brief rechaza un brief {nombre}")
+    # puerta: con estrategia.md malo se cierra; sin estrategia.md avisa y no deja el marcador; con el bueno se abre
+    est_dir = os.path.join(d, "kit_est")
+    shutil.copytree(kit, os.path.join(est_dir, "lanzamiento"))
+    kest = os.path.join(est_dir, "lanzamiento")
+    rg0 = py(PUERTA, kest, "--marca", PULSO)
+    ok("no hay estrategia.md" in rg0.stdout and not os.path.exists(os.path.join(kest, ".puerta-ok")), "sin estrategia.md la puerta avisa y no deja el marcador de puerta abierta")
+    open(os.path.join(est_dir, "estrategia.md"), "w", encoding="utf-8").write("# Brief\n\n## Situación\nUna marca innovadora.\n")
+    rg1 = py(PUERTA, kest, "--marca", PULSO)
+    ok("FALLO  el brief estratégico" in rg1.stdout and "PUERTA CERRADA" in rg1.stdout, "con un estrategia.md vacío la puerta se cierra")
+    shutil.copyfile(bueno, os.path.join(est_dir, "estrategia.md"))
+    rg2 = py(PUERTA, kest, "--marca", PULSO)
+    ok("FALLO  el brief estratégico" not in rg2.stdout and "ok     el brief estratégico" in rg2.stdout, "con un brief correcto la puerta lo da por bueno")
+
     # el crítico mide el texto contra la forma que tiene debajo (antes un texto oscuro sobre un círculo oscuro pasaba con «0 errores»)
     ocul = os.path.join(d, "spec_oculto.json")
     json.dump({"concepto": {"referencias": ["R1"], "decisiones": "x"}, "fondo": {"color": "acento"},

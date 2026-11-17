@@ -9,7 +9,7 @@ license: MIT
 
 La voz es comportamiento, no adjetivos. «Somos cercanos» no le sirve a nadie que tenga que escribir un correo el martes. Lee `references/voz.md` y `../identidad/references/lexico-prohibido.md`.
 
-Requiere el manifiesto de `estrategia`, en especial las dos últimas líneas: lo que la marca diría y lo que nunca diría.
+Requiere el brief y el manifiesto de `estrategia` (`estrategia.md`): la voz sale de la **personalidad**, del **«No es»** y de la **idea rectora**, no de adjetivos nuevos. Cada rasgo de voz apunta a un rasgo del brief; si no, sobra.
 
 ## Qué se decide
 

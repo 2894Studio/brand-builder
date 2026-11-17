@@ -4,6 +4,7 @@
 
 Uso:  python3 verificar_entrega.py trabajo/<fecha>-marca-<slug>/lanzamiento --marca marca.json [--kits trabajo]
 Comprueba, en este orden:
+  0. El brief estratégico (estrategia.md junto a la carpeta del kit) es completo y verificable; cada post declara su intención.
   1. Existen logo/, bento y los dos posts (HTML y PNG) y el LEEME.md.
   2. Los PNG tienen el tamaño correcto (bento 1920×1080, posts 1080×1440).
   3. El crítico de render da 0 errores en cada pieza.
@@ -57,6 +58,30 @@ def main():
     ap.add_argument("--kits", help="carpeta trabajo/ con kits anteriores para comparar la variedad")
     a = ap.parse_args()
     c = a.carpeta
+    print("0. Estrategia")
+    est = os.path.join(os.path.dirname(os.path.abspath(c)), "estrategia.md")
+    bpe = os.path.join(c, "brief.json")
+    brief_j = {}
+    if os.path.exists(bpe):
+        try:
+            brief_j = json.load(open(bpe, encoding="utf-8"))
+        except Exception:  # noqa: BLE001
+            pass
+    if os.path.exists(est):
+        rb = subprocess.run([sys.executable, os.path.join(RAIZ, "skills", "estrategia", "tools", "verificar_brief.py"), est], capture_output=True, text=True, encoding="utf-8", errors="replace")
+        malos = [l.replace("FALLO", "").strip() for l in rb.stdout.splitlines() if l.strip().startswith("FALLO")]
+        ok(rb.returncode == 0, "el brief estratégico (estrategia.md) está completo y es un brief, no un formulario" + ("" if rb.returncode == 0 else ": " + "; ".join(malos[:3])))
+    elif brief_j.get("estrategia_ok"):
+        print("  aviso  sin estrategia.md por decisión explícita: " + str(brief_j["estrategia_ok"]))
+    else:
+        avisos.append("no hay estrategia.md junto a la carpeta del kit: sin brief, las piezas no se pueden defender contra nada (o declara «estrategia_ok» con el motivo en brief.json)")
+        print("  aviso  no hay estrategia.md (el brief estratégico)")
+    for k, nom in (("post1", "post-1-que-es"), ("post2", "post-2-atributo")):
+        it = (brief_j.get(k) or {}).get("intencion") if brief_j else None
+        if brief_j and os.path.exists(est):
+            if not (it and str(it.get("mensaje", "")).strip() and str(it.get("gancho", "")).strip()):
+                avisos.append(f"{nom}: falta la intención (mensaje y gancho) en brief.json → {k}.intencion")
+                print(f"  aviso  {nom}: sin intención (mensaje y gancho)")
     print("1. Archivos")
     ok(os.path.isdir(os.path.join(c, "logo")) and bool(glob.glob(os.path.join(c, "logo", "*"))), "hay logo/ con archivos")
     ok(os.path.exists(os.path.join(c, "LEEME.md")), "hay LEEME.md (qué es real, qué es de ejemplo, qué queda a mano)")

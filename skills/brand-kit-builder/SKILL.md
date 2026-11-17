@@ -15,10 +15,14 @@ Esta skill no produce nada. Lee la petición, decide qué oficio hace falta y lo
 2. **Proveedor de imagen.** Mira si ya está guardado (`python3 skills/brand-kit-builder/tools/proveedor_imagen.py leer`). Si no, **pregunta una vez, con un diálogo**: «¿Tienes algún proveedor de imagen para mejorar la calidad de las piezas?» (Canva · FLORA, Higgsfield, Magnific, Spaces u otro de pago · Gemini o Flow gratis · Ninguno por ahora) y guárdalo con `proveedor_imagen.py guardar`. Guía y estado de cada uno en `skills/lanzamiento/references/proveedores-imagen.md`. Si creative-architect está instalado, su skill `proveedores` también sirve. Sin proveedor **no es un bloqueo**: el entregable de cada imagen es un prompt listo para pegar.
 3. Mira si hay conector de Canva. Solo importa si la persona lo pide: Canva es opcional.
 
+## Cómo trabajas
+
+Lee `references/criterio-experto.md` **antes de empezar y cuando notes que solo estás completando pasos**. Resumen: propones en vez de interrogar; investigas antes de opinar; buscas la tensión; respetas una convención y rompes una; defiendes cada decisión contra el brief; una pieza, un mensaje; criticas tu propio trabajo antes de enseñarlo; dices la verdad con una alternativa. Un resultado que cumple los pasos pero no podría defenderse ante un cliente exigente **no está terminado**.
+
 ## Cómo hablas
 
 - **De tú**, siempre, aunque la persona escriba en plural (tú o vosotros; nunca «dígame», «respondan», «ustedes»). Frases cortas y concretas.
-- **No adelantes soluciones** antes de cerrar la entrevista: ni «suele resolverse con un logo tipográfico» ni una paleta. Primero escuchas, luego propones.
+- **No dibujes ni elijas paleta** antes de tener el brief confirmado, pero **sí propón hipótesis desde el primer mensaje** (público, tensión, personalidad): no hagas preguntas que puedes responder tú.
 
 ## Cómo preguntas (diálogo con opciones)
 
@@ -48,7 +52,7 @@ Los scripts de `tokens`, `laminas` e `identidad` necesitan Python 3.11 o superio
 
 ## Invariantes (no se rompen)
 
-1. **Primero preguntar, después producir.** Sin la entrevista cerrada no se genera ninguna imagen.
+1. **Primero el brief, después producir.** Sin `estrategia.md` verificado y confirmado no se genera ninguna imagen. Y no se pregunta lo que puedes proponer.
 2. **Dos opciones de logo. Ni una más.**
 3. **Logo y paleta se aprueban juntos y antes que nada.**
 4. **Los mockups se preguntan al inicio**, porque condicionan qué se genera.
@@ -61,6 +65,7 @@ Los scripts de `tokens`, `laminas` e `identidad` necesitan Python 3.11 o superio
 11. **Una marca sin imagen no se entrega.** Antes de cerrar `identidad` hay un sistema de imagen decidido (fotografía, gráfico firma y un momento de color), no solo logo y paleta. Logo + colores sólidos + tipografía sin nada más es una marca sosa.
 12. **Las piezas finales no se dibujan a mano.** El bento y los posts salen de `lanzamiento/tools/kit_lanzamiento.py` (brief → generadores → crítico → puerta de entrega). Un kit sin puerta de entrega en verde no está entregado.
 13. **`marca.json` se escribe en cuanto se aprueban logo y paleta**, no al final, y se valida. Sin él, cada herramienta posterior te obliga a repetir la marca.
+14. **Cada decisión se defiende contra el brief** («porque…»); lo que no se puede defender, se quita. Cada pieza tiene un mensaje, una prueba y pasa las cinco pruebas de `criterio-experto.md` antes de enseñarse.
 
 ## Dónde queda el trabajo
 

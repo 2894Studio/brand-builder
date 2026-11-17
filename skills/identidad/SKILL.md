@@ -7,7 +7,11 @@ license: MIT
 
 # Identidad: logo, paleta y tipografía
 
-Este paso decide todo lo demás. Requiere la entrevista confirmada y un territorio elegido (`estrategia`). Sin eso, vuelve allí.
+Este paso decide todo lo demás. Requiere el brief (`trabajo/…/estrategia.md` verificado) y un territorio elegido (`estrategia`). Sin eso, vuelve allí. Lee `../brand-kit-builder/references/criterio-experto.md`: aquí se aplica de lleno.
+
+## Antes de nada: el concepto, no el dibujo
+
+Escribe en 5 líneas, **antes de generar nada**: la **idea rectora** del brief; qué **convención de la categoría se respeta y cuál se rompe** en el logo; qué **tipo de marca** encaja (wordmark, símbolo + nombre, emblema, monograma) y por qué; y **qué debe verse a 25 mm**. Cada decisión que tomes en este paso (símbolo, color, tipografía) acaba en una línea «porque…» que apunta al brief. Lo que no puedes defender se quita.
 
 Lee `references/logo.md`, `references/color.md` y `references/tipografia.md`. Para generar imágenes, `references/prompts-logo.md`.
 
@@ -28,6 +32,8 @@ Las dos propuestas heredan esas 3 líneas; lo que la persona pidió en palabras 
    **Camino geométrico (gratis, sin proveedor de imagen) y obligatorio si no hay otra vía:** un logo que es solo el nombre en una fuente no es una marca. `python3 tools/simbolo_geometrico.py --tipos` lista las construcciones (baldosa, órbita, pliegue, bloques, arcos) y cuándo encaja cada una. Tú **eliges dos tipos distintos con una razón escrita** (qué idea de la marca expresa cada uno) y generas: `python3 tools/simbolo_geometrico.py --nombre … --tinta … --acento … --fondo … --tipos baldosa,bloques --fuente … --salida trabajo/…/logo-opciones`. Deja principal, invertida, monocroma y símbolo de cada opción y una hoja `comparar.png` que **abres y miras**. Si `gusto.json` tiene reglas de símbolo («no es una letra», «geométrico», «forma sólida»…), la elección tiene que cumplirlas y lo dices. Al elegir: `--elegir a|b` copia los SVG a `logo/`, los registras en `marca.json` → `brandKit.logo` (incluidas `simbolo` y `simbolo_invertido`, que usan después el bento y los posts, la segunda sobre fondos oscuros) y ejecutas `incrustar_fuente.py`. Un símbolo geométrico es un punto de partida honesto: si hay proveedor de imagen y la marca lo merece, las propuestas con dibujo a mano siguen siendo mejores.
 3. Preséntalas **a la vez**, nunca de una en una, y di cuál recomiendas en dos líneas.
 4. Enseña **primero** los dos logos y luego pregunta cuál con un diálogo (A, B, «ninguno, hay que ajustar»). Si piden ajustes, **no regeneres a ciegas**: pregunta en el chat qué cambia y regenera una sola vez con ese cambio explícito.
+
+**Antes de enseñarlas, critícalas tú** (hábito 7): para cada propuesta escribe tres debilidades reales y aplica las cinco pruebas (competidor, tres segundos, reducción a 25 mm y una tinta, «no», defensor). Arregla la mayor debilidad de cada una; si una falla la prueba de la reducción o del «no», se rehace, no se presenta. En el mensaje a la persona, di para cada una **qué idea del brief expresa** y **por qué podría fallar**.
 
 **Sí:** comprueba el logo a 25 mm y en una sola tinta · busca anterioridades del nombre (OEPM, EUIPO, WIPO) y dominio; si no puedes, déjalo anotado como pendiente.
 **No:** no propongas una tercera «por si acaso» · no des por bueno un logo que solo funciona en grande · no uses el acento para texto pequeño.

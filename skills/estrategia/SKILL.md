@@ -1,58 +1,66 @@
 ---
 name: estrategia
-description: "Entrevista de marca en tres rondas, tres territorios anclados fuera de la categoría y manifiesto en primera persona. Úsala al empezar una marca o cuando alguien diga «no sé cómo posicionarme», «qué me hace distinto», «qué personalidad tiene mi marca», «no sé qué quiero transmitir». Termina con un borrador de marca.json."
+description: "Estrategia de marca como la haría un director: investiga la categoría, propone una hipótesis completa (público, tensión, posicionamiento, personalidad, lo que nunca debe parecer), la contrasta con la persona en una o dos rondas, escribe un brief estratégico verificable y deriva tres territorios y una idea rectora. Úsala al empezar una marca o con «no sé cómo posicionarme», «qué me hace distinto», «qué personalidad tiene mi marca». Termina con estrategia.md y un borrador de marca.json."
 license: MIT
 ---
 <!-- Copyright (c) 2026 2894 Studio · MIT -->
 
 # Estrategia
 
-Antes de dibujar nada se decide qué es la marca. Aquí no se genera ninguna imagen y no cuesta nada: es donde se ahorra todo lo que se gastaría después.
+Antes de dibujar nada se decide qué es la marca y por qué ganaría. Aquí no se genera ninguna imagen y no cuesta nada: es donde se ahorra lo que se gastaría después.
 
-Lee ahora `references/referencias.md` (cómo entrenar el gusto), `references/entrevista.md` (banco de preguntas y cómo leer las respuestas) y `references/posicionamiento.md` (jerarquía de decisiones, posicionamiento, arquetipos). Lee `../identidad/references/lexico-prohibido.md`: decide cómo escribes durante todo el proceso.
+**Tú pones el criterio. La persona pone los hechos.** No es una entrevista de formulario: llegas con una hipótesis, la enseñas y la persona la corrige. Lee ahora, en este orden:
+1. `../brand-kit-builder/references/criterio-experto.md` (los nueve hábitos y las cinco pruebas; es lo que separa un brief de un formulario relleno).
+2. `references/brief-estrategico.md` (la plantilla que vas a producir).
+3. `references/posicionamiento.md` y `../identidad/references/lexico-prohibido.md`.
+`references/entrevista.md` y `references/referencias.md` los consultas cuando toquen.
 
-Si la marca ya existe y solo hay que documentarla, salta los territorios y usa las respuestas para completar `marca.json`.
+Si la marca ya existe y solo hay que documentarla, salta los territorios y completa el brief con lo que hay.
 
-## 1. Entrevista: tres rondas, no treinta preguntas
+## 1. Lee la petición y la categoría (sin preguntar nada todavía)
 
-Un solo mensaje por ronda, **de tú** y sin adelantar soluciones (nada de «lo normal sería un logo tipográfico» antes de cerrar la entrevista). Aplica `../brand-kit-builder/references/preguntas-interactivas.md`: lo **abierto** en el chat, lo **cerrado** en un único diálogo con opciones por ronda; la persona siempre puede escribir otra cosa.
+1. Del mensaje de la persona saca todo lo que ya dijo: qué es, para quién, tono, nombre. **Lo que ya contó no se vuelve a preguntar.**
+2. **Investiga** (si tienes búsqueda web): de 4 a 6 competidores o alternativas, incluida al menos una que no se parezca pero resuelva lo mismo; qué promete cada uno, cuánto cuesta, y qué convención visual y verbal repite. Sin búsqueda, usa lo que sabes y dilo («no he podido comprobarlo»). **Nunca inventes datos de mercado.**
+3. **Comprueba el nombre** ahora, antes de dibujar: si existe una empresa con ese nombre en el sector, díselo. Dilo como pendiente de validación profesional (OEPM, EUIPO), no como asesoría legal.
+4. Escribe para ti la **tensión**: qué quiere el cliente frente a qué le da hoy la categoría.
 
-- **Ronda 1, qué es:** nombre · qué vende · a quién · promesa en una frase · categoría y si quiere sentirse accesible o exclusiva.
-- **Ronda 2, quién es:** por qué existe · qué la distingue · tres rasgos de personalidad · un adjetivo · **qué nunca debe parecer** (la pregunta que más decisiones ahorra).
-- **Ronda 3, dónde vive:** tuteo o usted · territorio geográfico o cultural · símbolo obligatorio · referencias y **qué** le gusta de ellas · soportes principales · **¿incluimos mockups?** (sí / no / al ver el logo) · ¿necesita la marca funcionar en una web o app?
+## 2. Una hipótesis, no quince preguntas
 
-Cierra con un resumen de 3 a 5 líneas y pide confirmación con un diálogo («es correcto» / «hay que ajustar»; si ajusta, pregunta **qué** en el chat). **No sigas sin ella.**
+Un solo mensaje, **de tú**, con este orden:
+1. «Esto es lo que entiendo» (3 líneas con lo que ya sabes) y **tu hipótesis**: público que decide, tensión, posicionamiento tentativo, tres rasgos de personalidad y **tres cosas que nunca debe parecer** (propón pares opuestos y que elija de qué lado no quiere estar). Con tus razones en una línea cada una.
+2. Un diálogo cerrado: «¿Voy bien?» (voy bien / ajusta esto / el enfoque es otro). Si ajusta, pregunta **qué** en el chat.
+3. **Como mucho tres preguntas** que solo la persona puede responder y que cambian el resultado: el dato o la prueba que puede demostrar, el precio o el rango real, una restricción (símbolo obligatorio, color fijo, canal principal). Cada pregunta lleva tu respuesta recomendada por defecto.
+4. Una vez, con un diálogo, cuatro cuestiones de producción (no de estrategia): **alcance** (el kit completo es la opción por defecto), **mockups** (sí / no / al ver el logo), si la marca necesita **web o app**, y **el trato** (tutea o usted).
 
-**Sí:** reconoce lo que ya contó y pregunta solo lo que falta · insiste en el «nunca debe parecer» · si le gusta una referencia, pregunta qué atributo.
-**No:** no preguntes por colores ni tipografías (son consecuencia) · no aceptes «moderno, limpio, profesional» sin un ejemplo concreto · no sigas sin saber qué nunca debe parecer.
+Máximo **dos rondas**. Si la persona dice «decide tú», «no sé» o no contesta, decides, lo marcas como *Supuesto* en el brief y sigues. Un resumen confirmado cierra la fase: pídelo con un diálogo («es correcto» / «hay que ajustar») y **no avances sin él**.
 
-## 1b. Referencias, versión corta (3 minutos, antes de los territorios)
+Referencias, versión corta (3 minutos): pide **tres** (2 que le gustan, 1 que no quiere parecer) y **qué atributo** de cada una; guárdalas en `marca.json` → `referencias` con `tipo` `"si"` o `"no"`. No inventes el atributo. El entrenamiento completo va en `gusto`. Método en `references/referencias.md`.
 
-Aquí solo hace falta **orientar los territorios**: pide **tres referencias** (2 que le gustan y 1 que no quiere parecer), aunque sea en palabras. Por cada una, **qué atributo** le gusta o rechaza (la escala del titular, el color que aparece una vez…), nunca solo el nombre. Todavía no hay posicionamiento cerrado, así que no pidas ocho ni imágenes: las referencias de esta fase se quedan cortas porque la persona aún no sabe qué quiere. El entrenamiento completo (de 6 a 8 imágenes, medidas y confirmadas) va en la skill `gusto`, **después** de elegir territorio y **antes** de identidad. Si falta el atributo, repregunta una vez por referencia y **no lo inventes**. Guárdalas en `marca.json` → `referencias`, cada una con `nombre`, `atributo` y **`tipo`, que solo puede ser `"si"` o `"no"`** (no «gusta», «a favor» ni nada parecido: el validador lo rechaza). Método, ejemplos y ejercicios en `references/referencias.md`. Esto entrena el gusto de la persona y evita que la marca salga como la media. 
+## 3. Escribe el brief
 
-## 1c. Comprueba el nombre
+Crea `trabajo/<fecha>-marca-<slug>/estrategia.md` con la plantilla de `references/brief-estrategico.md` y ejecútale:
 
-Si tienes búsqueda web, busca el nombre **ahora**, antes de dibujar un logo: si ya existe una empresa con ese nombre en el sector, díselo en este momento. «Es descriptivo» no basta. Dilo como pendiente de validación profesional, no como asesoría legal.
+```
+python3 skills/estrategia/tools/verificar_brief.py trabajo/<fecha>-marca-<slug>/estrategia.md
+```
 
-## 2. Tres territorios (texto, coste cero)
+No lo enseñes hasta que salga «BRIEF CORRECTO». Después, aplica tú las **cinco pruebas** a tu propio brief y arregla lo que falle (sobre todo la del competidor). Enséñaselo a la persona en un resumen de 8 líneas, no pegando el documento entero.
 
-Presenta los tres **por escrito** y después pregunta cuál (o si mezcla dos) con un diálogo: un territorio por opción, con su idea central en la descripción.
+## 4. Tres territorios derivados del brief
 
-Tres, en media página cada uno: nombre, idea central, tipo de logo propuesto, paleta tentativa con hex, registro tipográfico y una frase escrita con su voz. Cada uno **anclado fuera de la categoría** (tensión narrativa, sistema natural, concepto cultural u oficio ajeno): ver `references/anclajes-y-manifiesto.md`. Un territorio anclado en la competencia devuelve la media del sector, que es lo que delata a una marca generada.
+Cada territorio responde a la misma pregunta: **cómo rompemos la convención que elegimos romper**. Tres, en media página cada uno: nombre, idea central, **por qué ganaría y por qué podría fallar**, tipo de logo propuesto, paleta tentativa con hex, registro tipográfico y una frase con su voz. Cada uno **anclado fuera de la categoría** (tensión narrativa, sistema natural, concepto cultural u oficio ajeno): `references/anclajes-y-manifiesto.md`. Un territorio anclado en la competencia devuelve la media del sector, que es lo que delata a una marca generada.
 
-Indica a qué firma gráfica apunta cada territorio (`artesanal`, `editorial`, `tecnologico`, `natural`, `cercano`): se usará en las láminas y en el radio de los componentes.
+Indica a qué firma gráfica apunta cada territorio (`artesanal`, `editorial`, `tecnologico`, `natural`, `cercano`). Recomienda uno y di por qué; la persona elige uno o mezcla dos con un diálogo.
 
-Pide que elija uno o mezcle dos.
+## 5. Manifiesto e idea rectora
 
-## 3. Manifiesto
-
-Con el territorio elegido, escribe el manifiesto en primera persona antes de dibujar nada (estructura en `references/anclajes-y-manifiesto.md`). **El miedo de la marca es obligatorio**: le da aristas.
+Con el territorio elegido: el manifiesto en primera persona (estructura en `references/anclajes-y-manifiesto.md`; **el miedo de la marca es obligatorio**) y la **idea rectora** en una frase. Anótalos en `estrategia.md` y vuelve a ejecutar el verificador.
 
 ## Qué dejas escrito
 
-- `trabajo/<fecha>-marca-<slug>/estrategia.md`: resumen confirmado, posicionamiento en una frase, territorio elegido, manifiesto.
-- Un **borrador** de `marca.json` en la raíz con `nombre`, `categoria`, `tono`, `idioma`, `publico`, `competidores` y `brandKit.territorio`. Parte de `../tokens/marca.plantilla.json`. Lo demás se completa en `identidad` y `voz`.
+- `trabajo/<fecha>-marca-<slug>/estrategia.md`: el brief completo, el territorio elegido y el manifiesto. **Es el documento contra el que se defiende todo lo demás.**
+- Un **borrador** de `marca.json` en la raíz con `nombre`, `categoria`, `tono`, `idioma`, `publico`, `competidores` y `brandKit.territorio`. Parte de `../tokens/marca.plantilla.json`.
 
-Señales de alarma que hay que decir en voz alta: nombre descriptivo y común (difícil de registrar) · símbolo obligatorio que es el tópico de la categoría · promesa con un claim regulado («de especialidad», «natural», «sostenible») · referencia de otra categoría y otro precio.
+Señales de alarma que dices en voz alta: nombre descriptivo y común (difícil de registrar) · símbolo obligatorio que es el tópico de la categoría · promesa con un claim regulado («de especialidad», «natural», «sostenible») · referencia de otra categoría y otro precio · una promesa sin prueba.
 
 Siguiente: `identidad`.
