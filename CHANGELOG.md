@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.2.0 (2026-11-18)
+
+- **Siguiente paso propuesto: [marketingskills](https://github.com/coreyhaines31/marketingskills)** (Corey Haines, MIT, en inglés), como proyecto aparte y no como parte de este plugin. Aparece en el README y como única sugerencia de una línea al cerrar la estrategia. No se copia nada de su código ni de sus textos.
+
 ## 4.1.2 (2026-11-17)
 
 - **Portada del GitHub** (`assets/portada.png`, fuente editable en `assets/src/portada.html`) con la identidad de 2894_ Studio: qué es, qué te llevas y qué no hace.

@@ -57,6 +57,6 @@ Lo último. Del brief deduce **las 3 palabras clave generales** que sirven igual
 
 ## Cómo cierras
 
-A la persona, **8 líneas como máximo**: qué descubrimos, la tensión, la vía elegida y la idea rectora, lo que aún no sabe (con qué hacer esta semana), las 3 palabras clave con qué buscar y qué evitar, y la ruta del archivo. No pegues el documento. Con eso **termina el plugin**: no ofrezcas más pasos. Si pide colores, logo o tipografía, di que queda fuera de este plugin.
+A la persona, **8 líneas como máximo**: qué descubrimos, la tensión, la vía elegida y la idea rectora, lo que aún no sabe (con qué hacer esta semana), las 3 palabras clave con qué buscar y qué evitar, y la ruta del archivo. No pegues el documento. Con eso **termina el plugin**. Como única sugerencia de siguiente paso, en **una línea**: si quiere llevar el brief al marketing (web, mensajes, anuncios, SEO), puede usar el proyecto independiente `marketingskills` de Corey Haines (MIT, en inglés): `/plugin marketplace add coreyhaines31/marketingskills`. No ofrezcas nada más. Si pide colores, logo o tipografía, di que queda fuera de este plugin.
 
 Señales de alarma que dices en voz alta: nombre descriptivo y común · claim regulado («natural», «sostenible») · promesa sin prueba · referencia de otra categoría y otro precio · dos cosas que no caben juntas («exclusiva» y «para todos»).

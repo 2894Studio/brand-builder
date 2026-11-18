@@ -50,6 +50,17 @@ En Claude Code:
 
 Después, escribe **«quiero crear una marca»** (o `/brand-kit-builder`). Para Antigravity y otros agentes, las instrucciones están en [`AGENTS.md`](AGENTS.md).
 
+## Siguiente paso: llevar el brief al marketing
+
+Con el brief claro, el siguiente paso natural es el marketing de verdad (la web, los mensajes, los anuncios, el SEO). Para eso recomendamos otro proyecto, independiente de este: **[marketingskills](https://github.com/coreyhaines31/marketingskills)**, de Corey Haines (licencia MIT, en inglés). Es una colección de más de 40 skills de marketing; todas parten de un documento de contexto del producto (`.agents/product-marketing.md`), que puedes rellenar con lo que sacaste de tu brief (cliente, posicionamiento, personalidad, lo que no eres).
+
+```
+/plugin marketplace add coreyhaines31/marketingskills
+/plugin install marketing-skills
+```
+
+No forma parte de este plugin ni lo necesita: es solo hacia dónde seguir.
+
 ## Qué NO hace
 
 - No diseña logos, paletas, tipografías, manuales ni piezas visuales.
