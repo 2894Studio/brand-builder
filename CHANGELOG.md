@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.3.1 (2026-11-18)
+
+- **Marcas que aún no tienen clientes:** las preguntas ya no dan por hecho que hay clientes. El plugin detecta la etapa (idea, ya vende, replantea) y, si es una idea, habla de «la persona que tiene el problema» (la propia persona, un conocido o un cliente). Ronda 2 pregunta por la **credibilidad** de hoy (vale «nada todavía») y ronda 3 por algo escrito **sobre su idea o a alguien interesado**. Las frases literales pueden ser las suyas, de reseñas o foros (con fuente) o dos marcadas como *Supuesto*. Escenario de prueba nuevo (`marca_idea_sin_clientes`).
+
 ## 4.3.0 (2026-11-18)
 
 Mejoras de las preguntas y del brief a partir de las ideas útiles de [marketingskills](https://github.com/coreyhaines31/marketingskills) (reescritas, con crédito en `NOTICE`):

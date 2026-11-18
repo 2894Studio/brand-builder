@@ -62,6 +62,11 @@ cambios = {
     "vacío": "# Brief\n\n## Situación\nUna marca innovadora.\n",
 }
 d = tempfile.mkdtemp()
+idea = (txt.replace("Cribo es una agencia pequeña", "Cribo será una agencia pequeña").replace("Lleva seis meses y trabaja sobre todo por recomendación.", "Todavía no ha vendido nada: es una idea en etapa cero.")
+        .replace("- Frases literales: «no sé si este perfil sabe hacer lo que dice», «me mandan CVs con todas las palabras de moda».", "- Frases literales (*Supuesto*, aún sin conversaciones): «no sé si este perfil sabe hacer lo que dice», «me mandan CVs con todas las palabras de moda»."))
+f0 = os.path.join(d, "idea.md")
+open(f0, "w", encoding="utf-8").write(idea)
+ok(verificar(f0) == 0, "acepta un brief de una idea sin clientes (frases literales marcadas como Supuesto)")
 for nombre, contenido in cambios.items():
     f = os.path.join(d, "malo.md")
     open(f, "w", encoding="utf-8").write(contenido)

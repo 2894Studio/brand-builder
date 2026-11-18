@@ -8,10 +8,10 @@ Es el entregable de la fase. Una página o poco más, sin relleno y **sin recome
 # Brief estratégico: <nombre>
 
 ## Situación
-Qué es, qué vende, a quién, en qué momento está (2 a 4 líneas, hechos y con las palabras de la persona).
+Qué es, qué vende (o quiere vender), a quién y en qué etapa está: idea, ya vende o replantea (2 a 4 líneas, hechos y con las palabras de la persona).
 
 ## Público y tensión
-Quién es el cliente que decide, qué quiere y qué le da hoy la categoría. Una escena real si la contó.
+Quién es la persona que decide (o decidirá), qué quiere y qué le da hoy la categoría. Una situación real si la contó. Si aún no hay clientes, dilo y describe a quien imagina.
 **Tensión:** «<lo que quiere> pero <lo que la categoría le da>» (una frase con las dos mitades).
 
 ## Mapa de la categoría
@@ -30,14 +30,14 @@ Las cuatro fuerzas de por qué alguien cambia (una línea cada una, con lo que d
 - **Lo que le da miedo (ansiedad):** qué teme de cambiar.
 
 ## Cómo habla tu cliente
-- Frases literales con las que describe su problema: «…», «…»
+- Frases literales con las que describe su problema: «…», «…» (de la persona, de alguien con quien habló o de reseñas y foros con su fuente; si aún no hay ninguna, dos como *Supuesto*)
 - **Palabras que usar:** … **Palabras que evitar:** …
 
 ## Posicionamiento
 Para **<público>** que **<necesidad o momento>**, **<marca>** es **<categoría reconocible>** que **<beneficio>**, porque **<razón creíble: un hecho>**.
 
 ## Promesa y prueba
-La promesa en una frase y la prueba que la sostiene (proceso, cifra, caso). Lo que aún no puede probar, dicho.
+La promesa en una frase y lo que la sostiene hoy (proceso, cifra, caso, experiencia). Si aún es una idea, di qué le da credibilidad y qué todavía no puede probar.
 
 ## Personalidad
 Tres rasgos con comportamiento («es el ingeniero senior que…», no «es innovadora»). Arquetipo dominante y su riesgo.
