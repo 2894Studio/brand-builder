@@ -4,22 +4,22 @@ La entrevista es el producto. Una buena pregunta obliga a **recordar una escena 
 
 ## Qué alimenta cada pregunta (por qué estas y no otras)
 
-Cada pregunta existe porque rellena una parte del brief. Si no alimenta nada, no se hace.
+Cada pregunta existe porque rellena un apartado del brief. Si no alimenta nada, no se hace.
 
 | Pregunta | Alimenta | Ronda |
 |---|---|---|
-| Qué haces y para quién | Situación, Público | 1 (abierta) |
-| Una situación real de alguien con ese problema (tú, un conocido o un cliente): qué le empujaba, qué hacía hasta entonces, qué le frenaba | **Las cuatro fuerzas**, Mapa de la categoría (la alternativa real), Tensión, **frases literales** | 1 (abierta) |
-| Por qué lo haces tú | Personalidad, voz, origen | 1 |
+| Qué haces y para quién | Quién soy y qué hago, Mi audiencia | 1 (abierta) |
+| Una situación real de alguien con ese problema (tú, un conocido o un cliente): qué le empujaba, qué hacía hasta entonces, qué le frenaba | **Las cuatro fuerzas**, Mi categoría y mis alternativas (la alternativa real), Tensión, **frases literales** | 1 (abierta) |
+| Por qué lo haces tú | Mi personalidad y mi voz, origen | 1 |
 | El nombre (y por qué) | Riesgos y pendientes | 1 (si falta) |
-| Qué objeción espera de un cliente que duda | Objeciones, «lo que haremos distinto» | 2 |
-| Qué le da credibilidad hoy (experiencia, método, casos) y qué no | Promesa y prueba, Lo que aún no sabes | 2 |
-| Qué no haría nunca | No es | 2 |
-| Accesible o exclusiva | Posicionamiento, tono | 2 |
-| Cómo se comporta como persona | Personalidad, cómo suena | 3 |
-| Con qué marca no quiere que la confundan | No es | 3 |
-| A quién no le serviría | **A quién no sirve** (objeciones) | 3 |
-| Algo real que haya escrito sobre su idea o a alguien interesado | **Cómo habla tu cliente**, voz real | 3 (abierta) |
+| Qué objeción espera de un cliente que duda | Mis objeciones, «lo que haré distinto» | 2 |
+| Qué le da credibilidad hoy (experiencia, método, casos) y qué no | Mi promesa y mi prueba, Lo que aún no sé | 2 |
+| Qué no haría nunca | Lo que mi marca no es | 2 |
+| Accesible o exclusiva | Mi posicionamiento, tono | 2 |
+| Cómo se comporta como persona | Mi personalidad y mi voz | 3 |
+| Con qué marca no quiere que la confundan | Lo que mi marca no es | 3 |
+| A quién no le serviría | **A quién no sirvo** (objeciones) | 3 |
+| Algo real que haya escrito sobre su idea o a alguien interesado | **Cómo habla mi cliente**, voz real | 3 (abierta) |
 
 **Descartadas** (no cambian el brief o se deducen): momento del año, canal, restricciones, misión/visión/valores, cómo quiere que se sienta el cliente (se deduce), colores, tipografías, estilo, logo.
 

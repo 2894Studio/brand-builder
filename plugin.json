@@ -1,6 +1,6 @@
 {
   "name": "brand-kit-builder",
   "displayName": "Brand Kit Builder",
-  "version": "4.5.0",
-  "description": "Te ayuda a explorar tu marca con buenas preguntas (3 rondas, la primera abierta) y te deja unas instrucciones de proyecto listas para pegar en Claude, un brief con tres vías y tres palabras clave para buscar referencias. Sin logo, paleta ni recomendaciones visuales."
+  "version": "4.6.0",
+  "description": "Te ayuda a explorar tu marca con buenas preguntas (3 rondas, la primera abierta) y te deja un brief en primera persona, listo para pegar como instrucciones de un proyecto de Claude, con tres vías generales y tres palabras clave para buscar referencias. Sin logo, paleta ni recomendaciones visuales."
 }

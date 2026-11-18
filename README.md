@@ -8,9 +8,7 @@
 
 Te hace buenas preguntas en 3 rondas, te devuelve un espejo de lo que oye, y te deja:
 
-0. unas **instrucciones de proyecto listas para pegar en Claude** (o en cualquier IA) con todo lo que hace falta para que trabaje con tu marca,
-
-1. un **brief estratégico** con **tres vías generales** para tu marca, y
+1. un **brief estratégico** con **tres vías generales** para tu marca, escrito **en primera persona, listo para pegar como instrucciones de un proyecto de Claude** (o de cualquier IA), y
 2. **tres palabras clave** para buscar referencias en **Behance, Pinterest y Dribbble**, con **qué buscar y qué evitar** al mirarlas.
 
 Y nada más. **No hace el logo, ni la paleta, ni la tipografía, ni da recomendaciones visuales.** Esto es lo que va *antes*: aclarar qué es tu marca, para quién y qué actitud tiene, para que lo que diseñes después tenga una razón.
@@ -36,8 +34,7 @@ Para estudiantes, emprendedores y equipos que quieren crear o replantear una mar
 
 ## Qué te llevas
 
-- `trabajo/<fecha>-marca-<slug>/instrucciones-de-proyecto.md`: **el entregable principal**. Un texto listo para pegar en las instrucciones de un proyecto de Claude (o ChatGPT): «Eres mi director de estrategia de marca para… », quién eres, tu audiencia y sus dolores, tus pilares de mensaje, tu posicionamiento, tu vía, tu voz, lo que tu marca no es y unas reglas de trabajo.
-- `trabajo/<fecha>-marca-<slug>/estrategia.md`: el brief (situación, público y tensión, mapa de la categoría, **por qué te elegiría y qué le frena** —las cuatro fuerzas—, **cómo habla tu cliente** —frases literales—, posicionamiento, promesa y prueba, personalidad, lo que no es, **objeciones y a quién no sirves**, las tres vías, la vía elegida, la idea rectora, lo que aún no sabes, palabras clave, qué buscar y qué evitar, y riesgos).
+- `trabajo/<fecha>-marca-<slug>/estrategia.md`: **el brief**, en primera persona y listo para pegar como instrucciones de un proyecto de Claude (Claude Projects, ChatGPT Projects…). Apartados: *Quién soy y qué hago · Mi audiencia y su tensión · Mi categoría y mis alternativas · Por qué me elegiría y qué le frena (las cuatro fuerzas) · Cómo habla mi cliente (frases literales) · Mi posicionamiento · Mi promesa y mi prueba · Mi personalidad y mi voz · Lo que mi marca no es · Mis objeciones y a quién no sirvo · Mis tres vías · Mi vía elegida · Mis pilares de mensaje · Mi idea rectora · Lo que aún no sé · Palabras clave · Qué buscar y qué evitar · Riesgos y pendientes*.
 - **Tres palabras clave** generales, por ejemplo `fintech brand identity`, `freelancer invoicing app` y `transparent minimal branding`, **tres cosas que buscar y tres que evitar** en las referencias (por ejemplo, «mucho aire, porque la voz es seca» o «aspecto de agencia corporativa, porque su cliente huye de eso») y la indicación de guardar **3 referencias** (2 que te gustan y 1 que no quieres parecer) anotando qué *actitud* te gusta de cada una.
 
 Un ejemplo completo de brief (ficticio), en [`evals/fixtures/estrategia/brief-bueno.md`](evals/fixtures/estrategia/brief-bueno.md).

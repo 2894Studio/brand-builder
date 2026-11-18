@@ -1,11 +1,11 @@
 # Changelog
 
-## 4.5.0 (2026-11-18)
+## 4.6.0 (2026-11-18)
 
-- **Entregable principal: instrucciones de proyecto listas para pegar** (`instrucciones-de-proyecto.md`), como las de un proyecto de Claude: «Eres mi director de estrategia de marca para…», quién soy, mi audiencia, lo que le empuja, atrae, frena y teme, cómo habla, mis dolores y objeciones, mi posicionamiento, mi vía e idea rectora, mi personalidad y voz, lo que mi marca no es, mis **pilares de mensaje**, lo que aún no sé, cómo buscar referencias y unas reglas de trabajo para la IA. Lo genera `estrategia/tools/instrucciones_proyecto.py` **a partir del brief verificado**, sin inventar nada.
-- **Nueva sección del brief, «Pilares de mensaje»** (de 3 a 5 temas de los que hablará la marca, cada uno ligado a un dolor, objeción o prueba), verificada.
-- **El brief se escribe en tercera persona neutra** para poder convertirse en instrucciones en primera persona.
-- Autotest: 28 tipos de brief malo y pruebas del generador.
+- **El brief es el entregable principal y ahora tiene la forma de unas instrucciones de proyecto de Claude**: está escrito **en primera persona** («Soy…, mi audiencia, mis pilares, mis mayores dolores…») y con apartados como los de una plantilla de proyecto, de modo que se puede **pegar tal cual** en las instrucciones de un proyecto (Claude Projects, ChatGPT Projects, cualquier IA). Apartados renombrados: *Quién soy y qué hago · Mi audiencia y su tensión · Mi categoría y mis alternativas · Por qué me elegiría y qué le frena · Cómo habla mi cliente · Mi posicionamiento · Mi promesa y mi prueba · Mi personalidad y mi voz · Lo que mi marca no es · Mis objeciones y a quién no sirvo · Mis tres vías · Mi vía elegida · Mis pilares de mensaje · Mi idea rectora · Lo que aún no sé*.
+- **Nueva sección «Mis pilares de mensaje»** (de 3 a 5 temas de los que hablará la marca, cada uno ligado a un dolor, una objeción o una prueba), verificada.
+- Se retira el archivo aparte `instrucciones-de-proyecto.md` (se probó en 4.5.0 y no era lo pedido: el brief sigue siendo el entregable).
+- Autotest: 28 tipos de brief malo.
 
 ## 4.4.0 (2026-11-18)
 
