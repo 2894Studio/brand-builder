@@ -53,7 +53,9 @@ Muchas personas **aún no tienen clientes, ventas ni historia**. Detecta la etap
 > 1. Qué haces (o quieres hacer) y para quién.
 > 2. Una situación real de alguien que tiene el problema que resuelves (tú, un conocido o un cliente): qué le empujaba a resolverlo, qué hacía hasta entonces y qué le frenaba o le daba miedo de cambiar.
 > 3. Por qué lo haces tú.
-> (Si falta el nombre:) ¿Cómo se llama y por qué ese?
+> 4. (Si falta el nombre, **siempre como pregunta numerada**:) ¿Cómo se llama y por qué ese?
+
+**Regla:** todo lo que necesites saber es un número de la lista. Una pregunta suelta en un párrafo («y el nombre…») la persona no la ve.
 
 Qué escuchar, con las **cuatro fuerzas**: lo que le **empuja**, lo que le **atrae** de la nueva solución, lo que le **frena** (el hábito) y lo que le da **miedo** de cambiar. Y copiar **sus frases literales**, sin pulirlas.
 
@@ -97,6 +99,20 @@ Elige 3 o 4 y construye las opciones con lo que contó:
 > **Oigo:** tus clientes son directores de producto que «no saben evaluar a un ingeniero de IA» y compran con miedo a equivocarse.
 > **Me llama la atención:** dices que quieres ser cercana, pero todo lo que describes es rigor. O es una ingeniera cercana, o es un laboratorio serio.
 > **Aún no sé:** qué puedes demostrar hoy de ese filtro técnico.
+
+## Nombres: cómo opinar sobre ellos
+
+Para cada nombre (el que trae o los que propones), revisa:
+- **Descriptivo y común:** «Sistema de Trazabilidad…» se describe, no se recuerda ni se registra bien.
+- **Sigla:** que no suene a otra cosa («STIM» → «stimulate»).
+- **Pronunciación:** ¿se dice sin explicarlo?
+- **Promesa de cifra:** «ROI» en el nombre promete un resultado.
+- **Anterioridades:** sin búsqueda, pendiente de validación profesional (OEPM, EUIPO).
+Da 3 o 4 opciones con razón y riesgo si las pide. Si cambia el nombre, se actualiza el brief y se vuelve a verificar.
+
+## Si no cuenta la situación real
+
+Si en la ronda 1 la deja de lado, **no la des por perdida**: la **primera pregunta de la ronda 2** la recupera en diálogo con opciones hechas con lo que contó («¿qué hace hoy esa persona para resolverlo?»). Solo si sigue sin salir, queda como *Supuesto* y como «cosa por descubrir».
 
 ## Qué no se pregunta
 

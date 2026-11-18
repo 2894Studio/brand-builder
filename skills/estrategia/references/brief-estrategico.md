@@ -87,6 +87,7 @@ Nombre (anterioridades pendientes de validación), claims, lo que no se puede pr
 
 ## Reglas de calidad
 
+- **Etiqueta de quién habla:** las frases del **cliente** y las de la **propia persona** no se mezclan; si son de ella, dilo («tuya, sobre el cliente»).
 - **Las frases del cliente van literales**, entre comillas, tal como se las contaron; no las pules.
 - **Hechos y palabras de la persona, no adjetivos.** «Cada candidato habla antes con un ingeniero» es un hecho; «profesionales de calidad» no.
 - **Ninguna frase vale para un competidor** cambiando el nombre.

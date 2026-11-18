@@ -61,6 +61,16 @@ Con el brief claro, el siguiente paso natural es el marketing de verdad (la web,
 
 No forma parte de este plugin ni lo necesita: es solo hacia dónde seguir.
 
+## Actualizar
+
+Si instalaste una versión anterior, actualiza y **reinicia la sesión** (los plugins se cargan al empezar):
+
+```
+/plugin marketplace update brand-kit-builder
+```
+
+Si no cambia, desinstálalo y vuelve a instalarlo. Para saber qué versión tienes, mira `version` en `.claude-plugin/plugin.json` o pregúntale al agente.
+
 ## Qué NO hace
 
 - No diseña logos, paletas, tipografías, manuales ni piezas visuales.

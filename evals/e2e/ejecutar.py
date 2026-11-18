@@ -85,8 +85,12 @@ def main():
         log[-1]["respuesta"] = msg[:300]
     est, r0 = brief_ok(proy)
     fallos = [l.strip()[:160] for l in (r0.stdout.splitlines() if r0 else []) if l.strip().startswith("FALLO")]
+    t1 = (log[0].get("agente", "") if log else "")
+    pide_nombre = "nombre" in t1.lower()
+    nombre_en_lista = bool(re.search(r"(?m)^\s*\d+[.)]\s+.*nombre", t1, re.I))
     L = [f"# {esc['nombre']}", "", f"- Modelo: {a.modelo} · turnos: {turnos} · coste: {gasto:.2f} USD · {round((time.time() - t0) / 60, 1)} min",
          "- Rondas: " + ", ".join(f"turno {t['turno']}: {t.get('preguntas', 0)} «?»" + (f" · visual: {', '.join(t['visual'])}" if t.get("visual") else "") for t in log),
+         f"- Nombre en la ronda 1: {'pregunta numerada' if nombre_en_lista else ('SUELTO fuera de la lista' if pide_nombre else 'no se pide (ya lo dio)')}",
          f"- Brief estratégico: {'CORRECTO' if (r0 and r0.returncode == 0) else ('INCOMPLETO' if est else 'no creado')}" + "".join(f"\n  - {x}" for x in fallos)]
     open(os.path.join(base, "informe.md"), "w", encoding="utf-8").write("\n".join(L) + "\n")
     json.dump({"escenario": esc["nombre"], "turnos": log, "brief": est}, open(os.path.join(base, "informe.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)

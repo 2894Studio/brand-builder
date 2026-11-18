@@ -80,6 +80,7 @@ for ruta in ("skills/estrategia/SKILL.md", "skills/estrategia/references/entrevi
 sk = open(os.path.join(RAIZ, "skills", "estrategia", "SKILL.md"), encoding="utf-8").read()
 ok("palabras-clave.md" in sk and "verificar_brief.py" in sk and "AskUserQuestion" in sk, "la skill enlaza las palabras clave, el verificador y el diálogo nativo")
 ok("identidad" not in sk and "brief-logo" not in sk, "la skill no ofrece pasos que el plugin ya no tiene")
+ok("pregunta numerada propia" in sk and "dentro de la lista numerada" in sk, "la skill exige que el nombre y toda pregunta vayan dentro de la lista numerada")
 ok("marketingskills" in sk, "la skill propone marketingskills como único siguiente paso")
 print()
 print("TODO OK" if not fallos else f"{len(fallos)} FALLO(S)")

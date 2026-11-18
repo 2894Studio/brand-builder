@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.4.0 (2026-11-18)
+
+Correcciones a partir de una prueba real con la marca TRAZ SYSTEM:
+
+- **Todo va dentro de la lista numerada.** El nombre se había preguntado en un párrafo suelto, fuera de las preguntas numeradas, y la persona no lo vio. Ahora, si falta, el nombre es la **pregunta 4 de la ronda 1**, y la regla es general: lo que no es un número de la lista no se pregunta (también las repreguntas).
+- **Si no cuenta la situación real**, la primera pregunta de la ronda 2 la recupera en diálogo con opciones hechas con lo que contó, en vez de dejarla como *Supuesto*.
+- **Nombres:** lista de revisión (descriptivo y común, sigla que suena a otra cosa, pronunciación, promesa de cifra, anterioridades) y, si cambia el nombre después del brief, se actualiza todo el documento y se vuelve a verificar.
+- **Frases literales:** las del cliente y las de la propia persona no se mezclan; se etiqueta de quién son.
+- **README:** sección «Actualizar» (reiniciar la sesión y cómo comprobar la versión): en la prueba la persona llegó a usar la 4.3.0 pensando que tenía la nueva.
+- Arnés e2e: informa si el nombre está en la lista numerada de la ronda 1.
+
 ## 4.3.1 (2026-11-18)
 
 - **Marcas que aún no tienen clientes:** las preguntas ya no dan por hecho que hay clientes. El plugin detecta la etapa (idea, ya vende, replantea) y, si es una idea, habla de «la persona que tiene el problema» (la propia persona, un conocido o un cliente). Ronda 2 pregunta por la **credibilidad** de hoy (vale «nada todavía») y ronda 3 por algo escrito **sobre su idea o a alguien interesado**. Las frases literales pueden ser las suyas, de reseñas o foros (con fuente) o dos marcadas como *Supuesto*. Escenario de prueba nuevo (`marca_idea_sin_clientes`).
