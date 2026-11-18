@@ -24,9 +24,9 @@ Lee antes: `../brand-kit-builder/references/criterio-experto.md`, `references/en
 
 ## Las tres rondas
 
-1. **Ronda 1, abierta.** Una sola petición, en el chat: «Cuéntame con tus palabras qué haces, para quién y una escena real de un cliente (o inventado), y por qué lo haces tú». Si no ha dado el nombre, añádelo al final. Nada de opciones: aquí se necesita su voz. Puedes desglosarla en como mucho 3 puntos cortos (qué haces y para quién, una escena con un cliente, por qué lo haces tú) más el nombre si falta; no la conviertas en un cuestionario. Después, el **espejo**.
-2. **Ronda 2, diálogo: diferencia y fronteras.** Con las alternativas que nombró y lo que le irrita, pregunta: qué le haría ganar frente a esa alternativa, qué demuestra hoy, qué no haría nunca y dónde se coloca (accesible o exclusiva). Opciones hechas con sus datos. Después, el **espejo**.
-3. **Ronda 3, diálogo: cómo se comporta la marca.** Como persona en una reunión, con qué marca no quiere que la confundan, cómo quiere que se sienta el cliente. Opciones hechas con sus datos y, si hace falta, **una pregunta abierta final** («¿qué se me escapa que debería saber?») que **cuenta dentro de las 4**: si la añades, quita otra.
+1. **Ronda 1, abierta.** Una sola petición, en el chat: qué hace y para quién; **la última vez que un cliente le contrató (o casi): qué le empujó a buscarle, qué usaba antes y qué le daba miedo de cambiar**; y por qué lo hace él o ella. Si no ha dado el nombre, añádelo al final. Nada de opciones: aquí se necesita su voz. Puedes desglosarla en como mucho 3 puntos cortos; no la conviertas en un cuestionario. Escucha las **cuatro fuerzas** (lo que le empuja, lo que le atrae, lo que le frena y lo que le da miedo) y **copia sus frases literales**. Después, el **espejo**.
+2. **Ronda 2, diálogo: diferencia y fronteras.** Con las alternativas que nombró y lo que le frena, pregunta: qué objeción esperaría de un cliente que duda, qué demuestra hoy, qué no haría nunca y dónde se coloca (accesible o exclusiva). Opciones hechas con sus datos. Después, el **espejo**.
+3. **Ronda 3, diálogo: cómo se comporta la marca.** Como persona en una reunión, con qué marca no quiere que la confundan, a quién no le serviría su marca y, **como pregunta abierta final (cuenta dentro de las 4)**, que pegue **algo real que haya escrito a un cliente** para ver cómo habla de verdad. Opciones hechas con sus datos.
 
 Si tras la ronda 2 hay material de sobra, acorta la 3. Preguntas, repreguntas y cómo escuchar: `references/entrevista.md`.
 

@@ -19,7 +19,19 @@ Quién es el cliente que decide, qué quiere y qué le da hoy la categoría. Una
 |---|---|---|
 | … | … | … |
 (mínimo 3, incluida una alternativa que no se parece pero resuelve lo mismo, aunque sea «hacerlo uno mismo»)
+(Marca cada fila: *directa* si resuelve lo mismo, *otra solución* si resuelve el mismo problema de otra forma, *hábito* si es hacerlo uno mismo o no hacer nada.)
 **Lo que todas dicen o hacen:** … **Lo que haremos distinto (solo una cosa):** …
+
+## Por qué te elegiría y qué le frena
+Las cuatro fuerzas de por qué alguien cambia (una línea cada una, con lo que dijo la persona):
+- **Lo que le empuja:** qué le frustra de lo que usa hoy.
+- **Lo que le atrae de ti:** qué ve en ti que no ve en lo de ahora.
+- **Lo que le frena (hábito):** qué le mantiene con lo de siempre.
+- **Lo que le da miedo (ansiedad):** qué teme de cambiar.
+
+## Cómo habla tu cliente
+- Frases literales con las que describe su problema: «…», «…»
+- **Palabras que usar:** … **Palabras que evitar:** …
 
 ## Posicionamiento
 Para **<público>** que **<necesidad o momento>**, **<marca>** es **<categoría reconocible>** que **<beneficio>**, porque **<razón creíble: un hecho>**.
@@ -32,6 +44,11 @@ Tres rasgos con comportamiento («es el ingeniero senior que…», no «es innov
 
 ## No es
 - Qué nunca debe parecer ni sonar (mínimo 3), con el motivo de cada uno, en actitud y en lo que dice.
+
+## Objeciones y a quién no
+- «…» → cómo se responde con un hecho.
+- «…» → …
+**A quién no sirve:** quién no es buen cliente y por qué.
 
 ## Las tres vías
 (La plantilla y las reglas están en `vias.md`: tres subsecciones `### Vía A/B/C`, con idea, a quién habla y qué promete, cómo suena, sensación general, riesgo y «encaja si». Sin colores, logos ni tipografías.)
@@ -70,6 +87,7 @@ Nombre (anterioridades pendientes de validación), claims, lo que no se puede pr
 
 ## Reglas de calidad
 
+- **Las frases del cliente van literales**, entre comillas, tal como se las contaron; no las pules.
 - **Hechos y palabras de la persona, no adjetivos.** «Cada candidato habla antes con un ingeniero» es un hecho; «profesionales de calidad» no.
 - **Ninguna frase vale para un competidor** cambiando el nombre.
 - **Sin léxico prohibido** (`lexico-prohibido.md`): el verificador lo cuenta.

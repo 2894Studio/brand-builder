@@ -23,9 +23,9 @@ Para estudiantes, emprendedores y equipos que quieren crear o replantear una mar
 
 | Ronda | Cómo | De qué va |
 |---|---|---|
-| **1** | **Abierta**, en el chat | Cuentas con tus palabras qué haces, para quién, una escena con un cliente y por qué lo haces tú |
-| **2** | Diálogo con opciones | Qué te diferencia, qué puedes demostrar, qué no harías nunca y dónde te colocas |
-| **3** | Diálogo con opciones | Cómo se comporta tu marca, con qué no quieres que te confundan y cómo quieres que se sienta tu cliente |
+| **1** | **Abierta**, en el chat | Cuentas con tus palabras qué haces, para quién, **la última vez que un cliente te contrató** (qué le empujó, qué usaba antes, qué le daba miedo de cambiar) y por qué lo haces tú |
+| **2** | Diálogo con opciones | Qué objeción esperarías de un cliente que duda, qué puedes demostrar, qué no harías nunca y dónde te colocas |
+| **3** | Diálogo con opciones y una abierta | Cómo se comporta tu marca, con qué no quieres que te confundan, a quién no le servirías y **algo real que hayas escrito a un cliente** |
 
 - Tras cada ronda, un **espejo** corto: lo que oye, lo que le llama la atención y lo que aún no sabe.
 - Las **opciones de las rondas 2 y 3 salen de lo que tú contaste**, no de un catálogo. Siempre puedes escribir tu propia respuesta.
@@ -34,7 +34,7 @@ Para estudiantes, emprendedores y equipos que quieren crear o replantear una mar
 
 ## Qué te llevas
 
-- `trabajo/<fecha>-marca-<slug>/estrategia.md`: el brief (situación, público y tensión, mapa de la categoría, posicionamiento, promesa y prueba, personalidad, lo que no es, las tres vías, la vía elegida, la idea rectora, lo que aún no sabes, palabras clave y riesgos).
+- `trabajo/<fecha>-marca-<slug>/estrategia.md`: el brief (situación, público y tensión, mapa de la categoría, **por qué te elegiría y qué le frena** —las cuatro fuerzas—, **cómo habla tu cliente** —frases literales—, posicionamiento, promesa y prueba, personalidad, lo que no es, **objeciones y a quién no sirves**, las tres vías, la vía elegida, la idea rectora, lo que aún no sabes, palabras clave, qué buscar y qué evitar, y riesgos).
 - **Tres palabras clave** generales, por ejemplo `fintech brand identity`, `freelancer invoicing app` y `transparent minimal branding`, **tres cosas que buscar y tres que evitar** en las referencias (por ejemplo, «mucho aire, porque la voz es seca» o «aspecto de agencia corporativa, porque su cliente huye de eso») y la indicación de guardar **3 referencias** (2 que te gustan y 1 que no quieres parecer) anotando qué *actitud* te gusta de cada una.
 
 Un ejemplo completo de brief (ficticio), en [`evals/fixtures/estrategia/brief-bueno.md`](evals/fixtures/estrategia/brief-bueno.md).

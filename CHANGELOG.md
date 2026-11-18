@@ -1,5 +1,15 @@
 # Changelog
 
+## 4.3.0 (2026-11-18)
+
+Mejoras de las preguntas y del brief a partir de las ideas útiles de [marketingskills](https://github.com/coreyhaines31/marketingskills) (reescritas, con crédito en `NOTICE`):
+
+- **Ronda 1 más rica:** además de qué hace y para quién, pide **la última vez que un cliente le contrató (o casi)**: qué le empujó a buscarle, qué usaba antes y qué le daba miedo de cambiar. De ahí salen las **cuatro fuerzas** del cambio (empuja, atrae, frena, da miedo) y las **frases literales** del cliente.
+- **Ronda 2:** la pregunta de la duda pasa a ser **la objeción** más probable.
+- **Ronda 3:** nueva pregunta **«a quién no le serviría»** y la pregunta abierta final pide **algo real que haya escrito a un cliente**, para construir la voz con lo que dice de verdad y no con adjetivos. Se retira «cómo quiere que se sienta el cliente» (se deduce).
+- **Tres secciones nuevas en el brief**, verificadas: «Por qué te elegiría y qué le frena» (cuatro fuerzas), «Cómo habla tu cliente» (al menos 2 frases literales y palabras que evitar) y «Objeciones y a quién no» (al menos 2 y a quién no sirve). El mapa marca cada alternativa como directa, otra solución o hábito.
+- Autotest: 25 tipos de brief malo.
+
 ## 4.2.0 (2026-11-18)
 
 - **Siguiente paso propuesto: [marketingskills](https://github.com/coreyhaines31/marketingskills)** (Corey Haines, MIT, en inglés), como proyecto aparte y no como parte de este plugin. Aparece en el README y como única sugerencia de una línea al cerrar la estrategia. No se copia nada de su código ni de sus textos.

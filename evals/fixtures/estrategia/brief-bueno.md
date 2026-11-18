@@ -15,6 +15,16 @@ Quien decide es el CTO o la fundadora técnica de una startup que necesita su pr
 | Los propios contactos del CTO | Alguien de confianza | Informal, de boca a boca, sin garantía |
 **Lo que todas dicen o hacen:** prometer rapidez y volumen sin enseñar cómo se evalúa. **Lo que haremos distinto (solo una cosa):** enseñar la evaluación técnica de cada candidato antes de cobrar.
 
+## Por qué te elegiría y qué le frena
+- **Lo que le empuja:** pagar una comisión por un candidato que no sabía hacer lo que decía su currículum.
+- **Lo que le atrae de ti:** ver una prueba técnica corregida antes de entrevistar a nadie.
+- **Lo que le frena (hábito):** seguir pidiendo recomendaciones a conocidos, que es gratis y lo conoce.
+- **Lo que le da miedo (ansiedad):** que otra agencia más le haga perder tiempo y dinero.
+
+## Cómo habla tu cliente
+- Frases literales: «no sé si este perfil sabe hacer lo que dice», «me mandan CVs con todas las palabras de moda».
+- **Palabras que usar:** prueba, reto, criterio técnico. **Palabras que evitar:** talento de primer nivel, capital humano.
+
 ## Posicionamiento
 Para **startups que necesitan su primer perfil de IA** que **no saben evaluarlo**, **Cribo** es **la agencia de selección técnica** que **entrega candidatos con una prueba ya resuelta**, porque **cada perfil pasa por un reto de 90 minutos corregido por un ingeniero senior**.
 
@@ -28,6 +38,11 @@ Es el ingeniero senior que te dice la verdad sobre un candidato aunque pierda la
 - No es una ETT: nada de «capital humano» ni de promesas de volumen, porque su cliente huye de la imagen de consultora.
 - No es un mercado de perfiles: no vende cantidad, porque lo que el cliente teme es equivocarse, no tener pocas opciones.
 - No es una marca de «pasión por el talento»: sin frases emocionales, porque no puede probarlas.
+
+## Objeciones y a quién no
+- «Ya tengo a un conocido que me recomienda gente» → la recomendación no enseña si sabe hacerlo; la prueba sí.
+- «Cobráis comisión y no sé qué recibo» → se entrega la corrección escrita de cada candidato.
+**A quién no sirve:** a quien contrata en volumen y no puede esperar una prueba.
 
 ## Las tres vías
 ### Vía A: La que demuestra

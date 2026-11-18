@@ -54,6 +54,11 @@ cambios = {
     "con una cosa que buscar sin «porque»": txt.replace("- Un tono sobrio con un toque humano, porque el riesgo de la vía es sonar frío.", "- Un tono sobrio con un toque humano."),
     "con un color concreto en qué buscar": txt.replace("- Composiciones con mucho aire y pocos elementos,", "- Composiciones con fondo azul y pocos elementos,"),
     "con un código hex en qué evitar": txt.replace("- Exceso de ornamento, porque", "- Exceso de ornamento (#FF0000), porque"),
+    "sin las cuatro fuerzas": txt.replace("- **Lo que le da miedo (ansiedad):** que otra agencia más le haga perder tiempo y dinero.\n", ""),
+    "con una sola frase literal del cliente": txt.replace(", «me mandan CVs con todas las palabras de moda»", ""),
+    "sin palabras que evitar": txt.replace("**Palabras que evitar:** talento de primer nivel, capital humano.", ""),
+    "sin a quién no sirve": txt.replace("**A quién no sirve:** a quien contrata en volumen y no puede esperar una prueba.", ""),
+    "con una sola objeción": txt.replace("- «Cobráis comisión y no sé qué recibo» → se entrega la corrección escrita de cada candidato.\n", ""),
     "vacío": "# Brief\n\n## Situación\nUna marca innovadora.\n",
 }
 d = tempfile.mkdtemp()

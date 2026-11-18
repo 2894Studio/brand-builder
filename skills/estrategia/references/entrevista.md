@@ -8,19 +8,20 @@ Cada pregunta existe porque rellena una parte del brief. Si no alimenta nada, no
 
 | Pregunta | Alimenta | Ronda |
 |---|---|---|
-| Qué haces, para quién y una escena con un cliente | Situación, Público y tensión | 1 (abierta) |
-| Qué hacía antes ese cliente | Mapa de la categoría (la alternativa real) | 1 (dentro de la escena) |
+| Qué haces y para quién | Situación, Público | 1 (abierta) |
+| La última vez que un cliente te contrató: qué le empujó, qué usaba antes, qué le daba miedo de cambiar | **Las cuatro fuerzas**, Mapa de la categoría (la alternativa real), Tensión, **frases literales** | 1 (abierta) |
 | Por qué lo haces tú | Personalidad, voz, origen | 1 |
 | El nombre (y por qué) | Riesgos y pendientes | 1 (si falta) |
-| Qué le haría ganar a un cliente que duda | Posicionamiento, «lo que haremos distinto» | 2 |
+| Qué objeción espera de un cliente que duda | Objeciones, «lo que haremos distinto» | 2 |
 | Qué demuestra hoy y qué no | Promesa y prueba, Lo que aún no sabes | 2 |
 | Qué no haría nunca | No es | 2 |
 | Accesible o exclusiva | Posicionamiento, tono | 2 |
 | Cómo se comporta como persona | Personalidad, cómo suena | 3 |
 | Con qué marca no quiere que la confundan | No es | 3 |
-| Cómo quiere que se sienta el cliente | Promesa, vía | 3 |
+| A quién no le serviría | **A quién no sirve** (objeciones) | 3 |
+| Algo real que haya escrito a un cliente | **Cómo habla tu cliente**, voz real | 3 (abierta) |
 
-**Descartadas** (no cambian el brief o se deducen): momento del año, canal, restricciones, misión/visión/valores, colores, tipografías, estilo, logo.
+**Descartadas** (no cambian el brief o se deducen): momento del año, canal, restricciones, misión/visión/valores, cómo quiere que se sienta el cliente (se deduce), colores, tipografías, estilo, logo.
 
 ## Cómo preguntar
 
@@ -30,30 +31,34 @@ Cada pregunta existe porque rellena una parte del brief. Si no alimenta nada, no
 - **El porqué**, solo si no es obvio y en menos de 12 palabras.
 - **Repregunta una vez** si la respuesta es delgada (una etiqueta o una palabra): «¿qué pasó exactamente?», «dame una escena».
 - **Lo que ya contó no se vuelve a preguntar.** Se cita y se sube de nivel.
-- **Pregunta abierta final** en la ronda 3, si procede: «¿qué se me escapa que debería saber?». A menudo es lo más valioso.
+- **Pregunta abierta final** en la ronda 3: pedir algo real que haya escrito a un cliente (la voz se construye con lo que se dice de verdad, no con adjetivos). Si no tiene nada escrito, «¿qué se me escapa que debería saber?».
 
 ## Ronda 1: abierta
 
-> Cuéntame con tus palabras qué haces, para quién y una escena real de un cliente (o inventado): qué le pasaba el día que te buscó y qué hacía antes. Y por qué lo haces tú.
+> Cuéntame con tus palabras:
+> 1. Qué haces y para quién.
+> 2. La última vez que un cliente te contrató (o casi): qué le empujó a buscarte, qué usaba antes y qué le daba miedo de cambiar.
+> 3. Por qué lo haces tú.
 > (Si falta el nombre:) ¿Cómo se llama y por qué ese?
 
-Qué escuchar: el cliente concreto, la alternativa que usaba, el origen, las palabras que repite, lo que le enciende.
+Qué escuchar, con las **cuatro fuerzas**: lo que le **empuja** (qué le frustraba), lo que le **atrae** de ti, lo que le **frena** (el hábito, lo de siempre) y lo que le da **miedo** de cambiar. Y copiar **sus frases literales**, sin pulirlas: valen más que cualquier descripción.
 
 ## Ronda 2: diferencia y fronteras (diálogo)
 
-Preguntas posibles; elige 3 o 4 y construye las opciones con lo que contó:
-- **La duda.** Si ese cliente duda entre tú y [la alternativa que nombró], ¿qué le haría decir «vale, vosotros»?
+Elige 3 o 4 y construye las opciones con lo que contó:
+- **La objeción.** Si ese cliente duda entre tú y [la alternativa que nombró], ¿cuál sería su objeción más probable?
 - **La prueba.** ¿Qué puedes demostrar hoy de eso? (un dato, un caso, un proceso, nada todavía)
-- **El enemigo.** ¿Qué es lo que más te irrita de cómo se hace esto en tu sector?
 - **La frontera.** ¿Qué no harías nunca, aunque te pagaran bien?
 - **La posición.** Si tuvieras que soltar una, ¿accesible o exclusiva?
 
-## Ronda 3: cómo se comporta la marca (diálogo)
+(Opcionales si hace falta: **el enemigo**, qué te irrita de cómo se hace esto en tu sector; **el miedo**, qué temes que piensen de tu marca.)
+
+## Ronda 3: cómo se comporta la marca (diálogo, con una abierta)
 
 - **La persona.** Si la marca entrara en una reunión con tu cliente, ¿cómo se comporta?
 - **El rechazo.** ¿Con qué marca no querrías que te confundan?
-- **El después.** Al terminar contigo, ¿cómo quiere sentirse tu cliente?
-- **Lo que se escapa** (abierta, al final). ¿Qué debería saber que no te he preguntado?
+- **El anti-cliente.** ¿A quién no le serviría tu marca?
+- **Lo real** (abierta, al final, cuenta dentro de las 4). Pégame algo que hayas escrito a un cliente (un mensaje, un correo, un anuncio) para ver cómo hablas de verdad.
 
 ## Repreguntas
 

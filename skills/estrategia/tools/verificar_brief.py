@@ -1,7 +1,7 @@
 """Comprueba que el brief estratégico (estrategia.md) es un brief y no un formulario rellenado, y que no trae recomendaciones visuales.
 
 Uso:  python3 verificar_brief.py trabajo/<fecha>-marca-<slug>/estrategia.md
-Comprueba: todas las secciones (Situación, Público y tensión, Mapa de la categoría, Posicionamiento, Promesa y prueba, Personalidad,
+Comprueba: todas las secciones (Situación, Público y tensión, Mapa de la categoría, Por qué te elegiría y qué le frena (cuatro fuerzas), Cómo habla tu cliente (frases literales), Objeciones y a quién no, Posicionamiento, Promesa y prueba, Personalidad,
 No es, Las tres vías, Vía elegida, Idea rectora, Lo que aún no sabes, Palabras clave para buscar referencias, Riesgos y pendientes) con contenido real; la tensión con dos mitades;
 al menos 3 alternativas; la fórmula del posicionamiento completa; al menos 3 «no es»; EXACTAMENTE tres vías con sus campos; una idea rectora
 de máximo 25 palabras; al menos 3 cosas por descubrir; 3 palabras clave para buscar referencias; 3 cosas que buscar y 3 que evitar en las referencias, con «porque» y sin colores concretos; sin recomendaciones visuales (colores, hex, logo, tipografía, paleta, prompts) en las
@@ -29,6 +29,9 @@ SECCIONES = [
     ("situaci", "Situación", 60),
     ("público y tensión", "Público y tensión", 80),
     ("mapa de la categor", "Mapa de la categoría", 80),
+    ("por qué te elegir", "Por qué te elegiría y qué le frena", 150),
+    ("cómo habla tu cliente", "Cómo habla tu cliente", 80),
+    ("objeciones", "Objeciones y a quién no", 100),
     ("posicionamiento", "Posicionamiento", 60),
     ("promesa", "Promesa y prueba", 40),
     ("personalidad", "Personalidad", 60),
@@ -99,6 +102,12 @@ def main():
         faltan = [c for c in ("idea", "cómo suena", "riesgo", "encaja si") if c not in v.lower()]
         ok(len(v) >= 150 and not faltan, f"la vía {i} está completa" + (f" (faltan: {', '.join(faltan)})" if faltan else ("" if len(v) >= 150 else " (muy corta)")))
     ok(bool(re.search(r"\brecomendad[ao]\b|\brecomiendo\b", cuerpo["Las tres vías"], re.I)), "se recomienda una de las tres vías")
+    fz = cuerpo["Por qué te elegiría y qué le frena"].lower()
+    ok(all(k in fz for k in ("empuja", "atrae", "frena", "miedo")), "las cuatro fuerzas están (lo que empuja, atrae, frena y da miedo)")
+    hb = cuerpo["Cómo habla tu cliente"]
+    ok(len(re.findall(r"«[^»\n]{6,}»", hb)) >= 2 and "evitar" in hb.lower(), "hay al menos 2 frases literales del cliente y palabras que evitar")
+    ob = cuerpo["Objeciones y a quién no"]
+    ok(len([l for l in ob.splitlines() if re.match(r"^\s*([-*]|\d+[.)])\s+\S", l)]) >= 2 and "a quién no" in ob.lower(), "hay al menos 2 objeciones y a quién no sirve")
     claves = re.findall(r"`([^`\n]{4,60})`", cuerpo["Palabras clave para buscar referencias"])
     ok(len(claves) >= 3 and not any(c.strip() in ("…", "...") for c in claves), f"hay 3 palabras clave para buscar referencias ({len(claves)})")
     bq = cuerpo["Qué buscar y qué evitar en las referencias"]
