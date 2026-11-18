@@ -79,7 +79,7 @@ def main():
                     "visual": sorted({m.group(0).lower() for m in re.finditer(VISUAL, texto, re.I)})})
         print(f"  turno {turnos}: {gasto:.2f} USD")
         est, r0 = brief_ok(proy)
-        if est and r0.returncode == 0:
+        if est and r0.returncode == 0 and glob.glob(os.path.join(os.path.dirname(est), "instrucciones-de-proyecto.md")):
             break
         msg = por_turno[turnos - 1] if turnos - 1 < len(por_turno) else esc["respuesta_final"]
         log[-1]["respuesta"] = msg[:300]
@@ -91,6 +91,7 @@ def main():
     L = [f"# {esc['nombre']}", "", f"- Modelo: {a.modelo} · turnos: {turnos} · coste: {gasto:.2f} USD · {round((time.time() - t0) / 60, 1)} min",
          "- Rondas: " + ", ".join(f"turno {t['turno']}: {t.get('preguntas', 0)} «?»" + (f" · visual: {', '.join(t['visual'])}" if t.get("visual") else "") for t in log),
          f"- Nombre en la ronda 1: {'pregunta numerada' if nombre_en_lista else ('SUELTO fuera de la lista' if pide_nombre else 'no se pide (ya lo dio)')}",
+         f"- Instrucciones de proyecto: {'sí' if (est and glob.glob(os.path.join(os.path.dirname(est), 'instrucciones-de-proyecto.md'))) else 'no creadas'}",
          f"- Brief estratégico: {'CORRECTO' if (r0 and r0.returncode == 0) else ('INCOMPLETO' if est else 'no creado')}" + "".join(f"\n  - {x}" for x in fallos)]
     open(os.path.join(base, "informe.md"), "w", encoding="utf-8").write("\n".join(L) + "\n")
     json.dump({"escenario": esc["nombre"], "turnos": log, "brief": est}, open(os.path.join(base, "informe.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)

@@ -1,6 +1,6 @@
 ---
 name: estrategia
-description: "Ayuda a explorar una marca con buenas preguntas en 3 rondas (la primera abierta, para que la persona cuente con sus palabras), devuelve un espejo tras cada ronda, escribe un brief estratégico con tres vías generales de actitud y promesa y termina con tres palabras clave para buscar referencias en Behance, Pinterest y Dribbble. Sin recomendaciones visuales. Úsala con «quiero crear una marca», «ayúdame con mi marca», «no sé cómo posicionarme»."
+description: "Ayuda a explorar una marca con buenas preguntas en 3 rondas (la primera abierta, para que la persona cuente con sus palabras), devuelve un espejo tras cada ronda, escribe un brief estratégico con tres vías generales de actitud y promesa termina con tres palabras clave para buscar referencias en Behance, Pinterest y Dribbble y entrega unas instrucciones de proyecto listas para pegar en Claude. Sin recomendaciones visuales. Úsala con «quiero crear una marca», «ayúdame con mi marca», «no sé cómo posicionarme»."
 license: MIT
 ---
 <!-- Copyright (c) 2026 2894 Studio · MIT -->
@@ -56,7 +56,17 @@ Con lo que tienes, escribe **tres vías** (`references/vias.md`): formas general
 python3 skills/estrategia/tools/verificar_brief.py trabajo/<fecha>-marca-<slug>/estrategia.md
 ```
 
-No lo presentes hasta que salga «BRIEF CORRECTO».
+No lo presentes hasta que salga «BRIEF CORRECTO». **Escríbelo en tercera persona neutra** (la marca, el cliente, la fundadora), no en «tú».
+
+## El entregable principal: instrucciones de proyecto
+
+Cuando el brief está verificado y la persona ha elegido su vía, genera las **instrucciones de proyecto**: un texto listo para pegar en las instrucciones de un proyecto (Claude Projects, ChatGPT Projects o cualquier IA) para que desde ese momento trabaje con su marca. Empieza con el rol («Eres mi director de estrategia de marca para…») y recoge quién es, su audiencia y sus dolores, sus pilares de mensaje, su posicionamiento, su vía e idea rectora, su personalidad y voz, lo que no es, lo que aún no sabe, cómo buscar referencias y unas reglas de trabajo.
+
+```
+python3 skills/estrategia/tools/instrucciones_proyecto.py trabajo/<fecha>-marca-<slug>/estrategia.md
+```
+
+Deja `trabajo/<fecha>-marca-<slug>/instrucciones-de-proyecto.md`. No inventa nada: reordena lo que está en el brief y se niega si el brief no pasa el verificador.
 
 ## El final: las palabras clave
 
@@ -64,6 +74,6 @@ Lo último. Del brief deduce **las 3 palabras clave generales** que sirven igual
 
 ## Cómo cierras
 
-A la persona, **8 líneas como máximo**: qué descubrimos, la tensión, la vía elegida y la idea rectora, lo que aún no sabe (con qué hacer esta semana), las 3 palabras clave con qué buscar y qué evitar, y la ruta del archivo. No pegues el documento. Con eso **termina el plugin**. Como única sugerencia de siguiente paso, en **una línea**: si quiere llevar el brief al marketing (web, mensajes, anuncios, SEO), puede usar el proyecto independiente `marketingskills` de Corey Haines (MIT, en inglés): `/plugin marketplace add coreyhaines31/marketingskills`. No ofrezcas nada más. Si pide colores, logo o tipografía, di que queda fuera de este plugin.
+A la persona, **8 líneas como máximo**: qué descubrimos, la tensión, la vía elegida y la idea rectora, lo que aún no sabe (con qué hacer esta semana), las 3 palabras clave con qué buscar y qué evitar, y **la ruta de `instrucciones-de-proyecto.md`** (lo principal, para pegar en un proyecto) y la de `estrategia.md`. No pegues el documento. Con eso **termina el plugin**. Como única sugerencia de siguiente paso, en **una línea**: si quiere llevar el brief al marketing (web, mensajes, anuncios, SEO), puede usar el proyecto independiente `marketingskills` de Corey Haines (MIT, en inglés): `/plugin marketplace add coreyhaines31/marketingskills`. No ofrezcas nada más. Si pide colores, logo o tipografía, di que queda fuera de este plugin.
 
 Señales de alarma que dices en voz alta: nombre descriptivo y común · claim regulado («natural», «sostenible») · promesa sin prueba · referencia de otra categoría y otro precio · dos cosas que no caben juntas («exclusiva» y «para todos»).

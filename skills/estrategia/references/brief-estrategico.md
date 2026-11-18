@@ -25,7 +25,7 @@ Quién es la persona que decide (o decidirá), qué quiere y qué le da hoy la c
 ## Por qué te elegiría y qué le frena
 Las cuatro fuerzas de por qué alguien cambia (una línea cada una, con lo que dijo la persona):
 - **Lo que le empuja:** qué le frustra de lo que usa hoy.
-- **Lo que le atrae de ti:** qué ve en ti que no ve en lo de ahora.
+- **Lo que le atrae de la marca:** qué ve en ti que no ve en lo de ahora.
 - **Lo que le frena (hábito):** qué le mantiene con lo de siempre.
 - **Lo que le da miedo (ansiedad):** qué teme de cambiar.
 
@@ -57,6 +57,10 @@ Tres rasgos con comportamiento («es el ingeniero senior que…», no «es innov
 ## Vía elegida
 La que eligió la persona (o la mezcla), o «pendiente» con lo que falta para decidir.
 
+## Pilares de mensaje
+De 3 a 5 temas de los que hablará la marca, cada uno ligado a un dolor, una objeción o una prueba del brief (como los «pilares de contenido»: de qué se habla y por qué).
+- **Tema:** …, porque …
+
 ## Idea rectora
 Una sola frase (máximo 25 palabras) que resuma la vía elegida y de la que se deduzca el resto.
 
@@ -87,6 +91,7 @@ Nombre (anterioridades pendientes de validación), claims, lo que no se puede pr
 
 ## Reglas de calidad
 
+- **Tercera persona neutra** (la marca, el cliente, la fundadora), no «tú»: el brief se convierte en las instrucciones de proyecto en primera persona (`instrucciones_proyecto.py`).
 - **Etiqueta de quién habla:** las frases del **cliente** y las de la **propia persona** no se mezclan; si son de ella, dilo («tuya, sobre el cliente»).
 - **Las frases del cliente van literales**, entre comillas, tal como se las contaron; no las pules.
 - **Hechos y palabras de la persona, no adjetivos.** «Cada candidato habla antes con un ingeniero» es un hecho; «profesionales de calidad» no.

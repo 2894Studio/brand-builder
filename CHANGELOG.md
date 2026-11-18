@@ -1,5 +1,12 @@
 # Changelog
 
+## 4.5.0 (2026-11-18)
+
+- **Entregable principal: instrucciones de proyecto listas para pegar** (`instrucciones-de-proyecto.md`), como las de un proyecto de Claude: «Eres mi director de estrategia de marca para…», quién soy, mi audiencia, lo que le empuja, atrae, frena y teme, cómo habla, mis dolores y objeciones, mi posicionamiento, mi vía e idea rectora, mi personalidad y voz, lo que mi marca no es, mis **pilares de mensaje**, lo que aún no sé, cómo buscar referencias y unas reglas de trabajo para la IA. Lo genera `estrategia/tools/instrucciones_proyecto.py` **a partir del brief verificado**, sin inventar nada.
+- **Nueva sección del brief, «Pilares de mensaje»** (de 3 a 5 temas de los que hablará la marca, cada uno ligado a un dolor, objeción o prueba), verificada.
+- **El brief se escribe en tercera persona neutra** para poder convertirse en instrucciones en primera persona.
+- Autotest: 28 tipos de brief malo y pruebas del generador.
+
 ## 4.4.0 (2026-11-18)
 
 Correcciones a partir de una prueba real con la marca TRAZ SYSTEM:

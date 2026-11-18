@@ -17,7 +17,7 @@ Quien decide es el CTO o la fundadora técnica de una startup que necesita su pr
 
 ## Por qué te elegiría y qué le frena
 - **Lo que le empuja:** pagar una comisión por un candidato que no sabía hacer lo que decía su currículum.
-- **Lo que le atrae de ti:** ver una prueba técnica corregida antes de entrevistar a nadie.
+- **Lo que le atrae de la marca:** ver una prueba técnica corregida antes de entrevistar a nadie.
 - **Lo que le frena (hábito):** seguir pidiendo recomendaciones a conocidos, que es gratis y lo conoce.
 - **Lo que le da miedo (ansiedad):** que otra agencia más le haga perder tiempo y dinero.
 
@@ -70,6 +70,12 @@ Es el ingeniero senior que te dice la verdad sobre un candidato aunque pierda la
 
 ## Vía elegida
 La A, con un toque de la B en el trato: demuestra, pero explica con paciencia.
+
+## Pilares de mensaje
+- **Cómo se evalúa a un perfil de IA:** porque el cliente no sabe hacerlo y es su mayor miedo.
+- **Qué falló en este candidato:** porque decirlo primero es lo que diferencia a la marca de las agencias que solo venden.
+- **Lo que enseña un currículum y lo que no:** porque el dolor empieza en el CV que no se sostiene.
+- **Cómo es la prueba técnica de 90 minutos:** porque es la prueba que sostiene la promesa.
 
 ## Idea rectora
 La prueba técnica antes del contrato.

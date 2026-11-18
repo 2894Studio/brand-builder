@@ -11,6 +11,7 @@ for _flujo in (_sys.stdout, _sys.stderr):      # Windows: salida en tubería →
     except Exception:  # noqa: BLE001
         pass
 import os
+import re
 import subprocess
 import sys
 import tempfile
@@ -59,6 +60,9 @@ cambios = {
     "sin palabras que evitar": txt.replace("**Palabras que evitar:** talento de primer nivel, capital humano.", ""),
     "sin a quién no sirve": txt.replace("**A quién no sirve:** a quien contrata en volumen y no puede esperar una prueba.", ""),
     "con una sola objeción": txt.replace("- «Cobráis comisión y no sé qué recibo» → se entrega la corrección escrita de cada candidato.\n", ""),
+    "sin pilares de mensaje": txt[:txt.index("## Pilares de mensaje")] + txt[txt.index("## Idea rectora"):],
+    "con solo dos pilares": txt.replace("- **Lo que enseña un currículum y lo que no:** porque el dolor empieza en el CV que no se sostiene.\n", "").replace("- **Cómo es la prueba técnica de 90 minutos:** porque es la prueba que sostiene la promesa.\n", ""),
+    "con seis pilares": txt.replace("## Idea rectora", "- **Uno más:** porque sí.\n- **Otro más:** porque también.\n\n## Idea rectora", 1),
     "vacío": "# Brief\n\n## Situación\nUna marca innovadora.\n",
 }
 d = tempfile.mkdtemp()
@@ -71,6 +75,21 @@ for nombre, contenido in cambios.items():
     f = os.path.join(d, "malo.md")
     open(f, "w", encoding="utf-8").write(contenido)
     ok(verificar(f) == 1, f"rechaza un brief {nombre}")
+
+# instrucciones de proyecto
+INST = os.path.join(AQUI, "instrucciones_proyecto.py")
+salida = os.path.join(d, "instrucciones-de-proyecto.md")
+r = subprocess.run([sys.executable, INST, BUENO, "--salida", salida], capture_output=True, text=True, encoding="utf-8", errors="replace")
+ins = open(salida, encoding="utf-8").read() if os.path.exists(salida) else ""
+ok(r.returncode == 0 and ins.startswith("# Instrucciones de proyecto: Cribo"), "instrucciones_proyecto genera las instrucciones a partir del brief verificado")
+ok("Eres mi director de estrategia de marca para Cribo" in ins and "Cribo es la agencia de selección técnica que entrega candidatos con una prueba ya resuelta. Mi público: startups que necesitan su primer perfil de IA, que no saben evaluarlo." in ins, "las instrucciones empiezan con el rol y el posicionamiento de la marca")
+for t in ("## Quién soy y qué hago", "## Mi audiencia", "## Mis mayores dolores y objeciones", "## Mis pilares de mensaje", "## Lo que mi marca NO es", "## Para buscar referencias", "## Cómo quiero que trabajes"):
+    ok(t in ins, f"las instrucciones incluyen «{t[3:]}»")
+ok("La prueba técnica antes del contrato." in ins and "Cómo se evalúa a un perfil de IA" in ins, "las instrucciones llevan la idea rectora y los pilares del brief")
+ok("#" not in re.sub(r"(?m)^#+ .*$", "", ins), "las instrucciones no contienen códigos de color")
+malo = os.path.join(d, "malo2.md")
+open(malo, "w", encoding="utf-8").write("# Brief\n\n## Situación\nUna marca innovadora.\n")
+ok(subprocess.run([sys.executable, INST, malo, "--salida", os.path.join(d, "x.md")], capture_output=True).returncode == 1, "instrucciones_proyecto se niega si el brief no pasa el verificador")
 
 # guías y enlaces
 for ruta in ("skills/estrategia/SKILL.md", "skills/estrategia/references/entrevista.md", "skills/estrategia/references/vias.md", "skills/estrategia/references/brief-estrategico.md",

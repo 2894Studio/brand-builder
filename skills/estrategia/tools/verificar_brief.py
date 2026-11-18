@@ -1,7 +1,7 @@
 """Comprueba que el brief estratégico (estrategia.md) es un brief y no un formulario rellenado, y que no trae recomendaciones visuales.
 
 Uso:  python3 verificar_brief.py trabajo/<fecha>-marca-<slug>/estrategia.md
-Comprueba: todas las secciones (Situación, Público y tensión, Mapa de la categoría, Por qué te elegiría y qué le frena (cuatro fuerzas), Cómo habla tu cliente (frases literales), Objeciones y a quién no, Posicionamiento, Promesa y prueba, Personalidad,
+Comprueba: todas las secciones (Situación, Público y tensión, Mapa de la categoría, Por qué te elegiría y qué le frena (cuatro fuerzas), Cómo habla tu cliente (frases literales), Objeciones y a quién no, Pilares de mensaje (de 3 a 5), Posicionamiento, Promesa y prueba, Personalidad,
 No es, Las tres vías, Vía elegida, Idea rectora, Lo que aún no sabes, Palabras clave para buscar referencias, Riesgos y pendientes) con contenido real; la tensión con dos mitades;
 al menos 3 alternativas; la fórmula del posicionamiento completa; al menos 3 «no es»; EXACTAMENTE tres vías con sus campos; una idea rectora
 de máximo 25 palabras; al menos 3 cosas por descubrir; 3 palabras clave para buscar referencias; 3 cosas que buscar y 3 que evitar en las referencias, con «porque» y sin colores concretos; sin recomendaciones visuales (colores, hex, logo, tipografía, paleta, prompts) en las
@@ -38,6 +38,7 @@ SECCIONES = [
     ("no es", "No es", 40),
     ("las tres v", "Las tres vías", 300),
     ("vía elegida", "Vía elegida", 10),
+    ("pilares", "Pilares de mensaje", 120),
     ("idea rectora", "Idea rectora", 10),
     ("lo que aún no sabes", "Lo que aún no sabes", 60),
     ("palabras clave", "Palabras clave para buscar referencias", 30),
@@ -108,6 +109,8 @@ def main():
     ok(len(re.findall(r"«[^»\n]{6,}»", hb)) >= 2 and "evitar" in hb.lower(), "hay al menos 2 frases literales del cliente y palabras que evitar")
     ob = cuerpo["Objeciones y a quién no"]
     ok(len([l for l in ob.splitlines() if re.match(r"^\s*([-*]|\d+[.)])\s+\S", l)]) >= 2 and "a quién no" in ob.lower(), "hay al menos 2 objeciones y a quién no sirve")
+    pil = [l for l in cuerpo["Pilares de mensaje"].splitlines() if re.match(r"^\s*([-*]|\d+[.)])\s+\S", l)]
+    ok(3 <= len(pil) <= 5, f"hay de 3 a 5 pilares de mensaje ({len(pil)})")
     claves = re.findall(r"`([^`\n]{4,60})`", cuerpo["Palabras clave para buscar referencias"])
     ok(len(claves) >= 3 and not any(c.strip() in ("…", "...") for c in claves), f"hay 3 palabras clave para buscar referencias ({len(claves)})")
     bq = cuerpo["Qué buscar y qué evitar en las referencias"]
